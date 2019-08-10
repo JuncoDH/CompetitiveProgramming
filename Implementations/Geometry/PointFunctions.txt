@@ -1,0 +1,58 @@
+//orientation points come from vector a = (x1, y1), b = (x2, y2) a x b = x1 * y2 - x2 * y1, if possitive turn left, 0 linear and negative right
+
+
+typedef pair<ll, ll> point;
+#define x first
+#define y second
+
+//3D vectorial product of P2P1 and P3P2.
+//return 0 if they are colinear, 1 if they are counterclockwise (left-turn) and -1 if they are clockwise (right-turn)
+const int LEFT = 1;
+const int RIGHT = -1;
+int orientation(point p1, point p2, point p3){
+    ll ans = (p2.x - p1.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p2.y - p1.y);
+    if(ans == 0) return ans;
+    return ans > 0 ? LEFT : RIGHT;
+}
+
+
+//true if a lies in the segment p1p2
+bool inSegment(point a, point p1, point p2){
+    if(min(p1.x, p2.x) <= a.x && a.x <= max(p1.x, p2.x) && min(p1.y, p2.y) <= a.y && a.y <= max(p1.y, p2.y)) return true;
+    return false;
+}
+
+//segment1 = ab, segment2 = cd
+bool intersect(point a, point b, point c, point d) {
+    int o1 = orientation(a, b, c);
+    int o2 = orientation(a, b, d);
+    int o3 = orientation(c, d, a);
+    int o4 = orientation(c, d, b);
+    
+    if(o1 != o2 && o3 != o4) return true;
+    //special cases
+    if(o1 == 0 && inSegment(c, a, b)) return true;
+    if(o2 == 0 && inSegment(d, a, b)) return true;
+    if(o3 == 0 && inSegment(a, c, d)) return true;
+    if(o4 == 0 && inSegment(b, c, d)) return true;
+    return false;
+}
+
+point firstPoint;
+
+bool compare(point a, point b){
+    if(a == firstPoint) return true;
+    if(b == firstPoint) return false;
+    int o = orientation(firstPoint, a, b);
+    if(o == 0) return a.x < b.x;
+    return o == LEFT? true : false;
+}
+
+//distance point a to rect of points p1 and p2
+//rect Ax+By+C = 0
+ld distRect(point a, point p1, point p2){
+    ll A = p1.y - p2.y;
+    ll B = -(p1.x - p2.x);
+    ll C = p1.x * p2.y - p1.y * p2.x;
+    return abs(A * a.x + B * a.y + C) / (ld) sqrt(A * A + B * B);
+}

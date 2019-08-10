@@ -1,0 +1,72 @@
+//30 digits
+struct Node{
+  Node *l, *r, *parent;
+  int cont; //number of such numbers
+};
+
+Node* new_node(Node *pn){
+    Node *n = new Node;
+    n->l = n->r = NULL;
+    n->parent = pn;
+    n->cont = 0;//repeated words in leaves
+    return n;
+}
+
+void show(Node *n){//not very usefull
+    cout << n->cont << " ";
+    
+    if(n->l != NULL) { cout << "left: "; show(n->l); }
+
+    if(n->r != NULL) { cout << "rigth: "; show(n->r); }
+    
+}
+
+void _insert(Node *root, int num){
+    Node *pn = root;
+    int i;
+    
+    for(i = 30; i >= 0; --i){
+        if((num >> i) & 1 ){
+            if(pn->r == NULL) pn->r = new_node(pn);
+            pn = pn->r;
+        }
+        else{
+            if(pn->l == NULL) pn->l = new_node(pn);
+            pn = pn->l;
+        }  
+    }
+
+    pn->cont++;
+}
+
+int _find(Node *root, int num){
+    Node *pn = root, *ex;
+    int i, ans = 0;
+    
+    //find
+    for(i = 30; i>= 0; --i){
+        if((num >> i) & 1){
+            if(pn->r != NULL){ pn = pn->r; ans |= 1<<i;}
+            else pn = pn->l;//always != null?
+        }
+        else{
+            if(pn->l != NULL) pn = pn->l;
+            else{ pn = pn->r; ans |= 1<<i;}
+        }
+    }
+
+    //delete until LCA
+    pn->cont--;
+    if(pn->cont == 0){
+        while(pn->parent != NULL){
+            ex = pn;
+            pn = pn->parent;
+            if(pn->r == ex) pn->r = NULL;
+            else pn->l = NULL;
+            delete ex;
+            if(pn->r != NULL || pn->l != NULL) break;
+        }
+    }
+    
+    return ans;
+}

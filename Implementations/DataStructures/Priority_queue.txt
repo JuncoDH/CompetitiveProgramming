@@ -1,0 +1,7 @@
+//class compare for priority_queue. the top will have the opossite as a > b, aka p: 1, 2, 3, 4...
+class my_cmp{
+public:
+    bool operator() (int a, int b) {
+        return a > b;
+    }
+};

@@ -1,0 +1,35 @@
+//Given size of Matrices to multiply ABCD, count the minimum basic operations you have to do (AKA add parenthesis) 
+//O(n ^ 3), matriz i have size p[i] x p[i + 1], the key is ABCD = () * () multiplication of two smaller matrices
+//For use create dp[i][j] table
+vi p;
+
+ll chain(int i, int j) {
+    if(i == j || i + 1 == j) return 0;
+
+    ll cont = LLONG_MAX, partial, k;
+    for(k = i + 1; k < j; ++k) {
+        partial = chain(i, k) + chain(k, j) + p[i] * p[k] * p[j];
+        cont = min(cont, partial);
+    }
+    return cont;
+}
+
+//O(n ^ 3) dp 
+vector<vll> dp;
+ll chain_dp(){
+    ll n = p.size(), i, j, k, L;
+    dp.assign(n, vll(n, 0));
+
+    //L is the length of the current chain. dp[i][j] is the minimal basic operations to multiply the j - i matrices
+    for(L = 3; L <= n; ++L) {
+        for(j = L - 1; j < n; ++j) {
+            i = j - L + 1;
+            dp[i][j] = LLONG_MAX;
+            for(k = i + 1; k < j; ++k) {
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j] + p[i] * p[k] * p[j]);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+}

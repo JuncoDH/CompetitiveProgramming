@@ -1,0 +1,47 @@
+//Point Update, Rangue Query: Use an array...
+
+//Point Update, Range Query
+vi v, Bit;
+int n;
+
+void Update(ll id, ll val) {for(id++; id < n + 1; id += LSB(id)) Bit[id] += val;}
+ll Query(ll id) {ll sum = 0; for(id++; id > 0; id -= LSB(id)) {sum += Bit[id];} return sum;}
+void Build(ll sz) {Bit.assign(n + 1, 0); for(ll i = 0; i < sz; ++i) Update(i, v[i]);}
+
+//Range Update, Point Query
+//Save in BIT the diff array and the answer is diff(x) + v[x]
+
+
+//Range Update, Range Query
+//for Point Query, query just Bit1
+vi Bit1, Bit2, v;
+int n;
+
+void Update(vi &tree, int pos, int val) {
+    for(pos++; pos <= n; pos += LSB(pos)) tree[pos] += val;
+}
+
+ll Sum(vi &tree, int pos) {
+    ll sum = 0;
+    for(pos++; pos > 0; pos -= LSB(pos)) sum += tree[pos];
+    return sum;
+}
+
+void Update(int l, int r, int val) {
+    Update(Bit1, l, val);
+    Update(Bit1, r + 1, -val);
+    Update(Bit2, l, (l - 1) * val);
+    Update(Bit2, r + 1, - r * val);
+}
+
+ll Sum(int l, int r) {
+    ll a = Sum(Bit1, l - 1) * (l - 1) - Sum(Bit2, l - 1);
+    ll b = Sum(Bit1, r) * r - Sum(Bit2, r);
+    return b - a;
+}
+
+void Build() {
+    Bit1.assign(n + 1, 0);
+    Bit2.assign(n + 1, 0);
+    //for(int i = 0; i < n; ++i) Update(i, i, v[i]);
+}

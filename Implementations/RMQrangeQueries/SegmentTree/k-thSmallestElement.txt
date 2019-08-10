@@ -1,0 +1,28 @@
+//usas un segment-tree poniendo a 1 los elementos insertados. Sirve tambien si se pueden borrar elementos
+//set to 1 the position pos
+void update(int v, int l, int r, int pos){
+    if(pos < l || r < pos) return;
+
+    if(l == r){
+        t[v] = 1;
+        return;
+    }
+    
+    int mid = (l + r) >> 1;
+    update(v<<1, l, mid, pos);
+    update(v<<1|1, mid + 1, r, pos);
+    t[v] = t[v<<1] + t[v<<1|1];
+}
+
+//return the k-th smallest element 
+int get(int v, int l, int r, int k){
+    if(l == r) return l;
+    
+    int mid = (l + r) >> 1;
+    if(t[v<<1] >= k){
+        return get(v<<1, l, mid, k);
+    } else {
+        return get(v<<1|1, mid + 1, r, k - t[v<<1]);
+    }
+    
+}

@@ -1,0 +1,44 @@
+//preprocess O(nm) query O(1). ans[i][j] is the minimum between [(i, j), (i + a, j + b)]
+//calculate all the minimums in a vector<vector<int>> v of nr * nc and the window is a * b
+    row.resize(nr, vi(nc - b + 1));
+    
+    //compress rows
+    for(i = 0; i < nr; ++i){
+        deque<pll> d;
+        d.pb(mp(v[i][0], 0));
+        for(j = 1; j < b; ++j){
+            while(d.empty() == false && v[i][j] < d.back().fi) d.pop_back();
+            d.pb(mp(v[i][j], j));
+        }
+        row[i][0] = d.front().fi;
+        for(j = 1; j < nc - b + 1; ++j){
+           // if(i == 0) echo(j, d.front());
+            if(d.front().se < j) d.pop_front();
+            while(d.empty() == false && v[i][j + b - 1] < d.back().fi) d.pop_back();
+            d.pb(mp(v[i][j + b - 1], j + b - 1));
+            row[i][j] = d.front().fi;
+        }
+    }
+    
+    // show(row);
+    
+    ans.resize(nr - a + 1, vi(nc  - b + 1));
+    //compress columns of previous rows
+    for(j = 0; j < nc - b + 1; ++j){
+        deque<pll> d;
+        d.pb(mp(row[0][j], 0));
+        for(i = 1; i < a; ++i){
+            while(d.empty() == false && row[i][j] < d.back().fi) d.pop_back();
+            d.pb(mp(row[i][j], i));
+        }
+        ans[0][j] = d.front().fi;
+        for(i = 1; i < nr - a + 1; ++i){
+            if(d.front().se < i) d.pop_front();
+            while(d.empty() == false && row[i + a - 1][j] < d.back().fi) d.pop_back();
+            d.pb(mp(row[i + a - 1][j], i + a - 1));
+            ans[i][j] = d.front().fi;
+        }
+    }
+    
+    
+   // show(ans);

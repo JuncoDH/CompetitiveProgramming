@@ -1,0 +1,24 @@
+//Devuelve un vector con los primos(unicos) que dividen a num. get_decomposition(12) = {2, 3} 
+vi get_decomposition(ll num){
+	vi v;
+	ll n = primes.size(), i;
+	for(i = 0; i < n; ++i){
+		if(num <= 1)break;
+		
+		if(num % primes[i] == 0) {
+			v.pb(primes[i]);
+			while(num % primes[i] == 0){
+				num/=primes[i];
+			}
+		}
+		
+		if(primes[i] * primes[i] > num){
+			if(num != 1) v.pb(num);
+			break;
+		}
+		
+		
+	}
+	
+	return v;
+}

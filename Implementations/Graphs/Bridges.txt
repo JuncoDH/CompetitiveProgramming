@@ -1,0 +1,34 @@
+//Prints the bridges. The bridges are edges such as removing them the graph's components icrease.
+//It's similar to Articulation Points without root special case
+vector<vi> graph;
+vi low, discovery, parent;//Articulation Points
+int Time = 0;
+
+void add(int i, int j){
+    //undirected graph
+    graph[i].pb(j);
+    graph[j].pb(i);
+}
+
+void dfs(int u){
+    low[u] = discovery[u] = Time + 1;
+    ++Time;
+    for(auto it : graph[u]){
+        if(discovery[it] == -1){
+            parent[it] = u;
+            dfs(it);
+            if(low[it] > discovery[u]) cout << "edge:" << u << "-" << it << "\n";
+            low[u] = min(low[u], low[it]);
+        }
+        else{
+            if(parent[u] != it) low[u] = min(low[u], discovery[it]);// it's a back edge
+        }
+    }
+}
+
+void ini(int n){
+    graph.assign(n, vi());
+    discovery.assign(n, -1);
+    low.assign(n, -1);
+    parent.assign(n, -1);
+}

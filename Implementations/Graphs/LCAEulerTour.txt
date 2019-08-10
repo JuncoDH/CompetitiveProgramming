@@ -1,0 +1,92 @@
+//Finds the LCA(u, v) in a tree whose nodes have [1 ... n] info. the nodes have to be unique because firstOcurrence
+//the preprocess is O(n) and the queries O(logn). For O(logn) update vincule the node with his appearance in euler[], else O(n) preprocess again
+ll n, euler_size;//euler_size = 2*n - 1
+vll firstOcurrence;//LCA(u, v) is in [firstOcurrence[u], firstOcurrence[v]]
+vector<pll> euler, segtree;//segtree[i] fi is id of Euler's tour and se is node->info
+
+struct Node{
+    ll info;
+    Node *left, *right;
+}*root;
+
+Node * newNode(ll x){
+    Node * n = new Node;
+    n->info = x;
+    n->left = n->right = NULL;
+    return n;
+}
+//Euler Tour O(n)
+void DFS(Node *n, ll depth){
+    if(n == NULL) return;
+    
+    if(firstOcurrence[n->info] == -1) firstOcurrence[n->info] = euler_size;
+    euler.pb(mp(depth, n->info));
+    ++euler_size;
+    
+    if(n->left != NULL){
+        DFS(n->left, depth + 1);
+        euler.pb(mp(depth, n->info));
+        ++euler_size;
+    }
+    if(n->right != NULL){
+        DFS(n->right, depth + 1);
+        euler.pb(mp(depth, n->info));
+        ++euler_size;
+    }
+    
+}
+//build min segtree
+void build(ll id, ll l, ll r){
+    if(l == r) {segtree[id] = euler[l]; return;}
+    
+    ll mid = (l + r) >> 1;
+    
+    build(id << 1, l, mid);
+    build(id << 1|1, mid + 1, r);
+    
+    segtree[id] = min(segtree[id << 1], segtree[id << 1|1]);
+}
+
+//query min segtree
+pll query(ll id, ll ql, ll qr, ll l, ll r){
+    if(ql <= l && r <= qr) return euler[l];
+    
+    ll mid = (l + r) >> 1;
+    
+    if(qr <= mid) return query(id << 1, ql, qr, l, mid);
+    if(mid + 1 <= ql) return query(id << 1|1, ql, qr, mid + 1, r);
+    
+    pll a = query(id << 1, ql, qr, l, mid);
+    pll b = query(id << 1|1, ql, qr, mid + 1, r);
+   
+    return min(a, b);
+}
+
+void preprocess(){
+    firstOcurrence.resize(n + 1, -1);
+    DFS(root, 0);
+    segtree.resize(4*euler_size);
+    build(1, 0, euler_size - 1);
+}
+
+//O(logn)
+findLCA(Node *root, ll u, ll v){
+    u = firstOcurrence[u];
+    v = firstOcurrence[v];
+    return query(0, u, v, 0, euler_size - 1).second;
+}
+/*
+ * Example
+    n = 9;
+    root = newNode(1); 
+    root->left = newNode(2); 
+    root->right = newNode(3); 
+    root->left->left = newNode(4); 
+    root->left->right = newNode(5); 
+    root->right->left = newNode(6); 
+    root->right->right = newNode(7); 
+    root->left->right->left = newNode(8); 
+    root->left->right->right = newNode(9); 
+    preprocess();
+    echo(findLCA(root, 4, 8)); 
+ * */

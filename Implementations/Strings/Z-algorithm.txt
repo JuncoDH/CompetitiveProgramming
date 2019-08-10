@@ -1,0 +1,54 @@
+////Z-ALGORITHM, z[i] = length of the longest substring of s that is also prefix of x
+////Search in O(n + m) search_word$string and loog all z[i] = search_word.length()
+void z_array(string s){
+    int i, L = 0,R = 0, n = s.length();
+    vi z(n, 0);
+
+    //the box is [L, R]
+    for(i = 1; i < n; ++i){
+        z[i] = max(0, min(z[i - L], R - i));
+        while(i + z[i] < n && s[z[i]] == s[i + z[i]]){
+            L = i; R = i + z[i]; ++z[i];
+        }
+    }
+    
+    echo(z);
+}
+
+
+
+
+/*
+//OLD IMPLEMENTATION
+///////////////////////////////////////
+////Z-ALGORITHM, devuelve un vector DE INTS con z[i] = el numero de letras que tiene igual que el sufijo
+////Busca una palabra en O(n) haciendo s = palabra X string, donde X es un caracter que no esta en s
+vi z_algorithm(string s){
+	int L=0, R=0, i, s_len=s.length();
+	vi z(s_len);
+	
+	//s es sufijo de s
+	z[0]=s_len;
+	
+	for(i=1; i < s_len; ++i){
+		//Si i esta fuera de la caja [L, R] L = i y R se amplia a la derecha
+		if(i > R){
+			L = R = i;
+			while(R < s_len && s[R] == s[R-L]) ++R;
+			z[i]=R-L; --R;
+		}else{
+			//Si no, si no se pasa de la caja es O(1)
+			if(z[i-L] < R-i+1) z[i] = z[i-L];
+			//Si se pasa hay que crear una nueva caja, pero dejando R donde esta
+			else{
+				L=i;
+				while(R < s_len && s[R] == s[R-L]) ++R;
+				z[i]=R-L; --R;
+			}
+		}
+	}
+	
+	return z;
+}
+////END Z-ALGORITHM
+///////////////////////////////////////*/

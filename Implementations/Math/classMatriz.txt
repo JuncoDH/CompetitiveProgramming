@@ -1,0 +1,62 @@
+const int MOD = ;//Se usa en la multiplicacion
+class matrix{
+public:
+
+	ll row, col;
+	vector< vector<ll> > num;
+	
+	//2 constructores, 1 lo inicializa a 0's y el otro con los vectores dados. 
+	matrix(ll row, ll col){
+		this->row = row;
+		this->col = col;
+		this->num = vector< vector<ll> > (row, vector<ll> (col, 0));
+	}
+	//Ex: matrix m({ {2,3}, {5,2} });
+	matrix(vector< vector<ll> > num){
+		this->row = num.size();
+		this->col = num[0].size();
+		this->num = num;
+	}
+	
+	//Matrix multiplication
+	matrix operator * (matrix& a){
+		ll i, j, k;
+		matrix c(this->row, a.col);
+		
+		for(i = 0; i < this->row; ++i){
+			for(j = 0; j < a.col; ++j){
+				for(k = 0; k < this->col; ++k){
+					c.num[i][j] += this->num[i][k] * a.num[k][j];
+					c.num[i][j] %= MOD;
+				}
+			}
+		}
+		return c;
+	}
+	
+	//Matrix power, ex debe ser >= 1
+	matrix operator ^ (ll ex){
+		if(ex == 1)return *this;
+		matrix half = (*this) ^ (ex/2);
+		if((ex & 1) == 1)return (*this) * half * half;
+		return half * half;
+	}
+	//Permite hacer cout<<matriz;
+	friend ostream& operator<<(ostream& os, matrix& m);
+		
+	
+};
+
+//operador cout: cout<<matriz;
+ostream& operator << (ostream& os, matrix& m){
+	os<<"--------------------------"<<endl;
+	for(int i = 0; i < m.row; ++i){
+		for(int j = 0; j < m.col; ++j){
+			os<<m.num[i][j]<<" ";
+		}
+		os<<endl;
+	}
+	os<<"--------------------------"<<endl;
+	
+	return os;
+}
