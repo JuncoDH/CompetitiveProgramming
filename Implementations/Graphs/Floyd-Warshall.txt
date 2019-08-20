@@ -1,0 +1,9 @@
+//Floyd - Warshall O(n ^ 3) algorithm. g is an adjacency matrix with INT_MAX if there aren't a conexion from i to j
+for(k = 0; k < n; ++k) {
+    for(i = 0; i < n; ++i) {
+        for(j = 0; j < n; ++j) {
+            if(g[i][k] != INT_MAX && g[k][j] != INT_MAX) 
+                g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+       }
+    }
+}
