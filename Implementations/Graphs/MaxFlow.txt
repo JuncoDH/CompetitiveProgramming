@@ -1,0 +1,41 @@
+//standard Ford Fulkerson algorithm for maxFlow.
+//Need a ady matrix graph[][]
+vll parent;
+bool BFS() {
+    ll u, v;
+    vector<bool> visited(n + 2, false);
+    queue<ll> q;
+    q.push(n);
+    visited[n] = true;
+    while(q.empty() == false) {
+        u = q.front();
+        q.pop();
+        
+        for(v = 0; v < n + 2; ++v) {
+            if(visited[v] == false && graph[u][v] > 0) {
+                parent[v] = u;
+                visited[v] = true;
+                if(v == n + 1) return true;
+                q.push(v);
+            }
+        }
+    }
+    return false;
+}
+ll maxFlow() { //0-1 maxFlow, doesn't need to check for m's values
+    ll max_flow = 0, v, m;
+    parent.assign(n + 2, -1);
+    while(BFS()) {
+        m = LLONG_MAX;
+        for(v = n + 1; v != n; v = parent[v]) {
+            m = min(m, graph[parent[v]][v]);
+        }
+        max_flow += m;
+        for(v = n + 1; v != n; v = parent[v]) {
+            graph[parent[v]][v] -= m;
+            graph[v][parent[v]] += m;
+        }
+    }
+    
+    return max_flow;
+}
