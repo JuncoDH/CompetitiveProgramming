@@ -1,0 +1,30 @@
+//Aplication of Binary Lifting on BIT
+vll v;
+ll n;
+
+const ll MAX = 2 * 1e5 + 10;
+vll bit(MAX, 0);
+
+
+void update(int dx, ll val) {
+    for(int i = dx + 1; i <= n; i += LSB(i)) bit[i] += val;
+}
+
+ll query(int dx) {
+    ll ans = 0, i;
+    for(i = dx + 1; i > 0; i -= LSB(i)) ans += bit[i];
+    return ans;
+}
+
+//k-th smallest element, add MSB bits one by one
+//lower_bound in prefix sums
+int get_number(ll pre_sum) {
+    ll num = 0, sum = 0, i;
+    for(i = 21; i >= 0; --i) {
+        if(num + (1ll << i) <= n && sum + bit[num + (1ll << i)] <= pre_sum) {
+            num += (1ll << i);
+            sum += bit[num];
+        }
+    }
+    return num;
+}
