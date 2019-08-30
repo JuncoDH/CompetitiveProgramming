@@ -1,0 +1,123 @@
+struct node{
+    int key; //the data
+    node* left = NULL;
+    node* right = NULL;
+    int height = 1;
+    node(int k) : key(k) {}
+};
+
+int height(node* n) {
+    if(n == NULL) return 0;
+    return n->height;
+}
+
+void update_height(node* n){
+    n->height = max(height(n->left), height(n->right)) + 1;
+}
+
+int get_balance(node* n) {
+    if(n == NULL) return 0;
+    return height(n->right) - height(n->left);
+}
+
+//returns new root
+node* right_rotate(node* y) {
+    node *x = y->left;
+    y->left = x->right;
+    x->right = y;
+    update_height(y);
+    update_height(x);
+    return x;
+}
+
+node* left_rotate(node* y) {
+    node *x = y->right;
+    y->right = x->left;
+    x->left = y;
+    update_height(y);
+    update_height(x);
+    return x;
+}
+
+
+node* balance_AVL(node *n) {
+    update_height(n);
+    
+    int balance = get_balance(n), balancel = get_balance(n->left), balancer = get_balance(n->right);
+
+    //4 rotation cases:
+    if(balance < -1 && balancel <= 0) { //Left-Left rotation
+        return right_rotate(n);
+    }
+    else if(balance < -1) { //Left-Right rotation
+        n->left = left_rotate(n->left);
+        return right_rotate(n);
+    }
+    else if(balance > 1 && balancer >= 0) { //Right-Right rotation
+        return left_rotate(n);
+    }
+    else if(balance > 1) { //Right-Left rotation
+        n->right = right_rotate(n->right);
+        return left_rotate(n);
+    }
+    
+    //Not need to rotate
+    return n;
+}
+
+//root = insert(root, key);
+node* insert_AVL(node *n, int key) {
+    if(n == NULL) return new node(key);
+
+    //Standard BST insertion
+    if(key < n->key) n->left = insert_AVL(n->left, key);
+    else if(key > n->key) n->right = insert_AVL(n->right, key);
+    else return n; //Equal key, here not allowed
+
+    return balance_AVL(n);
+}
+
+//root = delete_AVL(root, key);
+node* delete_AVL(node* n, int key) {
+    if(n == NULL) return n;
+    
+    //Standard BST deletion
+    if(key < n->key) n->left = delete_AVL(n->left, key);
+    else if(key > n->key) n->right = delete_AVL(n->right, key);
+    else { //node to delete found
+        if(n->left == NULL || n->right == NULL) {
+            node* temp = n->left ? n->left : n->right;
+            n = temp;
+            //case removed last node
+            if(n == NULL) return n;
+        } 
+        else {
+            node* temp = n->right;
+            while(temp->right) temp = temp->right;
+            n->key = temp->key;
+            n->right = delete_AVL(n->right, n->key);
+        }
+    }
+    
+    return balance_AVL(n);
+}
+
+void show(node *n) { //preOrder
+    if(n == NULL) return;
+    cout << n->key << " ";
+    show(n->left);
+    show(n->right);
+}
+
+void example() { //for texting, 1 x = insert(x), y x = delete(x)
+    int num, ex;
+    node* root = NULL;
+
+   while(true) {
+        cin >> ex >> num;
+        if(ex == 1) root = insert_AVL(root, num);
+        else root = delete_AVL(root, num);
+        show(root);
+        cout << endl;
+    }
+}
