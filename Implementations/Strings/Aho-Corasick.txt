@@ -1,0 +1,53 @@
+//Construct a trie with the words to search and then follow letter by letter the text to search, following suffix links if the character is not found
+const int alpha_sz = 26;
+struct node {
+    map<char, int> edge;
+    int leaf = 0;                  //number of ending words
+    int p;                         //parent node
+    char pch;                      //the character to follow in the parent node
+    vi go;                         //dp go
+    int link = -1;                 //dp link
+    int count = -1;                //dp count
+    node(int p = 0, char pch = '$') : p(p), pch(pch) {
+        go.assign(alpha_sz, -1);
+    }
+};
+
+vector<node> tree(1);
+int sz = 1;
+
+
+void add(string w) {
+    int p = 0;
+    for(char c : w) {
+        if(tree[p].edge.count(c) == 0) {
+            tree.pb(node(p, c));
+            tree[p].edge[c] = sz++;
+        }
+        p = tree[p].edge[c];
+    }
+    tree[p].leaf++;
+}
+
+int go(int v, char c);
+
+int get_link(int v) {
+    if(tree[v].link != -1) return tree[v].link;
+    if(v == 0 || tree[v].p == 0) return tree[v].link = 0;
+    return tree[v].link = go(get_link(tree[v].p), tree[v].pch);
+}
+
+int go(int v, char ch) {
+    int c = ch - 'a';
+    if(tree[v].go[c] != -1) return tree[v].go[c];
+    if(tree[v].edge.count(ch)) return tree[v].go[c] = tree[v].edge[ch];
+    if(v != 0) return tree[v].go[c] = go(get_link(v), ch);
+    return tree[v].go[c] = 0;
+}
+
+//count number of occurrences that end at vertex v
+int count(int v) {
+    if(tree[v].count != -1) return tree[v].count;
+    if(v == 0) return tree[v].count = 0;
+    return tree[v].count = tree[v].leaf + count(get_link(v));
+}
