@@ -1,0 +1,51 @@
+ll mod = 1e6 + 3;
+vector<ll> y(11), den(11); //y[i] = f(i), the polinomial has degree 10. den is the denominator, precomputed
+
+
+ll bin_pow(ll a, ll e) {
+    if(e == 0) return 1;
+    ll ans = bin_pow(a, e / 2);
+    if(e & 1) return (ans * ans % mod) * a % mod;
+    return ans * ans % mod;
+}
+
+vll inv(mod + 1, -1);
+
+ll Inverse(ll id) {
+    id = (id % mod + mod) % mod;
+    if(inv[id] != -1) return inv[id];
+    return inv[id] = bin_pow(id, mod - 2);
+}
+
+void Fill() {
+    ll i, j, cont;
+    for(i = 0; i < 11; ++i) {
+        y[i] = 1 + i * i; //here insert the real polinomial, in this case 1 + x^2
+    }
+    for(i = 0; i < 11; ++i) {
+        cont = 1;
+        for(j = 0; j < 11; ++j) {
+            if(i == j) continue;
+            cont *= Inverse(i - j);
+            cont %= mod;
+        }
+        den[i] = cont;
+    }
+}
+
+
+ll Evaluate(ll id) { //return f(id) % mod
+    ll ans = 0, cont, i, j;
+    for(i = 0; i < 11; ++i) {
+        cont = 1;
+        for(j = 0; j < 11; ++j) {
+            if(j == i) continue;
+            cont = (cont * (id - j) % mod);
+        }
+        cont *= den[i];
+        cont %= mod;
+        ans += cont * y[i] % mod;
+        ans %= mod;
+    }
+    return (ans % mod + mod) % mod;
+}
