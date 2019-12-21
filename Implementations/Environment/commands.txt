@@ -1,0 +1,5 @@
+//For executing multiple test cases
+for i in *.in; do j=${i%.*}; ./a.out < $j.in > my$j.out; echo ---$j---; diff -w my$j.out $j.out; done;
+
+rm my*
+

@@ -9,8 +9,14 @@ using namespace std;
 #define fi first
 #define se second
 #define LSB(x) ((x) & (-(x)))
+
+#ifdef _LOCAL_
 #define echobin(x) cout<<#x<<":"<<x<<" ="<<bitset<8>(x)<<"  ";
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );}
+#else
+#define echobin(x)
+#define echo(...) 
+#endif
 
 void ECHO(string _s){cout<<endl;(void)_s;}
 template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
@@ -35,9 +41,10 @@ inline ostream& operator << (ostream& os, vector<T>& v){
 //gcd(0, n) = n
 inline long long _gcd(long long a, long long b){ while(b) b %= a ^= b ^= a ^= b; return a;}
 
-mt19937 ran(time(0));
 const long double PI = acos(-1);
 const long double eps = 1e-9;
+const long long inf = LLONG_MAX / 10;
+const int int_inf = INT_MAX / 10;
 
 typedef long double ld;
 typedef long long ll;
@@ -45,8 +52,6 @@ typedef vector<ll> vll;
 typedef vector<int> vi;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
-
-
 
 
 
