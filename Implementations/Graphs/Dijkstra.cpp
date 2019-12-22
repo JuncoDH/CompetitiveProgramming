@@ -24,7 +24,7 @@ void insert(int a, int b, int w) {
 }
 
 vb visited;
-//NO negative edges
+//NO negative edges.
 int dijkstra(int s, int t) { //s = source != t = sink
     visited.resize(n);
     fill(visited.begin(), visited.end(), false);
