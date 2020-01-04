@@ -2,11 +2,25 @@
 
 //Point Update, Range Query
 vi v, Bit;
-int n;
+int MAX;
 
-void Update(ll id, ll val) {for(id++; id < n + 1; id += LSB(id)) Bit[id] += val;}
-ll Query(ll id) {ll sum = 0; for(id++; id > 0; id -= LSB(id)) {sum += Bit[id];} return sum;}
-void Build(ll sz) {Bit.assign(n + 1, 0); for(ll i = 0; i < sz; ++i) Update(i, v[i]);}
+void Update(ll id, ll val) {
+    for(id++; id < MAX + 1; id += LSB(id))
+        Bit[id] += val;
+}
+ll Query(ll id) {
+    ll sum = 0;
+    for(id++; id > 0; id -= LSB(id)) {
+        sum += Bit[id];
+    }
+    return sum;
+}
+
+void Build(ll sz) {
+    Bit.assign(n + 1, 0);
+    for(ll i = 0; i < sz; ++i)
+        Update(i, v[i]);
+}
 
 //Range Update, Point Query
 //Save in BIT the diff array and the answer is diff(x) + v[x]
