@@ -1,3 +1,6 @@
+//not use cin with scanf
+ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
 #define DBG
 
 #ifdef DBG

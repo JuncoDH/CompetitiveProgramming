@@ -1,4 +1,0 @@
-//iterate over all subsets of a set
-//0, lsb, 2lsb, 2lsb & lsb, 3lsb...
-do{
-    } while((b = (b - x) & x));
