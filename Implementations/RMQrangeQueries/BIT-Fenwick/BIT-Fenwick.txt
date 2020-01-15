@@ -1,8 +1,8 @@
-//Point Update, Rangue Query: Use an array...
 
 //Point Update, Range Query
+//Init Bit and MAX
 vi v, Bit;
-int MAX;
+const int MAX;
 
 void Update(ll id, ll val) {
     for(id++; id < MAX + 1; id += LSB(id))
@@ -21,6 +21,16 @@ void Build(ll sz) {
     for(ll i = 0; i < sz; ++i)
         Update(i, v[i]);
 }
+
+
+
+
+
+
+
+
+//Point Update, Rangue Query: Use an array...
+
 
 //Range Update, Point Query
 //Save in BIT the diff array and the answer is diff(x) + v[x]
