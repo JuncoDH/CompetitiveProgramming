@@ -1,3 +1,5 @@
+//All of this code have been tested by an AC in a problem
+
 struct Point{
     ll x, y, w; //weight
     bool operator == (Point a) {
@@ -9,6 +11,17 @@ struct Point{
     bool operator < (Point a) {
         if(x != a.x) return x < a.x;
         return y < a.y;
+    }
+    ll getquad() {
+        if(x > 0 && y >= 0) return 1;
+        if(x <= 0 && y > 0) return 2;
+        if(x < 0 && y <= 0) return 3;
+        if(x >= 0 && y < 0) return 4;
+
+        return 0;
+    }
+    void show() {
+        cout << "(" << x << ", " << y << ")" << endl; 
     }
 };
 
@@ -22,7 +35,7 @@ int orientation(Point p1, Point p2, Point p3){
 
 //Sort counterclockwise the points, with the center in v[0].
 //Starts at 6:00, no 3 points are collinear
-bool point_cmp3(Point a, Point b) {
+bool cmp_counterclockwise(Point a, Point b) {
     if(a.x == v[0].x) return true;
     if(b.x == v[0].x) return false;
     if(a.x > v[0].x && v[0].x > b.x) {
