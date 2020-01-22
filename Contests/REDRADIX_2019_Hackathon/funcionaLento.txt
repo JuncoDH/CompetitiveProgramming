@@ -1,0 +1,135 @@
+var pos;
+var rango;
+var nuevadir;
+var nuevadirDD;//la direccion del disparo
+var longdisparo;
+
+var tankx;
+var tanky;
+
+var flag;
+
+async function persigue(tank){
+	await tank.drive(nuevadir, 20);
+
+	return 0;
+}
+
+async function disparo(tank){	
+
+	while(true){
+		nuevadir=nuevadirDD;
+
+		flag=await tank.scan(nuevadir, 10);
+		while(flag != 0){
+			await tank.shoot(nuevadir, flag+50);
+			await persigue(tank);
+			nuevadir = (nuevadir + 355) % 360;
+			flag=await tank.scan(nuevadir, 10);
+		}
+		flag = await tank.scan((nuevadir+350)%360, 10);
+		if(flag!=0){
+			nuevadir=(nuevadir+350)%360;
+			await tank.shoot(nuevadir, flag+50);
+			await persigue(tank);
+			continue;
+		}
+		flag = await tank.scan((nuevadir+10)%360, 10);
+		if(flag!=0){
+			nuevadir=(nuevadir+10)%360;
+			await tank.shoot(nuevadir, flag+50);
+			await persigue(tank);
+			continue;
+		}
+		flag = await tank.scan((nuevadir+340)%360, 10);
+		if(flag!=0){
+			nuevadir=(nuevadir+340)%360;
+			await tank.shoot(nuevadir, flag+50);
+			await persigue(tank);
+			continue;
+		}
+		flag = await tank.scan((nuevadir+20)%360, 10);
+		if(flag!=0){
+			nuevadir=(nuevadir+20)%360;
+			await tank.shoot(nuevadir, flag+50);
+			await persigue(tank);
+			continue;
+		}
+
+
+
+		break;
+	}
+	return 0;
+}
+
+//el nuevadirDD ponerlo perpendicular al moivimiento
+async function nuevavel(tank){
+	tankx = await tank.getX();
+	tanky = await tank.getY();
+
+	if(tankx<200 && tanky < 200){
+		nuevadir=0;
+		nuevadirDD=90;
+		return 0;
+	}
+	if(tankx<200 && tanky > 800){
+		nuevadir=270;
+		nuevadirDD=0;
+		return 0;
+	}
+	if(tankx>1140 && tanky < 200){
+		nuevadir=90;
+		nuevadirDD=180;
+		return 0;
+	}
+	if(tankx>1140 && tanky > 800){
+		nuevadir=180;
+		nuevadirDD=270;
+		return 0;
+	}
+
+	if(tankx > 1140){
+		nuevadir=90;
+		nuevadirDD=180;
+		return 0;
+	}
+	if(tankx<200){
+		nuevadir=270;
+		nuevadirDD=0;
+		return 0;
+	}
+
+	if(tanky>800){
+		nuevadir=180;
+		nuevadirDD=270;
+		return 0;
+	}
+
+	if(tanky<200){
+		nuevadir = 0;
+		nuevadirDD=90;
+		return 0;
+	}
+
+	return 0;
+}
+
+async function main(tank) {
+	nuevadir=0;
+	longdisparo = 700;
+	nuevadirDD=0;
+  await tank.drive(315, 100);
+  var res;
+  rango=100;
+  while(true){
+    await tank.drive(nuevadir,50);
+    await disparo(tank);
+
+
+    //nuevadir=(nuevadir + 10)%360;
+    await nuevavel(tank);
+
+  }
+
+}

@@ -1,0 +1,41 @@
+var pos;
+var rango;
+var nuevadir;
+var longdisparo;
+
+async function persigue(tank, angulo){
+	await tank.drive(angulo, 20);
+
+	return 0;
+}
+
+async function disparo(tank){	
+
+	while(await tank.scan(nuevadir, rango) != 0){
+		rango = rango - 100;
+		if(rango < 100)rango = 100;
+		await tank.shoot(nuevadir, longdisparo);
+		await persigue(tank, nuevadir);
+		nuevadir = (nuevadir + 355) % 360;
+	}
+
+	return 0;
+}
+
+
+async function main(tank) {
+	nuevadir=0;
+	longdisparo = 400;
+  await tank.drive(0, 50);
+  var res;
+  rango=100;
+  while(true){
+    await tank.drive(nuevadir,50);
+    await disparo(tank);
+
+
+    nuevadir=(nuevadir + 10)%360;
+
+  }
+
+}
