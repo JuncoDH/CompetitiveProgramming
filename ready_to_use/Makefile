@@ -1,4 +1,3 @@
-
 FLAGS=-Wall -Wextra -Wshadow -Wno-unused-result -D_GLIBCXX_DEBUG -fsanitize=address -fsanitize=undefined -fno-sanitize-recover
 
 run_a: clean
@@ -27,11 +26,14 @@ run_java:
 run_val_a:
 	@g++ a.cpp -D_LOCAL_ && valgrind --leak-check=full --track-origins=yes ./a.out < d.in
 
-run_out_b: clean
-	@g++ b.cpp $(FLAGS) -D_LOCAL_ && ./a.out < d.in > d.out
+run_flag_a: clean
+	@g++ a.cpp -D_LOCAL_ && ./a.out < d.in
 
-run_noflags_b: clean
-	@g++ b.cpp -D_LOCAL_ && ./a.out < d.in
+run_A: run_a
+run_B: run_b
+run_C: run_c
+run_D: run_d
+run_E: run_e
 
 clean:
-	@rm -rf a.out
+	@rm -rf a.out *.class
