@@ -1,3 +1,6 @@
+const ll LOG_N = 20; //log2(MAX_N) + 4
+const ll MAX_N = 1e5 + 3; //1e5, example
+vector<vector<ll>> graph2, graph; //graph2 is the bidirectional and graph is the one you ask LCA
 //---------------------------------------- LCA in a tree rooted at 0 ------------------------------------------------------------
 int parent[LOG_N][MAX_N]; //parent[i][j] is the ancestor 2^i of node j. Is a sparse table
 int level[MAX_N]; //depth of the node in the tree
@@ -46,4 +49,16 @@ int lca(int a, int b) {
 //distance between two nodes in a tree
 int dist(int u, int v) {
     return level[u] + level[v] - 2 * level[lca(u, v)];
+}
+
+//call dfs(0, -1) to root a tree at 0. the graph had to be bidirectional
+vector<bool> visitedd;
+void dfs(int x, int p) {
+    if(visitedd[x]) return;
+    visitedd[x] = true;
+    if(p != -1) graph[p].pb(x);
+    for(auto el : graph2[x]) {
+        if(el == p) continue;
+        dfs(el, x);
+    }
 }
