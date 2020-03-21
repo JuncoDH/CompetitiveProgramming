@@ -1,3 +1,0 @@
-//for Range update and Point query construct a difference prefix sum b[i] = a[i]-a[i-1]
-//add +x to [l, r] updateSeg(l, +x) updateSeg(r + 1, -x)
-//O(logn) update and O(n) getPoint
