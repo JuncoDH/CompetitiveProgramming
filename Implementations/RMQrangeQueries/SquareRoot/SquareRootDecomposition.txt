@@ -1,40 +1,33 @@
-ll n, sqrtn;
-vll v = {1, 5, 2, 4, 6, 1, 3, 5, 7, 10};
-vll bucket;
+template<typename T>
+class SquareRootDecomposition {
+    const int N = //10; //max Input size
+    const int B = //3; //size of the bucket, ~ sqrt(N)
+    vector<T> bucket;//(N/B + 1, 0T);
+    vector<T> v;
+    public:
+    SquareRootDecomposition(vector<T> &_v) {
+        bucket.assign(N/B +1, 0);
+        int i;
+        v = _v;
+        for(i = 0; i < (int)v.size(); i++) {
+            bucket[i/B] += _v[i];
+        }
+    }
+    T query(int l, int r) {
+        T ans = 0;
+        int i;
+        if(l/B == r/B) {
+            for(i = l; i <= r; i++) ans += v[i]; //same block
+            return ans;
+        }
+        for(i = l/B + 1; i <= r/B -1; i++) ans += bucket[i]; //middle blocks
+        for(i = l; i/B+1 == l/B+1; i++) ans += v[i]; //left block
+        for(i = B*(r/B); i <= r; i++) ans += v[i]; //right block
 
-//O(1) update just its bucket
-void update(ll i, ll x, bool initial = false){
-    if(initial == true) {bucket[i/sqrtn] += x; return;}
-    
-    bucket[i/sqrtn] += x - v[i];
-    v[i] = x;
-}
-
-//O(n) preprocess
-void preprocess(){
-    n = v.size();
-    sqrtn = floor(sqrt(n));
-    bucket.resize(sqrtn + 1, 0);
-    for(int i = 0; i < n; ++i) update(i, v[i], true);
-}
-
-//O(sqrt(n)) query(a, b) = sum in range [a, b]
-ll query(ll a , ll b){
-    ll ans = 0, i;
-    
-    //they are in the same block
-    if(a/sqrtn == b/sqrtn){
-        for(i = a; i <= b; ++i) ans += v[i];
         return ans;
     }
-    
-    //count the middle buckets
-    for(i = a/sqrtn + 1; i <= b/sqrtn - 1; ++i) ans += bucket[i];
-    //count elements in the left most bucket
-    for(i = (a/sqrtn + 1) * sqrtn  - 1; i >= a; --i) ans += v[i];
-    //count elements in the rigth most bucket
-    for(i = b/sqrtn * sqrtn; i <= b; ++i) ans += v[i];
-
-    
-    return ans;
-}
+    void update(int x, T dx) {
+        bucket[x/B] += dx - v[x];
+        v[x] = dx;
+    }
+};
