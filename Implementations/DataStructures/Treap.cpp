@@ -76,7 +76,10 @@ class Treap {
         if(key > t->key) return min({getMinimumBefore(t->r, key), getMinimumVK(t->l), mid});
         else return min({getMinimumBefore(t->l, key), mid});
     }
-
+    pair<V, K> getMinimumKAll(pnode t) { //is the first node in the inOrder traversal
+        if(t->l) return getMinimumKAll(t->l);
+        return mp(t->data, t->key);
+    }
     public:
     void insert(K key, V data) { //O(log n)
         pnode n = new node(key, data);
@@ -95,10 +98,13 @@ class Treap {
     pair<V, K> getMinimumBefore(K t) { //O(log n)
         return getMinimumBefore(root, t);
     }
-    pair<V, K> getMaximumAll() { //all the tree, O(1)
+    pair<V, K> getMaximumVKAll() { //all the tree, O(1)
         return getMaximumVK(root);
     }
-    pair<V, K> getMinimumAll() { //all the tree, O(1)
+    pair<V, K> getMinimumVKAll() { //all the tree, O(1)
         return getMinimumVK(root);
+    }
+    pair<V, K> getMinimumKAll() { //top of the tree, O(1), check root not null
+        return getMinimumKAll(root);
     }
 };
