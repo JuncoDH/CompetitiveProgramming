@@ -1,3 +1,4 @@
+add srand
 //paper: https://erikdemaine.org/papers/Retroactive_TALG/paper.pdf
 //video: https://www.youtube.com/watch?v=WqCWghETNDc&list=WL&index=11&t=0s
 template<typename K, typename V> //key (unique) and value (data)

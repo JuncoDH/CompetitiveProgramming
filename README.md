@@ -1,6 +1,31 @@
-Here is where I post the code I do for CP problems, code and algorithms.
+# README
+Here is my repository of Competitive Programming.
+You can contact me via email *juncodelasheras@outlook.com* via Linkedin ([here](https://www.linkedin.com/in/junco-de-las-heras-valenzuela/))
+
+## Content:
+- Contests
+  > Here is the code for onsite - local contests, some of them also have the problems in pdf.
+- Implementations
+  - ad_hoc
+  - Bitmask
+  - DataStructures
+  - DP
+  - Environment
+  - Geometry
+  - Graphs
+  - Math
+  - RMQrangeQueries
+  - Strings
+  > The code of the algorithms I know, ready to copy-paste them for a contest!
 
 
-I upload solutions to problems of Codeforces, UVa Judge, AceptaElReto...
+- Notebook
+  > Past notebooks for onsite contests.
+- Online_Judges
+  - AceptaElReto
+  - UVA
+  > Code solutions for judges that submissions aren't public.
 
-In Implementations folder, there are a lot of algorithms, sorted in differents folders by topics, and the current template I use to deal new problems!
+
+
+

@@ -19,8 +19,10 @@ using namespace std;
 void ECHO(string _s){cout<<_s;}
 void ECHO(bool _s){cout<<_s;}
 void ECHO(char _s){cout<<_s;}
+void ECHO(long unsigned _s) {cout<<_s;}//for s.size()
 void ECHO(int _s){cout<<_s;}
 void ECHO(long long _s){cout<<_s;}
+void ECHO(long double _s){cout<<_s;}
 void ECHO(bitset<8> b) {cout << b;}//resize bitset
 template<typename T> void ECHO(set<T> _s) {
     for(auto el : _s) {ECHO(el); cout << "_";}

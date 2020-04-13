@@ -1,3 +1,4 @@
+add srand
 //https://cp-algorithms.com/data_structures/treap.html
 //not implemented: find_by_order, order_of_key, find/search
 template<typename K, typename V> //key (unique) and value (data)
