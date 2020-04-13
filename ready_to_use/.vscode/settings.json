@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "git.path": null,
+    "git.enabled": false,
+    "git.autofetch": false,
+    "files.associations": {
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
+}
