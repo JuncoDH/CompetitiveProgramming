@@ -1,0 +1,52 @@
+import java.io.*;
+import java.math.*;
+
+public class HelloWorld{
+
+     public static void main(String []args) throws IOException {
+
+         StreamTokenizer tokens = new StreamTokenizer(new InputStreamReader(System.in));
+         
+         while(true){
+             tokens.nextToken();
+             int N = (int) tokens.nval; 
+             if(N == 0) return;
+             
+             tokens.nextToken();
+             int M = (int) tokens.nval;
+         
+
+             
+             if(M == 0){
+                 System.out.println("1.");
+                 continue;
+             }
+             
+             //Number of digits and type of rounding
+             MathContext mc = new MathContext(M, RoundingMode.DOWN);
+
+             BigDecimal uno = new BigDecimal(Integer.toString(1));
+             BigDecimal ans = new BigDecimal(Integer.toString(0));
+             BigDecimal nuevo;
+    
+             
+             
+             for(int i = 0; i < N; ++i){
+                 //nuevo = 1/(2i + 1)
+                 nuevo = uno.divide(new BigDecimal(Double.toString(2*i + 1)), mc);
+
+                //need to resize (rounding DOWN)
+                 nuevo = nuevo.setScale(M, RoundingMode.DOWN);
+                 
+                 //if i es even +, else -
+                 if(i % 2 == 0) ans = ans.add(nuevo, mc);
+                 else ans = ans.subtract(nuevo, mc);
+             }
+             
+             //resize answer
+             ans = ans.setScale(M, RoundingMode.DOWN);
+             System.out.println(ans);
+
+         }
+     }
+}
