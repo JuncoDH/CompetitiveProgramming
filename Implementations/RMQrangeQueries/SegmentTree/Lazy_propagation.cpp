@@ -1,46 +1,51 @@
-const ll MAX = //3*1e5+2; //Change, MAX size of the vector
-
+template<typename T>
 struct node{
-    ll value, lazy;    //Change, type of value stored
-    node() {value = 0; lazy = 0;}//Change, value by default
-    node(bool is_dummy) {value = -inf, lazy = 0;(void)is_dummy;} //Change, dummy node for queries out of range
+    T value = numeric_limits<T>::max(); //MIN query
+    T lazy = 0;    //SUM update
+    int id = -1;
+    node(T _value) {value = _value;}
+    node() {} //Dummy node
 };
 
-struct lazy_seg{ //SUM update + MAX query
-    vector<node> tree;
-    ll _size;
+template<typename T>
+class lazy_seg{ //SUM update + MIN query
+    vector<node<T>> tree;
+    vector<T> v_input;
+    int _size;
 
-    lazy_seg(ll __size) {
-        _size = __size;
-        tree.assign(4*__size, {});
+    void build(int k, int l, int r) {
+        if(l == r) {tree[k] = node<T>(v_input[l]); tree[k].id = l; return;}
+        int mid = (l + r) >> 1;
+        build(k<<1, l, mid);
+        build(k<<1|1, mid+1, r);
+        tree[k] = f(tree[k<<1], tree[k<<1|1]);
     }
-    void push(ll k, ll l, ll r) { //actualize lazy push
-        if(l != r) {//Change, SUM tree update
-            tree[k<<1].value += tree[k].lazy;
-            tree[k<<1|1].value += tree[k].lazy;
-            tree[k<<1].lazy += tree[k].lazy;
-            tree[k<<1|1].lazy += tree[k].lazy;
+    
+    void push(int k, int l, int r) { //actualize lazy push
+        if(l != r) {
+            actualize_update(k<<1, tree[k].lazy);
+            actualize_update(k<<1|1, tree[k].lazy);
         }
-        tree[k].lazy = 0;
+        tree[k].lazy = 0; //Sum update
     }
-    void actualize_update(ll k, ll x) { //actualize when the range is in the update range
-        tree[k].value += x; //Change, MAX tree update value
-        tree[k].lazy += x; //Change, SUM tree update lazy
+    void actualize_update(int k, T x) { //actualize when the range is in the update range
+        tree[k].value += x; // MIN-MAX query
+        tree[k].lazy += x; // SUM update
     }
-    node f(node a, node b) { //merge nodes, function
-        node n;
-        n.value = max(a.value, b.value); //Change, MAX tree query
+    node<T> f(node<T> a, node<T> b) { //merge nodes, function
+        node<T> n(min(a.value, b.value)); // MIN tree query
+        n.id = a.value < b.value ? a.id : b.id; // MIN tree query
         return n;
     }
     //Don't change, implementation below -------------------------------------------------------
-    void update(ll k, ll l, ll r, ll ql, ll qr, ll x) {
+    void update(int k, int l, int r, int ql, int qr, T x) {
         push(k, l, r);
         if(r < ql || qr < l) {}
         else if(ql <= l && r <= qr) {
             actualize_update(k, x);
             return;
         } else {
-            ll mid = (l + r) >> 1;
+            int mid = (l + r) >> 1;
             update(k<<1, l, mid, ql, qr, x);
             update(k<<1|1, mid+1, r, ql, qr, x);
         }
@@ -48,15 +53,15 @@ struct lazy_seg{ //SUM update + MAX query
             tree[k] = f(tree[k<<1], tree[k<<1|1]);
     }
 
-    node query(ll k, ll l, ll r, ll ql, ll qr) {
+    node<T> query(int k, int l, int r, int ql, int qr) {
         push(k, l, r);
-        node ans;
-        if(r < ql || qr < l) ans = node(true);
+        node<T> ans;
+        if(r < ql || qr < l) ans = node<T>();
         else if(ql <= l && r <= qr) ans = tree[k];
         else {
-            ll mid = (l + r) >> 1;
-            node a = query(k<<1, l, mid, ql, qr);
-            node b = query(k<<1|1, mid+1, r, ql, qr);
+            int mid = (l + r) >> 1;
+            node<T> a = query(k<<1, l, mid, ql, qr);
+            node<T> b = query(k<<1|1, mid+1, r, ql, qr);
             ans = f(a, b);
         }
         if(l != r)
@@ -65,21 +70,29 @@ struct lazy_seg{ //SUM update + MAX query
     }
 
     //INTERFACE, Don't change ------------------------------------------------------
-    void update(ll ql, ll qr, ll x) {
+    public:
+    lazy_seg(int __size, vector<T> v) {
+        _size = __size;
+        tree.assign(4*__size, {});
+        v_input = v;
+        build(1, 0, __size-1);
+    }
+    
+    void update(int ql, int qr, T x) {
         update(1, 0, _size-1, ql, qr, x);
     }
-    node query(ll ql, ll qr) {
+    node<T> query(int ql, int qr) {
         return query(1, 0, _size-1, ql, qr);
     }
     void showt() {//debug tree
-        for(ll i = 1; i < 2*_size; i++) {
+        for(int i = 1; i < 2*_size; i++) {
             cout << "(" << tree[i].value << "," << tree[i].lazy << ")   ";
             if(i+1 == LSB(i+1)) cout << endl;
         }cout << endl;
     }
-    void showv() {//debug vector
-        for(ll i = 1; i < _size; i++) cout << query(i, i).value << " ";
+    void showv(string s = "") {//debug vector
+        cout << s << endl;
+        for(int i = 0; i < _size; i++) cout << query(i, i).value << " ";
         cout << endl; 
     }
-
-} t(MAX);
+};
