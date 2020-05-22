@@ -33,6 +33,8 @@ int orientation(Point p1, Point p2, Point p3){
     return ans > 0 ? LEFT : RIGHT;
 }
 
+//THIS FUNCTION GIVES RE
+RE
 //Sort counterclockwise the points, with the center in v[0].
 //Starts at 6:00, no 3 points are collinear
 bool cmp_counterclockwise(Point a, Point b) {

@@ -1,0 +1,13 @@
+vll circuit;
+//Euler circuit (all edges). Condition: in-degree = out-degree of every node. All nodes are in the same SCC (connected)
+//After call, do: reverse(circuit.begin(), circuit.end());
+void Hierholzer(int u) {
+    int v;
+    while(!graph[u].empty()) {
+        v = graph[u].back();
+        graph[u].pop_back(); //WARNING: destroys the graph
+        Hierholzer(v);
+    }
+    circuit.pb(u);
+}
+reverse(circuit.begin(), circuit.end());

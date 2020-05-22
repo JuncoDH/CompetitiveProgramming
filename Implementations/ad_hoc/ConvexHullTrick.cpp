@@ -10,7 +10,9 @@ ftype dot(point a, point b) {
 ftype cross(point a, point b) {
     return (conj(a)*b).y();
 }
-//get min{k_i * x + b_i}. Insert k_i in ascending order. max {} = -min{-()}
+//get min{k_i * x + b_i}.
+//Insert k_i in ascending order. max {} = -min{-()}
+//Decreasing k_i then add -k_i and query -x
 class ConvexHullTrick {
     point im = {0, 1};
     vector<point> hull, normal;
