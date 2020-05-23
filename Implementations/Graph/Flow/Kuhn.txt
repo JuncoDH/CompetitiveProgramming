@@ -1,0 +1,31 @@
+const int MAX_N1 = 5; //max size of set 1
+const int MAX_N2 = 5; //max size of set 2
+int n1, n2; //size of set 1 and 2, for optimization, n <= k, is O(n * n*k)
+vi graph[MAX_N1]; //graph[0..n-1] = {0..k-1}, vector of edges from set 1 to set 2
+int match[MAX_N2]; //match of vertex in set 2, or -1
+bool used[MAX_N1]; //visited for BFS
+
+bool dfs_kuhn(int v) { //Tries to find augmenting path for vertex v
+    for(auto u : graph[v]) {
+        if(used[u]) continue;
+        used[u] = true;
+        if(match[u] == -1 || dfs_kuhn(match[u])) {
+            match[u] = v;
+            return true;
+        }
+    }
+    return false;
+}
+//Maybe faster than using 0-1 Max flow. possible Heuristic: start with a random matching 
+int Kuhn() { //return the maximum mathing in a bipartite (already splitted) graph
+    int i, ans = 0;
+    fill(match, match+MAX_N2, -1);
+    for(i = 0; i < n1; i++) { //n1 calls
+        fill(used, used+MAX_N2, false);
+        ans += dfs_kuhn(i); //DFS from i, O(n1*n2)
+    }
+    for(i = 0; i < n2; i++) {
+        if(match[i] != -1) echo(i, match[i]); //edge (i, match[i]) belongs to the max matching
+    }
+    return ans;
+}
