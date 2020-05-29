@@ -56,18 +56,17 @@ int Hungarian() {
     return ans;
 }
  
-/*
-//The ans is n1*M_factor - Hungarian(). FUNCTION NOT TESTED
+//The ans is n1*M_factor - Hungarian().
 int M_factor; // Change problem finding the minimum cost to maximum cost, that can be solved by Hungarian
 void min_to_max() { //min in cost[i][j] = max in M - cost[i][j]. 
     int i, j;
     M_factor = 0;
-    for(i = 0; i < n; i++) {
-        M_factor = max(M_factor, *max_element(cost[i], cost[i]+n));
+    for(i = 0; i < n1; i++) {
+        M_factor = max(M_factor, *max_element(cost[i], cost[i]+n2));
     }
-    for(i = 0; i < n; i++) {
-        for(j = 0; j < n; j++) {
+    for(i = 0; i < n1; i++) {
+        for(j = 0; j < n2; j++) {
             cost[i][j] = M_factor - cost[i][j];
         }
     }
-}*/
+}
