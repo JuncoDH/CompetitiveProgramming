@@ -31,7 +31,7 @@ vector<vertex> t = {{-1, '$'}};
 int t_size = 1;
 
 //add string to the trie t
-void add_string(string s) {
+void add_string(string &s) {
     int c, p = 0;
     for(char ch : s) {
         c = ch - 'a';
@@ -80,7 +80,7 @@ int count(int v) {
 }
 
 //search the number of the strings in the automaton that are in the text
-int search_num_string(string text) {
+int search_num_string(string &text) {
     int p = 0, ans=0;
 
     for(auto ch : text) {

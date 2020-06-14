@@ -1,4 +1,5 @@
-const int MAX = 1e5+5;
+// Centroid decomposition: instead of query path u->v, query path u->lca(u, v) and path v->lca(u, v) in DC tree, that has heigh O(log n)
+const int MAX = 1e5+5; // All the paths have a lca(u, v) in the DC tree
 int n;
 vi graph2[MAX], decomposed[MAX]; // input bidirectional tree and centroid decomposed tree, rooted at CD() return
 int q[MAX]; // queue

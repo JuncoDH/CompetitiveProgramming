@@ -54,7 +54,7 @@ void sa_extend(char c) {
 }
 
 //O(s.length()) to create the automaton. Be careful adding any char once called another function
-void sa_ini(string s) {
+void sa_ini(string &s) {
     for(char c : s) sa_extend(c);
 }
 
@@ -73,7 +73,7 @@ void sa_terminal() {
 //true if w is a substring of the automaton string
 //Also s is the longest prefix of w that is in s
 //w is a suffix if the last p is a terminal state
-bool sa_is_substr(string w) {
+bool sa_is_substr(string &w) {
     int p = 0; //string s;
     for(char ch : w) {
         if(t[p].next.find(ch) == t[p].next.end()) return false;
@@ -123,7 +123,7 @@ string sa_k_substr(int k) {
 }
 
 //lexicographically smallest cyclic shift of the string s
-string sa_small_cyclic_shift(string s) {
+string sa_small_cyclic_shift(string &s) {
     int p = 0, cnt = s.length();
     string ans = "";
     sa_ini(s + s); //initialize sa with s+s, the ans is greedy the first path with length s.length()
