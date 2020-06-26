@@ -1,22 +1,35 @@
-//Sparse Table, look[MAXN][LOG_MAXN]; look[i][j] = min element starting in index i and range 2^j, [i, i + 2^j - 1]
-//works with min, max, gcd
-//preprocess O(nlogn) query O(1), can't change values (static values)
-const ll MAX = 100;
-ll table[MAX][(ll)(log2(MAX)) + 10], n;
-vll v;
+// NOT TESTED, AND 1E6+10 GIVES MLE
+// Sparse Table, table[i][j] = f element starting in index i and range 2^j, [i, i + 2^j - 1].
+// CAN'T UPDATE VALUES.
+const ll MAX = 1e5;
+const int LOG2_MAX = 22; // log2(MAX).
+ll table[MAX][LOG2_MAX]; // Outside class.
+template<typename T>
+class SparseTable{
+    int n;
+    T f(T a, T b) {
+        return max(a, b);
+    }
 
-ll f(ll a, ll b) {return min(a, b);}
-
-void preprocess(){
-    ll i, j, log2n;
-    n = v.size();
-    log2n = (ll)log2(n);
-    for(i = 0; i < n; ++i) table[i][0] = v[i];
-    
-    for(j = 1; j <= log2n; ++j){
-        for(i = 0; i < n; ++i){
-            if((i + (1ll << j) - 1) >= n) break;
-            table[i][j] = f(table[i][j - 1], table[i + (1ll << (j - 1))][j - 1]);
+    public:
+    SparseTable(vector<T> &v) {
+        ll i, j;
+        n = v.size();
+        for(i = 0; i < n; ++i) table[i][0] = v[i];
+        
+        for(j = 1; j < LOG2_MAX; ++j){
+            for(i = 0; i < n; ++i){
+                if(i + (1ll << (j - 1)) >= n) break;
+                table[i][j] = f(table[i][j - 1], table[i + (1ll << (j - 1))][j - 1]);
+            }
         }
     }
-}
+
+    // Be carefull qr < n
+    T query(int ql, int qr) {
+        int lg2_dif = -1, num = qr - ql;
+        while(num) lg2_dif++, num >>= 1;
+        if(qr >= n) {echo("UNDEFINED"); exit(-1);}
+        return f(table[ql][lg2_dif], table[qr - (1ll << lg2_dif) + 1][lg2_dif]);
+    }
+};
