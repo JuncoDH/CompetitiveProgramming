@@ -2,6 +2,36 @@
 class Mex{
     int n; // Maximum Mex possible.
     vi cnt; // cnt of the inserted elements.
+    set<int> s; // Elements NOT inserted.
+
+    public:
+    Mex(int _n) {
+        _n++;
+        n = _n;
+        cnt.assign(n, 0);
+        for(int i = 0; i < n; i++) s.insert(i);
+    }
+
+    void insert(int k) { // O(log n) insertion.
+        cnt[k]++;
+        if(cnt[k] == 1) s.erase(k);
+    }
+
+    void erase(int k) { // O(log n) deletion.
+        cnt[k]--;
+        if(cnt[k] == 0) s.insert(k);
+    }
+
+    int getMex() { // O(1) query.
+        return *s.begin();
+    }
+};
+
+/* THIS USE SEGMENT TREE AND IS LONGER, SO USE THE VERSION ABOVE.
+// Get the MEX in the interval [0..n] in O(log n).
+class Mex{
+    int n; // Maximum Mex possible.
+    vi cnt; // cnt of the inserted elements.
     vi st; // Segment tree of array arr[i] = (cnt > 0).
 
     void update(int k, int l, int r, int pos, int dx) { // Update arr[pos] = dx.
@@ -41,3 +71,4 @@ class Mex{
         return query(1, 0, n-1);
     }
 };
+*/

@@ -18,3 +18,15 @@ int date_to_num(int d, int m, int y) {
     } 
     return sum;
 }
+
+// NOT TESTED, FOR TLE BINARY SEARCH THE YEAR (and month and day).
+int nd, nm, ny;
+void num_to_date(int num) {
+    nd = 1; nm = 1; ny = 2020; // The date searched is >= this date.
+    while(date_to_num(nd, nm, ny) <= num) ny++;
+    ny--;
+    while(nm < 12 && date_to_num(nd, nm, ny) <= num) nm++;
+    nm--;
+    while(date_to_num(nd, nm, ny) <= num) nd++;
+    nd--;
+}
