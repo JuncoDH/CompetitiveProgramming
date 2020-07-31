@@ -33,6 +33,16 @@ int orientation(Point p1, Point p2, Point p3){
     return ans > 0 ? LEFT : RIGHT;
 }
 
+//distance point a to rect of points p1 and p2
+//rect Ax+By+C = 0
+NOT TESTED
+ld distRect(point a, point p1, point p2){
+    ll A = p1.y - p2.y;
+    ll B = -(p1.x - p2.x);
+    ll C = p1.x * p2.y - p1.y * p2.x;
+    return abs(A * a.x + B * a.y + C) / (ld) sqrt(A * A + B * B);
+}
+
 //THIS FUNCTION GIVES RE
 RE
 //Sort counterclockwise the points, with the center in v[0].
