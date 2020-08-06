@@ -1,60 +1,47 @@
-//All of this code have been tested by an AC in a problem
-
-struct Point{
-    ll x, y, w; //weight
-    bool operator == (Point a) {
-        return x == a.x && y == a.y;
+const int LEFT_TURN = -1;
+const int RIGHT_TURN = 1;
+class Point {
+    public:
+    ld x = inf, y = inf;
+    ld euclidean_distance(Point other) {
+        ld dx = abs(x - other.x);
+        ld dy = abs(y - other.y);
+        return sqrt(dx*dx + dy*dy);
     }
-    bool operator != (Point a) {
-        return x != a.x || y != a.y;
+    ld manhattan_distance(Point other) {
+        return abs(x - other.x) + abs(y - other.y);
     }
-    bool operator < (Point a) {
-        if(x != a.x) return x < a.x;
-        return y < a.y;
+    friend ostream &operator << (ostream &os, Point &p);
+    // First compare the y coordinate and then the x. Useful to get the bottomLeftmost point on the plane.
+    bool operator < (const Point other) const {
+        if(y != other.y) return y < other.y;
+        return x < other.x;
     }
+    // The line is this -> a -> b
+    int left_turn(Point a, Point b) {
+        ld ans = (b.x - a.x)*(y - a.y) - (b.y - a.y)*(x - a.x);
+        if(ans == 0) return 0;
+        return ans > 0 ? LEFT_TURN : RIGHT_TURN; 
+    }
+    // Sort all the points respect the angle.
+    //Example:  sort(v.begin(), v.end(), [&](Point a, Point b) {return bottomLeft.angle_sort(a, b);});
+    bool angle_sort(Point a, Point b) {
+        int ans = left_turn(a, b);
+        if(ans == 0) return a.x < b.x;
+        return ans == LEFT_TURN;
+    }
+    // Get the quadrant of the point.
     ll getquad() {
         if(x > 0 && y >= 0) return 1;
         if(x <= 0 && y > 0) return 2;
         if(x < 0 && y <= 0) return 3;
         if(x >= 0 && y < 0) return 4;
 
-        return 0;
-    }
-    void show() {
-        cout << "(" << x << ", " << y << ")" << endl; 
+        return 0; // Point (0, 0).
     }
 };
 
-const int LEFT = 1;
-const int RIGHT = -1;
-int orientation(Point p1, Point p2, Point p3){
-    ll ans = (p2.x - p1.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p2.y - p1.y);
-    if(ans == 0) return ans;
-    return ans > 0 ? LEFT : RIGHT;
-}
-
-//distance point a to rect of points p1 and p2
-//rect Ax+By+C = 0
-NOT TESTED
-ld distRect(point a, point p1, point p2){
-    ll A = p1.y - p2.y;
-    ll B = -(p1.x - p2.x);
-    ll C = p1.x * p2.y - p1.y * p2.x;
-    return abs(A * a.x + B * a.y + C) / (ld) sqrt(A * A + B * B);
-}
-
-//THIS FUNCTION GIVES RE
-RE
-//Sort counterclockwise the points, with the center in v[0].
-//Starts at 6:00, no 3 points are collinear
-bool cmp_counterclockwise(Point a, Point b) {
-    if(a.x == v[0].x) return true;
-    if(b.x == v[0].x) return false;
-    if(a.x > v[0].x && v[0].x > b.x) {
-        return true;
-    }
-    if(b.x > v[0].x && v[0].x > a.x) {
-        return false;
-    }
-    return orientation(a, v[0], b) == RIGHT;
+ostream &operator << (ostream &os, Point &p){
+    os << "(" << p.x << ", " << p.y << ")";
+    return os;
 }
