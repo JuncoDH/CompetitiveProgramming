@@ -80,8 +80,9 @@ namespace Factor {
         }
         return g;
     }
-    vector<pll> factors; //.fi is the prime, .se is the exponent
+    vector<pll> factors; // .fi is the prime, .se is the exponent.
     vector<pll> factorize(ll num) {
+        factors.clear();
         ll y = num, cont;
         while(num > 1) {
             if(isPrime(num)) y = num;
