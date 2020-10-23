@@ -1,3 +1,5 @@
+PUEDE QUE NO FUNCIONE PARA NUMEROS GRANDES POR EL OVERFLOW, NO USAR ...
+
 //Base converter
 ll Bto10(string& s, ll B){
     ll i, ans = 0, n = s.length(), c = 1;

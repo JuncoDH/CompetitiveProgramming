@@ -14,32 +14,3 @@ vll dijkstra(ll s, ll n) {
     }
     return visited;
 }
-
-/* //Old implementation
-vector<vector<pii>> graph; //graph[u] = mp(v, w) edge u -> v with weight w
-int n;
-
-void insert(int a, int b, int w) {
-    graph[a].pb(mp(b, w));
-}
-
-vb visited;
-//NO negative edges.
-int dijkstra(int s, int t) { //s = source != t = sink
-    visited.resize(n);
-    fill(visited.begin(), visited.end(), false);
-    priority_queue<pii> pq; // (- min cost, node)
-    pii u;
-    pq.push(mp(0, s));
-    while(pq.empty() == false) {
-        u = pq.top(); pq.pop();
-        if(visited[u.se]) continue;
-        visited[u.se] = true;
-        if(u.se == t) return -u.fi;
-        for(auto el : graph[u.se]) {
-            pq.push(mp(u.fi - el.se, el.fi));
-        }
-    }
-    return -1; //t not receable from s
-}
-*/
