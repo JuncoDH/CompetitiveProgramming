@@ -15,8 +15,11 @@ void ini(int n){
     discover.assign(n, -1);
     low.assign(n, -1);
     onStack.resize(n, false);
+    st = stack<int>();
+    Time = 0;
 }
 
+// call for(i = 0; i < n; i++) if(discover[i] == -1) dfs(i);
 void dfs(int u){
     low[u] = discover[u] = ++Time;
     onStack[u] = true;

@@ -9,7 +9,7 @@ ll n;
 void dfs1(ll u){
     visited[u] = true;
     for(auto v : graph[u]){
-        if(visited[v] == false) dfs1(v);
+        if(!visited[v]) dfs1(v);
     }
     s.push(u);
 }
@@ -17,45 +17,33 @@ void dfs1(ll u){
 void dfs2(ll u){
     visited[u] = true;
     for(auto v : graphRev[u]){
-        if(visited[v] == false) dfs2(v);
+        if(!visited[v]) dfs2(v);
     }
-    cout << u << ".";
+    cout << u << "."; // One element more to the current component.
 }
 
 void Kosaraju(){
-    ll i, j;
-    
+    ll i;
+    graphRev.assign(n, vi());
+    s = stack<int>();
     //transpose graph to graphRev
     for(i = 0; i < n; ++i){
-        for(j = 0; j < sz(graph[i]); ++j){
-            graphRev[graph[i][j]].pb(i);
+        for(auto v : graph[i]){
+            graphRev[v].pb(i);
         }
     }
     
     visited.assign(n, false);
-    dfs1(0);
+    for(i = 0; i < n; i++)
+        if(!visited[i])
+            dfs1(i);
     visited.assign(n, false);
-    
 
     while(true) {
-        while(s.empty() == false && visited[s.top()] == true) s.pop();
-        if(s.empty() == true) break;
+        while(!s.empty() && visited[s.top()] == true) s.pop();
+        if(s.empty()) break;
 
         dfs2(s.top());
-        cout << endl;
-        
+        cout << endl; // End of the current component.
     }
-     
-}
-
-void example(){
-    n = 5;
-    graph.assign(5, vi());
-    graphRev.assign(5, vi());
-    graph[0].pb(2);
-    graph[0].pb(3);
-    graph[1].pb(0);
-    graph[2].pb(1);
-    graph[3].pb(4);
-    Kosaraju();
 }
