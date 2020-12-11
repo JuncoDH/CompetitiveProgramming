@@ -1,4 +1,4 @@
-#For testing locally bunch of tests
+# For testing locally a bunch of tests.
 
 for i in *.in
 do
@@ -6,5 +6,5 @@ do
 	./a.out < $j.in > answer.out;
 	echo Case $j:;
 	diff --color answer.out $j.out;
-	#-w for ignoring spaces
+	# -w for ignoring spaces.
 done

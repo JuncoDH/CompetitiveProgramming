@@ -1,6 +1,6 @@
 //Given size of Matrices to multiply ABCD, count the minimum basic operations you have to do (AKA add parenthesis) 
 //O(n ^ 3), matriz i have size p[i] x p[i + 1], the key is ABCD = () * () multiplication of two smaller matrices
-//For use create dp[i][j] table
+//For use create dp[i][j] table. Search this problem in GeeksForGeeks.
 vi p;
 
 ll chain(int i, int j) {

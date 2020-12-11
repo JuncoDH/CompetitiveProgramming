@@ -1,5 +1,6 @@
-// Not mix cin with scanf.
-ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+// Never mix cin with scanf.
+ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+
 
 stringstream ss;
 ss << "Hello world";

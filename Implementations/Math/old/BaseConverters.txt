@@ -1,6 +1,6 @@
-SOLO USAR PARA NUMEROS MUY PEQUENIOS.
+// ONLY USE FOR SMALL NUMBERS.
 
-//Base converter
+// Base converter.
 ll Bto10(string& s, ll B){
     ll i, ans = 0, n = s.length(), c = 1;
     

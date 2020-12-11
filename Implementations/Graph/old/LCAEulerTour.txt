@@ -1,3 +1,5 @@
+// NONOPTIMAL SOLUTION TO LCA, NEVER USE.
+
 //Finds the LCA(u, v) in a tree whose nodes have [1 ... n] info. the nodes have to be unique because firstOcurrence
 //the preprocess is O(n) and the queries O(logn). For O(logn) update vincule the node with his appearance in euler[], else O(n) preprocess again
 ll n, euler_size;//euler_size = 2*n - 1
@@ -75,18 +77,18 @@ findLCA(Node *root, ll u, ll v){
     v = firstOcurrence[v];
     return query(0, u, v, 0, euler_size - 1).second;
 }
-/*
- * Example
-    n = 9;
-    root = newNode(1); 
-    root->left = newNode(2); 
-    root->right = newNode(3); 
-    root->left->left = newNode(4); 
-    root->left->right = newNode(5); 
-    root->right->left = newNode(6); 
-    root->right->right = newNode(7); 
-    root->left->right->left = newNode(8); 
-    root->left->right->right = newNode(9); 
-    preprocess();
-    echo(findLCA(root, 4, 8)); 
- * */
+/**
+Example
+n = 9;
+root = newNode(1); 
+root->left = newNode(2); 
+root->right = newNode(3); 
+root->left->left = newNode(4); 
+root->left->right = newNode(5); 
+root->right->left = newNode(6); 
+root->right->right = newNode(7); 
+root->left->right->left = newNode(8); 
+root->left->right->right = newNode(9); 
+preprocess();
+echo(findLCA(root, 4, 8)); 
+*/

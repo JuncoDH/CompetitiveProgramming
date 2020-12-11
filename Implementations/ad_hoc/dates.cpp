@@ -5,7 +5,7 @@ int is_leap_year(int y) {
 int days_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 int days_month_accumulate[12] = {31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
-//d 1-index, m 1-index
+// d 1-index, m 1-index.
 int date_to_num(int d, int m, int y) {
     m -= 2;
     int sum = d;
@@ -19,8 +19,7 @@ int date_to_num(int d, int m, int y) {
     return sum;
 }
 
-// NOT TESTED, FOR TLE BINARY SEARCH THE YEAR (and month and day).
-int nd, nm, ny;
+int nd, nm, ny; // Tiny optimization, binary search the year, month and day.
 void num_to_date(int num) {
     nd = 1; nm = 1; ny = 2020; // The date searched is >= this date.
     while(date_to_num(nd, nm, ny) <= num) ny++;

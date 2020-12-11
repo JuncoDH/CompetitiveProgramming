@@ -1,4 +1,4 @@
-//Using a 26 prefix sums with 'a' to 'z' chars
+// Using a 26 prefix sums with 'a' to 'z' chars.
 string s;
 const int MAX_LEN = 2*1e5+4;
 int cnt[26][MAX_LEN];
@@ -11,7 +11,7 @@ void pre_cont_letters() {
         cnt[s[i]-'a'][i+1]++;
     }
 }
-//returns the number of distinct letters in the substring [l..r] of the string s
+// Returns the number of distinct letters in the substring [l..r] of the string s.
 int cont_letters(int l, int r) {
     int i, sum=0;
     for(i = 0; i < 26; i++) {
