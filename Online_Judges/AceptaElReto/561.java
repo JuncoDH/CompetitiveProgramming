@@ -1,17 +1,29 @@
 import java.io.*;
 import java.math.*;
 
-// .setScale(m, RoundingMode.FLOOR);
-// .divide(denom, m, RoundingMode.FLOOR);
-
 @SuppressWarnings("unused")
 public class Main {
     private final static int MAX = 100_005;
 
     public static void solve() {
-    	
-    	
-    	
+    	while(true) {
+    		int n = sc.nextInt();
+    		if(n == 0) return;
+    		int m = sc.nextInt();
+    		BigDecimal sum = new BigDecimal(1);
+    		sum = sum.setScale(m, RoundingMode.FLOOR);
+    		BigDecimal one = new BigDecimal(1);
+    		sum = sum.setScale(m, RoundingMode.FLOOR);
+    		
+    		for(int i = 2; i <= n; i++) {
+    			BigDecimal denom = new BigDecimal(2*i-1);
+    			denom.setScale(m, RoundingMode.FLOOR);
+    			if(i % 2 == 1) sum = sum.add(one.divide(denom, m, RoundingMode.FLOOR));
+    			else sum = sum.add(one.divide(denom, m, RoundingMode.FLOOR).negate());
+    		}
+    		if(sum.toString().equals("1")) {out.print("1.\n"); continue;}
+    		out.print(sum + "\n");
+    	}
     }
 
 
@@ -64,4 +76,3 @@ public class Main {
         }
     }
 }
-

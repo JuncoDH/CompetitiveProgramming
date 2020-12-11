@@ -1,17 +1,19 @@
-const int MAX = 20;
-
 class DSU{
+    int n;
     vi parent;
     vi rank;
-    public:
-    DSU() : parent(MAX, 0), rank(MAX, 0) {
-        for(int i = 0; i < MAX; ++i) parent[i] = i;
-    }
     int find_parent(int a){
         if(parent[a] == a) return a;
         return parent[a] = find_parent(parent[a]);
     }
-    bool connected(int a, int b){
+    public:
+    DSU(int _n) {
+        n = _n;
+        parent.assign(n, 0);
+        rank.assign(n, 0);
+        for(int i = 0; i < n; ++i) parent[i] = i;
+    }
+    bool is_connected(int a, int b){
         return find_parent(a) == find_parent(b);
     }
     void Union(int a, int b){
@@ -24,13 +26,12 @@ class DSU{
         else if(rank[a] < rank[b]) parent[a] = b;
         else {parent[a] = b; rank[b]++;}
     }
-    // Return the number of components in [0..MAX-1]. Be careful with single components not used in [n..MAX-1].
+    // Return the number of components in [0..n-1]. Be careful with single components not used in [n..n+extra_space].
     int number_components() {
-        bool freq[MAX];
+        vector<bool> freq(n, false);
         int i, ans = 0;
-        fill(freq, freq+MAX, false);
-        for(i = 0; i < MAX; i++) freq[find_parent(i)] = true;
-        for(i = 0; i < MAX; i++) ans += freq[i];
+        for(i = 0; i < n; i++) freq[find_parent(i)] = true;
+        for(i = 0; i < n; i++) ans += freq[i];
         return ans;
     }
 };
