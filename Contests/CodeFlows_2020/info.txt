@@ -2,12 +2,13 @@ web page:
 https://codeflows.io/
 
 Round 1:
-At least 400 points to move to round 2:
+At least 400 points to move to round 2.
 CODECHEF problem saturday 14/11/2020, 9:00 CET:
 https://www.codechef.com/BENDSP01
-(PASSED with 400 points)
+PASSED, 400/600 points (4 problems out of 6). Rank 47 (tied with ~500).
 
 Round 2:
-Finishing at least 40 th
+Finishing at least 40 th.
 CODECHEF problem saturday 12/12/2020, 9:00 CET:
-
+https://www.codechef.com/BENDSP02
+, 100/500 points (1 problem out of 5). Rank .

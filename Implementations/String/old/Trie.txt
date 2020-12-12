@@ -1,6 +1,0 @@
-// TODO write a trie class without pointers.
-struct Node{
-  Node *l, *r, *parent;
-  int cont; //number of such numbers
-};
-
