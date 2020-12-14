@@ -4,7 +4,7 @@ ld bisection_method(ld l, ld r) {
     if(fl == 0) return l;
     if(fr == 0) return r;
     bool sgn1 = fl > 0, sgn2 = fr > 0;
-    if(sgn1 == sgn2) echo("ERROR", sgn1);
+    if(sgn1 == sgn2) {echo("ERROR", sgn1); exit(-1);}
     while(r-l > eps) {
         mid = (l+r)/2;
         fmid = f(mid);

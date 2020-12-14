@@ -1,5 +1,6 @@
 add srand(time(0)); //ADD srand(time(0));
-namespace Factor {
+// USE THIS ONLY WHEN NO OTHER OPTION LEFT ...
+namespace Factorizator {
     vll primes; //Add primes manually
     const vll fixed_primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41}; //47, 53, 59
     //return (a*b)%mod, with numbers up to 1e18 (LL)

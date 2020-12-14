@@ -1,7 +1,7 @@
-ll mod = (ll)1e9 + 7;
-const ll MAX = 1e5 + 10;
-//mfact is fact^-1
-ll fact[MAX], mfact[MAX];
+const ll mod = (ll)1e9 + 7;
+const int MAX = 1e5 + 10;
+//inv_fact is fact^-1
+ll fact[MAX], inv_fact[MAX];
  
 ll elevate(ll a, ll b){
     ll ans = 1;
@@ -18,13 +18,13 @@ ll inv(ll a){
     return elevate(a, mod - 2);
 }
  
-void rellenar() {
+void ini() {
     int i = 0;
     fact[0] = 1;
-    mfact[0] = 1;
+    inv_fact[0] = 1;
     for(i = 1; i < MAX; i++) {
         fact[i] = fact[i-1]*i;
         fact[i] %= mod;
-        mfact[i] = inv(fact[i]);
+        inv_fact[i] = inv(fact[i]);
     }
 }
