@@ -1,3 +1,4 @@
+bool print_space; // Wheter you should print a space before the key.
 template<typename T>
 struct node {
     T key;
@@ -7,10 +8,26 @@ struct node {
     node() {}
     node(T _key) {key = _key;}
     ~node() {delete l; delete r;}
-    void show() { // Preorder, the Midorder is the elements sorted.
-        cout << key << ",";
-        if(l) l->show();
-        if(r) r->show();
+    void preorder() {
+        if(print_space) cout << " ";
+        cout << key;
+        print_space = true;
+        if(l) l->preorder();
+        if(r) r->preorder();
+    }
+    void inorder() { // The elements will be sorted.
+        if(l) l->inorder();
+        if(print_space) cout << " ";
+        cout << key;
+        print_space = true;
+        if(r) r->inorder();
+    }
+    void postorder() {
+        if(l) l->postorder();
+        if(r) r->postorder();
+        if(print_space) cout << " ";
+        cout << key;
+        print_space = true;
     }
 };
 
@@ -48,6 +65,7 @@ class AVL {
         int balance = get_balance(pn);
         int balance_l = get_balance(pn->l);
         int balance_r = get_balance(pn->r);
+        
         if(balance < -1 && balance_l <= 0){
             return right_rotate(pn);
         }
@@ -81,18 +99,20 @@ class AVL {
             if(!pn->l) {
                 temp = pn;
                 pn = pn->r;
+                temp->l = NULL; temp->r = NULL;
                 delete temp; // Free memory.
             }
             else if(!pn->r) {
                 temp = pn;
                 pn = pn->l;
+                temp->l = NULL; temp->r = NULL;
                 delete temp; // Free memory.
             }
             else {
-                temp = pn->r;
+                temp = pn->l;
                 while(temp->r) temp = temp->r;
                 pn->key = temp->key;
-                pn->r = delete_key(pn->r, temp->key);
+                pn->l = delete_key(pn->l, temp->key);
             }
         }
         return balance(pn);
@@ -106,8 +126,19 @@ class AVL {
     void delete_key(T key) {
         root = delete_key(root, key);
     }
-    void show() { // Debug.
-        if(root) root->show();
-        cout << endl;
+    void preorder() {
+        print_space = false;
+        if(root) root->preorder();
+        cout << "\n";
+    }
+    void inorder() {
+        print_space = false;
+        if(root) root->inorder();
+        cout << "\n";
+    }
+    void postorder() {
+        print_space = false;
+        if(root) root->postorder();
+        cout << "\n";
     }
 };
