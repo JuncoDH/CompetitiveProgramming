@@ -28,10 +28,8 @@ class DSU{
     }
     // Return the number of components in [0..n-1]. Be careful with single components not used in [n..n+extra_space].
     int number_components() {
-        vector<bool> freq(n, false);
-        int i, ans = 0;
-        for(i = 0; i < n; i++) freq[find_parent(i)] = true;
-        for(i = 0; i < n; i++) ans += freq[i];
+        int ans = 0, i;
+        for(i = 0; i < n; i++) ans += find_parent(i) == i;
         return ans;
     }
 };
