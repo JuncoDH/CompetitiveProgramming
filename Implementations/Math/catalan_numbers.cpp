@@ -1,8 +1,8 @@
-const ll mod = (ll)1e9 + 7;
-const int MAX = 1e5 + 10;
+const ll mod = 1000000007;
+const int MAX = 2*1e6+5;
 //inv_fact is fact^-1
 ll fact[MAX], inv_fact[MAX];
-// ONLY USE WHEN MOD IS PRIME, ELSE USE GCD.
+ 
 ll elevate(ll a, ll b){
     ll ans = 1;
     while(b){
@@ -27,4 +27,16 @@ void ini() {
         fact[i] %= mod;
         inv_fact[i] = inv(fact[i]);
     }
+}
+
+ll catalan_number(ll i) {
+    if(i == 0) return 1;
+    if(i == 1) return 2;
+    i++;
+    ll ans = fact[2*i];
+    ans *= inv_fact[i+1];
+    ans %= mod;
+    ans *= inv_fact[i];
+    ans %= mod;
+    return ans;
 }
