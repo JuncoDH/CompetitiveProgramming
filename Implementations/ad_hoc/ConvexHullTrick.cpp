@@ -33,9 +33,9 @@ class ConvexHullTrick {
     ftype query(ftype x) {
         point px = {x, 1}; //query is min dot product {k, b} * {x, 1}
  
-        auto it = lower_bound(normal.begin(), normal.end(), px, [](point a, point b) {
+        int pos = lower_bound(normal.begin(), normal.end(), px, [](point a, point b) {
             return cross(a, b) > 0;
         }) - normal.begin();
-        return dot(px, hull[it]);
+        return dot(px, hull[pos]);
     }
 };

@@ -1,4 +1,4 @@
-class DSU{
+class DSU {
     int n;
     vi parent;
     vi rank;

@@ -13,9 +13,9 @@ class WaveletTree {
         psum.pb(0);
         for(int i = 0; vb + i != ve; i++) {psum.pb(psum.back() + (vb[i] <= md));} 
         T mid_cpy = md;
-        auto mid_it = stable_partition(vb, ve, [mid_cpy](T a) {return a <= mid_cpy;});
-        pl = new WaveletTree(vb, mid_it, mn, md);
-        pr = new WaveletTree(mid_it, ve, md+1, mx);
+        auto mid_pos = stable_partition(vb, ve, [mid_cpy](T a) {return a <= mid_cpy;});
+        pl = new WaveletTree(vb, mid_pos, mn, md);
+        pr = new WaveletTree(mid_pos, ve, md+1, mx);
     }
     public:
     WaveletTree() = default;

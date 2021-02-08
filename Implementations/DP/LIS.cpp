@@ -5,14 +5,13 @@ int LIS(vll &v) {
     lis.pb(v[0]);
     for(i = 1; i < n; i++) {
         if(v[i] > lis.back()) {lis.pb(v[i]); continue;}
-        auto it = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
-        // if(it > 0 && lis[it-1] == v[i]) continue; // USE IF YOU WANT STRICTLY INCREASING.
-        lis[it] = v[i];
+        int pos = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
+        // if(pos > 0 && lis[pos-1] == v[i]) continue; // USE IF YOU WANT STRICTLY INCREASING.
+        lis[pos] = v[i];
     }
     return lis.size();
 }
 
-// NOT TESTED.
 vll v_LIS(vll &v) {
     int i, j, n = v.size();
     vll lis, lis_time(n), ans;
@@ -20,10 +19,10 @@ vll v_LIS(vll &v) {
     lis.pb(v[0]); lis_time[0] = 1;
     for(i = 1; i < n; i++) {
         if(v[i] > lis.back()) {lis.pb(v[i]); lis_time[i] = lis.size(); continue;}
-        auto it = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
-        // if(it > 0 && lis[it-1] == v[i]) continue; // USE IF YOU WANT STRICTLY INCREASING.
-        lis[it] = v[i];
-        lis_time[i] = it+1;
+        int pos = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
+        // if(pos > 0 && lis[pos-1] == v[i]) continue; // USE IF YOU WANT STRICTLY INCREASING.
+        lis[pos] = v[i];
+        lis_time[i] = pos+1;
     }
     j = lis.size();
     for(i = n-1; i >= 0; i--) {

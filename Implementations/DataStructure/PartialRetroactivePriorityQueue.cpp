@@ -105,7 +105,7 @@ class Treap {
 };
 
 template<typename T>
-class SegmentTreePrefixSum{ //searching minimum prefix sum and it's index, 0-based
+class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-based
     struct node {
         T prefixSum, mn;
         int minIndexMinimum = -1; //the minimum index with minimum prefix sum 

@@ -24,10 +24,8 @@ class BaseConverter {
         for(i = 0; i < (int)s.length(); i++) {
             if(is_letter(s[i])) rest += b*(s[i]-'A'+10);
             else rest += b*(s[i]-'0');
-            echo(rest, i, b, s[i]);
             b *= base;
         }
-        echo(rest);
         while(rest) {
             temp = rest % new_base;
             if(temp < 10) new_s.pb((char)(temp+'0'));
