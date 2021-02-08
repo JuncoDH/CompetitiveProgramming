@@ -1,3 +1,4 @@
+// USE JAVA OR TRUST THIS BUNCH OF CODE...
 // Source: https://github.com/ngthanhtrung23/ACM_Notebook_new/blob/master/Math/bigint.h
 // NOTE:
 // This code contains various bug fixes compared to the original version from
