@@ -1,5 +1,5 @@
 template<typename T>
-struct SegTreeIterative {
+class SegTreeIterative {
     vector<T> st; // 0: dummy, 1..n-1: st, n..2n-1: the input v.
     int n; // Size of the vector.
 

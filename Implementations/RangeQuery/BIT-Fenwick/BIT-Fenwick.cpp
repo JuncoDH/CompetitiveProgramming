@@ -1,5 +1,5 @@
 template<typename T>
-struct BIT{
+class BIT{
     vector<T> bit;
     int n;
     public:
