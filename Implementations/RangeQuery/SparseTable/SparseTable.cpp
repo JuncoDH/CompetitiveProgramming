@@ -1,19 +1,17 @@
-// NOT TESTED, AND 1E6+10 GIVES MLE
-// Sparse Table, table[i][j] = f element starting in index i and range 2^j, [i, i + 2^j - 1].
+// Sparse Table, table[i][j] = covers [i, i + 2^j - 1], range 2^j.
 // CAN'T UPDATE VALUES.
 const ll MAX = 1e5;
 const int LOG2_MAX = 22; // log2(MAX).
 ll table[MAX][LOG2_MAX]; // Outside class.
 template<typename T>
-class SparseTable{
+class SparseTable {
     int n;
     T f(T a, T b) {
-        return max(a, b);
+        return min(a, b);
     }
-
     public:
     SparseTable(vector<T> &v) {
-        ll i, j;
+        int i, j;
         n = v.size();
         for(i = 0; i < n; ++i) table[i][0] = v[i];
         
@@ -24,12 +22,11 @@ class SparseTable{
             }
         }
     }
-
-    // Be carefull qr < n
+    // [ql..qr], [0..n-1].
     T query(int ql, int qr) {
         int lg2_dif = -1, num = qr - ql;
+        if(ql == qr) return table[ql][0];
         while(num) lg2_dif++, num >>= 1;
-        if(qr >= n) {echo("UNDEFINED"); exit(-1);}
         return f(table[ql][lg2_dif], table[qr - (1ll << lg2_dif) + 1][lg2_dif]);
     }
 };
