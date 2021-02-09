@@ -28,7 +28,7 @@ void ini() {
         inv_fact[i] = inv(fact[i]);
     }
 }
-
+// (2nCn) / (n+1).
 ll catalan_number(ll i) {
     if(i == 0) return 1;
     if(i == 1) return 2;

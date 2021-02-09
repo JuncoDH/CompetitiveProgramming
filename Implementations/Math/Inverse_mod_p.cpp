@@ -11,5 +11,5 @@ ll elevate(ll a, ll b) { // b >= 0.
 
 // a^(mod - 1) = 1, Euler.
 ll inv(ll a) {
-    return elevate(a, mod - 2);
+    return elevate(((a%mod) + mod)%mod, mod - 2);
 }

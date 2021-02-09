@@ -1,3 +1,4 @@
+// for a pair<ll, ll> dont need to use random, can numerate all pairs and use a map.
 //return a hash for a pair a, b. To avoid symmetry hash(a, b) = hash(b, a) use f1 and f2
 #define prev vvvla
 #define hash valks

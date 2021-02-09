@@ -1,4 +1,5 @@
-// NONOPTIMAL SOLUTION TO LCA, NEVER USE.
+// Uses SegmentTree + Euler Tour. 
+// Better complexity but longer to code and uses pointers.
 
 //Finds the LCA(u, v) in a tree whose nodes have [1 ... n] info. the nodes have to be unique because firstOcurrence
 //the preprocess is O(n) and the queries O(logn). For O(logn) update vincule the node with his appearance in euler[], else O(n) preprocess again

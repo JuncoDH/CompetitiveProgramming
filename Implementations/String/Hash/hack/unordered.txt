@@ -1,4 +1,4 @@
-//Valid for unordered_set and unordered_map, NOT TESTED YET
+//Valid for unordered_set and unordered_map
 
 #include <bits/stdc++.h>
 
