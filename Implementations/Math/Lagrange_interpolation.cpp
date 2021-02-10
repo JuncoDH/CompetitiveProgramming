@@ -30,7 +30,7 @@ void precompute() {
         }
     }
 }
-
+// f(z) = \sum_{i=0}^{n-1} \prod_{j=0, j!=i}^{n-1} y[i]*(z-x[j])/(x[i]-x[j]). It's O(N_POINTS^2).
 ll evaluate(ll z) {
     ll ans = 0, temp, i, j;
     for(i = 0; i < N_POINTS; i++) {

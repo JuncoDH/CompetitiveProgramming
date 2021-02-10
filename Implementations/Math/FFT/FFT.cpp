@@ -28,6 +28,7 @@ void deconvolution(vcd &a) { //insert y_i and get a_i = sum_j(y_j*w_i^-j)/n
     convolution(a); // The coefficients of the polynomial have to be are real
     for(auto &el : a) el /= (double)a.size();
 }
+// Calculate \sum_{i=0}^{n-1} a[i]*b[n-i].
 vcd FFT(vcd &a, vcd &b) { //multiply polynomial a*b
     //vcd a = {1.0, 2.0}, b = {3.0}, c;// a and b examples of polynomials to multiply, real coefficients
     vcd c;

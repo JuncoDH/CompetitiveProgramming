@@ -27,7 +27,7 @@ namespace Factorizator {
 
     //a^(mod - 1) = 1, Euler
     ll inv(ll a, ll mod){
-        return elevate(a, mod - 2, mod);
+        return elevate(((a%mod) + mod)%mod, mod - 2);
     }
 
     //a^{p-1} = 1 mod p => p divides some factor of (a^{d2^s}+1)*(a^{d2^{s-1}}+1)*...*(a^d+1)*(a^d-1)

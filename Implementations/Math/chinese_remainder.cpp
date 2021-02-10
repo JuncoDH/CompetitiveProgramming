@@ -30,6 +30,8 @@ ll gcdEx(ll a, ll b, ll *x1, ll *y1) {
 const ll MAX = 10;
 ll a[MAX], p[MAX], n;
 // Given n x == a[i] mod p[i], find x, or -1 if it doesn't exist.
+// Let q[i] = (\prod_{i=0}^{n-1} p[j])/p[i].
+// x will be = \sum_{i=0}^{n-1} a[i]*q[i]*inv(q[i], mod p[i])
 ll chinese_remainder() {
     ll i, j, g, ans = 0, inv1, inv2;
     mod = 1;

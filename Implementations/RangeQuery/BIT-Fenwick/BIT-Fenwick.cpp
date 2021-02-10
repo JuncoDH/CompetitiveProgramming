@@ -16,7 +16,7 @@ class BIT{
     void update(int i, T dx) {
         for(i++; i < n+1; i += LSB(i)) bit[i] += dx;
     }
-    // query [r, r].
+    // query [0, r].
     T query(int r) {
         T ans = 0;
         for(r++; r > 0; r -= LSB(r)) ans += bit[r];

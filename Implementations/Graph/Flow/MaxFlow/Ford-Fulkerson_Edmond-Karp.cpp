@@ -1,7 +1,7 @@
 const int MAX = 40;
 // RESET FOR EVERY TEST CASE. ALSO THE GRAPH WILL BE DESTROYED.
 int graph[MAX][MAX];
-set<int> ady_graph[MAX]; // Adjacency list (set) to reduce O(MAX_FLOW*V^2) -> O(MAX_FLOW*E).
+set<int> ady_graph[MAX]; // Adjacency list (set) to reduce O(V^2) to O(E).
 int number_nodes = MAX; // Number of real nodes in the graph.
 vi parent;
 
@@ -36,7 +36,7 @@ bool BFS(int s, int t) {
     }    
     return false;
 }
-// Ford Fulkerson algorithm for the max flow. O(MAX_FLOW*E).
+// Ford Fulkerson algorithm for the max flow. Edmond-Karp implementation O(V*E^2).
 // source s to sink t.
 int max_flow(int s, int t) {
     int ans = 0, v;

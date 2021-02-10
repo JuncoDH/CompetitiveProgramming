@@ -15,7 +15,7 @@ ll elevate(ll a, ll b){
  
 //a^(mod - 1) = 1, Euler
 ll inv(ll a){
-    return elevate(a, mod - 2);
+    return elevate(((a%mod) + mod)%mod, mod - 2);
 }
  
 void ini() {
