@@ -9,7 +9,7 @@ int yx[MAX_N2+1]; //match of the j column
 int n1=, n2=, INF = INT_MAX-1; //actual size of workers and items.
  
 //http://e-maxx.ru/algo/assignment_hungary
-//Solves minimum Assignment. For maximum change cost[i][j] to Max_entry - cost[i][j] and resize the answer.
+//Solves MINIMUM Assignment. For maximum change cost[i][j] to Max_entry - cost[i][j] and resize the answer.
 //There are 1..n1 rows and 1..n2 columns, ALWAYS n1 <= n2. Complexity(n1 * n1*n2)
 //The function use 1-index for variables because it creates a virtual vertex 0
 int Hungarian() {
@@ -56,7 +56,7 @@ int Hungarian() {
     return ans;
 }
  
-//The ans is n1*M_factor - Hungarian().
+// THE ANS IS n1*M_factor - Hungarian().
 int M_factor; // Change problem finding the minimum cost to maximum cost, that can be solved by Hungarian
 void min_to_max() { //min in cost[i][j] = max in M - cost[i][j]. 
     int i, j;
