@@ -59,6 +59,7 @@ class PersistentSegmentTree {
         build(root[0]);
     }
     T query(int version, int l, int r) {return query(root[version], l, r);} //O(logn)
+    // Set v[idx] = x.
     void update(int version, int new_version, int idx, T x) { //update the segTree version into new_version root
         root[new_version] = update(root[version], idx, x); //O(logn)
     }

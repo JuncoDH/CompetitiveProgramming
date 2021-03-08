@@ -48,13 +48,11 @@ class HashStr {
             }
         }
     }
-    
     ll getHash(int l, int r, int imod) {
         ll ans = v[imod][r];
         if(l > 0) ans -= v[imod][l-1];
         ans *= inv(imod, r-l);
-        ans = ((ans%p[imod])+ans)%p[imod];
-
+        ans = ((ans%p[imod])+p[imod])%p[imod];
         return ans;
     }
     //O(1)
