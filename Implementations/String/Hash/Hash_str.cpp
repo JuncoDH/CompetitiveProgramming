@@ -51,7 +51,7 @@ class HashStr {
     ll getHash(int l, int r, int imod) {
         ll ans = v[imod][r];
         if(l > 0) ans -= v[imod][l-1];
-        ans *= inv(imod, r-l);
+        ans *= inv(imod, l);
         ans = ((ans%p[imod])+p[imod])%p[imod];
         return ans;
     }
