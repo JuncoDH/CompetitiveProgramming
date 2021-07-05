@@ -36,7 +36,7 @@ class DSU{
 DSU dsu(1);
 // Minimum spanning tree in a bidirected graph.
 // graph contains elements [0..n-1], no extra space.
-ll kruskal(vector<vector<pii>> &graph) {
+ll Kruskal(vector<vector<pii>> &graph) {
     int n = graph.size(), i;
     ll ans = 0;
     dsu = DSU(n);
