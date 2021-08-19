@@ -1,149 +1,120 @@
+
 class SuffixArray {
-    string s;
-    int n;
-    vi sa;
-    vi c; // Equivalence class. When built, c[sa[i]] = i, is also the inverse.
-    // LCP(i, j) longest common prefix of suffix i and j. 
-    // LCP(i, j) = min(lcp[pos[i] ... pos[j]-1]), create a SegmentTree with lcp array.
-    vi lcp; //lcp[i] = LCP(sa[i], sa[i]+1). 
-
-    // To make sort O(n). (a, b) sort first by b and then by a.
-    void radix_sort(vector<pair<pii, int>> &a) {
-        int i;
-        vi cont(n);
-        for(auto el : a) cont[el.fi.se]++; // by b.
-        vector<pair<pii, int>> a2(n);
-        vi psum(n);
-        for(i = 1; i < n; i++) psum[i] = psum[i-1] + cont[i-1];
-        for(auto el : a) {
-            a2[psum[el.fi.se]] = el;
-            psum[el.fi.se]++;
-        }
-        fill(cont.begin(), cont.end(), 0);
-        for(auto el : a) cont[el.fi.fi]++; // by a.
-        psum[0] = 0;
-        for(i = 1; i < n; i++) psum[i] = psum[i-1] + cont[i-1];
-        for(auto el : a2) {
-            a[psum[el.fi.fi]] = el;
-            psum[el.fi.fi]++;
-        }
-    }
-
-    // cmp s with s2, return -1 if s < s2, 1 if s > s2, 0 otherwise.
-    int cmpSubstr(int idx, string &s2) { 
-        int i, n2 = min(n, idx + (int)s2.size());
-        for(i = idx; i < n2; i++) {
-            if(s[i] < s2[i - idx]) return -1;
-            if(s[i] > s2[i - idx]) return 1;
-        }
-        return 0;
-    }
-
     public:
-    // O(n log n) construction of SA.
+    int n;
+    string s;
+    vi p; // p[i] is the position in the order array of the ith suffix (s[i..n-1]).
+    vi c; // c[i] is the equivalence class of the ith suffix. When build, c[p[i]] = i, inverse.
+    // dont use lcp[0] = 0.
+    vi lcp; // lcp[i] is the longest common prefix in s[p[i-1]..n-1] and s[p[i]..n-1].
+    // To get lcp(s[i..n-1], s[j..n-1) is min(lcp[c[i]+1], lcp[c[j]]) (use SegTree).
+
+    void radix_sort(vector<pair<pii, int>> &v) { // O(n).
+        vector<pair<pii, int>> v2(n);
+        vi freq(n, 0); // first frequency and then the index of the next item.
+        int i, sum = 0, temp;
+        for(i = 0; i < n; i++) freq[v[i].fi.se]++; // Sort by second component.
+        for(i = 0; i < n; i++) {temp = freq[i]; freq[i] = sum; sum += temp;}
+        for(i = 0; i < n; i++) {v2[freq[v[i].fi.se]] = v[i]; freq[v[i].fi.se]++;}
+        freq.assign(n, 0); sum = 0;
+        for(i = 0; i < n; i++) freq[v2[i].fi.fi]++; // Sort by first component.
+        for(i = 0; i < n; i++) {temp = freq[i]; freq[i] = sum; sum += temp;}
+        for(i = 0; i < n; i++) {v[freq[v2[i].fi.fi]] = v2[i]; freq[v2[i].fi.fi]++;}
+    }
+    SuffixArray() = default;
     SuffixArray(string &_s) {
-        _s += '$'; // $ is the char lesser than all chars of _s (and not equal).
         s = _s;
-        n = s.length();
-        sa = vi(n);
-        c = vi(n);
-        int i, k = 1;
-        vector<pair<char, int>> a0(n); // for the first iteration.
-        vector<pair<pii, int>> a(n); // for the next iterations ((c of the first 2^k, c of the second 2^k), i).
-        for(i = 0; i < n; i++) a0[i] = {s[i], i};
-        sort(a0.begin(), a0.end());
-        for(i = 0; i < n; i++) sa[i] = a0[i].se;
-        c[sa[0]] = 0;
+        s += "$"; // smaller char to end the string.
+        n = s.size();
+        int i, k;
+        p.assign(n, 0);
+        c.assign(n, 0);
+        vector<pii> v1(n); // temporal vector to sort.
+        for(i = 0; i < n; i++) v1[i] = mp(s[i], i);
+        sort(v1.begin(), v1.end());
+        for(i = 0; i < n; i++) p[i] = v1[i].se;
+        c[p[0]] = 0;
         for(i = 1; i < n; i++) {
-            c[sa[i]] = c[sa[i-1]];
-            c[sa[i]] += a0[i].fi != a0[i-1].fi;
+            if(v1[i].fi == v1[i - 1].fi) c[p[i]] = c[p[i - 1]];
+            else c[p[i]] = c[p[i - 1]] + 1;
         }
-        while(c[sa[n-1]] != n-1) { // at most ceil(log2(n)) iterations (because of $)
-            for(i = 0; i < n; i++) {
-                a[i] = {{c[i], c[(i+(1ll<<(k-1))) % n]}, i};
-            }
-            radix_sort(a);
-            for(i = 0; i < n; i++) sa[i] = a[i].se;
-            c[sa[0]] = 0;
+        k = 0; // in k+1 iterations sort strings of length 2^(k+1).
+        while(c[p[n-1]] != n-1) { // At most ceil(log2(n)). 
+            vector<pair<pii, int>> v2(n); // temporal vector to sort.
+            for(i = 0; i < n; i++) v2[i] = mp(mp(c[i], c[(i + (1 << k)) % n]), i);
+            radix_sort(v2);
+            for(i = 0; i < n; i++) p[i] = v2[i].se;
+            c[p[0]] = 0;
             for(i = 1; i < n; i++) {
-                c[sa[i]] = c[sa[i-1]];
-                c[sa[i]] += a[i].fi != a[i-1].fi;
+                if(v2[i].fi == v2[i - 1].fi) c[p[i]] = c[p[i - 1]];
+                else c[p[i]] = c[p[i - 1]] + 1;
             }
             k++;
         }
     }
-    // Debugging SA.
-    void showSA() {
-        for(int i = 0; i < n; i++) cout << sa[i] << " " << s.substr(sa[i], n - sa[i]) << endl;
+    void show_suffixes() { // IMPORTANT use this to debug.
+        for(int i = 0; i < n; i++) cout << i << " " << p[i] << " " << s.substr(p[i]) << endl;
+        if(!lcp.empty()) cout << "LCP: " << lcp << endl;
     }
-    vi getSA() {return sa;}
-    // Count the number of ocurrences of string s2 as a substring in s.
-    int cntSubstr(string &s2) {
-        int res, res2, l, r, bl, br, bmid;
-
-        res = cmpSubstr(sa[0], s2);
-        res2 = cmpSubstr(sa[n-1], s2);
-        if(res > 0 || res2 < 0) return 0; // all 1's or all -1's.
-        if(res == 0) l = 0; // l is the position of the first 0. 
-        else {
-            bl = 0; br = n-1;
-            while(bl + 1 < br) {
-                bmid = (bl + br) >> 1;
-                res = cmpSubstr(sa[bmid], s2);
-                if(res >= 0) br = bmid;
-                else bl = bmid;
-            }
-            l = br;
+    // cmp s with t. return -1 if s < t, 1 if s > t, 0 if s == t.
+    int cmp_string(int pos, string &t) {
+        for(int i = p[pos], j = 0; j < (int) t.size(); i++, j++) {
+            if(s[i] < t[j]) return -1; // i < n because s[n-1] = '$'.
+            if(s[i] > t[j]) return 1;
         }
-        if(res2 == 0) r = n-1; // r is the position of the last 0.
-        else {
-            bl = 0; br = n-1;
-            while(bl + 1 < br) {
-                bmid = (bl + br) >> 1;
-                res = cmpSubstr(sa[bmid], s2);
-                if(res <= 0) bl = bmid;
-                else br = bmid;
-            }
-            r = bl;
-        }
-
-        return r - l + 1;
+        return 0;
     }
-    // Preprocess for creating lcp array.
-    void preprocessLCP() {
-        int i, k = 0;
-        lcp = vi(n-1);
-        for(i = 0; i < n-1; i++) { // Iterate over the suffix in decreasing order of length.
-            // At most 2*n k++ and n k--;
-            while(k+i < n && k+sa[c[i]-1] < n && s[k+i] == s[k+sa[c[i]-1]]) k++;
-            lcp[c[i] - 1] = k;
-            k = max(0, k-1); // The next suffix will have at least k-1 equal chars.
+    // Count the number of times t appears in s.
+    int count_substring(string &t) {
+        int l = -1, r = n, mid, L, R;
+        while(l + 1 < r) { // -1,...,-1=L,0,...,0,1=R...1.
+            mid = (l + r) / 2;
+            if(cmp_string(mid, t) < 0) l = mid;
+            else r = mid;
+        }
+        L = l;
+        l = -1; r = n;
+        while(l + 1 < r) {
+            mid = (l + r) / 2;
+            if(cmp_string(mid, t) <= 0) l = mid;
+            else r = mid;
+        }
+        R = r;
+        return R - L - 1;
+    }
+    // O(n) build. At most 2n lcp++ and n lcp--;
+    void build_lcp() {
+        lcp.assign(n, 0);
+        for(int i = 0; i < n - 1; i++) {
+            if(i > 0) lcp[c[i]] = max(lcp[c[i - 1]] - 1, 0);
+            while(s[i + lcp[c[i]]] == s[p[c[i] - 1] + lcp[c[i]]]) lcp[c[i]]++;
         }
     }
-    vi getlcp() {return lcp;}
-    // need the call of preprocessLCP(). Return the number of distinct nonempty substring of s. Use ll.
-    ll numSubstr() {
-        ll i, cont = 0;
-        // ans = length of the i sorted suffix - the common part with the previous sorted suffix.
-        for(i = 1; i < n; i++) cont += n - sa[i] -1 - lcp[i-1];
-        return cont;
+    ll number_substrings() {
+        ll ans = 0, i;
+        for(i = 1; i < n; i++) {
+            ans += n - p[i-1] - lcp[i]; // Length of the suffix - lcp with the next suffix.
+        }
+        ans += n - p[n - 1]; // Plus the last suffix.
+        return ans - n; // Remove the '$' symbol on n substrings.
     }
 };
 
-void LCS(string &s, string &t) {
-    string stotal = s + "@" + t;
-    SuffixArray SA(stotal);
-    SA.preprocessLCP();
-    vi sa = SA.getSA(), lcp = SA.getlcp();
-    int i, mn = -1, imn, n = s.length(); // mn = size of the LCS, imn index of the starting LCS.
-    for(i = 0; i < (int)stotal.length() - 1; i++) {
-        if((sa[i] < n && sa[i+1] >= n) || (sa[i] >= n && sa[i+1] < n)) {
-            if(lcp[i] > mn) {
-                mn = lcp[i];
-                imn = sa[i];
-            }
+string LCS(string s, string &t) {
+    int mx = 0, mxi = 0, i, n2 = t.length();
+    string ans = "";
+    s += "@" + t; // Concatenate with a special char.
+    SuffixArray sa(s);
+    sa.build_lcp();
+    for(i = 1; i < sa.n; i++) {
+        // Suffix of s and before suffix of t.
+        if(sa.n - sa.p[i] > n2 + 2 && sa.n - sa.p[i-1] <= n2 + 1) {
+            if(sa.lcp[i] > mx) mx = sa.lcp[i], mxi = i;
+        }
+        // Suffix of t and before suffix of s.
+        if(sa.n - sa.p[i] <= n2 + 1 && sa.n - sa.p[i-1] > n2 + 2) {
+            if(sa.lcp[i] > mx) mx = sa.lcp[i], mxi = i;
         }
     }
-    // Use mn for the ans length or this to get the longest common substring.
-    cout << stotal.substr(imn, mn) << "\n";
+    return sa.s.substr(sa.p[mxi], mx);
 }
