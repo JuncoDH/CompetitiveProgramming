@@ -1,6 +1,6 @@
 const int MAX_PRIME = 1e6+5;
 bool num[MAX_PRIME]; // If num[i] = false => i is prime.
-int num_div[MAX_PRIME]; // Number of divisors of i.
+int num_div[MAX_PRIME]; // Number of prime divisors of i.
 int min_div[MAX_PRIME]; // The smallest prime that divide i.
 vector<int> prime;
  
@@ -27,7 +27,7 @@ bool is_prime(ll n) {
     return true;
 }
 
-vll fact, nfact; // The factors of n and their exponent.
+vll fact, nfact; // The factors of n and their exponent. n >= 1.
 void factorize(int n) { // Up to MAX_PRIME*MAX_PRIME.
     ll cont, prev_p;
     fact.clear(); nfact.clear();
