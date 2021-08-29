@@ -1,6 +1,7 @@
 add srand
-//paper: https://erikdemaine.org/papers/Retroactive_TALG/paper.pdf
-//video: https://www.youtube.com/watch?v=WqCWghETNDc&list=WL&index=11&t=0s
+// paper: https://erikdemaine.org/papers/Retroactive_TALG/paper.pdf
+// video: https://www.youtube.com/watch?v=WqCWghETNDc&list=WL&index=11&t=0s
+// problem: https://codeforces.com/blog/entry/74961#comment-590583
 template<typename K, typename V> //key (unique) and value (data)
 class Treap {
     const pair<V, K> MINVK = mp(numeric_limits<V>::min(), numeric_limits<K>::min());
