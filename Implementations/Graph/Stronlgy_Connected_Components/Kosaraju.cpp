@@ -1,6 +1,6 @@
-//Tarjan algorithm use 1 DFS while this use 2 (x2 slower)
-//shows in O(n) SCC Strongly Connected Components. 
-//first dfs1 when node is processed is added to the stack, then the graph is transposed, then dfs2 when node is processed is showed in its component 
+// Tarjan algorithm use 1 DFS while this use 2 (x2 slower).
+// shows in O(n) SCC Strongly Connected Components. 
+// first dfs1 when node is processed is added to the stack, then the graph is transposed, then dfs2 when node is processed is showed in its component.
 vector<vi> graph, graphRev;
 stack<int> s;
 vector<bool> visited;
