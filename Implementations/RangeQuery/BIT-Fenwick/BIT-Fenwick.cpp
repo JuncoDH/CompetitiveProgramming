@@ -12,7 +12,7 @@ class BIT{
         bit.assign(n+1, 0);
         for(int i = 0; i < n; i++) update(i, v[i]);
     }
-    // Point update.
+    // Point update. v[i] += dx.
     void update(int i, T dx) {
         for(i++; i < n+1; i += LSB(i)) bit[i] += dx;
     }
