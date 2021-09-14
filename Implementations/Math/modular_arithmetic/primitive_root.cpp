@@ -25,6 +25,7 @@ ll get_phi(ll n) {
 // g^k generate all the elements.
 // If g is the primitive root of mod, you can take log_g{} in both sides.
 // Exists iff mod is 1, 2, 4, (odd p)^k, 2*(odd p)^k.
+// Complexity O(mod log(mod)).
 ll primitive_root(ll mod) {
     ll phi = get_phi(mod);
     vll factors; // Factorize phi.

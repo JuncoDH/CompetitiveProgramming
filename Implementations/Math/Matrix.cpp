@@ -57,7 +57,7 @@ class Matrix {
         }
         return ans.delete_negative_cero();
     }
-    Matrix<T> operator ^ (int ex) {
+    Matrix<T> operator ^ (ll ex) {
         if(ex == 0) {
             Matrix<T> ans(nrow, ncol);
             return ans.convert_to_identity();
