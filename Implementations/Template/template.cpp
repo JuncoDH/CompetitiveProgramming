@@ -31,6 +31,7 @@ void ECHO(string _s){cout<<_s;}
 void ECHO(bool _s){if(_s)cout<<"true";else cout<<"false";}
 void ECHO(char _s){cout<<_s;}
 void ECHO(long unsigned _s) {cout<<_s;}//for s.size()
+void ECHO(long long unsigned _s) {cout<<_s;}
 void ECHO(int _s){cout<<_s;}
 void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
 void ECHO(double _s){cout<<_s;}
@@ -47,6 +48,10 @@ template<typename T1, typename T2> void ECHO(pair<T1, T2> _s) {
 }
 template<typename T> void ECHO(vector<T> v) {
     for(auto el : v) {ECHO(el); cout << "_";}
+}
+template<typename T> void ECHO(priority_queue<T> pq) {
+    priority_queue<T> _pq = pq;
+    while(!_pq.empty()) {ECHO(_pq.top()); cout << "->"; _pq.pop();}
 }
 template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
     int _i, c = 0;
@@ -93,7 +98,7 @@ int main(){
     
 
 
-
     return 0;
 }
+
 
