@@ -1,31 +1,51 @@
-int is_leap_year(int y) {
-    if(y%4 || (y%100==0 && y%400)) return 0;
+// Change here and date_to_num.
+ll is_leap_year(ll y) {
+    // if(y%4 || (y%100==0 && y%400)) return 0; // Complete leap year.
+    if(y%4 != 0) return 0; // Restricted leap year.
     return 1;
 }
-int days_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-int days_month_accumulate[12] = {31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+ll days_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+ll days_month_accumulate[12] = {31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
 // d 1-index, m 1-index.
-int date_to_num(int d, int m, int y) {
+ll date_to_num(ll d, ll m, ll y) {
+    ll sum = d;
     m -= 2;
-    int sum = d;
     if(m >= 1) sum += is_leap_year(y);
     y--;
     if(m >= 0) sum += days_month_accumulate[m];
     if(y >= 0) {
         sum += 365*y;
-        sum += y/4 -y/100 + y/400;
+        // sum += y/4 -y/100 + y/400; // Complete leap year.
+        sum += y/4; // Restricted leap year.
     } 
     return sum;
 }
 
-int nd, nm, ny; // Tiny optimization, binary search the year, month and day.
-void num_to_date(int num) {
-    nd = 1; nm = 1; ny = 2020; // The date searched is >= this date.
-    while(date_to_num(nd, nm, ny) <= num) ny++;
-    ny--;
-    while(nm < 12 && date_to_num(nd, nm, ny) <= num) nm++;
-    nm--;
-    while(date_to_num(nd, nm, ny) <= num) nd++;
-    nd--;
+// Tiny optimization, binary search the year, month and day.
+void num_to_date(ll num, ll &d, ll &m, ll &y) {
+    d = 1; m = 1; y = 0; // The date searched is >= this date.
+    while(date_to_num(d, m, y) <= num) y++;
+    y--;
+    while(date_to_num(d, m, y) <= num) m++;
+    m--;
+    while(date_to_num(d, m, y) <= num) d++;
+    d--;
 }
+
+void cin_date(ll &d, ll &m, ll &y) {
+    char c;
+    cin >> d >> c >> m >> c >> y;
+}
+
+void cout_date(ll &d, ll &m, ll &y) {
+        if(d < 10) cout << "0";
+        cout << d << "/";
+        if(m < 10) cout << "0";
+        cout << m << "/";
+        if(y < 10) cout << "000";
+        else if(y < 100) cout << "00";
+        else if(y < 1000) cout << "0";
+        cout << y;
+}
+
