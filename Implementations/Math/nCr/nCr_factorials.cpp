@@ -31,6 +31,6 @@ void ini() {
 }
  
 ll comb(ll a, ll b) {
-    if(b > a) return -1;
+    if(b > a) return 0;
     return ((fact[a] * inv_fact[b])%mod) * inv_fact[a-b] %mod;
 }
