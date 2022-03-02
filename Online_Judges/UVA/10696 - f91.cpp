@@ -9,6 +9,8 @@ using namespace std;
 #define LSB(x) ((x) & (-(x)))
 #define is_set(x, i) (((x)>>(i))&1)
 #define set_bit(x, i) {(x) |= 1ll<<(i);}
+#define unset_bit(x, i) {(x) = ((x) | (1ll<<(i))) ^ (1ll<<(i));}
+
 
 #ifdef JUNCO_DEBUG
 #define echoarr(x) {for(int _i=0,_n=min((size_t)15,sizeof(x)/sizeof(x[0]));_i<_n;_i++)\
@@ -29,6 +31,7 @@ void ECHO(string _s){cout<<_s;}
 void ECHO(bool _s){if(_s)cout<<"true";else cout<<"false";}
 void ECHO(char _s){cout<<_s;}
 void ECHO(long unsigned _s) {cout<<_s;}//for s.size()
+void ECHO(long long unsigned _s) {cout<<_s;}
 void ECHO(int _s){cout<<_s;}
 void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
 void ECHO(double _s){cout<<_s;}
@@ -45,6 +48,10 @@ template<typename T1, typename T2> void ECHO(pair<T1, T2> _s) {
 }
 template<typename T> void ECHO(vector<T> v) {
     for(auto el : v) {ECHO(el); cout << "_";}
+}
+template<typename T> void ECHO(priority_queue<T> pq) {
+    priority_queue<T> _pq = pq;
+    while(!_pq.empty()) {ECHO(_pq.top()); cout << "->"; _pq.pop();}
 }
 template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
     int _i, c = 0;
@@ -83,28 +90,28 @@ typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
 
-
-ll dp[105];
+ll dp[110];
 ll f(ll num) {
-    if(num >= 101) return num - 10;
+    if(num >= 101) return num-10;
     if(dp[num] != -1) return dp[num];
     return dp[num] = f(f(num+11));
 }
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-    ll num, i;
-    for(i = 1; i <= 100; i++) dp[i] = -1;
-    for(i = 1; i <= 100; i++) dp[i] = f(i);
-    while(true) {
-        cin >> num;
-        if(!num) return 0;
-        cout << "f91(" << num << ") = ";
-        if(num >= 101) cout << num - 10 << "\n";
-        else cout << dp[num] << "\n";
-    }
+    ll i, n;
 
+    for(i = 0; i < 110; i++) dp[i] = -1;
+    
+    while(true) {
+        cin >> n;
+        if(!n) return 0;
+        cout << "f91(" << n << ") = " << f(n) << "\n";
+    }
 
 
     return 0;
 }
+
+
+
