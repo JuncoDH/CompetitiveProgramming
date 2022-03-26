@@ -21,7 +21,7 @@ class DSU {
         b = find_parent(b);
         
         if(a == b) return;
-
+        // Num_componentes--;
         if(rank[a] > rank[b]) parent[b] = a;
         else if(rank[a] < rank[b]) parent[a] = b;
         else {parent[a] = b; rank[b]++;}
