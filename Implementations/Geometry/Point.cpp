@@ -75,7 +75,7 @@ class Point {
     }
     // Convert v to its convex hull, Do a Graham Scan. O(n log n).
     void convert_convex_hull(vector<Point<T>> &v) {
-        if(v.size() < 3) return;
+        if((int)v.size() < 3) return;
         Point<T> bottom_left = v[0], p2;
         for(auto p : v) bottom_left = min(bottom_left, p);
         bottom_left.polar_sort(v);
@@ -91,4 +91,14 @@ class Point {
             v.pb(p);
         }
     }
+    // Constraint: The points have to be in order p0 -> p1 -> ... -> pn, and exist edge pn -> p0.
+    static ld get_area_polygon(vector<Point<T>> &v) {
+        if(v.size() < 3) return 0;
+        ll i, sum = 0, n = v.size();
+        for(i = 0; i < n; i++) {
+            sum += v[i].x*v[(i+1)%n].y - v[(i+1)%n].x*v[i].y;
+        }
+        return abs(sum)/2.0;
+    }
 };
+
