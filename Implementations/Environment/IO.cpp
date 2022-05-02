@@ -1,5 +1,5 @@
-// Never mix cin with scanf.
-// Fast IO.
+// setxkbmap es, change keyboard layout to esp.
+// Fast IO. Never mix cin with scanf.
 ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 
 
