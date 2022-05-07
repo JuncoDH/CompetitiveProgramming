@@ -12,4 +12,7 @@ ll formula_3(ll _n, ll _k) {
     while((r+1)%_k != 0) {_ans += r/_k; r--;}
     return _ans + _k*formula_1(r/_k);
 }
-
+// Sum_{0, n} (x + i*d)
+ll formula_4(ll x, ll d, ll _n) {
+    return _n*x + d*formula_1(_n);
+}
