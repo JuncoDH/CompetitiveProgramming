@@ -22,7 +22,6 @@ class SquareRootDecomposition {
         for(i = l/B + 1; i <= r/B -1; i++) ans += bucket[i]; //middle blocks
         for(i = l; i/B == l/B; i++) ans += v[i]; //left block
         for(i = r; i/B == r/B; i--) ans += v[i]; //right block
-
         return ans;
     }
     // Replace v[x] by dx.
@@ -31,3 +30,4 @@ class SquareRootDecomposition {
         v[x] = dx;
     }
 };
+

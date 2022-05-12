@@ -1,6 +1,6 @@
 // Point update and Range query.
 template<typename T>
-class SegTree {
+class SegmentTree {
     vector<T> t, v;
     int n;
     T f(T a, T b) { // The function of the query. __gcd, +, |, &, max, min.
@@ -43,3 +43,4 @@ class SegTree {
         return query(1, 0, n-1, ql, qr);
     }
 };
+

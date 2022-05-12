@@ -1,7 +1,5 @@
 //Valid for unordered_set and unordered_map
 const int p_sz = 158;
-
-
 //CF G++17 64 bits, 1e5 operations
 //15 (10s)
 //24 (15s TLE) use this
@@ -36,7 +34,6 @@ vll p =
     1866894511, 2019773507, 2185171673, 2364114217, 2557710269,
     2767159799, 2993761039, 3238918481, 3504151727, 3791104843,
     4101556399, 4294967291};
-
 ll n = 1e5; //RESIZE TO THE MAXIMUM VALUE OF THE PROBLEM
 void test(ll num) {
     cout << "inserto " << num << endl;
@@ -51,7 +48,6 @@ void test(ll num) {
     }
     cout << "acabo " << num << endl;
 }
-
 void write_test(ll num) {
     cout << n << endl;
     for(ll i = 0; i <  n; i++) {
@@ -60,10 +56,8 @@ void write_test(ll num) {
     }
     cout << endl;
 }
-
 int main(){
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-
     /* // Test the numbers.
      for(int i = 25; i < p_sz; i++){
         cout << i << endl;
@@ -72,9 +66,6 @@ int main(){
     //SET N AND WRITE THE TEST.
     write_test(p[24]);
 
-
     return 0;
 }
-
-
 

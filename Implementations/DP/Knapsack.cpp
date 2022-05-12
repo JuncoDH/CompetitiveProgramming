@@ -7,3 +7,4 @@ for(i = 0; i < MAX_N; i++) {
             knapsack[j + min_cost[i]] = max(knapsack[j + min_cost[i]], knapsack[j] + max_prestige[i]);
     }
 }
+

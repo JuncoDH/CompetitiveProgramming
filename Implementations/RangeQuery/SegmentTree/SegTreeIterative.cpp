@@ -2,7 +2,6 @@ template<typename T>
 class SegTreeIterative {
     vector<T> st; // 0: dummy, 1..n-1: st, n..2n-1: the input v.
     int n; // Size of the vector.
-
     // The function: +, max, min...
     T f(T a, T b){
         return a + b;
@@ -29,7 +28,6 @@ class SegTreeIterative {
         st[pos + n] += dx;
         for(pos = (pos+n)>>1; pos > 0; pos >>= 1) st[pos] = f(st[pos<<1], st[pos<<1|1]);
     }
-
     T query(int l, int r){
         l += n; r += n;
         T ans = 0; // Sum ST.
@@ -42,3 +40,4 @@ class SegTreeIterative {
         return ans + st[l]; // Add the central interval.
     }
 };
+

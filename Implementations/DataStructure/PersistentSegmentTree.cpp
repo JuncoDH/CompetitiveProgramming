@@ -13,7 +13,6 @@ struct node {
     }
 }; // Declare outside, else static memory gives seg fault.
 node<ll> *root[MAX_VERSION]; //it stores the i versions after updates, start at 0.
-
 template<typename T>
 class PersistentSegmentTree {
     vector<T> arr; // Copy of the array to build SegmentTree.
@@ -64,7 +63,6 @@ class PersistentSegmentTree {
         root[new_version] = update(root[version], idx, x); // O(logn).
     }
 };
-
 template<typename T>
 class NumberDistinctNumbers { // Works for queries online. For offline can check MO's.
     PersistentSegmentTree<T> pst;
@@ -86,3 +84,4 @@ class NumberDistinctNumbers { // Works for queries online. For offline can check
         return pst.query(r, l, r);
     }
 };
+

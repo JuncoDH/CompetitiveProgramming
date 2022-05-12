@@ -13,9 +13,8 @@ class Node { // Only modify this class.
         lazy += x; // MIN query + (= SET update), (+= SUM update).
     }
 };
-
 template<typename T>
-class Lazy_SegTree {
+class LazySegmentTree { // Use lazy propagation.
     vector<Node<T>> tree;
     vector<T> v_input;
     int v_size;
@@ -58,7 +57,7 @@ class Lazy_SegTree {
         return Node<T>(a, b);
     }
     public:
-    Lazy_SegTree(vector<T> v) {
+    LazySegmentTree(vector<T> v) {
         v_input = v;
         v_size = v_input.size();
         tree.assign(4*v_size, {});
@@ -72,3 +71,4 @@ class Lazy_SegTree {
         return ans.value;
     }
 };
+

@@ -78,7 +78,6 @@ class Treap {
         if(key > t->key) return min({getMinimumBefore(t->r, key), getMinimumVK(t->l), mid});
         else return min({getMinimumBefore(t->l, key), mid});
     }
-
     public:
     void insert(K key, V data) { //O(log n)
         pnode n = new node(key, data);
@@ -104,7 +103,6 @@ class Treap {
         return getMinimumVK(root);
     }
 };
-
 template<typename T>
 class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-based
     struct node {
@@ -217,8 +215,6 @@ class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-ba
         return n.minIndexMinimum;
     }
 };
-
-
 //push and pop in the past and query in the present. It's minimum pq, for maximum push(-num)
 template<typename T> //int, ll
 class PartialRetroactivePriorityQueue {
@@ -252,3 +248,4 @@ class PartialRetroactivePriorityQueue {
         return qnow.getMinimumAll().first;
     }
 };
+

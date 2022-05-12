@@ -4,7 +4,6 @@ int n1, n2; //size of set 1 and 2, for optimization, n <= k, is O(n * n*k)
 vi graph[MAX_N1]; //graph[0..n-1] = {0..k-1}, vector of edges from set 1 to set 2
 int match[MAX_N2]; //match of vertex in set 2, or -1
 bool used[MAX_N1]; //visited for BFS
-
 bool dfs_kuhn(int v) { //Tries to find augmenting path for vertex v
     for(auto u : graph[v]) {
         if(used[u]) continue;
@@ -29,3 +28,4 @@ int Kuhn() { //return the maximum mathing in a bipartite (already splitted) grap
     }
     return ans;
 }
+

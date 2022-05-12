@@ -11,8 +11,8 @@ void hierholzer(int u) {
     }
     euler_tour.pb(u);
 }
-
 void f_euler_tour() {
     hierholzer(0);
     reverse(euler_tour.begin(), euler_tour.end());
 }
+

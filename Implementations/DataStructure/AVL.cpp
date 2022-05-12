@@ -30,7 +30,6 @@ struct node {
         print_space = true;
     }
 };
-
 template<typename T>
 class AVL {
     int get_height(node<T> *pn) {
@@ -65,7 +64,6 @@ class AVL {
         int balance = get_balance(pn);
         int balance_l = get_balance(pn->l);
         int balance_r = get_balance(pn->r);
-        
         if(balance < -1 && balance_l <= 0){
             return right_rotate(pn);
         }
@@ -82,7 +80,6 @@ class AVL {
         }
         return pn; // Wasn't unbalanced.
     }
-
     // We don't insert repeated keys.
     node<T> *insert_key(node<T> *pn, T key) {
         if(!pn) return new node<T> (key);
@@ -142,3 +139,4 @@ class AVL {
         cout << "\n";
     }
 };
+

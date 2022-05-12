@@ -16,3 +16,4 @@ ll formula_3(ll _n, ll _k) {
 ll formula_4(ll x, ll d, ll _n) {
     return _n*x + d*formula_1(_n);
 }
+

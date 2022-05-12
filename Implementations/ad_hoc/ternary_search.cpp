@@ -17,7 +17,6 @@ bool is_solution(ll mid) {
     if(dx2-dx1 >= 0 && dx4-dx3 < 0) return true;
     return false;
 }
-
 ll ternary_search(ll l, ll r) {
     ll mid;
     while(l+1 < r) {

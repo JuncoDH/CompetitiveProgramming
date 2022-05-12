@@ -20,7 +20,6 @@ vll SOS(vll &v) {
     while((int) v.size() > n_original) v.pop_back(), f.pop_back();
     return f;
 }
-
 // Inclusion Exclusion over SOS = mu.
 // https://codeforces.com/blog/entry/72488
 // mu(v) = neg(SOS(neg(v))).
@@ -36,3 +35,4 @@ vll inclusion_exclusion_SOS(vll &v) {
             f[mask] = -f[mask];
     return ans;
 }
+

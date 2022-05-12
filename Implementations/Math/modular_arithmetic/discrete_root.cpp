@@ -7,7 +7,6 @@ ll elevate(ll a, ll b, ll mod) { // b >= 0.
     }
     return ans;
 }
-
 // phi of Euler. O(sqrt(n)).
 ll get_phi(ll n) {
     ll ans = n, i;
@@ -20,7 +19,6 @@ ll get_phi(ll n) {
     if(n > 1) ans -= ans/n;
     return ans;
 }
-
 // Return g such that for all x coprime with mod exists k : (g^k == x)% mod.
 // g^k generate all the elements.
 // If g is the primitive root of mod, you can take log_g{} in both sides.
@@ -54,7 +52,6 @@ ll primitive_root(ll mod) {
     }
     return -1;
 }
-
 // Return the smallest x such as a^x == b % mod, or -1 if no answer exists.
 // x = sqrt(mod)*p - q. Baby step - Giant step algorithm.
 // Complexity O(sqrt(mod)).
@@ -87,7 +84,6 @@ ll discrete_logarithm(ll a, ll b, ll mod) {
     }
     return -1;
 }
-
 ll p_root = -1;
 // Get x such that x^k == b % mod.
 ll discrete_root(ll k, ll b, ll mod) {
@@ -98,3 +94,4 @@ ll discrete_root(ll k, ll b, ll mod) {
     ll y = discrete_logarithm(num, b, mod);
     return elevate(p_root, y, mod);
 }
+

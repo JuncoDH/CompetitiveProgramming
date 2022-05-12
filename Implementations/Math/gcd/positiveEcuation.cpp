@@ -12,7 +12,6 @@ ll gcdEx(ll a, ll b, ll *x1, ll *y1) {
     
     return g;
 }
-
 //solve a*x+b*y = c, with x >= 0 && y >= 0. WARNING Return x < 0 or y < 0 if no solution
 void solve(ll a, ll *x, ll b, ll *y, ll c) {
     gcdEx(a, b, x, y);
@@ -22,3 +21,4 @@ void solve(ll a, ll *x, ll b, ll *y, ll c) {
     *x = *x+b*low;
     *y = *y-a*low;
 }
+

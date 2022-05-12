@@ -1,5 +1,4 @@
 vector<vector<pll>> graph;
-
 // Minimum spanning tree in a bidirected graph.
 // graph contains elements [0..n-1], no extra space.
 ll Prim(int n) {

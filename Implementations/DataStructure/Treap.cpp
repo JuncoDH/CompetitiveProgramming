@@ -109,3 +109,4 @@ class Treap {
         return getMinimumKAll(root);
     }
 };
+

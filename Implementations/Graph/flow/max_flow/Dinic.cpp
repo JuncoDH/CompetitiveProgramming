@@ -5,7 +5,6 @@ struct EdgeFlow {
     ll cap, flow = 0; //capacity and current flow
     EdgeFlow(ll _u, ll _v, ll _cap) : u(_u), v(_v), cap(_cap) { }
 };
-
 struct Dinic {
     vector<EdgeFlow> edge; //keep the edges
     vector<vll> graph; //graph[u] is the list of their edges
@@ -14,11 +13,9 @@ struct Dinic {
     vll lvl; //lvl of the node to the source
     vll ptr; //ptr[u] is the next edge you have to take in order to branch the DFS
     queue<ll> q;
-
     Dinic(ll _n, ll _source, ll _sink) : n(_n), source(_source), sink(_sink) { //n nodes
         graph.assign(_n, vll());
     }
-
     void add_edge(ll u, ll v, ll flow) { //u->v with cost x
         EdgeFlow uv(u, v, flow), vu(v, u, 0);
         edge.pb(uv);
@@ -27,7 +24,6 @@ struct Dinic {
         graph[v].pb(n_edges+1);
         n_edges += 2;
     }
-
     bool BFS() {
         ll u;
         while(q.empty() == false) {
@@ -46,7 +42,6 @@ struct Dinic {
 
         return lvl[sink] != -1;
     }
-
     ll dfs(ll u, ll min_flow) {
         if(u == sink) return min_flow;
         ll pushed, el;
@@ -65,7 +60,6 @@ struct Dinic {
         }
         return 0;
     }
-
     ll max_flow() {
         ll flow = 0, pushed;
         while(true) {
@@ -86,3 +80,4 @@ struct Dinic {
         return flow;
     }
 };
+

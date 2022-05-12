@@ -28,3 +28,4 @@ void ini() {
         inv_fact[i] = inv(fact[i]);
     }
 }
+

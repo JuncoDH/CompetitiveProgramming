@@ -7,7 +7,6 @@ ll elevate(ll a, ll b, ll mod) { // b >= 0.
     }
     return ans;
 }
-
 // phi of Euler. O(sqrt(n)).
 ll get_phi(ll n) {
     ll ans = n, i;
@@ -20,7 +19,6 @@ ll get_phi(ll n) {
     if(n > 1) ans -= ans/n;
     return ans;
 }
-
 // Return g such that for all x coprime with mod exists k : (g^k == x)% mod.
 // g^k generate all the elements.
 // If g is the primitive root of mod, you can take log_g{} in both sides.

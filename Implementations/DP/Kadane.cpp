@@ -10,3 +10,4 @@ ll kadane(vll &v) {
     }
     return ans;
 }
+

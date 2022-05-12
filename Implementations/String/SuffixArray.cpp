@@ -98,7 +98,6 @@ class SuffixArray {
         return ans - n; // Remove the '$' symbol on n substrings.
     }
 };
-
 string LCS(string s, string &t) {
     int mx = 0, mxi = 0, i, n2 = t.length();
     string ans = "";
@@ -117,3 +116,4 @@ string LCS(string s, string &t) {
     }
     return sa.s.substr(sa.p[mxi], mx);
 }
+

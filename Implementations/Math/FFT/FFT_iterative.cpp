@@ -1,6 +1,5 @@
 typedef complex<double> cd;
 typedef vector<cd> vcd;
-
 void show(vcd &e) { //for debug
     int cont = 0; for(auto el : e) {cout << " +" << (el.real() > eps ? el.real() : 0) << "x^" << cont++;} cout << endl;
 }
@@ -58,3 +57,4 @@ vcd FFT(vcd &a, vcd &b) { //multiply polynomial a*b
     deconvolution(c);
     return c;
 }
+

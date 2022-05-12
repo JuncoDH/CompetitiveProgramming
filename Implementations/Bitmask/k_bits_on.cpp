@@ -11,3 +11,4 @@ ll k_bits_on(ll x, ll k) {
     }
     return 0;
 }
+

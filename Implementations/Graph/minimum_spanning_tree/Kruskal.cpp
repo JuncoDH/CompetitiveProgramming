@@ -57,3 +57,4 @@ ll Kruskal(vector<vector<pii>> &graph) {
     }
     return ans;
 }
+

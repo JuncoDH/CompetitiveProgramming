@@ -1,8 +1,7 @@
-// SegmentTree to work with the index in a set, can insert and remove
+// SegmentTree to work with the index in a set, can insert and remove.
 class SegmentTreeIndex {
     vi tree;
     int n;
-
     void update(int k, int l, int r, int pos, int dx) {
         if(l == r) {tree[k] = dx;return;}
         int mid = (l+r)>> 1;
@@ -10,7 +9,6 @@ class SegmentTreeIndex {
         else update(k<<1|1, mid+1, r, pos, dx);
         tree[k] = tree[k<<1] + tree[k<<1|1];
     }
-
     int queryR(int k, int l, int r, int pos) {
         if(tree[k] == 0) return -1;
         if(l == r) return l;
@@ -20,7 +18,6 @@ class SegmentTreeIndex {
         if(ans != -1) return ans;
         return queryR(k<<1|1, mid+1, r, pos);
     }
-
     int queryL(int k, int l, int r, int pos) {
         if(tree[k] == 0) return -1;
         if(l == r) return l;
@@ -30,7 +27,6 @@ class SegmentTreeIndex {
         if(ans != -1) return ans;
         return queryL(k<<1, l, mid, pos);
     }
-
     int k_ele(int k, int l, int r, int kth) {
         if(l == r) return l;
         int mid = (l+r) >> 1;
@@ -59,3 +55,4 @@ class SegmentTreeIndex {
         return k_ele(1, 0, n-1, k);
     }
 };
+

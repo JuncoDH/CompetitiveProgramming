@@ -1,5 +1,4 @@
 // Determinant: https://cp-algorithms.com/linear_algebra/determinant-gauss.html
-
 template<typename T>
 class Matrix {
     public:
@@ -140,3 +139,4 @@ class Matrix {
         return gaussian_elimination(mat, id);
     }
 };
+

@@ -1,7 +1,6 @@
 vector<pair<pii, ll>> edge; // ((u, v), w): u->v with cost w. Negative costs allowed.
 ll n; // Number of nodes.
 vll dist; // Min dist from s to all other nodes.
-
 // O(V*E) return true iff there exists a negative cycle.
 bool bellman_ford(int s) {
     ll i;
@@ -17,6 +16,6 @@ bool bellman_ford(int s) {
         if(dist[e.fi.fi] != inf)
             if(dist[e.fi.se] > dist[e.fi.fi] + e.se) return true;
     }
-
     return false;
 }
+

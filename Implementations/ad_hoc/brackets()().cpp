@@ -1,7 +1,6 @@
 // RBS, Regular Bracket Sequences.
 string s;
 vll index_pair;
-
 // index_pair[i] is the index of the other bracket pair. ( <-> ).
 void get_index_pair() {
     ll i, _n = s.length();

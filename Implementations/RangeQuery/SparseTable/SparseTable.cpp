@@ -30,3 +30,4 @@ class SparseTable {
         return f(table[ql][lg2_dif], table[qr - (1ll << lg2_dif) + 1][lg2_dif]);
     }
 };
+

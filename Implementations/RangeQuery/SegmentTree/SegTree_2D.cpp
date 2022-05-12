@@ -4,7 +4,6 @@ class SegTree_2D {
     vector<vector<T>> tree;
     vector<vector<T>> v;
     int n, m;
-
     T f(T a, T b) {
         return a + b;
     }

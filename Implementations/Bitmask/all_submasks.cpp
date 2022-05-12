@@ -2,7 +2,6 @@
 for(submask = mask; submask > 0; submask = (submask-1)&mask) {}
 
 
-
 /*
 // Old.
 // iterate over all subsets of a set
@@ -11,3 +10,4 @@ do{
     } while((b = (b - x) & x));
 
 */
+

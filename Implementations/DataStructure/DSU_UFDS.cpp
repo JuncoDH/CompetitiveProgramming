@@ -18,8 +18,7 @@ class DSU {
     }
     void Union(int a, int b){
         a = find_parent(a);
-        b = find_parent(b);
-        
+        b = find_parent(b);        
         if(a == b) return;
         // Num_componentes--;
         if(rank[a] > rank[b]) parent[b] = a;
@@ -33,3 +32,4 @@ class DSU {
         return ans;
     }
 };
+

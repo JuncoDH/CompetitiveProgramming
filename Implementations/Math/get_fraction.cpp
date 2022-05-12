@@ -13,3 +13,4 @@ void get_fraction(ll x) {
     }
     cout << "ERROR " << x << " not found" << endl;
 }
+

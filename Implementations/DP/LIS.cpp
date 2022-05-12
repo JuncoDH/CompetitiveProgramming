@@ -11,7 +11,6 @@ int LIS(vll &v) {
     }
     return lis.size();
 }
-
 vll v_LIS(vll &v) {
     int i, j, n = v.size();
     vll lis, lis_time(n), ans;
@@ -31,3 +30,4 @@ vll v_LIS(vll &v) {
     reverse(ans.begin(), ans.end());
     return ans;
 }
+

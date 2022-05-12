@@ -28,3 +28,4 @@ void KMP(string &s, string &t) {
         }
     }
 }
+

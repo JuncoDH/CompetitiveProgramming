@@ -1,7 +1,6 @@
 // 2-SAT. Check values (xi or xj) and ... and (xk or xz).
 // xi will be element 2*i and not xi will be 2*i+1. Change them with xi xor 1.
 vector<vi> graph; // size of graph will be 2*(the number of xi).
-
 int get_element(int n) {return 2*n;} // Get pos of xi.
 int get_not_element(int n) {return 2*n + 1;} // Get pos of not xi.
 // Add (xi or xj), two edges: (not xj => xi) and (not xi => xj).
@@ -11,13 +10,11 @@ void add_or_clausule(int i, int j) {
     graph[neg_i].pb(j);
     graph[neg_j].pb(i);
 }
-
 // Use Kosaraju to find the SCCs.
 vector<vi> graphRev;
 stack<int> s;
 vector<bool> visited; // It will be reutilized in SAT.
 vector<vi> components;
-
 void dfs1(ll u){
     visited[u] = true;
     for(auto v : graph[u]){
@@ -25,7 +22,6 @@ void dfs1(ll u){
     }
     s.push(u);
 }
-
 void dfs2(ll u){
     visited[u] = true;
     for(auto v : graphRev[u]){
@@ -33,7 +29,6 @@ void dfs2(ll u){
     }
     components.back().pb(u); // One element more to the current component.
 }
-
 void Kosaraju(){
     ll i, n = graph.size();
     graphRev.assign(n, vi());
@@ -44,7 +39,6 @@ void Kosaraju(){
             graphRev[v].pb(i);
         }
     }
-    
     visited.assign(n, false);
     for(i = 0; i < n; i++)
         if(!visited[i])

@@ -6,7 +6,6 @@ struct pair_hash
     {
         size_t h1 = hash<T1>()(pair.first);
         size_t h2 = hash<T2>()(pair.second);
- 
         return (h1 ^ 0b11001001011001101) + (0b011001010011100111 ^ h2);
     }
 };

@@ -5,11 +5,9 @@ vi discover, low;
 vector<bool> onStack;
 stack<int> st;
 int Time = 0;
-
 void add(int u, int v){
     graph[u].pb(v);
 }
-
 void ini(int n){
     graph.assign(n, vi());
     discover.assign(n, -1);
@@ -18,7 +16,6 @@ void ini(int n){
     st = stack<int>();
     Time = 0;
 }
-
 // call for(i = 0; i < n; i++) if(discover[i] == -1) dfs(i);
 void dfs(int u){
     low[u] = discover[u] = ++Time;
@@ -42,3 +39,4 @@ void dfs(int u){
         cout << endl;
     }
 }
+

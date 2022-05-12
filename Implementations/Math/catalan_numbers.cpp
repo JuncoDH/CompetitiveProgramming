@@ -2,7 +2,6 @@ const ll mod = 1000000007;
 const int MAX = 2*1e6+5;
 //inv_fact is fact^-1
 ll fact[MAX], inv_fact[MAX];
- 
 ll elevate(ll a, ll b){
     ll ans = 1;
     while(b){
@@ -12,12 +11,10 @@ ll elevate(ll a, ll b){
     }
     return ans;
 }
- 
 //a^(mod - 1) = 1, Euler
 ll inv(ll a){
     return elevate(((a%mod) + mod)%mod, mod - 2);
 }
- 
 void ini() {
     int i = 0;
     fact[0] = 1;
@@ -40,3 +37,4 @@ ll catalan_number(ll i) {
     ans %= mod;
     return ans;
 }
+

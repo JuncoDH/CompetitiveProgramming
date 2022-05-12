@@ -1,6 +1,5 @@
 const int MAX_C = 1+66; // 66 is the for long long, C(66, x)
 ll Comb[MAX_C][MAX_C];
-
 void calc() {
     int i, j;
     for(i = 0; i < MAX_C; i++) {
@@ -14,11 +13,9 @@ void calc() {
         }
     }
 }
-
 ll C(ll i, ll j) {
     return Comb[i-j][j];
 }
-
 void show() { // Debug.
     int i, j;
     for(i = 0; i < MAX_C; i++) {
@@ -28,3 +25,4 @@ void show() { // Debug.
         cout << endl;
     }
 }
+

@@ -19,3 +19,4 @@ ld bisection_method(ld l, ld r) {
     }
     return (l+r)/2;
 }
+

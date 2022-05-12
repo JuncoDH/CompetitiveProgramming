@@ -4,7 +4,6 @@ int graph[MAX][MAX];
 set<int> ady_graph[MAX]; // Adjacency list (set) to reduce O(V^2) to O(E).
 int number_nodes = MAX; // Number of real nodes in the graph.
 vi parent;
-
 void reset() {
     int i, j;
     for(i = 0; i < MAX; i++) {
@@ -12,12 +11,10 @@ void reset() {
         for(j = 0; j < MAX; j++) graph[i][j] = 0;
     }
 }
-
 void add_edge(int u, int v, int w) {
     graph[u][v] += w; // Accumulative edges.
     ady_graph[u].insert(v);
 }
-
 bool BFS(int s, int t) {
     vector<bool> visited(number_nodes, false);
     queue<int> q;
@@ -57,3 +54,4 @@ int max_flow(int s, int t) {
     }
     return ans;
 }
+

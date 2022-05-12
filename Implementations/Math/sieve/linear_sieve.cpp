@@ -3,7 +3,6 @@ bool num[MAX_PRIME]; // If num[i] = false => i is prime.
 int num_div[MAX_PRIME]; // Number of prime divisors of i.
 int min_div[MAX_PRIME]; // The smallest prime that divide i.
 vector<int> prime;
- 
 void linear_sieve(){
     int i, j, prime_size = 0;
     min_div[1] = 1;
@@ -18,7 +17,6 @@ void linear_sieve(){
         }
     }
 }
- 
 bool is_prime(ll n) {
     for(auto el : prime) {
         if(n == el) return true;
@@ -26,7 +24,6 @@ bool is_prime(ll n) {
     }
     return true;
 }
-
 vll fact, nfact; // The factors of n and their exponent. n >= 1.
 void factorize(int n) { // Up to MAX_PRIME*MAX_PRIME.
     ll cont, prev_p;
@@ -53,3 +50,4 @@ void factorize(int n) { // Up to MAX_PRIME*MAX_PRIME.
         nfact.pb(cont);
     }
 }
+

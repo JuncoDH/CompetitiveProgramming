@@ -13,3 +13,4 @@ void topo_sort(int n_sz) {
     for(int i = 0; i < n_sz; i++) topo_rec(i);
     reverse(vSorted.begin(), vSorted.end());
 }
+

@@ -1,11 +1,10 @@
-//preprocess O(nlogn * mlogm), query in O(1)
-//table[ir][jr][ic][jr] = f of colum ic to ic + 2^jc - 1 of rows ir to ir + 2^jr - 1
-const ll MAX = 100;//LESS THAN 1500 ELEMENTS MLE, NO COMPILE
+// BE CAREFUL, PROBABLY MLE.
+// Preprocess O(nlogn * mlogm), query in O(1).
+// table[ir][jr][ic][jr] = f of colum ic to ic + 2^jc - 1 of rows ir to ir + 2^jr - 1.
+const ll MAX = 100; // LESS THAN 1500 ELEMENTS MLE, NO COMPILE.
 ll table[MAX][(ll)(log2(MAX)) + 1][MAX][(ll)(log2(MAX)) + 1], nr, nc;
 vector<vll> v;
-
 ll f(ll a, ll b) {return min(a, b);}
-
 void preprocess(){
     ll ir, jr, ic, jc;
     //table[ir][0][ic][jc] is sparse table of row ir
@@ -19,7 +18,6 @@ void preprocess(){
             }
         }
     }
-
     for(jr = 1; jr <= (ll)log2(nr); ++jr){
         for(ir = 0; ir < nr; ++ir){
             for(jc = 0; jc <= (ll)log2(nc); ++jc){
@@ -31,7 +29,6 @@ void preprocess(){
         }
     }
 }
-
 //[(x1, y1), (x2, y2)]
 ll query(ll x1, ll y1, ll x2, ll y2){
     ll kx = floor(log2(x2 - x1 + 1));
@@ -40,3 +37,4 @@ ll query(ll x1, ll y1, ll x2, ll y2){
     ll rg2 = f(table[x1][kx][y2 - (1ll << ky) + 1][ky], table[x2 - (1ll << kx) + 1][kx][y2 - (1ll << ky) + 1][ky]);
     return f(rg1, rg2);
 }
+

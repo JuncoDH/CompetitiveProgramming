@@ -16,3 +16,4 @@ ll count_inversions(int i, int j) {
     for(k = 0; k < (j-i+1); k++) v[k+i] = temp[k];
     return ans;
 }
+

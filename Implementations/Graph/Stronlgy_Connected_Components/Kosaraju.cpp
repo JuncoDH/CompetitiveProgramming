@@ -5,7 +5,6 @@ vector<vi> graph, graphRev;
 stack<int> s;
 vector<bool> visited;
 ll n;
-
 void dfs1(ll u){
     visited[u] = true;
     for(auto v : graph[u]){
@@ -13,7 +12,6 @@ void dfs1(ll u){
     }
     s.push(u);
 }
-
 void dfs2(ll u){
     visited[u] = true;
     for(auto v : graphRev[u]){
@@ -21,7 +19,6 @@ void dfs2(ll u){
     }
     cout << u << "."; // One element more to the current component.
 }
-
 void Kosaraju(){
     ll i;
     graphRev.assign(n, vi());
@@ -31,8 +28,7 @@ void Kosaraju(){
         for(auto v : graph[i]){
             graphRev[v].pb(i);
         }
-    }
-    
+    }   
     visited.assign(n, false);
     for(i = 0; i < n; i++)
         if(!visited[i])
@@ -47,3 +43,4 @@ void Kosaraju(){
         cout << endl; // End of the current component.
     }
 }
+

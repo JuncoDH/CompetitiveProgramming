@@ -13,7 +13,6 @@ struct node {
         }
     }
 };
-
 class Trie {
     node *root = new node();
     public:

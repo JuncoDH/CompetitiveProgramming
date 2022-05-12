@@ -20,3 +20,4 @@ void Manacher(string &str) {
     }
     //cout << ans.size() << "\n";
 }
+

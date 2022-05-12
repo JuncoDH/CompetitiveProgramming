@@ -18,3 +18,4 @@ void max_indep_set_random(ll u, bool add) { //call random_max_indep(rand()%n, tr
         max_indep_set_random(v, add^1);
     }
 }
+

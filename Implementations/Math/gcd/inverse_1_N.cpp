@@ -8,3 +8,4 @@ void calc() {
         inverse[i] = (inverse[i]%mod + mod) % mod;
     }
 }
+

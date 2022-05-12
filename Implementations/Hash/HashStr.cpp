@@ -9,7 +9,6 @@ class HashStr {
     vll base = {37, 47, 53}; // base numbers: primes that > alphabet size. // 49 83
     vector<vll> b; // b[i][j] = (b_i^j) % p_i.
     vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i. 
-
     ll elevate(ll a, ll _b, ll mod){
         ll ans = 1;
         while(_b){
@@ -77,7 +76,6 @@ class HashStr {
             if(equals(other, 0, mid)) l = mid;
             else r = mid;
         }
-        
         return l;
     }
     bool operator < (HashStr other) {
@@ -90,3 +88,4 @@ class HashStr {
         return s[id+1] < other.s[id+1];
     }
 };
+

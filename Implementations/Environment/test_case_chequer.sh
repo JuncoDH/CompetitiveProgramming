@@ -8,3 +8,4 @@ do
 	diff --color answer.out $j.out;
 	# -w for ignoring spaces.
 done
+

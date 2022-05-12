@@ -8,7 +8,6 @@ vi odd_cycle;
 int color[MAX_N]; //color and number of components with each color
 vector<pii> n_set_component; //number of colors of each set in the i component
 int n_component, number_component[MAX_N];//the component the i node belongs
-
 bool rec(int u, int c) {
     if(color[u] != -1) {
         if(color[u] == c) return false;
@@ -28,7 +27,6 @@ bool rec(int u, int c) {
     }
     return false;
 }
-
 bool bipartite_color(int n) {
     int i;
     odd_cycle.clear();
@@ -46,3 +44,4 @@ bool bipartite_color(int n) {
     }
     return true;
 }
+

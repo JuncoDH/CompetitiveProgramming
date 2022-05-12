@@ -4,7 +4,6 @@ class WaveletTree {
     WaveletTree *pl, *pr;
     vector<T> psum; // psum[i] is the number of items in 0..i that will go to the left node
     T mn, mx, md; // minimum, maximum and medium element
-
     WaveletTree(T *vb, T *ve, T _mn, T _mx) {
         mn = _mn;
         mx = _mx;
@@ -39,3 +38,4 @@ class WaveletTree {
     // update 1 can be swap element i by i+1, just change psum values recursively
     // update 2 push back an element (take care to create the leave for the item if it doesn't exist)
 };
+

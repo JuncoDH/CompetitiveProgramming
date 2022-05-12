@@ -49,3 +49,4 @@ class ChineseRemainder{
         return n <= 0? -1 : c[0];
     }
 };
+

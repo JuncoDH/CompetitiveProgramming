@@ -121,3 +121,4 @@ class SuffixAutomaton{ // O(n) creation.
         for(ll i = 0; i < n; i++) echo(i, k_substr(i));
     }
 };
+

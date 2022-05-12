@@ -22,3 +22,4 @@ bool is_dag() {
                 return false;
     return true;
 }
+

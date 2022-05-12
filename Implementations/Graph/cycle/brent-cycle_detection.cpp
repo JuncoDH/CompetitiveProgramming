@@ -22,3 +22,4 @@ pll brent_cycle_detection(ll x0) {
     while(tortoise != hare) tortoise = f(tortoise), hare = f(hare), mu++;
     return mp(mu, lambda);
 }
+

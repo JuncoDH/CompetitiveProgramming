@@ -14,7 +14,6 @@ namespace Factorizator {
         }
         return ans;
     }
-
     ll elevate(ll a, ll b, ll mod){
         ll ans = 1;
         while(b){
@@ -24,12 +23,10 @@ namespace Factorizator {
         }
         return ans;
     }
-
     //a^(mod - 1) = 1, Euler
     ll inv(ll a, ll mod){
         return elevate(((a%mod) + mod)%mod, mod - 2);
     }
-
     //a^{p-1} = 1 mod p => p divides some factor of (a^{d2^s}+1)*(a^{d2^{s-1}}+1)*...*(a^d+1)*(a^d-1)
     //return true if the number is composite, false if it is not sure
     bool check_composite(ll num, ll a, ll d, int s) {
@@ -42,7 +39,6 @@ namespace Factorizator {
         }
         return true;
     }
-
     //Miller_Rabin DETERMINISTIC Version for num up to 1e18 (all LL)
     bool isPrime(ll num) { //num-1 == d*2^s
         bool flag = true;
@@ -52,12 +48,10 @@ namespace Factorizator {
             if(p == num) return true;
             if(p%num == 0) return false; //optimization
         }
-
         while(d%2 == 0) {
             d /= 2;
             ++s;
         }
-
         for(auto p : fixed_primes) flag &= !check_composite(num, p, d, s);
         return flag;
     }
@@ -144,3 +138,4 @@ namespace Factorizator {
         return ans;
     }
 }
+

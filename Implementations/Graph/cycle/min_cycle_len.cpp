@@ -38,3 +38,4 @@ ll min_cycle_len() {
     if(ans == inf) return -1;
     return ans;
 }
+
