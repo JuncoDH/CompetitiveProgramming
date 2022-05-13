@@ -3,13 +3,15 @@ class PrefixSum {
     int _n;
     vector<T> psum;
     public:
-    PrefixSum(vector<T> &v) {
-        _n = v.size();
+    PrefixSum(vector<T> &_v) {
+        _n = _v.size();
         psum.assign(_n, 0);
-        psum[0] = v[0];
-        for(int i = 1; i < _n; i++) psum[i] = psum[i-1] + v[i];
+        for(int i = 0; i < _n; i++) {
+            if(i > 0) psum[i] = psum[i-1];
+            psum[i] += _v[i];
+        }
     }
-    // get sum of the array v[l..r].
+    // Get sum of the array v[l..r].
     T get_sum(int l, int r) {
         l = max(l, 0);
         r = min(r, _n-1);

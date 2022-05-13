@@ -1,4 +1,4 @@
-vll LIS(vll &v) {
+vll LIS(vll &v) { // Is >=, but can be transformed to fit >.
     int i, t, n = v.size();
     if(n == 0) return vll();
     vll lis, lis_t(n), ans;
