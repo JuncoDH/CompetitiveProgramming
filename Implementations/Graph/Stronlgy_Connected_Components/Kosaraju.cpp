@@ -16,7 +16,7 @@ class Kosaraju{ // O(n). x2 times slower than Tarjan.
     }
     public: // Strong Connected Components.
     vector<vi> components;
-    Kosaraju(vector<vi> _graph) {
+    Kosaraju(vector<vi> &_graph) {
         graph = _graph;
         int i, n = graph.size();
         visited.assign(n, false);

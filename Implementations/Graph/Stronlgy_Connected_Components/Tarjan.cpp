@@ -1,42 +1,40 @@
-//Tarjan algorithm for finding Srontly Connected Components in a graph in O(n). Is faster than Kosaraju
-//make one DFS adding nodes to a stack. The head of a SCC will have low[u] = discover[u]
-vector<vi> graph;
-vi discover, low;
-vector<bool> onStack;
-stack<int> st;
-int Time = 0;
-void add(int u, int v){
-    graph[u].pb(v);
-}
-void ini(int n){
-    graph.assign(n, vi());
-    discover.assign(n, -1);
-    low.assign(n, -1);
-    onStack.resize(n, false);
-    st = stack<int>();
-    Time = 0;
-}
-// call for(i = 0; i < n; i++) if(discover[i] == -1) dfs(i);
-void dfs(int u){
-    low[u] = discover[u] = ++Time;
-    onStack[u] = true;
-    st.push(u);
-    for(auto it : graph[u]){
-        if(discover[it] == -1) dfs(it);        
-        if(onStack[it] == true) low[u] = min(low[u], low[it]);//if onStack[it] = false then it belong to another SCC previosly processed        
-    }
-    if(low[u] == discover[u]){ //it's a head node
-        while(true){
-            cout << st.top() << ".";
-            low[st.top()] = low[u];
-            onStack[st.top()] = false;
-            if(st.top() == u){
-                st.pop();
-                break;
-            }
-            st.pop();
+class Tarjan{ // O(n) SCC.
+    vector<vi> graph;
+    vi discover;
+    vi low;
+    vector<bool> onStack;
+    vi s;
+    int time = 0;
+    void dfs(int u) {
+        low[u] = discover[u] = time++;
+        onStack[u] = true;
+        s.pb(u);
+        for(auto v : graph[u]) {
+            if(discover[v] == -1) dfs(v);
+            if(onStack[v]) low[u] = min(low[u], low[v]);
         }
-        cout << endl;
+        if(low[u] == discover[u]) { // Head SCC node.
+            while(true) {
+                int v = s.back(); s.pop_back();
+                components.back().pb(v);
+                onStack[v] = false;
+                if(u == v) break;
+            }
+            components.pb(vi());
+        }
     }
-}
+    public:
+    vector<vi> components;
+    Tarjan(vector<vi> &_graph) {
+        graph = _graph;
+        int i, n = graph.size();
+        discover.assign(n, -1);
+        low.assign(n, -1);
+        onStack.assign(n, false);
+        components.pb(vi());
+        for(i = 0; i < n; i++)
+            if(discover[i] == -1) dfs(i);
+        components.pop_back();
+    }
+};
 
