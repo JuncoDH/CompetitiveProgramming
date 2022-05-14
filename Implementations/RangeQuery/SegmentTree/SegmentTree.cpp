@@ -30,7 +30,7 @@ class SegmentTree {
         return f(qa, qb);
     }
     public:
-    SegTree(vector<T> &_v) {
+    SegmentTree(vector<T> &_v) {
         v = _v;
         n = v.size();
         t.assign(4*n, 0);

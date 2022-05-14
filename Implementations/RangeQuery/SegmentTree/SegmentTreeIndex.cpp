@@ -1,58 +1,58 @@
-// SegmentTree to work with the index in a set, can insert and remove.
-class SegmentTreeIndex {
-    vi tree;
+// Point update and Range query.
+// pair<T, pii> is (value, (posL, posR)).
+// posL is the leftmost index that has value, in the range.
+template<typename T>
+class SegmentTree {
+    vector<pair<T, pii>> t;
+    vector<T> v;
     int n;
-    void update(int k, int l, int r, int pos, int dx) {
-        if(l == r) {tree[k] = dx;return;}
-        int mid = (l+r)>> 1;
-        if(pos <= mid) update(k<<1, l, mid, pos, dx);
-        else update(k<<1|1, mid+1, r, pos, dx);
-        tree[k] = tree[k<<1] + tree[k<<1|1];
+    pair<T, pii> f(pair<T, pii> a, pair<T, pii> b) { 
+        pair<T, pii> ans;
+        ans.fi = min(a.fi, b.fi); // The function of the query. __gcd, +, |, &, max, min.
+        if(ans.fi == a.fi) ans.se = a.se;
+        else ans.se = b.se;
+        if(ans.fi == b.fi) {
+            ans.se.fi = min(ans.se.fi, b.se.fi);
+            ans.se.se = max(ans.se.se, b.se.se);
+        }
+        return ans;
     }
-    int queryR(int k, int l, int r, int pos) {
-        if(tree[k] == 0) return -1;
-        if(l == r) return l;
-        int mid = (l+r)>>1;
-        int ans = -1;
-        if(pos <= mid) ans = queryR(k<<1, l, mid, pos);
-        if(ans != -1) return ans;
-        return queryR(k<<1|1, mid+1, r, pos);
+    void build(int k, int l, int r) {
+        if(l == r) {t[k] = mp(v[l], mp(l, l)); return;}
+        int mid = (l + r) >> 1;
+        build(k<<1, l, mid);
+        build(k<<1|1, mid + 1, r);
+        t[k] = f(t[k<<1], t[k<<1|1]);
     }
-    int queryL(int k, int l, int r, int pos) {
-        if(tree[k] == 0) return -1;
-        if(l == r) return l;
-        int mid = (l+r)>>1;
-        int ans = -1;
-        if(pos > mid) ans = queryL(k<<1|1, mid+1, r, pos);
-        if(ans != -1) return ans;
-        return queryL(k<<1, l, mid, pos);
+    void update(int k, int l, int r, int p, T x) {
+        if(l == r) {t[k].fi = x; return;}
+        int mid = (l + r) >> 1;
+        if(p <= mid) update(k<<1, l, mid, p, x);
+        else update(k<<1|1, mid+1, r, p, x);
+        t[k] = f(t[k<<1], t[k<<1|1]);
     }
-    int k_ele(int k, int l, int r, int kth) {
-        if(l == r) return l;
-        int mid = (l+r) >> 1;
-        if(tree[k<<1] >= kth) return k_ele(k<<1, l, mid, kth);
-        return k_ele(k<<1|1, mid+1, r, kth - tree[k<<1]);
+    pair<T, pii> query(int k, int l, int r, int ql, int qr) {
+        if(ql <= l && r <= qr) return t[k];
+        int mid = (l + r) >> 1;
+        if(qr <= mid) return query(k<<1, l, mid, ql, qr);
+        if(mid+1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
+        pair<T, pii> qa = query(k<<1, l, mid, ql, qr);
+        pair<T, pii> qb = query(k<<1|1, mid + 1, r, ql, qr);
+        return f(qa, qb);
     }
     public:
-    SegmentTreeIndex(int _n) {
-        n = _n;
-        tree.assign(4*n, 0);
+    SegmentTree() = default;
+    SegmentTree(vector<T> &_v) {
+        v = _v;
+        n = v.size();
+        t.assign(4*n, {});
+        build(1, 0, n-1);
     }
-    // set pos to dx (1 if insert, 0 if remove)
-    void update(int pos, int dx) {
-        update(1, 0, n-1, pos, dx);
-    }
-    // Return the position of the right most index at Left of pos set to 1, -1 if none
-    int queryL(int pos) { // NOT TESTED BUT COPIED FROM queryR TESTED
-        return queryL(1, 0, n-1, pos);
-    }
-    // Return the position of the left most index at Right of pos set to 1, -1 if none
-    int queryR(int pos) {
-        return queryR(1, 0, n-1, pos);
-    }
-    // Return the k-th element in the range [0..n-1], 1-INDEXED
-    int k_ele(int k) { // NOT TESTED by AC
-        return k_ele(1, 0, n-1, k);
+    void update(int p, T x) {
+        update(1, 0, n-1, p, x);
+    } // [ql, qr].
+    pair<T, pii> query(int ql, int qr) {
+        return query(1, 0, n-1, ql, qr);
     }
 };
 

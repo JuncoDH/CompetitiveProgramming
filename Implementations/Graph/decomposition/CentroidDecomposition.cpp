@@ -59,7 +59,7 @@ class CentroidDecomposition{
         dfs_size(0, -1);
         return get_centroid(0, -1, vn[0].subtree);
     }
-    int lca(int u, int v) {
+    int lca(int u, int v) { // LCA in the centroid tree.
         while(vn[u].lvl > vn[v].lvl) u = vn[u].parent;
         while(vn[v].lvl > vn[u].lvl) v = vn[v].parent;
         while(u != v) u = vn[u].parent, v = vn[v].parent;
