@@ -1,16 +1,20 @@
 template<typename T>
 class Node { // Only modify this class.
     public:
-    T value = numeric_limits<T>::max(); // max for MIN query.
-    static const T lazy_default = 0; // Default value for lazy.
+    int l = -1, r = -1; // interval [l, r].
+    T value = 0;
+    static const T lazy_default = -inf; // Default value for lazy.
     T lazy = lazy_default;
     Node(T _value) {value = _value;}
     // Merge nodes.
-    Node(Node<T> a, Node<T> b) {value = min(a.value, b.value);} // MIN query.
+    Node(Node<T> a, Node<T> b) {value = a.value + b.value;} // MIN query.
     Node() = default;
     void actualize_update(T x) {
-        value += x; // MIN query + (= SET update), (+= SUM update).
-        lazy += x; // MIN query + (= SET update), (+= SUM update).
+        if(x == -inf) return; // No update.
+        // value += x; // MIN query + (= SET update), (+= SUM update).
+        // lazy += x; // MIN query + (= SET update), (+= SUM update).
+        value = (r-l+1)*x; // SUM query + (= SET update).
+        lazy = x; // SUM query + (= SET update).
     }
 };
 template<typename T>
@@ -24,15 +28,21 @@ class LazySegmentTree { // Use lazy propagation.
             tree[k<<1].actualize_update(tree[k].lazy);
             tree[k<<1|1].actualize_update(tree[k].lazy);
             tree[k] = Node<T>(tree[k<<1], tree[k<<1|1]);
+            tree[k].l = l; tree[k].r = r;
         }
         tree[k].lazy = tree[k].lazy_default;
     }
     void build(int k, int l, int r) {
-        if(l == r) {tree[k] = Node<T>(v_input[l]); return;}
+        if(l == r) {
+            tree[k] = Node<T>(v_input[l]);
+            tree[k].l = l; tree[k].r = r;
+            return;
+        }
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
         build(k<<1|1, mid+1, r);
         tree[k] = Node<T>(tree[k<<1], tree[k<<1|1]);
+        tree[k].l = l; tree[k].r = r;
     }
     void update(int k, int l, int r, int ql, int qr, T x) {
         push_lazy(k, l, r);
