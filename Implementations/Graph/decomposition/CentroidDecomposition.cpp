@@ -36,7 +36,7 @@ class CentroidDecomposition{
         cd_graph.assign(n, vi());
         dfs_size(0, -1);
         root = get_centroid(0, -1, vn[0].subtree);
-        queue<int> q;
+        queue<int> q; // return; // here if only want the centroid.
         vn[root].is_centroid = true;
         q.push(root);
         while(!q.empty()) {
@@ -56,8 +56,7 @@ class CentroidDecomposition{
     // The centroid is the node that when removing, all its
     // subtrees have <= n/2 nodes. It can be AT MOST 2 centroids.
     int get_centroid() {
-        dfs_size(0, -1);
-        return get_centroid(0, -1, vn[0].subtree);
+        return root;
     }
     int lca(int u, int v) { // LCA in the centroid tree.
         while(vn[u].lvl > vn[v].lvl) u = vn[u].parent;
