@@ -9,7 +9,7 @@ class Point {
         x = _x;
         y = _y;
     }
-    friend ostream &operator << (ostream &os, Point<T> &p) {
+    friend ostream &operator << (ostream &os, Point<T> p) {
         os << "(" << p.x << " " << p.y << ")";
         return os;
     }
@@ -100,5 +100,67 @@ class Point {
         }
         return abs(sum)/2.0;
     }
+    // Rotate p alpha radians (anti clock wise) respect to this point.
+    Point<T> rotate(Point<T> p, ld alpha) {
+        Point<T> q(p.x - x, p.y - y); // p shifted.
+        return Point<T>(x + q.x*cos(alpha) - q.y*sin(alpha),
+                        y + q.x*sin(alpha) + q.y*cos(alpha));
+    }
 };
+template<typename T>
+class Line{
+    public:
+    T m = 0, n = 0; // y = mx + n.
+    Line(T _m, T _n) {m = _m; n = _n;}
+    Line(Point<T> p1, Point<T> p2) {
+        m = (p2.y - p1.y)/(p2.x - p1.x);
+        n = m*-p1.x + p1.y;
+    }
+    friend ostream &operator << (ostream &os, Line<T> l) {
+        os << "y = " << l.m << "x + " << l.n;
+        return os;
+    }
+    Point<T> intersection(Line<T> l) {
+        T new_m = (l.n-n)/(m-l.m);
+        return Point<T>(new_m, m*new_m + n);
+    }
+};
+// Point of intersection of two lines formed by (p1, p2), (p3, p4).
+Point<ld> intersection4points(Point<ld> p1, Point<ld> p2, Point<ld> p3, Point<ld> p4) {
+    Line<ld> l1(p1, p2), l2(p3, p4);
+    return l1.intersection(l2);
+}
+// Fermat point is the one that minimize the sum to the point to the vertices of a triangle.
+pair<Point<ld>, ld> get_fermat_point(Point<ld> p1, Point<ld> p2, Point<ld> p3) {
+    Point<ld> fermat = p1, ret;
+    ld ans = inf, tans;
+    ans = p1.euclidean_distance(p2) + p1.euclidean_distance(p3);
+    tans = p2.euclidean_distance(p1) + p2.euclidean_distance(p3);
+    if(tans < ans) {ans = tans; fermat = p2;}
+    tans = p3.euclidean_distance(p1) + p3.euclidean_distance(p2);
+    if(tans < ans) {ans = tans; fermat = p3;}
+    ret = intersection4points(p3, p2.rotate(p1, PI/3), p1, p2.rotate(p3, PI/3));
+    tans = ret.euclidean_distance(p1) + ret.euclidean_distance(p2) + ret.euclidean_distance(p3);
+    if(tans < ans) {ans = tans; fermat = ret;}
+    ret = intersection4points(p3, p2.rotate(p1, PI/3), p1, p2.rotate(p3, -PI/3));
+    tans = ret.euclidean_distance(p1) + ret.euclidean_distance(p2) + ret.euclidean_distance(p3);
+    if(tans < ans) {ans = tans; fermat = ret;}
+    ret = intersection4points(p3, p2.rotate(p1, -PI/3), p1, p2.rotate(p3, PI/3));
+    tans = ret.euclidean_distance(p1) + ret.euclidean_distance(p2) + ret.euclidean_distance(p3);
+    if(tans < ans) {ans = tans; fermat = ret;}
+    ret = intersection4points(p3, p2.rotate(p1, -PI/3), p1, p2.rotate(p3, -PI/3));
+    tans = ret.euclidean_distance(p1) + ret.euclidean_distance(p2) + ret.euclidean_distance(p3);
+    if(tans < ans) {ans = tans; fermat = ret;}
+    return mp(fermat, ans);
+}
+// Return random float in [0, 1].
+ld rand_float() {
+    return rand()/(ld)RAND_MAX;
+} // Return a point inside a triangle formed by p1, p2, p3.
+Point<ld> random_triangle(Point<ld> p1, Point<ld> p2, Point<ld> p3) {
+    ld u1 = rand_float(), u2 = rand_float();
+    if(u1 + u2 > 1) u1 = 1 - u1, u2 = 1 - u2; // rectangle -> triangle.
+    return Point<ld>(p2.x + (p1.x-p2.x)*u1 + (p3.x-p2.x)*u2,
+                     p2.y + (p1.y-p2.y)*u1 + (p3.y-p2.y)*u2);
+}
 

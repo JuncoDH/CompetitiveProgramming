@@ -34,8 +34,8 @@ void ECHO(long unsigned _s) {cout<<_s;}//for s.size()
 void ECHO(long long unsigned _s) {cout<<_s;}
 void ECHO(int _s){cout<<_s;}
 void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
-void ECHO(double _s){cout<<_s;}
-void ECHO(long double _s){cout<<_s;}
+void ECHO(double _s){cout.precision(7);cout<<fixed<<_s;}
+void ECHO(long double _s){cout.precision(7);cout<<fixed<<_s;}
 void ECHO(bitset<8> b) {cout << b;}//resize bitset
 template<typename T> void ECHO(set<T> _s) {
     for(auto el : _s) {ECHO(el); cout << "_";}
@@ -100,5 +100,4 @@ int main(){
 
     return 0;
 }
-
 

@@ -1,7 +1,7 @@
 const int MAX_C = 1000005;
 vll w; // n items such that sum(w[i]) == C.
 // Check if for k in [1..C] exists a subset of w with sum == k.
-// Complexity O(n log n + c sqrt(c)/32)
+// Complexity O(n log n + c sqrt(c)/32).
 void subset_sum() {
     vll w_optimized; // Keep O(sqrt(C)) elements instead of N.
     sort(w.begin(), w.end());
