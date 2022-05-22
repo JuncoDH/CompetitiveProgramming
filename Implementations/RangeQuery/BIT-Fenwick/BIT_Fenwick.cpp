@@ -17,6 +17,7 @@ class BIT{
         for(i++; i < n+1; i += LSB(i)) bit[i] += dx;
     }
     // query [0, r].
+    // query(x is the number of numbers <= x).
     T query(int r) {
         T ans = 0;
         for(r++; r > 0; r -= LSB(r)) ans += bit[r];
