@@ -1,142 +1,139 @@
-bool print_space; // Wheter you should print a space before the key.
-template<typename T>
-struct node {
-    T key;
-    node<T> *l = NULL;
-    node<T> *r = NULL;
-    int height = 1; // Height of its subtree.
-    node() {}
-    node(T _key) {key = _key;}
-    ~node() {delete l; delete r;}
-    void preorder() {
-        if(print_space) cout << " ";
-        cout << key;
-        print_space = true;
-        if(l) l->preorder();
-        if(r) r->preorder();
+class node{
+    int height = 1;
+    void update_height() {
+        if(l) height = max(height, l->height + 1);
+        if(r) height = max(height, r->height + 1);
     }
-    void inorder() { // The elements will be sorted.
-        if(l) l->inorder();
-        if(print_space) cout << " ";
-        cout << key;
-        print_space = true;
-        if(r) r->inorder();
-    }
-    void postorder() {
-        if(l) l->postorder();
-        if(r) r->postorder();
-        if(print_space) cout << " ";
-        cout << key;
-        print_space = true;
-    }
-};
-template<typename T>
-class AVL {
-    int get_height(node<T> *pn) {
-        return pn ? pn->height : 0;
-    }
-    void update_height(node<T> *pn) {
-        pn->height = max(get_height(pn->l), get_height(pn->r)) + 1;
-    }
-    int get_balance(node<T> *pn) {
-        return pn ? get_height(pn->r) - get_height(pn->l) : 0;
-    }
-    // Return the new root.
-    node<T> *right_rotate(node<T> *pn) {
-        node<T> *ret = pn->l;
-        pn->l = ret->r;
-        ret->r = pn;
-        update_height(pn);
-        update_height(ret);
+    int get_balance() {
+        int ret = 0; // r->height - l->height.
+        if(r) ret += r->height;
+        if(l) ret -= l->height;
         return ret;
     }
-    node<T> *left_rotate(node<T> *pn) {
-        node<T> *ret = pn->r;
-        pn->r = ret->l;
-        ret->l = pn;
-        update_height(pn);
-        update_height(ret);
-        return ret;
+    void right_rotate() {
+        node *ans = l; // The new parent.
+        l = ans->r;
+        if(ans->r) ans->r->p = this;
+        ans->r = this;
+        ans->p = p;
+        if(p && p->l == this) p->l = ans;
+        if(p && p->r == this) p->r = ans;
+        p = ans;
+        update_height();
+        ans->update_height();
     }
-    node<T> *balance(node<T> *pn) {
-        if(!pn) return pn;
-        update_height(pn);
-        int balance = get_balance(pn);
-        int balance_l = get_balance(pn->l);
-        int balance_r = get_balance(pn->r);
-        if(balance < -1 && balance_l <= 0){
-            return right_rotate(pn);
-        }
-        if(balance < -1 && balance_l > 0) {
-            pn->l = left_rotate(pn->l);
-            return right_rotate(pn);
-        }
-        if(balance > 1 && balance_r >= 0) {
-            return left_rotate(pn);
-        }
-        if(balance > 1 && balance_r < 0) {
-            pn->r = right_rotate(pn->r);
-            return left_rotate(pn);
-        }
-        return pn; // Wasn't unbalanced.
-    }
-    // We don't insert repeated keys.
-    node<T> *insert_key(node<T> *pn, T key) {
-        if(!pn) return new node<T> (key);
-        if(key < pn->key) pn->l = insert_key(pn->l, key);
-        else pn->r = insert_key(pn->r, key);
-        return balance(pn);
-    }
-    node<T> *delete_key(node<T> *pn, T key) {
-        if(!pn) return pn;
-        if(key < pn->key) pn->l = delete_key(pn->l, key);
-        else if(key > pn->key) pn->r = delete_key(pn->r, key);
-        else { // Is the node to delete.
-            node<T> *temp;
-            if(!pn->l) {
-                temp = pn;
-                pn = pn->r;
-                temp->l = NULL; temp->r = NULL;
-                delete temp; // Free memory.
-            }
-            else if(!pn->r) {
-                temp = pn;
-                pn = pn->l;
-                temp->l = NULL; temp->r = NULL;
-                delete temp; // Free memory.
-            }
-            else {
-                temp = pn->l;
-                while(temp->r) temp = temp->r;
-                pn->key = temp->key;
-                pn->l = delete_key(pn->l, temp->key);
-            }
-        }
-        return balance(pn);
+    void left_rotate() {
+        node *ans = r; // The new parent.
+        r = ans->l;
+        if(ans->l) ans->l->p = this;
+        ans->l = this;
+        ans->p = p;
+        if(p && p->l == this) p->l = ans;
+        if(p && p->r == this) p->r = ans;
+        p = ans;
+        update_height();
+        ans->update_height();
     }
     public:
-    node<T> *root = NULL;
+    node *l = nullptr, *r = nullptr, *p = nullptr;
+    ll value = 0;
+    node() = default;
+    node(ll _value) {value = _value;}
+    ~node() {delete l; delete r;}
+    void balance() {
+        int balance = get_balance(), balance_l = 0, balance_r = 0;
+        if(l) balance_l = l->get_balance();
+        if(r) balance_r = r->get_balance();
+        if(balance < -1 && balance_l <= 0){
+            right_rotate();
+        }
+        if(balance < -1 && balance_l > 0) {
+            l->left_rotate();
+            right_rotate();
+        }
+        if(balance > 1 && balance_r >= 0) {
+            left_rotate();
+        }
+        if(balance > 1 && balance_r < 0) {
+            r->right_rotate();
+            left_rotate();
+        }
+        if(p) p->balance();
+    }
+    void get_elements(vll &ret) {
+        if(l) l->get_elements(ret);
+        ret.pb(value);
+        if(r) r->get_elements(ret);
+    }
+};
+class AVL{
+    node *root = nullptr;
+    public:
     ~AVL() {delete root;}
-    void insert_key(T key) {
-        root = insert_key(root, key);
+    bool search(ll num) {
+        node *n = root;
+        if(!root) return false;
+        while(n) {
+            if(num == n->value) return true;
+            if(num < n->value) n = n->l;
+            else n = n->r;
+        }
+        return false;
     }
-    void delete_key(T key) {
-        root = delete_key(root, key);
+    void insert(ll num) {
+        node *n = root, *nw_node = new node(num);
+        if(!root) {
+            root = nw_node;
+            return;
+        }
+        while(true) {
+            if(num < n->value) {
+                if(!n->l) {n->l = nw_node; nw_node->p = n; break;}
+                n = n->l;
+            } else if(num > n->value) {
+                if(!n->r) {n->r = nw_node; nw_node->p = n; break;}
+                n = n->r;
+            } else {
+                delete nw_node;
+                return; // Already inserted.
+            }
+        }
+        n->balance();
+        while(n->p) {n = n->p;}
+        root = n;
     }
-    void preorder() {
-        print_space = false;
-        if(root) root->preorder();
-        cout << "\n";
+    void erase(ll num) {
+        node *n = root, *x = nullptr; // x the node to erase.
+        while(n) {
+            if(num == n->value) break;
+            if(num < n->value) n = n->l;
+            else n = n->r;
+        }
+        if(!n) return; // Element not inserted.
+        if(!n->r) {
+            if(!n->p) root = n->l;
+            else if(n == n->p->l) n->p->l = n->l;
+            else if(n == n->p->r) n->p->r = n->l;
+            if(n->l) n->l->p = n->p;
+            if(n->p) n->p->balance();
+            n->l = n->r = nullptr;
+            delete n;
+            return;
+        }
+        x = n->r;
+        while(x->l) x = x->l;
+        swap(n->value, x->value);
+        if(x->p && x == x->p->l) x->p->l = x->r;
+        if(x->p && x == x->p->r) x->p->r = x->r;
+        if(x->r) x->r->p = x->p;
+        if(x->p) x->p->balance();
+        x->l = x->r = nullptr;
+        delete x;
     }
-    void inorder() {
-        print_space = false;
-        if(root) root->inorder();
-        cout << "\n";
-    }
-    void postorder() {
-        print_space = false;
-        if(root) root->postorder();
-        cout << "\n";
+    vll get_elements() {
+        vll ans;
+        root->get_elements(ans);
+        return ans;
     }
 };
 
