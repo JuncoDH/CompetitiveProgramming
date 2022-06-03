@@ -1,4 +1,4 @@
-class node{
+class Node{
     int height = 1;
     void update_height() {
         if(l) height = max(height, l->height + 1);
@@ -11,7 +11,7 @@ class node{
         return ret;
     }
     void right_rotate() {
-        node *ans = l; // The new parent.
+        Node *ans = l; // The new parent.
         l = ans->r;
         if(ans->r) ans->r->p = this;
         ans->r = this;
@@ -23,7 +23,7 @@ class node{
         ans->update_height();
     }
     void left_rotate() {
-        node *ans = r; // The new parent.
+        Node *ans = r; // The new parent.
         r = ans->l;
         if(ans->l) ans->l->p = this;
         ans->l = this;
@@ -35,11 +35,11 @@ class node{
         ans->update_height();
     }
     public:
-    node *l = nullptr, *r = nullptr, *p = nullptr;
+    Node *l = nullptr, *r = nullptr, *p = nullptr;
     ll value = 0;
-    node() = default;
-    node(ll _value) {value = _value;}
-    ~node() {delete l; delete r;}
+    Node() = default;
+    Node(ll _value) {value = _value;}
+    ~Node() {delete l; delete r;}
     void balance() {
         int balance = get_balance(), balance_l = 0, balance_r = 0;
         if(l) balance_l = l->get_balance();
@@ -67,11 +67,11 @@ class node{
     }
 };
 class AVL{
-    node *root = nullptr;
+    Node *root = nullptr;
     public:
     ~AVL() {delete root;}
     bool search(ll num) {
-        node *n = root;
+        Node *n = root;
         if(!root) return false;
         while(n) {
             if(num == n->value) return true;
@@ -81,7 +81,7 @@ class AVL{
         return false;
     }
     void insert(ll num) {
-        node *n = root, *nw_node = new node(num);
+        Node *n = root, *nw_node = new Node(num);
         if(!root) {
             root = nw_node;
             return;
@@ -103,7 +103,7 @@ class AVL{
         root = n;
     }
     void erase(ll num) {
-        node *n = root, *x = nullptr; // x the node to erase.
+        Node *n = root, *x = nullptr; // x the node to erase.
         while(n) {
             if(num == n->value) break;
             if(num < n->value) n = n->l;
