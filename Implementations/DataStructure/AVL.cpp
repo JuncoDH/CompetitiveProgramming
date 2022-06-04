@@ -134,6 +134,20 @@ class AVL{
         vll ans;
         root->get_elements(ans);
         return ans;
+        } // Return the next highest element > num, or inf if there is none.
+    ll next(ll num) {
+        ll ans = inf;
+        if(!root) return ans;
+        Node *n = root;
+        while(n) {
+            if(num < n->value) {
+                ans = min(ans, n->value);
+                n = n->l;
+            } else {
+                n = n->r;
+            }
+        }
+        return ans;
     }
 };
 

@@ -1,17 +1,17 @@
-class node{
+class Node{
     public:
     ll value = 0;
-    node *l = nullptr, *r = nullptr, *p = nullptr;
-    node() = default;
-    node(ll _value) {value = _value;}
-    ~node() {delete l; delete r;}
+    Node *l = nullptr, *r = nullptr, *p = nullptr;
+    Node() = default;
+    Node(ll _value) {value = _value;}
+    ~Node() {delete l; delete r;}
     bool is_leaf() {
         return l == nullptr && r == nullptr;
     }
 };
 class SplayTree{
-    void left_rotation(node *n) {
-        node *ans = n->r;
+    void left_rotation(Node *n) {
+        Node *ans = n->r;
         n->r = ans->l;
         if(ans->l) ans->l->p = n;
         ans->l = n;
@@ -21,8 +21,8 @@ class SplayTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void right_rotation(node *n) {
-        node *ans = n->l;
+    void right_rotation(Node *n) {
+        Node *ans = n->l;
         n->l = ans->r;
         if(ans->r) ans->r->p = n;
         ans->r = n;
@@ -32,11 +32,11 @@ class SplayTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void splay(node *n) { // Move n to the root.
+    void splay(Node *n) { // Move n to the root.
         while(true) {
-            node *p = n->p; // Parent.
+            Node *p = n->p; // Parent.
             if(!p) break;
-            node *pp = p->p; // Grand parent.
+            Node *pp = p->p; // Grand parent.
             if(!pp) { // Zig.
                 if(n == p->l) right_rotation(p);
                 else left_rotation(p);
@@ -62,17 +62,17 @@ class SplayTree{
         }
         root = n;
     }
-    void dfs_get_elements(node *u, vll &v) {
+    void dfs_get_elements(Node *u, vll &v) {
         if(!u) return;
         dfs_get_elements(u->l, v);
         v.pb(u->value);
         dfs_get_elements(u->r, v);
     }
     public:
-    node *root = nullptr;
+    Node *root = nullptr;
     ~SplayTree() {delete root;}
     void insert(ll value) {
-        node *n = root, *nw = new node(value);
+        Node *n = root, *nw = new Node(value);
         if(!root) {
             root = nw;
             return;
@@ -92,7 +92,7 @@ class SplayTree{
         splay(nw);
     }
     bool find(ll value) {
-        node *n = root;
+        Node *n = root;
         if(!root) return false;
         while(true) {
             if(n->value == value) break;
@@ -110,8 +110,8 @@ class SplayTree{
     }
     void erase(ll value) {
         if(!find(value)) return; // Not inserted.
-        node *n = root;
-        node *p = n->r; // Next higher node.
+        Node *n = root;
+        Node *p = n->r; // Next higher node.
         if(!p) {
             root = n->l;
             if(root) root->p = nullptr;
@@ -134,6 +134,20 @@ class SplayTree{
     vll get_elements() {
         vll ans;
         dfs_get_elements(root, ans);
+        return ans;
+    } // Return the next highest element > num, or inf if there is none.
+    ll next(ll num) {
+        ll ans = inf;
+        if(!root) return ans;
+        Node *n = root;
+        while(n) {
+            if(num < n->value) {
+                ans = min(ans, n->value);
+                n = n->l;
+            } else {
+                n = n->r;
+            }
+        }
         return ans;
     }
 };
