@@ -1,46 +1,51 @@
-typedef complex<double> cd;
-typedef vector<cd> vcd;
-void show(vcd &e) { //for debug
-    int cont = 0; for(auto el : e) {cout << " +" << (el.real() > eps ? el.real() : 0) << "x^" << cont++;} cout << endl;
-}
-void convolution(vcd &a) { //insert a_i and get y_i = sum_j(a_j*w_i^j)
-    int i, n = a.size(); //n power of 2
-    if(n == 1) return;
-    vcd a_even, a_odd;
-    for(i = 0; i < n; i++) { //divide part of FFT
-        if(i%2) a_odd.pb(a[i]);
-        else a_even.pb(a[i]);
+// Fast Fourier Trasnform, to get DFT
+// Discrete Fourier Transform, point evaluation of
+// w_n^k (the kth root of unity).
+typedef complex<double> cd; // NOT long double, TLE.
+class FFT{
+    static void convolution(vector<cd> &a) {
+        int i = 0, n = a.size(); // n power of 2.
+        if(n == 1) return;
+        vector<cd> a_even, a_odd;
+        for(i = 0; i < n; i++)
+            i%2 ? a_odd.pb(a[i]) : a_even.pb(a[i]);
+        convolution(a_even);
+        convolution(a_odd);
+        cd wn = polar((double)1.0, 2*(double)PI/n), w = 1.0;
+        for(i = 0; i < n/2; i++) {
+            //w = polar(1.0, i*2*(double)PI/n); // Avoids precission error, but slower.
+            a[i] = a_even[i] + w*a_odd[i];
+            a[i + n/2] = a_even[i] - w*a_odd[i];
+            w = w*wn;
+        }
     }
-    convolution(a_even); //recursive part
-    convolution(a_odd);
-    cd wn = polar(1.0, 2*(double)PI/n), w = 1.0; //wn^i are the n roots of n-unity
-    //cd w;
-    for(i = 0; i < n/2; i++) {
-        //w = polar(1.0, i*2*(double)PI/n); //avoid precission error, but slower
-        a[i] = a_even[i] + w*a_odd[i]; //A(wn^k) = Aeven(wn/2^k) + wn^k+Aodd(wn/2^k)
-        a[i + n/2] = a_even[i] - w*a_odd[i]; //A(wn^k) = Aeven(wn/2^(k-n/2)) - wn^(k-n/2)+Aodd(wn/2^(k-n/2))
-        w = w*wn;
+    static void deconvolution(vector<cd> &a) {
+        for(auto &el : a) el = conj(el); 
+        convolution(a);
+        for(auto &el : a) el /= (double)a.size();
     }
-}
-void deconvolution(vcd &a) { //insert y_i and get a_i = sum_j(y_j*w_i^-j)/n
-    for(auto &el : a) el = conj(el); //you can conjugate wn and do a[i]/n o can conj(a[i])/n
-    convolution(a); // The coefficients of the polynomial have to be are real
-    for(auto &el : a) el /= (double)a.size();
-}
-// Calculate \sum_{i=0}^{n-1} a[i]*b[n-i].
-vcd FFT(vcd &a, vcd &b) { //multiply polynomial a*b
-    //vcd a = {1.0, 2.0}, b = {3.0}, c;// a and b examples of polynomials to multiply, real coefficients
-    vcd c;
-    if(a.size() < b.size()) swap(a, b);
-    int i, n = a.size();
-    while(n - LSB(n)) n++, a.pb(0.0); //add 0.0's to the next power of two of the next power of two, 3->8
-    n++, a.pb(0.0);
-    while(n - LSB(n)) n++, a.pb(0.0);
-    while((int) b.size() < n) b.pb(0.0); //the grade of a and b equal.
-    convolution(a);
-    convolution(b); //if you want a*a then delete this 2º call
-    for(i = 0; i < n; i++) c.pb(a[i]*b[i]);
-    deconvolution(c);
-    return c;
-}
+    public:
+    // c[j] is Sum_{0, j} of a[i]*b[j - i].
+    static vector<cd> multiply(vector<cd> a, vector<cd> b) {
+        int i, n = max(a.size(), b.size());
+        if(n == LSB(n)) n--;
+        for(i = 30; i >= 0; i--) if(is_set(n, i)) break;
+        i += 2; // Next power of two: 3 -> 8.
+        n = 1<<i;
+        while((int)a.size() < n) a.pb(0.0);
+        while((int)b.size() < n) b.pb(0.0);
+        convolution(a);
+        convolution(b); // Don't need to call if a*a.
+        vector<cd> ans(n);
+        for(i = 0; i < n; i++) ans[i] = a[i]*b[i];
+        deconvolution(ans);
+        return ans;
+    }
+    static void show(vector<cd> &v) {
+        int i, cont = 0; // Maximum 20 elements.
+        for(i = 0; i < min((int)v.size(), 20); i++) {
+            cout << " +" << (v[i].real() > eps ? v[i].real() : 0) << "x^" << cont++;
+        } cout << endl;
+    }
+};
 
