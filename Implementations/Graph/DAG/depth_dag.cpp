@@ -1,5 +1,5 @@
-class DepthDAG{
-    vector<vi> graph;
+vector<vi> graph;
+namespace DepthDAG{
     vi depth; // Depth from node to one leaf. Leafs are depth 0.
     void dfs_get_depth(int u) {
         if(depth[u] != -1) return;
@@ -9,10 +9,6 @@ class DepthDAG{
             depth[u] = max(depth[u], 1 + depth[v]);
         }
     }
-    public:
-    DepthDAG(int n) {graph.assign(n, vi());};
-    DepthDAG(vector<vi> _graph) {graph = _graph;}
-    void add_edge(int u, int v) {graph[u].pb(v);}
     vi get_depth() {
         int n = graph.size();
         depth.assign(n, -1);

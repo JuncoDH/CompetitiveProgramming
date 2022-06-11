@@ -33,7 +33,9 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
 - Ideas for solving a hard problem
   > If you do not have an idea of the sketch of a solution, think about how each of these ideas can solve a part of your problem.
   - Complexity O(n^2), O(n), O(log n), O(n sqrt(n)), O(n!), O(2^n).
+  - Simulation.
   - Greedy.
+  - Binary Search.
   - Two pointers.
   - Bit masks, bitsets, iterate, there are few bits < 30 in an int.
   - Data Structure, Binary tree.
