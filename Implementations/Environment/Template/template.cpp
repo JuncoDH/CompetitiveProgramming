@@ -6,11 +6,10 @@ using namespace std;
 #define pb push_back
 #define fi first
 #define se second
-#define LSB(x) ((x) & (-(x)))
-#define is_set(x, i) (((x)>>(i))&1)
-#define set_bit(x, i) {(x) |= 1ll<<(i);}
-#define unset_bit(x, i) {(x) = ((x) | (1ll<<(i))) ^ (1ll<<(i));}
 
+const long double PI = acos(-1);
+const long double eps = 1e-9;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
 #define echoarr(x) {for(int _i=0,_n=min((size_t)15,sizeof(x)/sizeof(x[0]));_i<_n;_i++)\
@@ -19,18 +18,14 @@ using namespace std;
 #define echo2(x) {cout<<#x<<endl; for(auto el : x) {ECHO(el); cout << endl;}}
 #else
 #define echoarr(x)
-#define echo(...) 
-#define echo2(x) 
+#define echo(...)
+#define echo2(x)
 #endif
-
-const long double PI = acos(-1);
-const long double eps = 1e-9;
-const long long inf = LLONG_MAX / 10;
 
 void ECHO(string _s){cout<<_s;}
 void ECHO(bool _s){if(_s)cout<<"true";else cout<<"false";}
 void ECHO(char _s){cout<<_s;}
-void ECHO(long unsigned _s) {cout<<_s;}//for s.size()
+void ECHO(long unsigned _s) {cout<<_s;}
 void ECHO(long long unsigned _s) {cout<<_s;}
 void ECHO(int _s){cout<<_s;}
 void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
@@ -64,15 +59,13 @@ template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
     while(_i < (int)_s.size() && (_s[_i] == ',' || _s[_i] == ' ')) _i++;
     ECHO(_s.substr(_i), args...);
 }
-
 template<typename T> // Input vector<T>.
-istream& operator >> (istream& is, vector<T>& v) {
-    for(T& el : v) is >> el;
+istream& operator >> (istream &is, vector<T> &v) {
+    for(T &el : v) is >> el;
     return is;
 }
-
 template<typename T> // Output vector<T>.
-ostream& operator << (ostream& os, const vector<T>& v) {
+ostream& operator << (ostream &os, const vector<T> &v) {
     bool _first = false;
     for(T el : v) {
         if(_first) os << " ";
@@ -81,13 +74,25 @@ ostream& operator << (ostream& os, const vector<T>& v) {
     }
     return os;
 }
+using ll = long long;
+bool is_set(ll x, ll i) {return (x>>i)&1;}
+void set_bit(ll &x, ll i) {x |= 1ll<<i;}
+void unset_bit(ll &x, ll i) {x = (x | (1ll<<i)) ^ (1ll<<i);}
+ll LSB(ll x) {return x & (-x);}
+int LSB_idx(ll x) { // Number of starting zeros.
+    for(int i = 0; i < 63; i++) if(is_set(x, i)) return i;
+    return -1;
+}
+ll MSB(ll x) {
+    for(int i = 63; i >= 0; i--) if(is_set(x, i)) return 1<<i;
+    return 0;
+}
+using ld = long double;
+using vll = vector<ll>;
+using vi = vector<int>;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
 
-typedef long double ld;
-typedef long long ll;
-typedef vector<ll> vll;
-typedef vector<int> vi;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
 
 
 
@@ -100,4 +105,5 @@ int main(){
 
     return 0;
 }
+
 

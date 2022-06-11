@@ -16,4 +16,6 @@ ll formula_3(ll _n, ll _k) {
 ll formula_4(ll x, ll d, ll _n) {
     return _n*x + d*formula_1(_n);
 }
+// Sum_{0, inf} x^i = 1/(1-x) if abs(x) < 1, inf abs(x) >= 1.
+// Sum_{0, inf} i*x^i = x/(1-x)^2 if abs(x) < 1, inf abs(x) >= 1.
 

@@ -30,6 +30,7 @@ class SegmentTree {
         return f(qa, qb);
     }
     public:
+    SegmentTree() = default;
     SegmentTree(vector<T> &_v) {
         v = _v;
         n = v.size();
