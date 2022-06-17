@@ -38,7 +38,7 @@ class PalindromicTree{ // Or eertree.
             tree[last].num_palindromes = tree[tree[last].suffix_link].num_palindromes + 1;
         } else last = tree[p].to[ch];
         return tree[last].num_palindromes;
-    }
+    } // Number of different palindromes is tree.size()-2, or -1 if counts "".
 };
 
 

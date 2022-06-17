@@ -16,6 +16,15 @@ ll formula_3(ll _n, ll _k) {
 ll formula_4(ll x, ll d, ll _n) {
     return _n*x + d*formula_1(_n);
 }
+// Sum_{0, n} i^2 = Sum of i^2 in [0, n] = (n(n+1)(2n+1))/6.
+ll formula_5(ll _n) {
+    return _n*(_n+1)*(2*_n+1)/6;
+}
+// Sum_{0, n} i^3 = Sum of i^3 in [0, n] = ((n(n+1))/2)^2.
+ll formula_6(ll _n) {
+    ll ans = formula_1(_n);
+    return ans*ans;
+}
 // Sum_{0, inf} x^i = 1/(1-x) if abs(x) < 1, inf abs(x) >= 1.
 // Sum_{0, inf} i*x^i = x/(1-x)^2 if abs(x) < 1, inf abs(x) >= 1.
 
