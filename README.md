@@ -43,6 +43,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Contribution to the answer.
   - Geometry, write auxiliary functions, binary search point in a plane with a convex function.
   - Graph, Minimum distance, flow, tree.
+  - Split graph into SCC.
   - Hash a DataStructure.
   - Math well known formulas, factorize, gcd, modulus.
   - Random solution.
@@ -62,4 +63,6 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Transform the math formula of the problem to one more symmetric: r - l = a[r] - a[l] <=> r - a[r] = l - a[l].
   - Extreme cases n = 0, n = 1, n = MAX, n = MAX-1.
   - Check epsilon, min eps = 1e-308.
-
+  - Create graph from points, there is an edge i->j if f(i, j) satisfy a given property.
+  - When creating palindromes, usually is 111...111 or 99...99.
+  
