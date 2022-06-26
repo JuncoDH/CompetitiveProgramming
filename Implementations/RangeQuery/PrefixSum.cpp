@@ -3,6 +3,7 @@ class PrefixSum {
     int _n;
     vector<T> psum;
     public:
+    PrefixSum() = default;
     PrefixSum(vector<T> &_v) {
         _n = _v.size();
         psum.assign(_n, 0);

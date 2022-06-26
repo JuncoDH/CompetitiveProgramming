@@ -16,7 +16,6 @@ node<ll> *root[MAX_VERSION]; //it stores the i versions after updates, start at 
 template<typename T>
 class PersistentSegmentTree {
     vector<T> arr; // Copy of the array to build SegmentTree.
-
     void build(node<T> *n) { // O(n).
         if(n->l == n->r) {n->value = arr[n->l]; return;}
         n->pl = new node<T>(n->l, n->mid);
@@ -67,8 +66,8 @@ template<typename T>
 class NumberDistinctNumbers { // Works for queries online. For offline can check MO's.
     PersistentSegmentTree<T> pst;
     static const int MAX_ELEMENT_VALUE = 1e6+4; // for querying last[el].
-
     public:
+    NumberDistinctNumbers() = default;
     NumberDistinctNumbers(vector<T> &v) { // O(nlogn).
         T last[MAX_ELEMENT_VALUE]; // last ocurrence of the i-number in the array, updating from left to right.
         int n = v.size();

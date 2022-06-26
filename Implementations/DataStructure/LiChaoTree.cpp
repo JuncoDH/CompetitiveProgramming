@@ -41,6 +41,7 @@ class LiChaoTree{
         return max(ans, query(k<<1|1, mid+1, r, x));
     }
     public:
+    LiChaoTree() = default;
     LiChaoTree(int _n) {
         n = _n;
         st.assign(4*n, Line<T>());

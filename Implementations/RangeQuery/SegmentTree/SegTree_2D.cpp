@@ -59,6 +59,7 @@ class SegTree_2D {
         }
     }
     public:
+    SegTree_2D() = default;
     SegTree_2D(int _n, int _m) {
         n = _n;
         m = _m;

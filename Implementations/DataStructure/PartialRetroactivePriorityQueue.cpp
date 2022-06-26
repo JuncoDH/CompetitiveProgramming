@@ -222,11 +222,10 @@ class PartialRetroactivePriorityQueue {
     Treap<int, T> nqnow; //the elements that are NOT in Qnow
     SegmentTreePrefixSum<T> bridge; //if the query(t', t') == 0, there is a bridge in t'
     public:
-
+    PartialRetroactivePriorityQueue() = default;
     PartialRetroactivePriorityQueue(int _size) {
         bridge = SegmentTreePrefixSum<T>(_size);
     }
-
     void insertPush(int t, T data){//Insert(t, "insert(data)") O(log n)
         int tl = bridge.getLastBridge(t);
         nqnow.insert(t, data);

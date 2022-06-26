@@ -7,6 +7,7 @@ class SegTreeIterative {
         return a + b;
     }
     public:
+    SegTreeIterative() = default;
     SegTreeIterative(int _n) {
         n = _n;
         // Complete to a power of two, if f is sum add 0, if f is min add INT_MAX...

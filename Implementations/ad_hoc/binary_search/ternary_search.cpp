@@ -13,16 +13,15 @@ bool is_solution(ll mid) {
     ll dx3 = count_digits(mid+1)-count_digits(p1-1);
     ll dx4 = count_digits(p2) - count_digits(mid+1);
     if(dx1 < 0 || dx2 < 0 || dx3 < 0 || dx4 < 0) return false;
-    // echo(dx2-dx1, dx4-dx3);
     if(dx2-dx1 >= 0 && dx4-dx3 < 0) return true;
     return false;
 }
+// Split [l, r] into [l, ans], [ans+1, r].
 ll ternary_search(ll l, ll r) {
     ll mid;
     while(l+1 < r) {
         mid = (l+r)/2;
         if(is_solution(mid)) return mid;
-        // echo(l, mid, r, ans1, ans2);
         // If the slope is decreasing.
         if(f(mid) >= f(mid+1)) l = mid;
         else r = mid;

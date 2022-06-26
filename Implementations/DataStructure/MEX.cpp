@@ -5,6 +5,7 @@ class Mex{ // change set -> unordered_set for O(1) all.
     set<int> s; // Elements NOT inserted.
     set<int> to_clear; // Elements inserted.
     public:
+    Mex() = default;
     Mex(int _n) {
         n = _n + 2; // + 2 To be sure.
         cnt.assign(n, 0);

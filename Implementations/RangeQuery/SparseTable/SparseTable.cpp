@@ -10,11 +10,11 @@ class SparseTable {
         return min(a, b);
     }
     public:
-    SparseTable(vector<T> &v) {
+    SparseTable() = default;
+    SparseTable(vector<T> &_v) {
         int i, j;
-        n = v.size();
-        for(i = 0; i < n; ++i) table[i][0] = v[i];
-        
+        n = _v.size();
+        for(i = 0; i < n; ++i) table[i][0] = _v[i];
         for(j = 1; j < LOG2_MAX; ++j){
             for(i = 0; i < n; ++i){
                 if(i + (1ll << (j - 1)) >= n) break;

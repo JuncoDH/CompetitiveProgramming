@@ -67,6 +67,7 @@ class LazySegmentTree { // Use lazy propagation.
         return Node<T>(a, b);
     }
     public:
+    LazySegmentTree() = default;
     LazySegmentTree(vector<T> v) {
         v_input = v;
         v_size = v_input.size();

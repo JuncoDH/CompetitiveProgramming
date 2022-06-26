@@ -3,6 +3,7 @@ class BIT{
     vector<T> bit;
     int n;
     public:
+    BIT() = default;
     BIT(int _n) {
         n = _n;
         bit.assign(n+1, 0);

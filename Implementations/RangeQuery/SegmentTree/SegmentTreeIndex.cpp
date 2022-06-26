@@ -1,3 +1,7 @@
+function<ll(ll, ll)> st_min = [](ll a, ll b) {return min(a, b);};
+function<ll(ll, ll)> st_max = [](ll a, ll b) {return max(a, b);};
+function<ll(ll, ll)> st_sum = [](ll a, ll b) {return a + b;};
+function<ll(ll, ll)> st_gcd = [](ll a, ll b) {return __gcd(a, b);};
 // Point update and Range query.
 // pair<T, pii> is (value, (posL, posR)).
 // posL is the leftmost index that has value, in the range.
@@ -6,9 +10,10 @@ class SegmentTree {
     vector<pair<T, pii>> t;
     vector<T> v;
     int n;
+    function<ll(ll, ll)> merge; // The function of the query. __gcd, +, |, &, max, min.
     pair<T, pii> f(pair<T, pii> a, pair<T, pii> b) { 
         pair<T, pii> ans;
-        ans.fi = min(a.fi, b.fi); // The function of the query. __gcd, +, |, &, max, min.
+        ans.fi = merge(a.fi, b.fi);
         if(ans.fi == a.fi) ans.se = a.se;
         else ans.se = b.se;
         if(ans.fi == b.fi) {
@@ -42,10 +47,11 @@ class SegmentTree {
     }
     public:
     SegmentTree() = default;
-    SegmentTree(vector<T> &_v) {
+    SegmentTree(vector<T> &_v, function<ll(ll, ll)> &_merge) {
         v = _v;
         n = v.size();
         t.assign(4*n, {});
+        merge = _merge;
         build(1, 0, n-1);
     }
     void update(int p, T x) {

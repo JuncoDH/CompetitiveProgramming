@@ -7,7 +7,7 @@ vll low; // Minimum discover time using a back edge.
 vll discover; // Discover DFS time.
 vll parent;
 vector<bool> AP; // True iff i is an Articulation Point.
-void ini() {
+void init() {
     graph.assign(n, vll());
     low.assign(n, -1);
     discover.assign(n, -1);

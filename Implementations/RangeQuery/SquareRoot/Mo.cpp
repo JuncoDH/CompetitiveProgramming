@@ -34,6 +34,7 @@ class Mo{
         if(freq[v[i]] == 0) currAns--;
     }
     public:
+    Mo() = default;
     Mo(vll &_v) {
         v = _v;
     }

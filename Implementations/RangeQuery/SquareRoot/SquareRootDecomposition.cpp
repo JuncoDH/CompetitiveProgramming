@@ -4,6 +4,7 @@ class SquareRootDecomposition {
     vector<T> bucket;//(N/B + 1, 0T);
     vector<T> v;
     public:
+    SquareRootDecomposition() = default;
     SquareRootDecomposition(vector<T> &_v) {
         bucket.assign((int)_v.size()/B +1, 0);
         v = _v;

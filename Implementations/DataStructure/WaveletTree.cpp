@@ -20,7 +20,6 @@ class WaveletTree {
     WaveletTree() = default;
     // the array is considered as {empty, v}, so query 1-index, v[i] => q(i+1)
     WaveletTree(T* v, int n) : WaveletTree(v, v + n, *min_element(v, v + n), *max_element(v, v + n)) {}
-
     // Number of times of q is in the subarray vi..vj
     int rank(int i, int j, T q) { // NOT tested
         if(mn == mx) return mn == q ? j - i + 1 : 0;

@@ -3,6 +3,7 @@ class BIT_2D {
     vector<vector<T>> Bit2D;
     int n, m;
     public:
+    BIT_2D() = default;
     BIT_2D(int _n, int _m) {
         n = _n;
         m = _m;

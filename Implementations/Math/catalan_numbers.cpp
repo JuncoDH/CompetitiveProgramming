@@ -15,7 +15,7 @@ ll elevate(ll a, ll b){
 ll inv(ll a){
     return elevate(((a%mod) + mod)%mod, mod - 2);
 }
-void ini() {
+void init() {
     int i = 0;
     fact[0] = 1;
     inv_fact[0] = 1;

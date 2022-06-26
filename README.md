@@ -65,4 +65,8 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Check epsilon, min eps = 1e-308.
   - Create graph from points, there is an edge i->j if f(i, j) satisfy a given property.
   - When creating palindromes, usually is 111...111 or 99...99.
+  - If the greedy doesnt work, its because a step in your proof is WRONG.
+  - If you have 3 operations, maybe one can do all in the beginning, or in the end.
+  - Take derivative array. v'[i] = v[i] - v[i-1].
+  - If have to check if is possible to convert a to c, maybe check a middle state a to b and c to b, special if the operations are reversible.
   

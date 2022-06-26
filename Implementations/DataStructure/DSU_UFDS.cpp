@@ -7,6 +7,7 @@ class DSU {
         return parent[a] = find_parent(parent[a]);
     }
     public:
+    DSU() = default;
     DSU(int _n) {
         n = _n;
         parent.assign(n, 0);
