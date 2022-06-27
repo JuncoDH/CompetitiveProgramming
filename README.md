@@ -69,4 +69,5 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - If you have 3 operations, maybe one can do all in the beginning, or in the end.
   - Take derivative array. v'[i] = v[i] - v[i-1].
   - If have to check if is possible to convert a to c, maybe check a middle state a to b and c to b, special if the operations are reversible.
+  - Use WolframAlpha to simplify: 'sum b+i choose i, i=0 to a'.
   

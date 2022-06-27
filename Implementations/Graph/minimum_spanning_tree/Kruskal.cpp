@@ -1,4 +1,4 @@
-class DSU{
+class DSU {
     int n;
     vi parent;
     vi rank;
@@ -7,8 +7,11 @@ class DSU{
         return parent[a] = find_parent(parent[a]);
     }
     public:
+    int number_components;
+    DSU() = default;
     DSU(int _n) {
         n = _n;
+        number_components = n;
         parent.assign(n, 0);
         rank.assign(n, 0);
         for(int i = 0; i < n; ++i) parent[i] = i;
@@ -18,28 +21,20 @@ class DSU{
     }
     void Union(int a, int b){
         a = find_parent(a);
-        b = find_parent(b);
-        
+        b = find_parent(b);        
         if(a == b) return;
-
+        number_components--;
         if(rank[a] > rank[b]) parent[b] = a;
         else if(rank[a] < rank[b]) parent[a] = b;
         else {parent[a] = b; rank[b]++;}
     }
-    // Return the number of components in [0..n-1]. Be careful with single components not used in [n..n+extra_space].
-    int number_components() {
-        int ans = 0, i;
-        for(i = 0; i < n; i++) ans += find_parent(i) == i;
-        return ans;
-    }
 };
-DSU dsu(1);
 // Minimum spanning tree in a bidirected graph.
 // graph contains elements [0..n-1], no extra space.
 ll Kruskal(vector<vector<pii>> &graph) {
     int n = graph.size(), i;
     ll ans = 0;
-    dsu = DSU(n);
+    DSU dsu(n);
     vector<pair<ll, pii>> edge;
     for(i = 0; i < n; i++) {
         for(auto el : graph[i]) {
@@ -55,6 +50,7 @@ ll Kruskal(vector<vector<pii>> &graph) {
             ans += e.fi;
         }
     }
+    if(dsu.number_components > 1) return -1;
     return ans;
 }
 
