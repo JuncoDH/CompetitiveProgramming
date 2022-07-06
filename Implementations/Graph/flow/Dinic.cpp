@@ -54,7 +54,7 @@ class Dinic{
         graph[v].pb(n_edges+1);
         n_edges += 2;
     }
-    int max_flow() {
+    int max_flow() { // It consumes the graph.
         int flow = 0, pushed;
         while(true) {
             lvl.assign(n, -1);

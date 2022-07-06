@@ -36,6 +36,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Simulation.
   - Greedy.
   - Binary Search.
+  - Sort.
   - Two pointers.
   - Bit masks, bitsets, iterate, there are few bits < 30 in an int.
   - Data Structure, Binary tree.
@@ -70,4 +71,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Take derivative array. v'[i] = v[i] - v[i-1].
   - If have to check if is possible to convert a to c, maybe check a middle state a to b and c to b, special if the operations are reversible.
   - Use WolframAlpha to simplify: 'sum b+i choose i, i=0 to a'.
+  - Maybe the problem has wrong limits.
+  - Maybe there are more than one test case.
+  - The test case don't finish in 0 0 if not said otherwise.
   
