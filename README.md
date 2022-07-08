@@ -74,4 +74,10 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Maybe the problem has wrong limits.
   - Maybe there are more than one test case.
   - The test case don't finish in 0 0 if not said otherwise.
+  - Birthay paradox: In a set of n elements, the first match will be in sqrt(n). With 2^n, will be 2^(n/2). In a set of n elements, will be O(n) ~ n/3 elements that are repeated.
+  
+  
+  
+  
+  
   
