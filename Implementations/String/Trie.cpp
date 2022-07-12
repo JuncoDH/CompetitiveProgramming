@@ -26,8 +26,8 @@ class node {
     }
 };
 class Trie {
-    node *root = new node();
     public:
+    node *root = new node();
     ~Trie() {delete root;}
     void add(string &s) {
         node *n = root;
@@ -92,6 +92,28 @@ class Trie {
         }
         if(j != node::ALPHABET) ans += n->count_word;
         return ans;
+    }
+};
+class TriePointer{
+    public:
+    node *n = nullptr;
+    TriePointer() = default;
+    TriePointer(Trie &t) {
+        n = t.root;
+    }
+    bool can_move(char c) {
+        int nc = c - node::FIRST_LETTER;
+        if(!n->c[nc]) return false;
+        return true;
+    }
+    bool move(char c) {
+        int nc = c - node::FIRST_LETTER;
+        if(!n->c[nc]) return false;
+        n = n->c[nc];
+        return true;
+    }
+    void back() {
+        if(n->p) n = n->p;
     }
 };
 
