@@ -42,6 +42,8 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Data Structure, Binary tree.
   - DP, write transitions in a paper, optimize them. Top-Down, Botom-Up, min ans, sum all possible ans, 0-1 possible ans.
   - Contribution to the answer.
+  - Branch and bound.
+  - Brute force.
   - Geometry, write auxiliary functions, binary search point in a plane with a convex function.
   - Graph, Minimum distance, flow, tree.
   - Split graph into SCC.
@@ -52,7 +54,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - String, Automaton, Rope, Trie.
   > Less general ideas.
   - Observation, Create lemmas.
-  - Get invariants.
+  - Get invariants: Parity, Sum a[i]
   - If you have to print a board of size n, maybe you can create a board of size 4 and replicate the pattern.
   - Maybe the solution is always <= 2, so there are few cases. Maybe sol is n, n+1 only.
   - Binary search convex functions.
@@ -75,7 +77,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Maybe there are more than one test case.
   - The test case don't finish in 0 0 if not said otherwise.
   - Birthay paradox: In a set of n elements, the first match will be in sqrt(n). With 2^n, will be 2^(n/2). In a set of n elements, will be O(n) ~ n/3 elements that are repeated.
-  
+  - Sweep line, left to right
   
   
   
