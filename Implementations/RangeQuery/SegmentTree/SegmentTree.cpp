@@ -44,6 +44,9 @@ class SegmentTree {
         update(1, 0, n-1, p, x);
     } // [ql, qr].
     T query(int ql, int qr) {
+        if(ql > qr) swap(ql, qr);
+        ql = max(ql, 0);
+        qr = min(qr, n-1);
         return query(1, 0, n-1, ql, qr);
     }
 };

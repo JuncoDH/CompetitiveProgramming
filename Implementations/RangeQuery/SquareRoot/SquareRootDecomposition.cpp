@@ -14,6 +14,9 @@ class SquareRootDecomposition {
     }
     // [l..r].
     T query(int l, int r) {
+        if(l > r) swap(l, r);
+        l = max(l, 0);
+        r = min(r, n-1);
         T ans = 0;
         int i;
         if(l/B == r/B) {

@@ -4,7 +4,7 @@ class Node{
     Node *l = nullptr; // Double linked list (c, c->r, c->r->r, ..., ->c).
     Node *r = nullptr; // l and r wont be nullptr.
     Node *c = nullptr; // One child. 
-    int degree = 0; // Number of direct childs. It has O(log n).
+    int degree = 0; // Number of direct children. It has O(log n).
     int value = 0; // Value of the node, int, ll...
     Node(int _value) {
         value = _value;
@@ -88,7 +88,7 @@ class FibonacciHeap{
         if(!min_el) return INT_MAX;
         return min_el->value;
     }
-    void Union(FibonacciHeap &fh) { // Add fh nodes to this.
+    void merge(FibonacciHeap &fh) { // Add fh nodes to this.
         if(!min_el) {
             min_el = fh.min_el;
         } else if(fh.min_el) {

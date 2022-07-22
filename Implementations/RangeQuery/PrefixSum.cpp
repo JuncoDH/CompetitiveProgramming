@@ -12,13 +12,13 @@ class PrefixSum {
             psum[i] += _v[i];
         }
     }
-    // Get sum of the array v[l..r].
-    T get_sum(int l, int r) {
-        l = max(l, 0);
-        r = min(r, _n-1);
-        if(r < l) return 0;
-        if(l == 0) return psum[r];
-        return psum[r] - psum[l-1];
+    // Get sum of the array v[ql..qr].
+    T get_sum(int ql, int qr) {
+        if(ql > qr) swap(ql, qr);
+        ql = max(ql, 0);
+        qr = min(qr, n-1);
+        if(ql == 0) return psum[qr];
+        return psum[qr] - psum[ql-1];
     }
 };
 

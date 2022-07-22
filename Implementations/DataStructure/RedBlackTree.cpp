@@ -82,7 +82,7 @@ class RedBlackTree{
         }
         root->color = node::BLACK;
     }
-    node *get_next_higher(node *u) { // Get next higher node. u has to have 2 childs.
+    node *get_next_higher(node *u) { // Get next higher node. u has to have 2 children.
         u = u->r;
         while(!u->l->is_leaf()) u = u->l;
         return u;
@@ -94,7 +94,7 @@ class RedBlackTree{
         dfs_get_elements(u->r, v);
     }
     void erase_fixup(node *x) {
-        node *w = nullptr; // Sibling of x, allways has childs.
+        node *w = nullptr; // Sibling of x, allways has children.
         while(x != root && x->color == node::BLACK) {
             if(x == x->p->l) {
                 w = x->p->r;

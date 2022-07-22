@@ -18,16 +18,16 @@ void dfs(int u) { // Call dfs(root).
     static int Time = 0;
     if(discover[u] != -1) return;
     low[u] = discover[u] = Time++;
-    int childs = 0;
+    int children = 0;
     for(auto v : graph[u]) {
         if(discover[v] == -1) {
-            childs++;
+            children++;
             parent[v] = u;
             dfs(v);
             low[u] = min(low[u], low[v]);
             // Every time you set AP[u] = true, the number of components after
             // removing the nodes u or v from the graph increase.
-            if(parent[u] == -1 && childs > 1) AP[u] = true;
+            if(parent[u] == -1 && children > 1) AP[u] = true;
             if(parent[u] != -1 && low[v] >= discover[u]) AP[u] = true;
             //if(low[v] > discover[u]) {} // edge u->v is a bridge.
         }

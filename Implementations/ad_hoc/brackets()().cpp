@@ -16,7 +16,7 @@ void get_index_pair() {
     }
 }
 ---------------------------------------------------------
-// Convert a string of '(' and ')' to a regular bracket sequence.
+// Convert a string of '(' and ')' to a regular bracket sequence, deleting elements.
 // It will prioritize continuous range, ie: ()) -> (). and not (.)
 void convert_to_rbs(string &s) { // rbs - regular bracket sequence.
     stack<int> st;
@@ -26,5 +26,15 @@ void convert_to_rbs(string &s) { // rbs - regular bracket sequence.
         else st.pop();
     }
     while(!st.empty()) {s[st.top()] = '.'; st.pop();}
+}
+---------------------------------------------------------
+bool is_valid_rbs(string &s) { // (()) ok.
+    int i, cnt = 0;
+    for(i = 0; i < (int)s.size(); i++) {
+        if(s[i] == ')') cnt--;
+        else cnt++;
+        if(cnt < 0) return false;
+    }
+    return cnt == 0;
 }
 

@@ -78,6 +78,9 @@ class LazySegmentTree { // Use lazy propagation.
         update(1, 0, v_size-1, ql, qr, x);
     }
     T query(int ql, int qr) { // [ql, qr].
+        if(ql > qr) swap(ql, qr);
+        ql = max(ql, 0);
+        qr = min(qr, n-1);
         Node<T> ans = query(1, 0, v_size-1, ql, qr);
         return ans.value;
     }

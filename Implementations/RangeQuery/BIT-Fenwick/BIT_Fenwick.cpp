@@ -26,7 +26,9 @@ class BIT{
     }
     // query [l, r].
     T query(int l, int r) {
-        if(r < l) return 0;
+        if(l > r) swap(l, r);
+        l = max(l, 0);
+        r = min(r, n-1);
         return query(r) - query(l-1);
     }
     // k-th smallest element inserted.
