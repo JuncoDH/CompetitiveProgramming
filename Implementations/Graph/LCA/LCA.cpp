@@ -4,7 +4,6 @@ int parent[MAX_N][MAX_LOG_N]; // Sparse table.
 class LCA{ // LCA in O(log n), with O(n log n) preprocess.
     int n;
     vector<vi> graph;
-    int lvl[MAX_N];
     void dfs_lvl(int u, int p) {
         parent[u][0] = p;
         lvl[u] = lvl[p] + 1;
@@ -14,6 +13,7 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
         }
     }
     public:
+    int lvl[MAX_N];
     LCA(vector<vi> &_graph) {
         int i, j;
         graph = _graph;
@@ -29,9 +29,7 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
     int lca(int u, int v) { // O(log n).
         if(lvl[u] > lvl[v]) swap(u, v);
         int i, d = lvl[v] - lvl[u];
-        for(i = MAX_LOG_N - 1; i >= 0; i--) {
-            if(is_set(d, i)) v = parent[v][i];
-        }
+        v = get_parent(v, d);
         if(u == v) return u;
         for(i = MAX_LOG_N - 1; i >= 0; i--) {
             if(parent[u][i] != parent[v][i]) {
@@ -42,6 +40,13 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
     }
     int dist(int u, int v) { // distance from u to v O(log n).
         return lvl[u] + lvl[v] - 2*lvl[lca(u, v)];
+    }
+    int get_parent(int u, int dst) { // Calculate the dst parent of u.
+        dst = max(dst, 0);
+        for(int i = 0; i < MAX_LOG_N; i++) {
+            if(is_set(dst, i)) u = parent[u][i];
+        }
+        return u;
     }
 };
 

@@ -19,7 +19,7 @@ class DSU {
     bool is_connected(int a, int b){
         return find_parent(a) == find_parent(b);
     }
-    void Union(int a, int b){
+    void merge(int a, int b){
         a = find_parent(a);
         b = find_parent(b);        
         if(a == b) return;
