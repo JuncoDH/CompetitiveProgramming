@@ -14,6 +14,7 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
     }
     public:
     int lvl[MAX_N];
+    LCA() = default;
     LCA(vector<vi> &_graph) {
         int i, j;
         graph = _graph;
