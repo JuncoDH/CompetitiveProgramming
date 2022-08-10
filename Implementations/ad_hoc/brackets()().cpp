@@ -16,7 +16,7 @@ void get_index_pair() {
     }
 }
 ---------------------------------------------------------
-// Convert a string of '(' and ')' to a regular bracket sequence, deleting elements.
+// Convert a string of '(' and ')' to a regular bracket sequence by deleting elements.
 // It will prioritize continuous range, ie: ()) -> (). and not (.)
 void convert_to_rbs(string &s) { // rbs - regular bracket sequence.
     stack<int> st;

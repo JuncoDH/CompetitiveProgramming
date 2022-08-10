@@ -12,7 +12,7 @@ ll formula_3(ll _n, ll _k) {
     while((r+1)%_k != 0) {_ans += r/_k; r--;}
     return _ans + _k*formula_1(r/_k);
 }
-// Sum_{0, n} (x + i*d)
+// Sum_{0, n} (x + i*d) Arithmetic sum.
 ll formula_4(ll x, ll d, ll _n) {
     return _n*x + d*formula_1(_n);
 }
@@ -27,4 +27,17 @@ ll formula_6(ll _n) {
 }
 // Sum_{0, inf} x^i = 1/(1-x) if abs(x) < 1, inf abs(x) >= 1.
 // Sum_{0, inf} i*x^i = x/(1-x)^2 if abs(x) < 1, inf abs(x) >= 1.
+ll elevate(ll a, ll b) { // b >= 0.
+    ll ans = 1;
+    while(b) {
+        if(b & 1) ans = ans * a;
+        b >>= 1;
+        a = a * a;
+    }
+    return ans;
+}
+// Sum_{0, n} x^i = Sum of x^i in [0, n] = (Last*Ratio - First)/(Ratio - 1). Geometric sum.
+ll formula_7(ll r, ll n) {
+    return (elevate(r, n + 1) - 1) / (r - 1);
+}
 

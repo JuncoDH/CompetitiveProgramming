@@ -14,13 +14,13 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - ad_hoc (creative solutions for specific problems, not general problems, 2 SAT, clock, ternary search).
   - Bitmask (0's, 1's, binary, logic operations).
   - DataStructures (AVL, UFDS, Heap, LiChaoTree, RedBlackTree, SkipList, SplayTree, Treap, WaveletTree).
-  - DP (Dynamic Programming, Kadane, LCS, LIS, Knapsack).
+  - DP (Dynamic Programming, Kadane, LCS, LIS, Knapsack, Digit DP).
   - Environment (IO, Chronometer, Bash, makefile, template).
   - Geometry (Euclidean Plane, Point, Line).
   - Graphs (Articulation Points, Distances, flows, trees, DAG, cycles).
   - Hash (Custom objects hash, Pair, Set, String, Vector).
   - Math (Primes, congruences, FFT, gcd, Lagrange, Matrix).
-  - Random (Random algorithms, they work < 100% of the time).
+  - Random (Random algorithms, they work <= 100% of the time).
   - RangeQuery (Data Structures for Range Query, BIT, Segment Tree, Sparse Table, Square Root).
   - Strings (Strings, automatas, KMP, Rope, Trie).
 
@@ -61,10 +61,10 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Rotate Manhattan plane: Having a set of (i', j'), abs(i - i') + (j - j') <= k <=> max(abs(i - j - (i' - j')), abs(i + j - (i' + j'))) <= k, so only keep mx and mn of i'-j' and i'+j'.
   - Working with segments in an array, use prefixes (+ o ^).
   - Check base hardcoded cases.
-  - min sum(abs(ai - x)) la mediana, min sum(abs(ai - x)^2) la media.
+  - min sum(abs(ai - x)) the median, min sum(abs(ai - x)^2) the mean.
   - Find ways to tile all board with the same shapes (triangles, rhombus) to make DP.
   - Transform the math formula of the problem to one more symmetric: r - l = a[r] - a[l] <=> r - a[r] = l - a[l].
-  - Extreme cases n = 0, n = 1, n = MAX, n = MAX-1.
+  - Extreme cases n < 0, n = 0, n = 1, n = MAX, n = MAX-1.
   - Check epsilon, min eps = 1e-308.
   - Create graph from points, there is an edge i->j if f(i, j) satisfy a given property.
   - When creating palindromes, usually is 111...111 or 99...99.
@@ -77,9 +77,9 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Maybe there are more than one test case.
   - The test case don't finish in 0 0 if not said otherwise.
   - Birthay paradox: In a set of n elements, the first match will be in sqrt(n). With 2^n, will be 2^(n/2). In a set of n elements, will be O(n) ~ n/3 elements that are repeated.
-  - Sweep line, left to right
-  
-  
+  - Sweep line, left to right.
+  - When removing an element from the solution, double check that it can't be the answer.
+  - Usualy you have to consume all the queries in interactive problems. 
   
   
   

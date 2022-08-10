@@ -1,6 +1,7 @@
-class Kosaraju{ // O(n). x2 times slower than Tarjan.
+vector<vi> graph;
+class Kosaraju{ // SCC O(n). x2 times slower than Tarjan.
     vi s; // Stack.
-    vector<vi> graph, graphT;
+    vector<vi> graphT;
     vector<bool> visited;
     void dfs1(int u) {
         visited[u] = true;
@@ -14,10 +15,9 @@ class Kosaraju{ // O(n). x2 times slower than Tarjan.
             if(!visited[v]) dfs2(v); 
         components.back().pb(u); 
     }
-    public: // Strong Connected Components.
+    public:
     vector<vi> components;
-    Kosaraju(vector<vi> &_graph) {
-        graph = _graph;
+    Kosaraju() {
         int i, n = graph.size();
         visited.assign(n, false);
         for(i = 0; i < n; i++)
