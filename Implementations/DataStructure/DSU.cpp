@@ -23,7 +23,7 @@ class DSU {
     }
     void merge(int a, int b){
         a = find_parent(a);
-        b = find_parent(b);        
+        b = find_parent(b);
         if(a == b) return;
         number_components--;
         if(rank[a] > rank[b]) parent[b] = a, sz[a] += sz[b];

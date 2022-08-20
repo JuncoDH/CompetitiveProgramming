@@ -80,6 +80,11 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Sweep line, left to right.
   - When removing an element from the solution, double check that it can't be the answer.
   - Usualy you have to consume all the queries in interactive problems. 
+  - Try to convert the arrays to 0-index.
+  - Maybe instead of giving ans, give total - not ans.
+  - lcm(i, j, k) = k, 2k, it will be only few cases.
+  - Maybe to create a graph from a vector the edges are local j-i < 400.
+  - Is not good to make big blocks of bitwise operations, use functions.
   
-  
+ 
   

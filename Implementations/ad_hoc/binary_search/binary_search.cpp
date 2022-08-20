@@ -14,4 +14,17 @@ ll bbin(ll l, ll r) {
     }
     return r;
 }
+// ------------------------------------
+bool find_bin(int l, int r, ll num) {
+    int mid;
+    if(num < v[l] || num > v[r]) return false;
+    if(num == v[l] || num == v[r]) return true;
+    while(l+1 < r) {
+        mid = (l+r)/2;
+        if(num == v[mid]) return true;
+        if(num < v[mid]) r = mid;
+        else l = mid;
+    }
+    return false;
+}
 
