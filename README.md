@@ -84,7 +84,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Maybe instead of giving ans, give total - not ans.
   - lcm(i, j, k) = k, 2k, it will be only few cases.
   - Maybe to create a graph from a vector the edges are local j-i < 400.
-  - Is not good to make big blocks of bitwise operations, use functions.
+  - Use lambdas with repeated blocks.
   
  
   

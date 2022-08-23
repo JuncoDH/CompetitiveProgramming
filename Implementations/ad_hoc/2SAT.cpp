@@ -58,7 +58,7 @@ class SAT{ // 2SAT, (xi or xj) and ()... O(n).
     }
     int get_pos(int i) {return 2*i;}
     int get_neg(int i) {return 2*i + 1;}
-    void add_or(int i, int j) {
+    void add_or(int i, int j) { // Use it with get_pos.
         graph[i^1].pb(j);
         graph[j^1].pb(i);
     }

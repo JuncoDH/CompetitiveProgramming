@@ -1,3 +1,7 @@
+// a/b is truncate function.
+ll floor_div(ll a, ll b) {
+    return a/b - ((a^b) < 0 && a%b);
+}
 // Sum_{0, n} i = Sum of i in [0, n] = n*(n+1)/2.
 ll formula_1(ll _n) {
     return _n*(_n+1)/2;

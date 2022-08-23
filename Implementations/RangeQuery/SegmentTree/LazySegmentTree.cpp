@@ -3,25 +3,25 @@ class Node { // Only modify this class.
     public:
     int l = -1, r = -1; // interval [l, r].
     T value = 0;
-    static const T lazy_default = -inf; // Default value for lazy.
+    static const T lazy_default = -inf; // Don't change.
     T lazy = lazy_default;
+    Node() = default;
     Node(T _value) {value = _value;}
     // Merge nodes.
-    Node(Node<T> a, Node<T> b) {value = a.value + b.value;} // MIN query.
-    Node() = default;
+    Node(Node<T> a, Node<T> b) {value = max(a.value, b.value);} // MINMAX, SUM query.
     void actualize_update(T x) {
-        if(x == -inf) return; // No update.
-        // value += x; // MIN query + (= SET update), (+= SUM update).
-        // lazy += x; // MIN query + (= SET update), (+= SUM update).
-        value = (r-l+1)*x; // SUM query + (= SET update).
-        lazy = x; // SUM query + (= SET update).
+        if(x == -inf) return;
+        if(lazy == -inf) lazy = 0;
+        lazy += x; // (= SET update), (+= SUM update).
+        value += x; // MINMAX query + (= SET update), (+= SUM update).
+        // value = (r-l+1)*x; // SUM query + (= SET update), (+= SUM update).
     }
 };
 template<typename T>
 class LazySegmentTree { // Use lazy propagation.
     vector<Node<T>> tree;
-    vector<T> v_input;
-    int v_size;
+    vector<T> v;
+    int n;
     // Value is the real value, and lazy is only for its children.
     void push_lazy(int k, int l, int r) {
         if(l != r) {
@@ -34,7 +34,7 @@ class LazySegmentTree { // Use lazy propagation.
     }
     void build(int k, int l, int r) {
         if(l == r) {
-            tree[k] = Node<T>(v_input[l]);
+            tree[k] = Node<T>(v[l]);
             tree[k].l = l; tree[k].r = r;
             return;
         }
@@ -68,20 +68,23 @@ class LazySegmentTree { // Use lazy propagation.
     }
     public:
     LazySegmentTree() = default;
-    LazySegmentTree(vector<T> v) {
-        v_input = v;
-        v_size = v_input.size();
-        tree.assign(4*v_size, {});
-        build(1, 0, v_size-1);
+    LazySegmentTree(vector<T> _v) {
+        v = _v;
+        n = v.size();
+        tree.assign(4*n, {});
+        build(1, 0, n-1);
     }
     void update(int ql, int qr, T x) { // [ql, qr].
-        update(1, 0, v_size-1, ql, qr, x);
+        if(ql > qr) swap(ql, qr);
+        ql = max(ql, 0);
+        qr = min(qr, n-1);
+        update(1, 0, n-1, ql, qr, x);
     }
     T query(int ql, int qr) { // [ql, qr].
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);
         qr = min(qr, n-1);
-        Node<T> ans = query(1, 0, v_size-1, ql, qr);
+        Node<T> ans = query(1, 0, n-1, ql, qr);
         return ans.value;
     }
 };

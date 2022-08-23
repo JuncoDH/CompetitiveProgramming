@@ -1,5 +1,5 @@
+vector<vi> graph;
 class Tarjan{ // O(n) SCC.
-    vector<vi> graph;
     vi discover;
     vi low;
     vector<bool> onStack;
@@ -25,8 +25,7 @@ class Tarjan{ // O(n) SCC.
     }
     public:
     vector<vi> components;
-    Tarjan(vector<vi> &_graph) {
-        graph = _graph;
+    Tarjan() {
         int i, n = graph.size();
         discover.assign(n, -1);
         low.assign(n, -1);
