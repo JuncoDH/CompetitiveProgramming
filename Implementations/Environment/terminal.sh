@@ -4,6 +4,6 @@ setxkbmap es
 # See stack size (in the current terminal).
 ulimit -s
 
-# Change stack size (once per terminal).
+# Change stack size, just ONCE per terminal.
 ulimit -s 65248
 

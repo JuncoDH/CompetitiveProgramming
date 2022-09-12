@@ -12,14 +12,12 @@ const long double eps = 1e-9;
 const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
-#define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
-{cout<<_v[_x][_y]<<" ";}cout<<endl;}}
+#define echoarr(x) {for(int _i=0,_n=min((size_t)15,sizeof(x)/sizeof(x[0]));_i<_n;_i++)\
+ {cout << x[_i] << " ";} cout << endl;}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
 #define echo2(x) {cout<<#x<<endl; for(auto el : x) {ECHO(el); cout << endl;}}
 #else
-#define echoarr(_i, _v)
-#define echoarr2(_i, _j, _v)
+#define echoarr(x)
 #define echo(...)
 #define echo2(x)
 #endif
@@ -97,10 +95,34 @@ using pll = pair<ll, ll>;
 
 
 
+
+
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, n, k, i, num, zz;
+    bool ok;
+    cin >> tt;
+    for(zz = 1; zz <= tt; zz++) {
+        cin >> n >> k;
+        ok = true;
+        set<ll> s1, s2;
+        for(i = 0; i < n; i++) {
+            cin >> num;
+            if(!ok) continue;
+            if((ll)s1.size() < k && !s1.count(num)) {
+                s1.insert(num);
+                continue;
+            }
+            if((ll)s2.size() < k && !s2.count(num)) {
+                s2.insert(num);
+                continue;
+            }
+            ok = false;
+        }
+        cout << "Case #" << zz << ": ";
+        if(ok) cout << "YES\n";
+        else cout << "NO\n";
+    }
 
 
     return 0;

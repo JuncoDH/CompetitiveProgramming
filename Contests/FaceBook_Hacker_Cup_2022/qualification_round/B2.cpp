@@ -12,14 +12,12 @@ const long double eps = 1e-9;
 const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
-#define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
-{cout<<_v[_x][_y]<<" ";}cout<<endl;}}
+#define echoarr(x) {for(int _i=0,_n=min((size_t)15,sizeof(x)/sizeof(x[0]));_i<_n;_i++)\
+ {cout << x[_i] << " ";} cout << endl;}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
 #define echo2(x) {cout<<#x<<endl; for(auto el : x) {ECHO(el); cout << endl;}}
 #else
-#define echoarr(_i, _v)
-#define echoarr2(_i, _j, _v)
+#define echoarr(x)
 #define echo(...)
 #define echo2(x)
 #endif
@@ -97,10 +95,81 @@ using pll = pair<ll, ll>;
 
 
 
+vector<vector<char>> v;
+ll n, m;
+bool is_valid(ll i, ll j) {
+    if(i < 0 || j < 0 || i >= n || j >= m) return false;
+    return true;
+}
+ll count(ll i, ll j) {
+    ll ans = 0;
+    if(!is_valid(i, j)) return ans;
+    if(is_valid(i, j+1) && (v[i][j+1] == '^' || v[i][j+1] == '.')) ans++;
+    if(is_valid(i, j-1) && (v[i][j-1] == '^' || v[i][j-1] == '.')) ans++;
+    if(is_valid(i+1, j) && (v[i+1][j] == '^' || v[i+1][j] == '.')) ans++;
+    if(is_valid(i-1, j) && (v[i-1][j] == '^' || v[i-1][j] == '.')) ans++;
+    return ans;
+}
+
+void check(ll i, ll j) {
+    if(!is_valid(i, j) || v[i][j] != '.') return;
+    ll ans = count(i, j);
+    if(ans < 2) {
+        v[i][j] = '#';
+        check(i, j+1);
+        check(i, j-1);
+        check(i+1, j);
+        check(i-1, j);
+    }
+}
+
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, i, zz, j;
+    bool ok;
+    cin >> tt;
+    for(zz = 1; zz <= tt; zz++) {
+        cin >> n >> m;
+        v.assign(n, vector<char>(m, '0'));
+        ok = false;
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < m; j++) {
+                cin >> v[i][j];
+            }
+        }
+        auto v2 = v;
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < m; j++) {
+                check(i, j);
+            }
+        }
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < m; j++) {
+                if(v[i][j] == '.') v[i][j] = '^';
+            }
+        }
+        ok = true;
+        for(i = 0; i < n; i++) {
+            if(!ok) break;
+            for(j = 0; j < m; j++) {
+                if(v[i][j] == '^') {
+                    if(count(i, j) < 2) {ok = false; break;}
+                }
+            }
+        }
+        cout << "Case #" << zz << ": ";
+        if(!ok) cout << "Impossible\n";
+        else {
+            cout << "Possible\n";
+            for(i = 0; i < n; i++) {
+                for(j = 0; j < m; j++) {
+                    if(v2[i][j] != '#' && v[i][j] == '#') v[i][j] = '.';
+                    cout << v[i][j];
+                }
+                cout << "\n";
+            }
+        }
+    }
 
 
     return 0;

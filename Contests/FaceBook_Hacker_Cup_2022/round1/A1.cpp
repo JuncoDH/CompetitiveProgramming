@@ -99,8 +99,36 @@ using pll = pair<ll, ll>;
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, n, k, zz, i, j, z;
+    bool ok;
+    cin >> tt;
+    for(zz = 1; zz <= tt; zz++) {
+        cin >> n >> k;
+        vll a(n), b(n);
+        cin >> a >> b;
+        ok = true;
+        if(k == 1) {
+            if(a == b) ok = false;
+        }
+        else if(k == 0) {
+            if(a != b) ok = false;
+        } else if(n == 2) {
+            if(k%2 == 0 && a != b) ok = false;
+            if(k%2 == 1 && a == b) ok = false;
+        } else {
+            for(i = 0; i < n; i++) if(a[i] == 1) break;
+            for(j = 0; j < n; j++) if(b[j] == 1) break;
+            for(z = 0; z < n; z++) {
+                if(a[i] != b[j]) {ok = false; break;}
+                i++; j++;
+                i %= n;
+                j %= n;
+            }
+        }
+        cout << "Case #" << zz << ": ";
+        if(ok) cout << "YES\n";
+        else cout << "NO\n";
+    }
 
 
     return 0;

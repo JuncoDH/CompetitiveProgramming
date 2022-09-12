@@ -95,15 +95,81 @@ using vi = vector<int>;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
+const int max_digits = 10; // Always numbers < 10^max_digits.
+string to_str(ll x) {
+    string s = to_string(x);
+    while((int)s.length() < max_digits) s = "0" + s;
+    return s;
+}
 
+// Search the ocurrences of t (pattern to search) in s (the text).
+// O(n + m). It increases R at most 2n times and decreases at most n times. 
+// z[i] is the longest string s[i..i+z[i]-1] that is a prefix = s[0..z[i]-1].
+bool z_algorithm(string &s, string &t) {
+    s = t + "$" + s; // "$" is a char not present in s nor t.
+    int n = s.length(), m = t.length(), i, L = 0, R = 0;
+    vi z(n, 0);
+    // s[L..R] = s[0..R-L], [L, R] is the current window.
+    for(i = 1; i < n; i++) {
+        if(i > R) { // Old window, recalculate.
+            L = R = i;
+            while(R < n && s[R] == s[R-L]) R++;
+            R--;
+            z[i] = R - L + 1;
+        } else {
+            if(z[i-L] < R - i) z[i] = z[i-L]; // z[i] will fall in the window.
+            else { // z[i] can fall outside the window, try to increase the window.
+                L = i;
+                while(R < n && s[R] == s[R-L]) R++;
+                R--;
+                z[i] = R - L + 1;
+            }
+        }
+        if(z[i] == m) { // Match found.
+            //echo("Pattern found at: ", i-m-1);
+            return true;
+        }
+    }
+    return false;
+}
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, n, k, zz;
+    bool ok;
+    cin >> tt;
+    for(zz = 1; zz <= tt; zz++) {
+        cin >> n >> k;
+        vll a(n), b(n);
+        cin >> a >> b;
+        ok = true;
+        // echo(a, b);
+        if(k == 0) {
+            if(a != b) ok = false;
+        } else if(n == 2) {
+            if(k%2 == 1) swap(a[0], a[1]);
+            if(a == b) ok = true;
+        } else {
+            string s1, s2;
+            for(auto el : a) s1 += to_str(el);
+            for(auto el : b) s2 += to_str(el);
+            s2 += s2;
+            if(k == 1) {
+                s2.pop_back();
+                reverse(s2.begin(), s2.end());
+                s2.pop_back();
+                reverse(s2.begin(), s2.end());
+            }
+            if(!z_algorithm(s2, s1)) ok = false;
+        }
+        cout << "Case #" << zz << ": ";
+        if(ok) cout << "YES\n";
+        else cout << "NO\n";
+    }
 
 
     return 0;
 }
+
 
 

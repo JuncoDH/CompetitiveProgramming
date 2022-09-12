@@ -97,4 +97,37 @@ class HashString {
         return s[id+1] < other.s[id+1];
     }
 };
+class HashQueue{
+    const int max_digits = 10; // Always numbers < 10^max_digits.
+    string to_str(ll x) {
+        string s = to_string(x);
+        while((int)s.length() < max_digits) s = "0" + s;
+        return s;
+    }
+    public:
+    HashQueue() {
+        string dummy = "0";
+        hs = HashString(dummy);
+    }
+    HashString hs;
+    int id = 0;
+    int l = 1, r = 0; // [l, r].
+    deque<pll> d;
+    void push_back(ll x) {
+        string s = to_str(x);
+        hs.add(s);
+        r += max_digits;
+    }
+    void pop_front() {
+        l += max_digits;
+    }
+    bool empty() {
+        return l > r;
+    }
+    bool operator == (HashQueue other) {
+        if(empty() && other.empty()) return true;
+        if(empty() || other.empty()) return false;
+        return hs.getHash(l, r) == other.hs.getHash(other.l, other.r);
+    }
+};
 

@@ -85,6 +85,11 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - lcm(i, j, k) = k, 2k, it will be only few cases.
   - Maybe to create a graph from a vector the edges are local j-i < 400.
   - Use lambdas with repeated blocks.
+  - Use sqrtl and powl to return long double.
+  - multiset.erase(num) erase all repetitions. erase(ms.find()) only one.
+  - Check that you are running the correct test case.
   
- 
+  
+  
+  
   

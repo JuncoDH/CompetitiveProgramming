@@ -96,14 +96,66 @@ using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
 
-
+const ll mod = 1000000007;
+void sum(ll &tot, ll x) {
+    tot += x;
+    tot %= mod;
+}
+void prod(ll &tot, ll x) {
+    tot *= x;
+    tot %= mod;
+}
+void m(ll &tot) {
+    tot %= mod;
+}
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, zz, n, i, q, ans, sa, sa2, sx, sx2, it;
+    cin >> tt;
+    for(zz = 1; zz <= tt; zz++) {
+        cin >> n;
+        vll a(n), b(n);
+        for(i = 0; i < n; i++) cin >> a[i] >> b[i];
+        cin >> q;
+        vll x(q), y(q);
+        for(i = 0; i < q; i++) cin >> x[i] >> y[i];
+        ans = 0;
+        for(it = 0; it < 2; it++) {
+            sa = sa2 = sx = sx2 = 0;
+            for(i = 0; i < n; i++) {
+                sa += a[i];
+                m(sa);
+                sa2 += a[i]*a[i];
+                m(sa2);
+            }
+            for(i = 0; i < q; i++) {
+                sx += x[i];
+                m(sx);
+                sx2 += x[i]*x[i];
+                m(sx2);
+            }
+            ll tmp = q;
+            prod(tmp, sa2);
+            sum(ans, tmp);
+            tmp = sx;
+            prod(tmp, sa);
+            prod(tmp, -2);
+            sum(ans, tmp);
+            tmp = n;
+            prod(tmp, sx2);
+            sum(ans, tmp);
+            swap(a, b);
+            swap(x, y);
+        }
+        ans %= mod;
+        ans += mod;
+        ans %= mod;
+        cout << "Case #" << zz << ": " << ans << "\n";
+    }
 
 
     return 0;
 }
+
 
 

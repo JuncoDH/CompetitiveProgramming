@@ -1,7 +1,7 @@
 template<typename T>
 class Node { // Only modify this class.
     public:
-    int l = -1, r = -1; // interval [l, r].
+    int l = -1, r = -1; // Interval [l, r].
     T value = 0;
     static const T lazy_default = -inf; // Don't change.
     T lazy = lazy_default;
