@@ -45,7 +45,7 @@ ll formula_7(ll r, ll n) {
     return (elevate(r, n + 1) - 1) / (r - 1);
 }
 // Number of digits of num in base 10.
-ll formula_8(ll num) {
+ll formula_8(ll num) { // floor(log10(num)) + 1.
     return log10(num)+1;
 }
 
