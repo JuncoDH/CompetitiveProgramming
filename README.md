@@ -88,6 +88,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Use sqrtl and powl to return long double.
   - multiset.erase(num) erase all repetitions. erase(ms.find()) only one.
   - Check that you are running the correct test case.
+  - Sometimes you can create a solution just defining a[i][j] := i*j;
   
   
   
