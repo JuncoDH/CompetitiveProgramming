@@ -5,7 +5,8 @@ class HashNumber{
     public:
     ll get_hash(ll num) {
         if(m.count(num)) return m[num];
-        ll num2 = rand() ^ num ^(ll)0b1001100101010111000101100010101;
+        ll num2 = num ^(ll)978297864536453112;
+        num2 ^= rand() ^ ((ll)rand() << 30);
         minv[num2] = num;
         return m[num] = num2;
     }
