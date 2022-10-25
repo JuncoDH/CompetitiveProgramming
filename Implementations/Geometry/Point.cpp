@@ -10,7 +10,7 @@ class Point {
         y = _y;
     }
     friend ostream &operator << (ostream &os, Point<T> p) {
-        os << "(" << p.x << " " << p.y << ")";
+        os << "(" << p.x << ", " << p.y << ")";
         return os;
     }
     bool operator == (const Point<T> other) const {
@@ -110,17 +110,23 @@ class Point {
 template<typename T>
 class Line{
     public:
+    bool is_vertical = false; // If vertical, line := x = n.
     T m = 0, n = 0; // y = mx + n.
     Line(T _m, T _n) {m = _m; n = _n;}
     Line(Point<T> p1, Point<T> p2) {
+        if(p1.x == p2.x) {is_vertical = true; n = p1.x; return;}
         m = (p2.y - p1.y)/(p2.x - p1.x);
         n = m*-p1.x + p1.y;
     }
     friend ostream &operator << (ostream &os, Line<T> l) {
-        os << "y = " << l.m << "x + " << l.n;
+        if(l.is_vertical) os << "x = " << l.n;
+        else os << "y = " << l.m << "x + " << l.n;
         return os;
     }
     Point<T> intersection(Line<T> l) {
+        if(is_vertical && l.is_vertical) return Point<T>(-inf, -inf);
+        if(is_vertical) return Point<T>(n, l.m*n + l.n);
+        if(l.is_vertical) return Point<T>(l.n, m*l.n + n);
         T new_m = (l.n-n)/(m-l.m);
         return Point<T>(new_m, m*new_m + n);
     }
