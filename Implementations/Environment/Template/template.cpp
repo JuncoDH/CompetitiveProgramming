@@ -9,7 +9,7 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX / 10;
+const long long inf = LLONG_MAX/10;
 
 #ifdef JUNCO_DEBUG
 #define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}

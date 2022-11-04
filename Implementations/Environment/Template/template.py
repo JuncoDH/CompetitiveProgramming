@@ -8,11 +8,10 @@ input = sys.stdin.readline
 
 # try:
 #    x = input() # until EOF.
+#    if len(x) == 0:
+#        exit(0)
 # except:
 #    exit(0)
 # v = [k for k in map(int, s.split(' '))]
-
-# map(int, input().split())
-
 
 

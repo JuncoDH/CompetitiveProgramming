@@ -5,9 +5,9 @@ ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 
 stringstream ss;
 ss << "Hello world";
-ss.str("Hello world");
 while(ss >> s) cout << s << endl;
 ss.clear();
+ss.str("Hello world");
 
 
 cout << setprecision(9) << num << '\n';
