@@ -89,6 +89,7 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - multiset.erase(num) erase all repetitions. erase(ms.find()) only one.
   - Check that you are running the correct test case.
   - Sometimes you can create a solution just defining a[i][j] := i*j;
+  - N queen problem always has a solution for N > 3.
   
   
   
