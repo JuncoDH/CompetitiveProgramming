@@ -425,7 +425,7 @@ class Dinic{
     int dfs(int u, int min_flow) {
         if(u == sink) return min_flow;
         int pushed, el;
-        for(;ptr[u] < (int)graph[u].size(); ptr[u]++) { //if you can pick ok, else you crop that edge for the current bfs layer
+        for(;ptr[u] < (int)graph[u].size(); ptr[u]++) { //if you can pick ok, else you crop that
             el = graph[u][ptr[u]];
             if(lvl[edge[el].v] != lvl[edge[el].u] + 1 || edge[el].cap - edge[el].flow <= 0) {
                 continue;
@@ -557,7 +557,8 @@ class Kosaraju{ // SCC O(n). x2 times slower than Tarjan.
                 graphT[v].pb(i);
         visited.assign(n, false);
         while(true) {
-            while(!s.empty() && visited[s.back()]) s.pop_back();
+            while(!s.empty() && visited[s.back()])
+            s.pop_back();
             if(s.empty()) break;
             components.pb(vi());
             dfs2(s.back());
@@ -1129,7 +1130,8 @@ class DSU {
         if(a == b) return;
         number_components--;
         if(rank[a] > rank[b]) parent[b] = a, sz[a] += sz[b];
-        else if(rank[a] < rank[b]) parent[a] = b, sz[b] += sz[a];
+        else if(rank[a] < rank[b]) parent[a] = b,
+        sz[b] += sz[a];
         else {parent[a] = b; rank[b]++, sz[b] += sz[a];}
     }
     int size(int a) {return sz[find_parent(a)];}
