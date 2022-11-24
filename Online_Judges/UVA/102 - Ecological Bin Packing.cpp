@@ -9,10 +9,10 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
+#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
 #define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
 {cout<<_v[_x][_y]<<" ";}cout<<endl;}}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
@@ -99,11 +99,37 @@ using pll = pair<ll, ll>;
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+    ll i, j, sum, tmp;
+    string s;
+    vector<vi> v(3, vi(3, 0));
+    while(cin >> v[0][0]) {
+        for(i = 0; i < 3; i++) {
+            for(j = 0; j < 3; j++) {
+                if(i == 0 && j == 0) continue;
+                cin >> v[i][j];
+            }
+        }
+        vector<pair<ll, string>> ans;
+        s = "BCG";
+        sum = 0;
+        for(auto el : v) for(auto el2 : el) sum += el2;
+        do{
+            tmp = sum;
+            for(i = 0; i < 3; i++) {
+                if(s[i] == 'B') tmp -= v[i][0];
+                if(s[i] == 'G') tmp -= v[i][1];
+                if(s[i] == 'C') tmp -= v[i][2];
+            }
+            ans.pb(mp(tmp, s));
+        } while(next_permutation(s.begin(), s.end()));
+        sort(ans.begin(), ans.end());
+        cout << ans[0].se << " " << ans[0].fi << "\n";
 
-    
+    }
 
 
     return 0;
 }
+
 
 

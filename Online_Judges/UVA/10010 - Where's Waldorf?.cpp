@@ -9,10 +9,10 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
+#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
 #define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
 {cout<<_v[_x][_y]<<" ";}cout<<endl;}}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
@@ -95,15 +95,58 @@ using vi = vector<int>;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
-
-
+vector<pii> dx = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
+ll n, m;
+bool is_valid(ll i, ll j) {
+    if(i < 0 || j < 0 || i >= n || j >= m) return false;
+    return true;
+}
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll tt, i, j, k, sn, z;
+    string s;
+    bool first_ok = false, ok;
+    cin >> tt;
+    while(tt--) {
+        if(first_ok) cout << "\n";
+        first_ok = true;
+        cin >> n >> m;
+        vector<string> v(n);
+        for(i = 0; i < n; i++) cin >> v[i];
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < m; j++) {
+                if('A' <= v[i][j] && v[i][j] <= 'Z') v[i][j] += -'A'+'a';
+            }
+        }
+        cin >> k;
+        while(k--) {
+            cin >> s;
+            sn = s.length();
+            ok = false;
+            for(i = 0; i < sn; i++) if('A' <= s[i] && s[i] <= 'Z') s[i] += -'A'+'a';
+            for(i = 0; i < n; i++) {
+                if(ok) break;
+                for(j = 0; j < m; j++) {
+                    if(ok) break;
+                    for(auto el : dx) {
+                        for(z = 0; z < sn; z++) {
+                            if(!is_valid(i+z*el.fi, j+z*el.se)) break;
+                            if(v[i+z*el.fi][j+z*el.se] != s[z]) break;
+                        }
+                        if(z == sn) {
+                            cout << i+1 << " " << j+1 << "\n";
+                            ok = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
     return 0;
 }
+
 
 

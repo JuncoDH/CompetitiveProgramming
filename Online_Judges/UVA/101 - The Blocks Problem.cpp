@@ -9,10 +9,10 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
+#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
 #define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
 {cout<<_v[_x][_y]<<" ";}cout<<endl;}}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
@@ -96,14 +96,77 @@ using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
 
+vi pos;
+vector<vi> v;
+void clear(int a) { // Clean from a.
+    int u;
+    while(v[pos[a]].back() != a) {
+        u = v[pos[a]].back();
+        v[pos[a]].pop_back();
+        v[u].pb(u);
+        pos[u] = u;
+    }
+}
+void fit(int a) { // Clean from a, including a.
+    clear(a);
+    v[pos[a]].pop_back();
+    v[a].pb(a);
+    pos[a] = a;
+}
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    ll n, i, a, b, u;
+    string s1, s2;
+    cin >> n;
+    pos = vi(n, 0);
+    vi temp;
+    v = vector<vi>(n, vi());
+    for(i = 0; i < n; i++) {
+        pos[i] = i;
+        v[i].pb(i);
+    }
+    while(true) {
+        cin >> s1;
+        if(s1 == "quit") break;
+        cin >> a >> s2 >> b;
+        if(a == b || pos[a] == pos[b]) continue;
+        // echo(s1, a, s2, b);
+        // echo2(v);
+        if(s1 == "move") {
+            if(s2 == "onto")
+                clear(b);
+            clear(a);
+            v[pos[a]].pop_back();
+            v[pos[b]].pb(a);
+            pos[a] = pos[b];
+        } else {
+            if(s2 == "onto")
+                clear(b);
+            while(temp.empty() || temp.back() != a) {
+                u = v[pos[a]].back();
+                v[pos[a]].pop_back();
+                temp.pb(u);
+            }
+            while(!temp.empty()) {
+                u = temp.back();
+                temp.pop_back();
+                v[pos[b]].pb(u);
+                pos[u] = pos[b];
+            }
+        }
+    }
+    for(i = 0; i < n; i++) {
+        cout << i << ":";
+        for(auto el : v[i]) {
+            cout << " " << el;
+        }
+        cout << "\n";
+    }
 
 
     return 0;
 }
+
 
 

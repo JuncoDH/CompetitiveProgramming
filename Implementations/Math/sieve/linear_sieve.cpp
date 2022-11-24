@@ -7,8 +7,7 @@ void linear_sieve(){
     int i, j, prime_size = 0;
     min_div[1] = 1;
     for(i = 2; i < MAX_PRIME; ++i){
-        if(num[i] == false) {prime.push_back(i); ++prime_size; num_div[i] = 1; min_div[i] = i;}
-        
+        if(num[i] == false) {prime.push_back(i); ++prime_size; num_div[i] = 1; min_div[i] = i;}        
         for(j = 0; j < prime_size && i * prime[j] < MAX_PRIME; ++j){
             num[i * prime[j]] = true;
             num_div[i * prime[j]] = num_div[i] + 1;

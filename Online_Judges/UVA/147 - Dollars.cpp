@@ -9,7 +9,7 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
 #define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
@@ -99,11 +99,33 @@ using pll = pair<ll, ll>;
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-
-    
+    string s, s2;
+    vll v = {5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000};
+    const ll MAX = 30005;
+    vll dp(MAX, 0);
+    ll i, n;
+    dp[0] = 1;
+    for(auto el : v) {
+        for(i = el; i < MAX; i++) {
+            dp[i] += dp[i-el];
+        }
+    }
+    while(true) {
+        cin >> s2;
+        if(s2 == "0.00") return 0;
+        for(auto c : s2) {
+            if(c == '.') continue;
+            s.pb(c);
+        }
+        n = stoll(s);
+        s.clear();
+        ll ans = dp[n];
+        printf("%6s%17s\n", s2.c_str(), to_string(ans).c_str());
+    }
 
 
     return 0;
 }
+
 
 

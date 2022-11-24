@@ -9,10 +9,10 @@ using namespace std;
 
 const long double PI = acos(-1);
 const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+const long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
+#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<v[_x]<<" ";}cout<<endl;}
 #define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
 {cout<<_v[_x][_y]<<" ";}cout<<endl;}}
 #define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
@@ -99,11 +99,41 @@ using pll = pair<ll, ll>;
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+    ll n, m, i, j, ans, u;
+    while(cin >> n >> m) {
+        vector<vll> v(n, vll(m, 0)), dp(n, vll(m, 0));
+        cin >> v;
+        for(i = 0; i < n; i++) dp[i][m-1] = v[i][m-1];
 
-    
+        for(j = m-2; j >= 0; j--) {
+            for(i = 0; i < n; i++) {
+                dp[i][j] = v[i][j] + min(min(dp[(i-1+n)%n][j+1], dp[i][j+1]), dp[(i+1)%n][j+1]);
+            }
+        }
+        u = 0;
+        for(i = 1; i < n; i++) {
+            if(dp[i][0] < dp[u][0]) u = i;
+        }
+        cout << u+1;
+        ll init = u;
+        for(j = 0; j < m-1; j++) {
+            ans = min(dp[(u-1+n)%n][j+1], min(dp[u][j+1], dp[(u+1)%n][j+1]));
+            vi v2;
+            if(dp[(u-1+n)%n][j+1] == ans) v2.pb((u-1+n)%n);
+            if(dp[u][j+1] == ans) v2.pb(u);
+            if(dp[(u+1)%n][j+1] == ans) v2.pb((u+1)%n);
+            sort(v2.begin(), v2.end());
+            u = v2[0];
+            cout << " " << u+1;
+
+        }
+        cout << "\n" << dp[init][0] << "\n";
+
+    }
 
 
     return 0;
 }
+
 
 
