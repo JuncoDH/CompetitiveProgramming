@@ -90,7 +90,8 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Check that you are running the correct test case.
   - Sometimes you can create a solution just defining a[i][j] := i*j;
   - N queen problem always has a solution for N > 3.
-  
+  - Euler formula in a planar graph v + f = e + 2, count the total space.
+  - Handshaking lemma sum of degree = 2*e. 
   
   
   
