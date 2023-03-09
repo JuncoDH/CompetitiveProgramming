@@ -53,7 +53,7 @@ run_a run_A: clean
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+ios::sync_with_stdio(false);cin.tie(nullptr);cout.tie(null
 cout.precision(20); cout << fixed << ans;
 bool is_set(ll x, ll i) {return (x>>i)&1;}
 void set_bit(ll &x, ll i) {x |= 1ll<<i;}
@@ -68,7 +68,7 @@ ss.clear();
 \subsection*{Bitmask}
 \begin{multicols}{2}
 \begin{minted}[fontsize=\small]{c++}
-// Iterate over all submasks of a mask. CONSIDER SUBMASK = 0 APART.
+// Iterate over all submasks of a mask. CONSIDER SUBMASK = 0
 for(submask = mask; submask > 0; submask = (submask-1)&mask) {
 }
 // With OR and AND you can get XOR. 
@@ -121,7 +121,7 @@ class Point {
     }
     // Get the height of the triangle with base b1, b2.
     T height_triangle(Point<T> b1, Point<T> b2) {
-        if(b1 == b2 || *this == b1 || *this == b2) return 0; // It's not a triangle.
+        if(b1 == b2 || *this == b1 || *this == b2) return 0;
         T a = euclidean_distance(b1);
         T b = b1.euclidean_distance(b2);
         T c = euclidean_distance(b2);
@@ -179,7 +179,7 @@ class Point {
             v.pb(p);
         }
     }
-    // Constraint: The points have to be in order p0 -> p1 -> ... -> pn, and exist edge pn -> p0.
+    // Constraint: The points have to be in order p0 -> p1 ->
     static ld get_area_polygon(vector<Point<T>> &v) {
         if(v.size() < 3) return 0;
         ll i, sum = 0, n = v.size();
@@ -188,7 +188,7 @@ class Point {
         }
         return abs(sum)/2.0;
     }
-    // Rotate p alpha radians (anti clock wise) respect to this point.
+    // Rotate p alpha radians (anti clock wise) respect to
     Point<T> rotate(Point<T> p, ld alpha) {
         Point<T> q(p.x - x, p.y - y); // p shifted.
         return Point<T>(x + q.x*cos(alpha) - q.y*sin(alpha),
@@ -259,7 +259,7 @@ class ArticulationPoint{
                 parent[v] = u;
                 dfs(v);
                 low[u] = min(low[u], low[v]);
-                // Every time you set AP[u] = true, the number of components after
+                // Every time AP[u] = true, the number of components
                 // removing the nodes u or v from the graph increase.
                 if(parent[u] == -1 && children > 1) 
                 AP[u] = true;
@@ -723,10 +723,10 @@ void linear_sieve(){
     int i, j, prime_size = 0;
     min_div[1] = 1;
     for(i = 2; i < MAX_PRIME; ++i){
-        if(num[i] == false) {prime.push_back(i); ++prime_size; num_div[i] = 1; min_div[i] = i;}
-        
+        if(num[i] == false)
+        {prime.push_back(i); ++prime_size;
+        num_div[i] = 1; min_div[i] = i;}
         for(j = 0; j < prime_size && i * prime[j] < MAX_PRIME; ++j){
-        
             num[i * prime[j]] = true;
             num_div[i * prime[j]] = num_div[i] + 1;
             min_div[i * prime[j]] = min(min_div[i], prime[j]);
@@ -781,14 +781,14 @@ class Node { // Only modify this class.
     T lazy = lazy_default;
     Node() = default;
     Node(T _value) {value = _value;}
-    // Merge nodes.
-    Node(Node<T> a, Node<T> b) {value = max(a.value, b.value);} // MINMAX, SUM query.
+    // Merge nodes.// MINMAX, SUM query.
+    Node(Node<T> a, Node<T> b) {value = max(a.value, b.value);} 
     void actualize_update(T x) {
         if(x == -inf) return;
         if(lazy == -inf) lazy = 0;
         lazy += x; // (= SET update), (+= SUM update).
-        value += x; // MINMAX query + (= SET update), (+= SUM update).
-        // value = (r-l+1)*x; // SUM query + (= SET update), (+= SUM update).
+        value += x; // MINMAX query +(=SETupdate),(+=SUM update).
+        // value=(r-l+1)*x;//SUM query+(=SETupdate),(+=SUM update).
     }
 };
 template<typename T>
@@ -871,7 +871,7 @@ class LazySegmentTree { // Use lazy propagation.
 \begin{minted}[fontsize=\small]{c++}
 // Change here and date_to_num.
 ll is_leap_year(ll y) {
-    // if(y%4 || (y%100==0 && y%400)) return 0; // Complete leap year.
+    // if(y%4 || (y%100==0 && y%400)) return 0;
     if(y%4 != 0) return 0; // Restricted leap year.
     return 1;
 }
@@ -976,9 +976,9 @@ pair<ld, pair<ld, ld>> hour_to_grades(ll h, ll m, ll s) {
 \begin{multicols}{2}
 \begin{minted}[fontsize=\small]{c++}
 const int MAX_KNAPSACK = 2000005;
-ll dp[MAX_KNAPSACK]; // dp[i] is maximum value can get with i weight.
+ll dp[MAX_KNAPSACK]; // dp[i] is maximum value can get
 vector<pll> v; // (value, weight).
-// Return max value with weight <= max_knapsack. O(n*max_knapsack).
+// Return max value with weight <= max_knapsack. O(n*max_knap).
 // If can repeat elements, iterate 0->max_knapsack.
 ll knapsack(int max_knapsack) {
     int i, j, n = v.size();
@@ -1095,7 +1095,7 @@ class HashString {
     vector<vll> v; // contain the hash for [0..i].
     vll p = {16532849, 91638611, 83157709}; 
     // prime numbers. // 15635513  77781229
-    vll base = {37, 47, 53}; // base numbers: primes that > alphabet size. // 49 83
+    vll base = {37, 47, 53}; // 49 83
     vector<vll> b; // b[i][j] = (b_i^j) % p_i.
     vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i. 
     ll elevate(ll a, ll _b, ll mod){
@@ -1267,7 +1267,7 @@ class SAT{ // 2SAT, (xi or xj) and ()... O(n).
     vector<bool> x; // Can add (xi or xi) if you know xi = true.
     bool solve() {
         Kosaraju kosaraju;
-        int i, n = graph.size(), n_component = kosaraju.components.size();
+        int i,n=graph.size(),n_component=kosaraju.components.size();
         vi el2component(n, 0);
         for(i = 0; i < n_component; i++)
             for(auto u : kosaraju.components[i])
@@ -1314,7 +1314,7 @@ input = sys.stdin.readline
 \begin{multicols}{2}
 \begin{minted}[fontsize=\small]{c++}
 vector<vector<pll>> graph; // Dijkstra
-// Return the vector of minimum distance between s to all other n nodes. inf means unrecheable.
+// minimum distance between s to all n nodes. inf means unrecheable.
 // u = (cost, next node), graph[u] = vector of (next node, cost).
 vll dijkstra(ll s) {
     priority_queue<pll, vector<pll>, greater<pll>> p;
