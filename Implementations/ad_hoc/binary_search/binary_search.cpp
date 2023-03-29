@@ -15,6 +15,7 @@ ll bbin(ll l, ll r) {
     return r;
 }
 // ------------------------------------
+// binary_search(v.begin(), v.end(), num); test
 bool find_bin(int l, int r, ll num) {
     int mid;
     if(num < v[l] || num > v[r]) return false;
