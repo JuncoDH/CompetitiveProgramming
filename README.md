@@ -91,7 +91,8 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Sometimes you can create a solution just defining a[i][j] := i*j;
   - N queen problem always has a solution for N > 3.
   - Euler formula in a planar graph v + f = e + 2, count the total space.
-  - Handshaking lemma sum of degree = 2*e. 
+  - Handshaking lemma sum of degree = 2*e.
+  - Reflect the pool table, or the ant collision.
   
   
   

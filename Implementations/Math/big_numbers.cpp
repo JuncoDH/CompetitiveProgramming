@@ -1,4 +1,5 @@
 // Return s1 < s2.
+lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
 bool less_than(string &s1, string &s2) {
     if(s1.size() != s2.size())
         return s1.size() < s2.size();
