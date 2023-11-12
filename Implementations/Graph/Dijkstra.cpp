@@ -1,7 +1,7 @@
 vector<vector<pll>> graph;
 // Return the vector of minimum distance between s to all other n nodes. inf means unrecheable.
 // u = (cost, next node), graph[u] = vector of (next node, cost).
-vll dijkstra(ll s) {
+vll dijkstra(ll s) { // Negative edges NOT allowed.
     priority_queue<pll, vector<pll>, greater<pll>> p;
     vll dist(graph.size(), inf);
     pll u;

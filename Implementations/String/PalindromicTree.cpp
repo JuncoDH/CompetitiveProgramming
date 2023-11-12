@@ -10,7 +10,7 @@ class Node{
         suffix_link = _suffix_link;
     }
 };
-class PalindromicTree{ // Or eertree.
+class PalindromicTree{ // Also called eertree.
     vector<Node> tree; // Two roots, odd and even size palindroms.
     int last = 1; // Online processing.
     string s = "#";

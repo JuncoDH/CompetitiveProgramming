@@ -1,11 +1,10 @@
-# For testing locally a bunch of tests.
-
+# Testing locally a lot of tests automatically.
 for i in *.in
 do
-	j=${i%.in};
-	./a.out < $j.in > answer.out;
-	echo Case $j:;
-	diff --color answer.out $j.out;
+	problem=${i%.in};
+	./a.out < $problem.in > answer.out;
+	echo Case $problem:;
 	# -w for ignoring spaces.
+	diff --color answer.out $problem.out;
 done
 

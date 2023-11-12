@@ -3,7 +3,7 @@ class NumberInSubarray{ // O(n log n).
     map<ll, set<int>> m;
     public:
     NumberInSubarray() = default;
-    NumberInSubarray(vll _v) {
+    NumberInSubarray(vll& _v) {
         v = _v;
         int i, n = v.size();
         for(i = 0; i < n; i++) {

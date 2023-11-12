@@ -10,10 +10,7 @@ public class Main {
 
     public static void solve() {
     	
-    	
-    	
     }
-
 
     public static void main(String[] args) {
         out = new PrintWriter(new BufferedOutputStream(System.out));
@@ -22,7 +19,6 @@ public class Main {
         while (zz-- > 0) solve();
         out.close();
     }
-
 
     private static PrintWriter out;
     private static MyScanner sc;

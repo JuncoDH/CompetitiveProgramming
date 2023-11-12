@@ -1,5 +1,5 @@
 vector<vi> graph, tree;
-void root_graph(int root, int u = -1, int p = -1) {
+void root_graph(int root = 0, int u = -1, int p = -1) {
     if(u == -1) {
         tree.assign(graph.size(), vi());
         root_graph(root, root, -1);

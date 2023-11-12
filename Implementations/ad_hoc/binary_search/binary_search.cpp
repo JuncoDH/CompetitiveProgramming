@@ -16,16 +16,17 @@ ll bbin(ll l, ll r) {
 }
 // ------------------------------------
 // binary_search(v.begin(), v.end(), num); test
-bool find_bin(int l, int r, ll num) {
+int find_bin(int l, int r, ll num) {
     int mid;
-    if(num < v[l] || num > v[r]) return false;
-    if(num == v[l] || num == v[r]) return true;
+    if(num < v[l] || num > v[r]) return -1;
+    if(num == v[l]) return l;
+    if(num == v[r]) return r;
     while(l+1 < r) {
         mid = (l+r)/2;
-        if(num == v[mid]) return true;
+        if(num == v[mid]) return mid;
         if(num < v[mid]) r = mid;
         else l = mid;
     }
-    return false;
+    return -1;
 }
 
