@@ -8,8 +8,8 @@ using namespace std;
 #define se second
 
 const long double PI = acos(-1);
-const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+constexpr long double eps = 1e-9;
+constexpr long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
 #define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
@@ -24,33 +24,33 @@ const long long inf = LLONG_MAX/10;
 #define echo2(x)
 #endif
 
-void ECHO(string _s){cout<<_s;}
-void ECHO(bool _s){if(_s)cout<<"true";else cout<<"false";}
-void ECHO(char _s){cout<<_s;}
-void ECHO(long unsigned _s) {cout<<_s;}
-void ECHO(long long unsigned _s) {cout<<_s;}
-void ECHO(int _s){cout<<_s;}
-void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
-void ECHO(double _s){cout.precision(7);cout<<fixed<<_s;}
-void ECHO(long double _s){cout.precision(7);cout<<fixed<<_s;}
-void ECHO(bitset<8> b) {cout << b;}//resize bitset
+void ECHO(string const _s){cout<<_s;}
+void ECHO(bool const _s){if(_s)cout<<"true";else cout<<"false";}
+void ECHO(char const _s){cout<<_s;}
+void ECHO(long unsigned const _s) {cout<<_s;}
+void ECHO(long long unsigned const _s) {cout<<_s;}
+void ECHO(int const _s){cout<<_s;}
+void ECHO(long long const _s){if(_s == inf)cout << "inf";else cout<<_s;}
+void ECHO(double const _s){cout.precision(7);cout<<fixed<<_s;}
+void ECHO(long double const _s){cout.precision(7);cout<<fixed<<_s;}
+void ECHO(bitset<8> const b) {cout << b;} // Resize bitset.
 template<typename T> void ECHO(set<T> _s) {
-    for(auto el : _s) {ECHO(el); cout << "_";}
+    for(auto const el : _s) {ECHO(el); cout << "_";}
 }
-template<typename T1, typename T2> void ECHO(map<T1, T2> _s) {
-    for(auto el : _s) {ECHO(el); cout << "_";}
+template<typename T1, typename T2> void ECHO(map<T1, T2> const _s) {
+    for(auto const el : _s) {ECHO(el); cout << "_";}
 }
-template<typename T1, typename T2> void ECHO(pair<T1, T2> _s) {
+template<typename T1, typename T2> void ECHO(pair<T1, T2> const _s) {
     cout << "("; ECHO(_s.fi); cout << ","; ECHO(_s.se); cout << ")";
 }
-template<typename T> void ECHO(vector<T> v) {
+template<typename T> void ECHO(vector<T> const v) {
     for(auto el : v) {ECHO(el); cout << "_";}
 }
-template<typename T> void ECHO(priority_queue<T> pq) {
+template<typename T> void ECHO(priority_queue<T> const pq) {
     priority_queue<T> _pq = pq;
     while(!_pq.empty()) {ECHO(_pq.top()); cout << "->"; _pq.pop();}
 }
-template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
+template<typename T, typename ...Args> void ECHO(string const _s, T const x, Args... args){
     int _i, c = 0;
     for(_i = 0; _i < (int)_s.size(); _i++) {
         if(c==0 && _s[_i]==',') break;
@@ -77,15 +77,15 @@ ostream& operator << (ostream &os, const vector<T> &v) {
     return os;
 }
 using ll = long long;
-bool is_set(ll x, ll i) {return (x>>i)&1;}
-void set_bit(ll &x, ll i) {x |= 1ll<<i;}
-void unset_bit(ll &x, ll i) {x = (x | (1ll<<i)) ^ (1ll<<i);}
-ll LSB(ll x) {return x & (-x);}
-int LSB_idx(ll x) { // Number of starting zeros.
+bool is_set(ll const x, ll const i) {return (x>>i)&1;}
+void set_bit(ll& x, ll const i) {x |= 1ll<<i;}
+void unset_bit(ll& x, ll const i) {x = (x | (1ll<<i)) ^ (1ll<<i);}
+ll LSB(ll const x) {return x & (-x);}
+int LSB_idx(ll const x) { // Number of starting zeros.
     for(int i = 0; i < 63; i++) if(is_set(x, i)) return i;
     return -1;
 }
-ll MSB(ll x) {
+ll MSB(ll const x) {
     for(int i = 63; i >= 0; i--) if(is_set(x, i)) return 1<<i;
     return 0;
 }
@@ -96,11 +96,10 @@ using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
 
-
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 
-    
+
 
 
     return 0;
