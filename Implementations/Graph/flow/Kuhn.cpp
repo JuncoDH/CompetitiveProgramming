@@ -5,8 +5,8 @@ class Kuhn{
     int n1, n2;
     vector<vi> graph;
     vector<bool> used;
-    bool dfs(int u) {
-        for(auto v : graph[u]) {
+    bool dfs(int const u) {
+        for(auto const& v : graph[u]) {
             if(used[v]) continue;
             used[v] = true;
             if(match[v] == -1 || dfs(match[v])) {
@@ -16,14 +16,14 @@ class Kuhn{
         }
         return false;
     }
-    public:
+public:
     vi match;
-    Kuhn(int _n1, int _n2) {
+    Kuhn(int const _n1, int const _n2) {
         n1 = _n1; n2 = _n2;
         graph.assign(n1, vi());
         match.assign(n2, -1);
     }
-    void add_edge(int u, int v) { // edge u->v (capacity 1).
+    void add_edge(int const u, int const v) { // edge u->v (capacity 1).
         graph[u].pb(v);
     }
     int get_max_match() {

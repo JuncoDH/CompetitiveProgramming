@@ -2,7 +2,7 @@ class Edge {
     public:
     int u, v;
     int cap, flow = 0; // Capacity and current flow.
-    Edge(int _u, int _v, int _cap) : u(_u), v(_v), cap(_cap) { }
+    Edge(int const _u, int const _v, int const _cap) : u(_u), v(_v), cap(_cap) { }
 };
 // O(V^2*E). For unit edge capacity O(sqrt(V)*E).
 class Dinic{
@@ -16,7 +16,7 @@ class Dinic{
     bool BFS() {
         while(!q.empty()) {
             int u = q.front(); q.pop();
-            for(auto el : graph[u]) {
+            for(auto const& el : graph[u]) {
                 if(lvl[edge[el].v] != -1) continue;
                 if(edge[el].cap - edge[el].flow <= 0) continue;
                 lvl[edge[el].v] = lvl[edge[el].u] + 1;
@@ -25,10 +25,10 @@ class Dinic{
         }
         return lvl[sink] != -1;
     }
-    int dfs(int u, int min_flow) {
+    int dfs(int const u, int const min_flow) {
         if(u == sink) return min_flow;
         int pushed, el;
-        for(;ptr[u] < (int)graph[u].size(); ptr[u]++) { //if you can pick ok, else you crop that edge for the current bfs layer
+        for(; ptr[u] < (int)graph[u].size(); ptr[u]++) { //if you can pick ok, else you crop that edge for the current bfs layer
             el = graph[u][ptr[u]];
             if(lvl[edge[el].v] != lvl[edge[el].u] + 1 || edge[el].cap - edge[el].flow <= 0) {
                 continue;
@@ -43,10 +43,10 @@ class Dinic{
         return 0;
     }
     public:
-    Dinic(int _n, int _source, int _sink) : n(_n), source(_source), sink(_sink) {
+    Dinic(int const _n, int const _source, const int _sink) : n(_n), source(_source), sink(_sink) {
         graph.assign(_n, vi());
     }
-    void add_edge(int u, int v, int flow) { // Add u->v edge.
+    void add_edge(int const u, int const v, int const flow) { // Add u->v edge.
         Edge uv(u, v, flow), vu(v, u, 0); // Not multiedge.
         edge.pb(uv);
         edge.pb(vu);

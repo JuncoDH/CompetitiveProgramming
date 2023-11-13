@@ -9,7 +9,7 @@ class Treap {
     struct node {
         K key; //unique, time or x-axis for example
         V data; // f[key] = data
-        node *l = NULL, *r = NULL;
+        node* l = NULL, *r = NULL;
         int priority;
         pair<V, K> mx, mn; //maximum and minimum values over all subtrees, V 1º to be comparable <
         node(K _key, V _data) {
@@ -35,7 +35,7 @@ class Treap {
         t->mn = min({mp(t->data, t->key), getMinimumVK(t->l), getMinimumVK(t->r)});
     }
     //return a subtree l and r such as key(l) < key < key(r), similar to rotations
-    void split(pnode t, pnode &l, pnode &r, K key) {
+    void split(pnode t, pnode& l, pnode& r, K key) {
         if(!t) l = r = NULL;
         else if(key < t->key) split(t->l, l, t->l, key), r = t;
         else split(t->r, t->r, r, key), l = t;

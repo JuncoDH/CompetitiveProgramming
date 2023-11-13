@@ -5,8 +5,8 @@ template<typename T>
 class SegmentTree {
     vector<pair<T, pii>> t;
     vector<T> v;
-    int n;
-    pair<T, pii> f(pair<T, pii> a, pair<T, pii> b) { 
+    int n = 0;
+    pair<T, pii> f(pair<T, pii> const a, pair<T, pii> const b) { 
         pair<T, pii> ans;
         ans.fi = min(a.fi, b.fi); // The function of the query. __gcd, +, |, &, max, min.
         if(ans.fi == a.fi) ans.se = a.se;
@@ -17,21 +17,21 @@ class SegmentTree {
         }
         return ans;
     }
-    void build(int k, int l, int r) {
+    void build(int const k, int const l, int const r) {
         if(l == r) {t[k] = mp(v[l], mp(l, l)); return;}
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
         build(k<<1|1, mid + 1, r);
         t[k] = f(t[k<<1], t[k<<1|1]);
     }
-    void update(int k, int l, int r, int p, T x) {
+    void update(int const k, int const l, int const r, int const p, T const x) {
         if(l == r) {t[k].fi = x; return;}
         int mid = (l + r) >> 1;
         if(p <= mid) update(k<<1, l, mid, p, x);
         else update(k<<1|1, mid+1, r, p, x);
         t[k] = f(t[k<<1], t[k<<1|1]);
     }
-    pair<T, pii> query(int k, int l, int r, int ql, int qr) {
+    pair<T, pii> query(int const k, int const l, int const r, int const ql, int const qr) const {
         if(ql <= l && r <= qr) return t[k];
         int mid = (l + r) >> 1;
         if(qr <= mid) return query(k<<1, l, mid, ql, qr);
@@ -42,16 +42,16 @@ class SegmentTree {
     }
     public:
     SegmentTree() = default;
-    SegmentTree(vector<T> &_v) {
+    explicit SegmentTree(vector<T> const& _v) {
         v = _v;
         n = v.size();
-        t.assign(4*n, {});
-        build(1, 0, n-1);
+        t.assign(4 * n, {});
+        build(1, 0, n - 1);
     }
-    void update(int p, T x) {
-        update(1, 0, n-1, p, x);
+    void update(int const p, T const x) {
+        update(1, 0, n - 1, p, x);
     } // [ql, qr].
-    pair<T, pii> query(int ql, int qr) {
+    pair<T, pii> query(int const ql, int const qr) const {
         return query(1, 0, n-1, ql, qr);
     }
 };
@@ -61,7 +61,7 @@ class EulerTour{
     vi lvl;
     vi first_ocurrence;
     SegmentTree<int> st;
-    void dfs(int u, int p, int _lvl) {
+    void dfs(int const u, int const p, int const _lvl) {
         first_ocurrence[u] = tour.size();
         tour.pb(u);
         lvl.pb(_lvl);
@@ -74,18 +74,18 @@ class EulerTour{
     }
     public:
     EulerTour() = default;
-    EulerTour(vector<vi> &_graph) {
+    explicit EulerTour(vector<vi> const& _graph) {
         graph = _graph;
         first_ocurrence.assign(graph.size(), 0);
         dfs(0, -1, 0); // Rooted at 0.
         st = SegmentTree<int>(lvl);
     }
-    int lca(int u, int v) {
+    int lca(int u, int v) const {
         u = first_ocurrence[u], v = first_ocurrence[v];
         if(u > v) swap(u, v);
         return tour[st.query(u, v).se.fi];
     }
-    int dist(int u, int v) {
+    int dist(int u, int v) const {
         int w = first_ocurrence[lca(u, v)];
         u = first_ocurrence[u], v = first_ocurrence[v];
         return lvl[u] + lvl[v] - 2*lvl[w];

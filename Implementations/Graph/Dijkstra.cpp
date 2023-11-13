@@ -5,14 +5,14 @@ vll dijkstra(ll s) { // Negative edges NOT allowed.
     priority_queue<pll, vector<pll>, greater<pll>> p;
     vll dist(graph.size(), inf);
     pll u;
-    p.push(mp(0, s));
+    p.push({0, s});
     while(p.empty() == false) {
         u = p.top(); p.pop();
         if(dist[u.se] != inf) continue;
         dist[u.se] = u.fi;
-        for(auto el : graph[u.se]) {
+        for(auto const& el : graph[u.se]) {
             if(dist[el.fi] != inf) continue;
-            p.push(mp(u.fi + el.se, el.fi));
+            p.push({u.fi + el.se, el.fi});
         }
     }
     return dist;

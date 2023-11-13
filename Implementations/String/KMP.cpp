@@ -1,6 +1,6 @@
 // Knuth-Morris-Pratt. Search the ocurrences of t (pattern to search) in s (the text).
 // O(n). It increases j at most n times and decreases at most n times. 
-void KMP(string &s, string &t) {
+void KMP(string const& s, string const& t) {
     int n = s.length(), m = t.length(), i, j, len = 0;
     // Longest proper prefix that is also suffix.
     // s[0..lps[i]-1] == s[i-lps[i]+1..i].

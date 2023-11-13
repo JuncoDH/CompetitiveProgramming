@@ -8,7 +8,7 @@ class ArticulationPoint{
     vi discover; // Discover DFS time.
     vi parent;
     int Time = 0;
-    void dfs(int u) { // Call dfs(root).
+    void dfs(int const u) { // Call dfs(root).
         if(discover[u] != -1) return;
         low[u] = discover[u] = Time++;
         int children = 0;
@@ -27,7 +27,7 @@ class ArticulationPoint{
             if(v != parent[u]) low[u] = min(low[u], discover[v]); // Back edge.
         }
     }
-    public:
+public:
     vector<bool> AP; // True iff i is an Articulation Point.
     ArticulationPoint() {
         n = graph.size();

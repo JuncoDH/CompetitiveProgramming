@@ -1,8 +1,8 @@
 vector<vll> graph; // TREE graph, with nodes [0..n-1].
 vi dist;
 // Fills dist vector.
-void dfs_dist(int u, int p) {
-    for(auto v : graph[u]) {
+void dfs_dist(int const u, int const p) {
+    for(auto const& v : graph[u]) {
         if(v == p) continue;
         dist[v] = dist[u] + 1;
         dfs_dist(v, u);
@@ -23,9 +23,9 @@ pair<int, pii> get_diameter() {
 }
 vi parent;
 // Fills parent vector.
-void dfs_parent(int u, int p) {
+void dfs_parent(int const u, int const p) {
     parent[u] = p;
-    for(auto v : graph[u]) {
+    for(auto const& v : graph[u]) {
         if(v == p) continue;
         dfs_parent(v, u);
     }

@@ -1,4 +1,4 @@
-const int MAX_KNAPSACK = 2000005;
+constexpr int MAX_KNAPSACK = 2000005;
 ll dp[MAX_KNAPSACK]; // dp[i] is maximum value can get with i weight.
 vector<pll> v; // (value, weight).
 // Return max value with weight <= max_knapsack. O(n*max_knapsack).

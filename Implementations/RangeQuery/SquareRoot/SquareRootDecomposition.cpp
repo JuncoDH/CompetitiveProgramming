@@ -3,11 +3,13 @@ class SquareRootDecomposition {
     const int B = //3; //size of the bucket, ~ sqrt(N)
     vector<T> bucket;//(N/B + 1, 0T);
     vector<T> v;
+    int n = 0;
     public:
     SquareRootDecomposition() = default;
-    SquareRootDecomposition(vector<T> &_v) {
+    explicit SquareRootDecomposition(vector<T> const& _v) {
         bucket.assign((int)_v.size()/B +1, 0);
         v = _v;
+        n = v.size();
         for(int i = 0; i < (int)v.size(); i++) {
             bucket[i/B] += v[i];
         }
@@ -29,7 +31,7 @@ class SquareRootDecomposition {
         return ans;
     }
     // Replace v[x] by dx.
-    void update(int x, T dx) {
+    void update(int const x, T const dx) {
         bucket[x/B] += dx - v[x];
         v[x] = dx;
     }

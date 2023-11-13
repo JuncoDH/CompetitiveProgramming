@@ -1,16 +1,16 @@
 class DSU {
-    int n;
+    int n = 0;
     vi parent;
     vi rank; // Is optional, improves the theoretical complexity.
     vi sz; // Size of the component.
-    int find_parent(int a){
+    int find_parent(int const a){
         if(parent[a] == a) return a;
         return parent[a] = find_parent(parent[a]);
     }
     public:
-    int number_components;
+    int number_components = 0;
     DSU() = default;
-    DSU(int _n) {
+    explicit DSU(int const _n) {
         n = _n;
         number_components = n;
         parent.assign(n, 0);
@@ -18,7 +18,7 @@ class DSU {
         sz.assign(n, 1);
         for(int i = 0; i < n; ++i) parent[i] = i;
     }
-    bool is_connected(int a, int b){
+    bool is_connected(int const a, int const b){
         return find_parent(a) == find_parent(b);
     }
     void merge(int a, int b){
@@ -30,6 +30,6 @@ class DSU {
         else if(rank[a] < rank[b]) parent[a] = b, sz[b] += sz[a];
         else {parent[a] = b; rank[b]++, sz[b] += sz[a];}
     }
-    int size(int a) {return sz[find_parent(a)];}
+    int size(int const a) { return sz[find_parent(a)]; }
 };
 

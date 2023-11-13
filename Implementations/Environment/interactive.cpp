@@ -1,4 +1,4 @@
-ll query(ll a, ll b) {
+ll query(ll const a, ll const b) {
     ll num;
     cout << "? " << a + 1 << " " << b + 1 << endl;
     cin >> num;
@@ -6,7 +6,7 @@ ll query(ll a, ll b) {
     return num;
 }
 
-void show(ll a) {
+void show(ll const a) {
     cout << "! " << a + 1 << endl;
 }
 

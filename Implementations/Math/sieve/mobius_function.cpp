@@ -1,21 +1,21 @@
 // You can do Mobius inversion, that is Sum_{d|n} mu[d] = [n == 1]. (Maybe n = gcd(a_i) usually).
-const int MAX = 1e5;
+constexpr int MAX = 1e5;
 int mu[MAX]; // mu(n) = 0 if n is square prime and (-1)^t if n = p1...pt. 
 void mobius_init() {
     vi prime;
-    ll i;
     bool is_composite[MAX];
     fill(is_composite, is_composite+MAX, false);
     mu[1] = 1;
-    for(i = 2; i < MAX; i++) {
+    for(int i = 2; i < MAX; i++) {
         if(!is_composite[i]) prime.pb(i), mu[i] = -1;
-        for(auto p : prime) {
+        for(auto const& p : prime) {
             if(i * p >= MAX) break;
             is_composite[i * p] = true;
             if(i % p == 0) { // if p divides i.
                 // mu[i * p] = 0; // already 0.
                 break;
-            } else mu[i * p] = mu[i] * mu[p];
+            }
+            mu[i * p] = mu[i] * mu[p];
         }
     }
 }

@@ -1,18 +1,18 @@
 class node{
     public:
-    static const int BLACK = 0;
-    static const int RED = 1;
+    static constexpr int BLACK = 0;
+    static constexpr int RED = 1;
     ll value = 0;
     node *l = nullptr, *r = nullptr, *p = nullptr;
     int color = BLACK;
     node() = default;
-    node(ll _value) {
+    node(ll const _value) {
         value = _value;
         l = new node(); l->p = this;
         r = new node(); r->p = this;
     }
     ~node() {delete l; delete r;}
-    bool is_leaf() {
+    bool is_leaf() const {
         return l == nullptr && r == nullptr;
     }
 };
@@ -82,12 +82,12 @@ class RedBlackTree{
         }
         root->color = node::BLACK;
     }
-    node *get_next_higher(node *u) { // Get next higher node. u has to have 2 children.
+    static node *get_next_higher(node *u) { // Get next higher node. u has to have 2 children.
         u = u->r;
         while(!u->l->is_leaf()) u = u->l;
         return u;
     }
-    void dfs_get_elements(node *u, vll &v) {
+    static void dfs_get_elements(node const* u, vll& v) {
         if(u->is_leaf()) return;
         dfs_get_elements(u->l, v);
         v.pb(u->value);
@@ -151,7 +151,7 @@ class RedBlackTree{
     public:
     node *root = new node();
     ~RedBlackTree() {delete root;}
-    bool search(ll key) {
+    bool search(ll const key) const {
         node *n = root;
         while(!n->is_leaf()) {
             if(key == n->value) return true;
@@ -160,7 +160,7 @@ class RedBlackTree{
         }
         return false;
     }
-    void insert(ll key) {
+    void insert(ll const key) {
         node *x = root;
         node *z = new node(key);
         if(root->is_leaf()) {
@@ -180,7 +180,7 @@ class RedBlackTree{
         else {delete x->r; x->r = z;}
         insert_fixup(z);
     }
-    void erase(ll key) {
+    void erase(ll const key) {
         node *z = root; // The node to remove.
         node *y = nullptr; // The real node to remove.
         node *x = nullptr; // The node that has been shifted.
@@ -205,7 +205,7 @@ class RedBlackTree{
         y->r = y->l = nullptr;
         delete y;
     }
-    vll get_elements() {
+    vll get_elements() const {
         vll ans;
         dfs_get_elements(root, ans);
         return ans;

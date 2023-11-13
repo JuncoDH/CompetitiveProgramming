@@ -4,7 +4,7 @@ class Node{
         if(l) height = max(height, l->height + 1);
         if(r) height = max(height, r->height + 1);
     }
-    int get_balance() {
+    int get_balance() const {
         int ret = 0; // r->height - l->height.
         if(r) ret += r->height;
         if(l) ret -= l->height;
@@ -38,7 +38,7 @@ class Node{
     Node *l = nullptr, *r = nullptr, *p = nullptr;
     ll value = 0;
     Node() = default;
-    Node(ll _value) {value = _value;}
+    explicit Node(ll const _value) {value = _value;}
     ~Node() {delete l; delete r;}
     void balance() {
         int balance = get_balance(), balance_l = 0, balance_r = 0;
@@ -60,7 +60,7 @@ class Node{
         }
         if(p) p->balance();
     }
-    void get_elements(vll &ret) {
+    void get_elements(vll& ret) const {
         if(l) l->get_elements(ret);
         ret.pb(value);
         if(r) r->get_elements(ret);
@@ -70,7 +70,7 @@ class AVL{
     Node *root = nullptr;
     public:
     ~AVL() {delete root;}
-    bool search(ll num) {
+    bool search(ll const num) const {
         Node *n = root;
         if(!root) return false;
         while(n) {
@@ -80,7 +80,7 @@ class AVL{
         }
         return false;
     }
-    void insert(ll num) {
+    void insert(ll const num) {
         Node *n = root, *nw_node = new Node(num);
         if(!root) {
             root = nw_node;
@@ -102,7 +102,7 @@ class AVL{
         while(n->p) {n = n->p;}
         root = n;
     }
-    void erase(ll num) {
+    void erase(ll const num) {
         Node *n = root, *x = nullptr; // x the node to erase.
         while(n) {
             if(num == n->value) break;
@@ -130,12 +130,12 @@ class AVL{
         x->l = x->r = nullptr;
         delete x;
     }
-    vll get_elements() {
+    vll get_elements() const {
         vll ans;
         root->get_elements(ans);
         return ans;
         } // Return the next highest element > num, or inf if there is none.
-    ll next(ll num) {
+    ll next(ll const num) const {
         ll ans = inf;
         if(!root) return ans;
         Node *n = root;

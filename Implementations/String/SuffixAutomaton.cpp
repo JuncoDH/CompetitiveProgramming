@@ -3,7 +3,7 @@ class node{
     int len; // Length of the longest string in the equivalence classes.
     int suffix_link = -1; // The longest suffix that is not in the same equivalence class.
     map<char, int> next;
-    node(int _len) {
+    node(int const _len) {
         len = _len;
     }
 };
@@ -12,10 +12,10 @@ class SuffixAutomaton{ // O(n) creation.
     // int t_size = 1;
     int last = 0; // The node representing the entire string.
     public:
-    void extend(string &s) {
-        for(char c : s) extend(c);
+    void extend(string const& s) {
+        for(auto const& c : s) extend(c);
     } // Extend the automaton character one by one.
-    void extend(char c) {
+    void extend(char const c) {
         int p = last; // Head of the automaton.
         int q; // the node to duplicate.
         t.pb(node(t[last].len + 1));
@@ -62,7 +62,7 @@ class SuffixAutomaton{ // O(n) creation.
     // Return true if w is a substring of s.
     // Can retrieve the longest prefis of w that is in s.
     // w is a suffix if the last p is a terminal node.
-    bool is_substr(string &w) {
+    bool is_substr(string const& w) {
         int p = 0; // string s = "";
         for(char ch : w) {
             if(!t[p].next.count(ch)) return false;
@@ -75,7 +75,7 @@ class SuffixAutomaton{ // O(n) creation.
     // For the sum of all substring length:
     // ans[u] = sum_w(ans[w] + dp_num_substr[w]).
     vll dp_num_substr;
-    ll num_substr(int i = 0) { // Empty string also counts.
+    ll num_substr(int const i = 0){ // Empty string also counts.
         ll ans = 1;
         if(dp_num_substr.empty()) dp_num_substr.assign((int)t.size(), -1);
         if(dp_num_substr[i] != -1) return dp_num_substr[i];
@@ -103,7 +103,7 @@ class SuffixAutomaton{ // O(n) creation.
         return ans;
     }
     // Take greedily the first substring with same length as s.
-    string smallest_cyclic_shift(string &s) {
+    string smallest_cyclic_shift(string const& s) {
         int p = 0, cnt = s.length();
         string ans = "", s2 = s+s;
         extend(s2);

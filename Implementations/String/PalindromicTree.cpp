@@ -1,11 +1,11 @@
 class Node{
-    static const int ALPHA_SIZE = 26;
-    public:
+    static constexpr int ALPHA_SIZE = 26;
+public:
     int len = -1; // Length of the palindrome.
     int suffix_link = -1; // Link to biggest palindrome of a proper suffix.
     int to[ALPHA_SIZE] = {0};
     int num_palindromes = 0; // Number of palindromes finishing in this node.
-    Node(int _len, int _suffix_link) {
+    Node(int const _len, int const _suffix_link) {
         len = _len;
         suffix_link = _suffix_link;
     }
@@ -15,12 +15,12 @@ class PalindromicTree{ // Also called eertree.
     int last = 1; // Online processing.
     string s = "#";
     int n = 1;
-    public:
+public:
     PalindromicTree() {
         tree.pb(Node(-1, -1));
         tree.pb(Node(0, 0));
     }
-    int add_character(char c) {
+    int add_character(char const c) {
         int ch = c - 'a';
         s += c; n++;
         int p = last;
@@ -40,5 +40,4 @@ class PalindromicTree{ // Also called eertree.
         return tree[last].num_palindromes;
     } // Number of different palindromes is tree.size()-2, or -1 if counts "".
 };
-
 

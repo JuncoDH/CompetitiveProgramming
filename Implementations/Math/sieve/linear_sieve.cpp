@@ -1,14 +1,14 @@
-const int MAX_PRIME = 1e6+5;
+constexpr int MAX_PRIME = 1e6+5;
 bool num[MAX_PRIME]; // If num[i] = false => i is prime.
 int num_div[MAX_PRIME]; // Number of prime divisors of i.
 int min_div[MAX_PRIME]; // The smallest prime that divide i.
 vector<int> prime;
 void linear_sieve(){
-    int i, j, prime_size = 0;
+    int prime_size = 0;
     min_div[1] = 1;
-    for(i = 2; i < MAX_PRIME; ++i){
-        if(num[i] == false) {prime.push_back(i); ++prime_size; num_div[i] = 1; min_div[i] = i;}        
-        for(j = 0; j < prime_size && i * prime[j] < MAX_PRIME; ++j){
+    for(int i = 2; i < MAX_PRIME; ++i){
+        if(num[i] == false) { prime.push_back(i); ++prime_size; num_div[i] = 1; min_div[i] = i; }
+        for(int j = 0; j < prime_size && i * prime[j] < MAX_PRIME; ++j){
             num[i * prime[j]] = true;
             num_div[i * prime[j]] = num_div[i] + 1;
             min_div[i * prime[j]] = min(min_div[i], prime[j]);
@@ -16,10 +16,10 @@ void linear_sieve(){
         }
     }
 }
-bool is_prime(ll n) {
-    for(auto el : prime) {
+bool is_prime(ll const n) {
+    for(auto const& el : prime) {
         if(n == el) return true;
-        if(n%el == 0) return false;
+        if(n % el == 0) return false;
     }
     return true;
 }
@@ -27,9 +27,9 @@ vll fact, nfact; // The factors of n and their exponent. n >= 1.
 void factorize(int n) { // Up to MAX_PRIME*MAX_PRIME.
     ll cont, prev_p;
     fact.clear(); nfact.clear();
-    for(auto p : prime) {
+    for(auto const& p : prime) {
         if(n < MAX_PRIME) break;
-        if(n%p == 0) {
+        if(n % p == 0) {
             fact.pb(p);
             cont = 0;
             while(n%p == 0) n /= p, cont++;

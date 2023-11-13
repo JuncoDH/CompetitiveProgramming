@@ -5,23 +5,21 @@ class Matrix {
     int nrow = 0;
     int ncol = 0;
     vector<vector<T>> v;
-    Matrix() {}
-    // Empty Matrix.
-    Matrix(int _nrow, int _ncol) {
+    Matrix() = default;
+    Matrix(int const _nrow, int const _ncol) {
         nrow = _nrow;
         ncol = _ncol;
         v.assign(nrow, vector<T>(ncol, 0));
     }
     // Example: Matrix<ll> a({{1, 2}, {3, 4}}); // Can't use for one column vector.
-    Matrix(vector<vector<T>> _v) {
+    explicit Matrix(vector<vector<T>> const& _v) {
         nrow = _v.size();
         ncol = _v[0].size();
         v = _v;
     }
     friend ostream& operator << (ostream &os, Matrix<T> m) {
-        int i, j;
-        for(i = 0; i < m.nrow; i++) {
-            for(j = 0; j < m.ncol; j++) {
+        for(int i = 0; i < m.nrow; i++) {
+            for(int j = 0; j < m.ncol; j++) {
                 if(j) os << " ";
                 os << m.v[i][j]; // Becareful with "-0".
             }
@@ -29,11 +27,10 @@ class Matrix {
         }
         return os;
     }
-    Matrix<T> operator + (const Matrix<T> other) {
-        int i, j;
+    Matrix<T> operator + (Matrix<T> const& other) {
         Matrix<T> ans(nrow, ncol);
-        for(i = 0; i < nrow; i++) {
-            for(j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; i++) {
+            for(int j = 0; j < ncol; j++) {
                 ans.v[i][j] = v[i][j] + other.v[i][j];
             }
         }
@@ -44,45 +41,42 @@ class Matrix {
         for(int i = 0; i < nrow; i++) v[i][i] = 1;
         return *this;
     }
-    Matrix<T> operator * (const Matrix<T> other) {
-        int i, j, k;
+    Matrix<T> operator * (Matrix<T> const& other) {
         Matrix<T> ans(nrow, other.ncol);
-        for(i = 0; i < nrow; i++) {
-            for(j = 0; j < other.ncol; j++) {
-                for(k = 0; k < ncol; k++) {
+        for(int i = 0; i < nrow; i++) {
+            for(int j = 0; j < other.ncol; j++) {
+                for(int k = 0; k < ncol; k++) {
                     ans.v[i][j] += v[i][k]*other.v[k][j];
                 }
             }
         }
         return ans.delete_negative_cero();
     }
-    Matrix<T> operator ^ (ll ex) {
+    Matrix<T> operator ^ (ll const ex) {
         if(ex == 0) {
             Matrix<T> ans(nrow, ncol);
             return ans.convert_to_identity();
         }
         Matrix<T> half = (*this) ^ (ex/2);
-        if(ex%2) return half * half * (*this);
-        else return half * half;
+        if(ex % 2) return half * half * (*this);
+        return half * half;
     }
     bool operator == (const Matrix<T> other) {
-        int i, j;
         if(nrow != other.nrow || ncol != other.ncol) return false;
-        for(i = 0; i < nrow; i++) {
-            for(j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; i++) {
+            for(int j = 0; j < ncol; j++) {
                 if(abs(v[i][j] - other.v[i][j]) > eps) return false;
             }
         }
         return true;
     }
-    bool is_null_matrix() {
+    bool is_null_matrix() const {
         return ncol == 0 || nrow == 0;
     }
     // Change "-0" by "0".
     Matrix<T> delete_negative_cero() {
-        int i, j;
-        for(i = 0; i < nrow; i++) {
-            for(j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; i++) {
+            for(int j = 0; j < ncol; j++) {
                 if(abs(v[i][j]) < eps) v[i][j] = 0;
             }
         }
@@ -133,7 +127,7 @@ class Matrix {
         return dato.delete_negative_cero();
     }
     // If you are going to *, it loses a lot of precission.
-    static Matrix<T> inverse(Matrix<T> mat) {
+    static Matrix<T> inverse(Matrix<T> const& mat) {
         Matrix<T> id(mat.nrow, mat.ncol);
         id.convert_to_identity();
         return gaussian_elimination(mat, id);

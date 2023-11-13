@@ -1,6 +1,6 @@
 // Return s1 < s2.
-lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-bool less_than(string &s1, string &s2) {
+// lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+bool less_than(string const& s1, string const& s2) {
     if(s1.size() != s2.size())
         return s1.size() < s2.size();
     for(int i = 0; i < (int)s1.size(); i++) {
@@ -9,7 +9,7 @@ bool less_than(string &s1, string &s2) {
     return false;
 }
 // s1 + s2. s1[0] is the Most Significative digit.
-string add(string &s1, string &s2) {
+string add(string const& s1, string const& s2) {
     int i = (int)s1.size()-1, j = (int)s2.size()-1, a, b, carry = 0;
     string ans;
     while(i >= 0 || j >= 0) {
@@ -17,7 +17,7 @@ string add(string &s1, string &s2) {
         else a = 0;
         if(j >= 0) b = s2[j] - '0';
         else b = 0;
-        ans.pb((a+b+carry)%10 + '0');
+        ans.pb((a + b + carry) % 10 + '0');
         carry = (a+b+carry) > 9;
         i--; j--;
     }
@@ -27,7 +27,7 @@ string add(string &s1, string &s2) {
     return ans;
 }
 // Return s1 - s2. s1 has to be >= s2;
-string substract(string &s1, string &s2) {
+string substract(string const& s1, string const& s2) {
     string ans;
     int i = (int)s1.size()-1, j = (int)s2.size()-1, a, b, carry = 0;
     while(i >= 0) {

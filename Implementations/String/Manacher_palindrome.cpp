@@ -1,5 +1,5 @@
 // LPS Longest Palindromic Substring, O(n).
-void Manacher(string &str) {
+void Manacher(string const& str) {
     char ch = '#'; // '#' a char not contained in str.
     string s(1, ch), ans;
     for(auto c : str) {s += c; s += ch;}

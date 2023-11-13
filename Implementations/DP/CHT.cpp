@@ -1,3 +1,4 @@
+// https://codeforces.com/blog/entry/63823
 ll floor_div(ll a, ll b) { // a/b is truncate function.
     return a/b - ((a^b) < 0 && a%b);
 }

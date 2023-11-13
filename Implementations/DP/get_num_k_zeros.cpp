@@ -6,10 +6,10 @@ ll count_zeros(ll num) { // Number of zeros in num!.
     }
     return ans;
 }
-ll get_num_k_zeros(ll k) { // Get the number with k zeros in its factorial.
-    ll l = -1, r = inf, mid;
+ll get_num_k_zeros(ll const k) { // Get the number with k zeros in its factorial.
+    ll l = -1, r = inf;
     while(l + 1 < r) {
-        mid = (l + r) / 2;
+        ll mid = (l + r) / 2;
         if(count_zeros(mid) < k) l = mid;
         else r = mid;
     }

@@ -1,7 +1,7 @@
 class Test {
     chrono::time_point<std::chrono::system_clock> tstart, tend;
     public:
-    Test() {tstart = chrono::system_clock::now(); f();}
+    Test() { tstart = chrono::system_clock::now(); f(); }
     void f() {} // Test function to chronometer.
     ~Test() {
         tend = chrono::system_clock::now();

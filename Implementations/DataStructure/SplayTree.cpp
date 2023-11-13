@@ -3,9 +3,9 @@ class Node{
     ll value = 0;
     Node *l = nullptr, *r = nullptr, *p = nullptr;
     Node() = default;
-    Node(ll _value) {value = _value;}
-    ~Node() {delete l; delete r;}
-    bool is_leaf() {
+    Node(ll const _value) { value = _value; }
+    ~Node() { delete l; delete r; }
+    bool is_leaf() const {
         return l == nullptr && r == nullptr;
     }
 };
@@ -62,7 +62,7 @@ class SplayTree{
         }
         root = n;
     }
-    void dfs_get_elements(Node *u, vll &v) {
+    static void dfs_get_elements(Node const* u, vll& v) const {
         if(!u) return;
         dfs_get_elements(u->l, v);
         v.pb(u->value);
@@ -71,7 +71,7 @@ class SplayTree{
     public:
     Node *root = nullptr;
     ~SplayTree() {delete root;}
-    void insert(ll value) {
+    void insert(ll const value) {
         Node *n = root, *nw = new Node(value);
         if(!root) {
             root = nw;
@@ -91,7 +91,7 @@ class SplayTree{
         nw->p = n;
         splay(nw);
     }
-    bool find(ll value) {
+    bool find(ll const value) {
         Node *n = root;
         if(!root) return false;
         while(true) {
@@ -108,7 +108,7 @@ class SplayTree{
         splay(n);
         return n->value == value;
     }
-    void erase(ll value) {
+    void erase(ll const value) {
         if(!find(value)) return; // Not inserted.
         Node *n = root;
         Node *p = n->r; // Next higher node.
@@ -131,12 +131,12 @@ class SplayTree{
         p->l = p->r = nullptr;
         delete p;
     }
-    vll get_elements() {
+    vll get_elements() const {
         vll ans;
         dfs_get_elements(root, ans);
         return ans;
     } // Return the next highest element > num, or inf if there is none.
-    ll next(ll num) {
+    ll next(ll const num) const {
         ll ans = inf;
         if(!root) return ans;
         Node *n = root;

@@ -1,22 +1,21 @@
 // Sparse Table, table[i][j] = covers [i, i + 2^j - 1], range 2^j.
 // CAN'T UPDATE VALUES.
-const ll MAX = 1e5;
-const int LOG2_MAX = 22; // log2(MAX).
+constexpr ll MAX = 1e5;
+constexpr int LOG2_MAX = 22; // log2(MAX).
 ll table[MAX][LOG2_MAX]; // Outside class.
 template<typename T>
 class SparseTable {
-    int n;
+    int n = 0;
     T f(T a, T b) {
         return min(a, b);
     }
     public:
     SparseTable() = default;
-    SparseTable(vector<T> &_v) {
-        int i, j;
+    SparseTable(vector<T> const& _v) {
         n = _v.size();
-        for(i = 0; i < n; ++i) table[i][0] = _v[i];
-        for(j = 1; j < LOG2_MAX; ++j){
-            for(i = 0; i < n; ++i){
+        for(int i = 0; i < n; ++i) table[i][0] = _v[i];
+        for(int j = 1; j < LOG2_MAX; ++j){
+            for(int i = 0; i < n; ++i){
                 if(i + (1ll << (j - 1)) >= n) break;
                 table[i][j] = f(table[i][j - 1], table[i + (1ll << (j - 1))][j - 1]);
             }

@@ -8,16 +8,16 @@ class node{
 // Instead of asking for a path u -> v, ask for u -> lca(u, v) -> v.
 // The decomposed tree has heigh O(log n).
 class CentroidDecomposition{
-    void dfs_size(int u, int p) {
+    void dfs_size(int const u, int const p) {
         vn[u].subtree = 1;
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(v == p || vn[v].is_centroid) continue;
             dfs_size(v, u);
             vn[u].subtree += vn[v].subtree;
         }
     }
-    int get_centroid(int u, int p, int n_subtree) {
-        for(auto v : graph[u]) {
+    int get_centroid(int const u, int const p, int const n_subtree) {
+        for(auto const& v : graph[u]) {
             if(v == p || vn[v].is_centroid) continue;
             if(vn[v].subtree > n_subtree/2)
                 return get_centroid(v, u, n_subtree);
@@ -29,7 +29,7 @@ class CentroidDecomposition{
     vector<node> vn;
     int root; // Root of the cd_graph;
     vector<vi> cd_graph; // directed CD graph root -> edges.
-    CentroidDecomposition(vector<vi> &_graph) {
+    explicit CentroidDecomposition(vector<vi> const& _graph) {
         graph = _graph;
         int u, v, n = graph.size();
         vn.assign(n, node());
@@ -55,10 +55,10 @@ class CentroidDecomposition{
     }
     // The centroid is the node that when removing, all its
     // subtrees have <= n/2 nodes. It can be AT MOST 2 centroids.
-    int get_centroid() {
+    int get_centroid() const {
         return root;
     }
-    int lca(int u, int v) { // LCA in the centroid tree.
+    int lca(int u, int v) const { // LCA in the centroid tree.
         while(vn[u].lvl > vn[v].lvl) u = vn[u].parent;
         while(vn[v].lvl > vn[u].lvl) v = vn[v].parent;
         while(u != v) u = vn[u].parent, v = vn[v].parent;

@@ -3,13 +3,13 @@ class Node{
     ll value = 0;
     vector<Node*> prev; // Normal array is layer 0.
     vector<Node*> nxt;
-    Node(ll _value) {value = _value;}
+    Node(ll const _value) { value = _value; }
 }; // Probabilistic Datastructure. O(log n) average, O(n) worst case.
 class SkipList{
     Node *begin = new Node(-inf); // Values in range (-inf, inf).
     Node *end = new Node(inf);
     // Return a node with the next >= value than num.
-    Node* find_nxt(ll num) {
+    Node* find_nxt(ll const num) const {
         Node *n = begin;
         int layer = begin->nxt.size();
         while(layer >= 0) {
@@ -21,7 +21,7 @@ class SkipList{
     }
     public:
     SkipList() {
-        srand(time(0));
+        srand(time(nullptr));
         begin->prev = {nullptr};
         begin->nxt = {end};
         end->prev = {begin};
@@ -35,16 +35,16 @@ class SkipList{
        }
        delete n;
     }
-    bool find(ll num) {
+    bool find(ll const num) const {
         Node *n = find_nxt(num);
         return n->value == num;
     }
-    void insert(ll num) {
-        Node *r = find_nxt(num);
-        Node *l = r->prev[0];
-        Node *n = new Node(num);
+    void insert(ll const num) {
+        Node* r = find_nxt(num);
+        Node* l = r->prev[0];
+        Node* n = new Node(num);
         int layer = -1;
-        while(layer == -1 || rand()%2) {
+        while(layer == -1 || rand() % 2) {
             layer++;
             if(layer >= (int)begin->nxt.size()) {
                 begin->prev.pb(nullptr);
@@ -60,7 +60,7 @@ class SkipList{
             n->nxt.pb(r);
         }
     }
-    void erase(ll num) {
+    void erase(ll const num) {
         Node *n = find_nxt(num);
         if(n->value != num) return;
         Node *l = n->prev[0];
@@ -75,7 +75,7 @@ class SkipList{
         }
         delete n;
     }
-    vll get_elements() {
+    vll get_elements() const {
         vll ans;
         Node *n = begin->nxt[0];
         while(n != end) {
@@ -84,7 +84,7 @@ class SkipList{
         }
         return ans;
     }
-    ll next(ll num) {
+    ll next(ll const num) const {
         Node *n = find_nxt(num);
         return n->value;
     }

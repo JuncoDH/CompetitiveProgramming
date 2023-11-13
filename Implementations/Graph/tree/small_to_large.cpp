@@ -4,15 +4,15 @@ vll a; // Values of the nodes.
 namespace small_to_large {
     ll ans = 0;
     vector<set<ll>> vs; // Assign size n. set adds another log n factor.
-    void dfs_small_to_large(int u, int p) {
+    void dfs_small_to_large(int const u, int const p) {
         bool ok_clear = false; // true if you dont want to upscale the node.
         vs[u].insert(xor_path::calculate_xor(u, 0)); // Change.
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(v == p) continue;
             dfs_small_to_large(v, u);
             if(ok_clear || vs[v].empty()) continue;
             if(vs[u].size() < vs[v].size()) swap(vs[u], vs[v]);
-            for(auto el : vs[v]) {
+            for(auto const& el : vs[v]) {
                 if(vs[u].count(el ^ a[u])) { // Change.
                     ok_clear = true;
                     break;

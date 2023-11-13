@@ -1,37 +1,34 @@
 template<typename T>
 class BIT_2D {
     vector<vector<T>> Bit2D;
-    int n, m;
+    int n = 0, m = 0;
     public:
     BIT_2D() = default;
-    BIT_2D(int _n, int _m) {
+    BIT_2D(int const _n, int const _m) {
         n = _n;
         m = _m;
         Bit2D.assign(n + 1, vector<T>(m + 1, 0));
     }
-    BIT_2D(vector<vector<T>> v) {
+    explicit BIT_2D(vector<vector<T>> const& v) {
         n = v.size();
         m = v[0].size();
         Bit2D.assign(n + 1, vector<T>(m + 1, 0));
-        int i, j;
-        for(i = 0; i < n; ++i) {
-            for(j = 0; j < m; ++j)
+        for(int i = 0; i < n; ++i) {
+            for(int j = 0; j < m; ++j)
                 update(i, j, v[i][j]);
         }
     }
-    void update(int l, int r, T val) {
-        int i, j;
-        for(i = l + 1; i <= n; i += LSB(i)) {
-            for(j = r + 1; j <= m; j += LSB(j)) {
+    void update(int const l, int const r, T const val) {
+        for(int i = l + 1; i <= n; i += LSB(i)) {
+            for(int j = r + 1; j <= m; j += LSB(j)) {
                 Bit2D[i][j] += val;
             }
         }
     }
-    T sum(int l, int r) {
+    T sum(int const l, int const r) const {
         T ans = 0;
-        int i, j;
-        for(i = l + 1; i > 0; i -= LSB(i)) {
-            for(j = r + 1; j > 0; j -= LSB(j)) {
+        for(int i = l + 1; i > 0; i -= LSB(i)) {
+            for(int j = r + 1; j > 0; j -= LSB(j)) {
                 ans += Bit2D[i][j];
             }
         }

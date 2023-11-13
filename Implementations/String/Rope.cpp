@@ -5,11 +5,11 @@ class Node{
     string s = ""; // String in the leaves.
     public:
     Node() = default;
-    Node(string _s) {
+    explicit Node(string const& _s) {
         s = _s;
         weight = s.length();
     }
-    Node(Node *_l, Node *_r) {
+    Node(Node* _l, Node* _r) {
         l = _l;
         r = _r;
         if(l) weight += l->get_length();
@@ -24,13 +24,13 @@ class Node{
             delete r;
         }
     }
-    void show() { // Print the whole string.
+    void show() const { // Print the whole string.
         if(l) l->show();
         cout << s;
         if(r) r->show();
     }
     // void balance() {} // TODO. O(n) vs O(log n).
-    ll get_length() { // Get length of whole string.
+    ll get_length() const { // Get length of whole string.
         ll ans = weight;
         if(r) ans += r->get_length();
         return ans;
@@ -52,15 +52,14 @@ class Node{
             return mp(l, r);
         }
     } // 1 Index str.
-    char get_char(ll i) {
+    char get_char(ll const i) const {
         if(i <= weight) {
             if(!l) return s[i - 1];
             return l->get_char(i);
-        } else {
-            return r->get_char(i - weight);
         }
+        return r->get_char(i - weight);
     } // Get the substring [posl, posr].
-    void get_substr(ll posl, ll posr, string &ans) {
+    void get_substr(ll const posl, ll const posr, string& ans) const {
         if(weight < posl || posr <= 0) return;
         if(l) l->get_substr(posl, posr, ans);
         int n = posr - posl + 1;
@@ -73,35 +72,35 @@ class Node{
 class Rope{ 
     vector<Node*> v; // All functions add the root to v.
     vector<Node*> to_delete; // Temporal list to free all the nodes.
-    Node* concat(Node *l, Node *r) {return new Node(l, r);}
+    static Node* concat(Node* l, Node* r) {return new Node(l, r);}
     public:
     ~Rope() {
         for(auto el : to_delete) v.pb(el);
-        int i, n = v.size();
-        for(i = 0; i < n; i++) {
+        int n = v.size();
+        for(int i = 0; i < n; i++) {
             if(freezed_node.count(v[i])) continue;
             freezed_node.insert(v[i]);
             delete v[i];
         }
     } // Show string v[pos].
-    void show(int pos) {
+    void show(int const pos) const {
         v[pos]->show();
     } // Get char i of v[pos]. 
-    char get_char(int pos, ll i) {
+    char get_char(int const pos, ll const i) const {
         return v[pos]->get_char(i + 1);
     } // Get the substring v[pos] [l..r].
-    string get_substr(int pos, ll l, ll r) {
+    string get_substr(int const pos, ll const l, ll const r) const {
         string ans = "";
         v[pos]->get_substr(l+1, r+1, ans);
         return ans;
     } // Add a new string to the rope.
-    void add(string &s) {
+    void add(string const& s) {
         v.pb(new Node(s));
     } // Concatenate v[posl] with v[posr].
-    void concat(int posl, int posr) {
+    void concat(int const posl, int const posr) {
         v.pb(concat(v[posl], v[posr]));
     } // Convert v[pos1] to [0..i] + v[pos2] + [i+1..n-1].
-    void insert(int pos1, int pos2, ll i) {
+    void insert(int const pos1, int const pos2, ll const i) {
         if(i == -1) { // Append to the left.
             v.pb(concat(v[pos2], v[pos1]));
             return;
@@ -113,14 +112,14 @@ class Rope{
         pair<Node*, Node*> ret = v[pos1]->split(i);
         v.pb(concat(concat(ret.fi, v[pos2]), ret.se));
     } // Erase v[pos] [i..j].
-    void erase(int pos, ll i, ll j) {
+    void erase(int const pos, ll const i, ll const j) {
         pair<Node*, Node*> ret = v[pos]->split(i-1);
         pair<Node*, Node*> ret2 = ret.se->split(j-i);
         to_delete.pb(ret.se);
         to_delete.pb(ret2.fi);
         v.pb(concat(ret.fi, ret2.se));
     } // Cut v[pos] [i..j] and save it.
-    void cut(int pos, ll i, ll j) {
+    void cut(int const pos, ll const i, ll const j) {
         if(i > j) {
             v.pb(new Node(""));
             return;

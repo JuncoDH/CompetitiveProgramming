@@ -5,11 +5,11 @@ class Tarjan{ // O(n) SCC.
     vector<bool> onStack;
     vi s;
     int time = 0;
-    void dfs(int u) {
+    void dfs(int const u) {
         low[u] = discover[u] = time++;
         onStack[u] = true;
         s.pb(u);
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(discover[v] == -1) dfs(v);
             if(onStack[v]) low[u] = min(low[u], low[v]);
         }
@@ -20,18 +20,18 @@ class Tarjan{ // O(n) SCC.
                 onStack[v] = false;
                 if(u == v) break;
             }
-            components.pb(vi());
+            components.pb({});
         }
     }
     public:
     vector<vi> components;
     Tarjan() {
-        int i, n = graph.size();
+        int n = graph.size();
         discover.assign(n, -1);
         low.assign(n, -1);
         onStack.assign(n, false);
-        components.pb(vi());
-        for(i = 0; i < n; i++)
+        components.pb({});
+        for(int i = 0; i < n; i++)
             if(discover[i] == -1) dfs(i);
         components.pop_back();
     }

@@ -4,17 +4,17 @@ class Node{
     Node *c = nullptr; // Biggest child, sorted > degree.
     int degree = 0; // Number of direct children. It has log n.
     int value = 0; // Value of the node, int, ll...
-    Node(int _value) {
+    explicit Node(int const _value) {
         value = _value;
     }
     ~Node() {delete c; delete r;}
-    void insert_child(Node *n) { // Insert n as a child of this.
+    void insert_child(Node* n) { // Insert n as a child of this.
         if(!n) return;
         n->r = c;
         c = n;
         degree++;
     }
-    static Node* merge(Node *a, Node *b) { // Merge nodes with same degree.
+    static Node* merge(Node* a, Node* b) { // Merge nodes with same degree.
         if(a->value >= b->value) swap(a, b);
         a->insert_child(b);
         a->r = nullptr; // Isolate the ans tree.
@@ -24,22 +24,22 @@ class Node{
 // Min Heap.
 class BinomialHeap{
     int n_nodes = 0;
-    Node *merge_next(Node *ans, Node *n) {
+    Node* merge_next(Node* ans, Node* n) {
         if(!ans) return root = ans = n;
         return ans->r = n;
     }
     public:
-    Node *root = nullptr;
+    Node* root = nullptr;
     BinomialHeap() = default;
     ~BinomialHeap() {delete root;}
-    void merge(BinomialHeap &bh) { // Add bh nodes to this.
+    void merge(BinomialHeap const& bh) { // Add bh nodes to this.
         n_nodes += bh.n_nodes;
-        Node *a = root;
-        Node *b = bh.root;
-        Node *tmp = nullptr;
-        Node *ans = nullptr;
-        Node *nxta = nullptr;
-        Node *nxtb = nullptr;
+        Node* a = root;
+        Node* b = bh.root;
+        Node* tmp = nullptr;
+        Node* ans = nullptr;
+        Node* nxta = nullptr;
+        Node* nxtb = nullptr;
         while(a && b) {
             if(tmp && tmp->degree < min(a->degree, b->degree)) {
                 ans = merge_next(ans, tmp);
@@ -82,7 +82,7 @@ class BinomialHeap{
         if(a) ans = merge_next(ans, a);
         if(tmp) ans = merge_next(ans, tmp);
     }
-    void push(int value) {
+    void push(int const value) {
         Node *n = new Node(value);
         n_nodes++;
         BinomialHeap bh;
@@ -90,7 +90,7 @@ class BinomialHeap{
         merge(bh);
         bh.root = nullptr;
     }
-    int top() { // Get minimum element.
+    int top() const { // Get minimum element.
         int ans = INT_MAX;
         Node *n = root;
         while(n) {
@@ -125,10 +125,10 @@ class BinomialHeap{
         bh.root = nullptr;
         n->c = n->r = nullptr; delete n;
     }
-    int size() {
+    int size() const {
         return n_nodes;
     }
-    bool empty() {
+    bool empty() const {
         return n_nodes == 0;
     }
 };
