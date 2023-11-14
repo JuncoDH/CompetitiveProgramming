@@ -1,6 +1,6 @@
 // SOS: Sum Over Subsets. f[mask] = Sum_{s in mask} v[s].
 // tutorial: https://codeforces.com/blog/entry/45223
-// dp[mask][i] = Sum of submasks of masks having only the i+1 last bits different.
+// dp[mask][i] = Sum of submasks of masks having only the i + 1 last bits different.
 // if(is_set(mask, i)) dp[mask][i] = dp[mask][i-1] + dp[mask ^ (1ll << i)][i-1]
 // else dp[mask][i] = dp[mask][i-1]. With base case dp[mask][-1] = v[mask].
 // O(n * log(n))

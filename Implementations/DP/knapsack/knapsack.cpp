@@ -13,7 +13,7 @@ ll knapsack(int max_knapsack) {
     dp[0] = 0;
     for(i = 0; i < n; i++) {
         for(j = max_knapsack; j >= 0; j--) {
-            if(dp[j] != -inf && j+v[i].se < MAX_KNAPSACK)
+            if(dp[j] != -inf && j + v[i].se < MAX_KNAPSACK)
                 dp[j + v[i].se] = max(dp[j + v[i].se], dp[j] + v[i].fi);
         }
     }

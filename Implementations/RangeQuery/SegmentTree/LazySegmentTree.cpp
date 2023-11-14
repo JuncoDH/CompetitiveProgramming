@@ -12,9 +12,9 @@ class Node { // Only modify this class.
     void actualize_update(T const x) {
         if(x == -inf) return;
         if(lazy == -inf) lazy = 0;
-        lazy += x; // (= SET update), (+= SUM update).
-        value += x; // MINMAX query + (= SET update), (+= SUM update).
-        // value = (r-l+1)*x; // SUM query + (= SET update), (+= SUM update).
+        lazy += x; // (= SET update), ( += SUM update).
+        value += x; // MINMAX query + (= SET update), ( += SUM update).
+        // value = (r-l + 1)*x; // SUM query + (= SET update), ( += SUM update).
     }
 };
 template<typename T>
@@ -40,7 +40,7 @@ class LazySegmentTree { // Use lazy propagation.
         }
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
-        build(k<<1|1, mid+1, r);
+        build(k<<1|1, mid + 1, r);
         tree[k] = Node<T>(tree[k<<1], tree[k<<1|1]);
         tree[k].l = l; tree[k].r = r;
     }
@@ -52,7 +52,7 @@ class LazySegmentTree { // Use lazy propagation.
         } else {
             int mid = (l + r) >> 1;
             update(k<<1, l, mid, ql, qr, x);
-            update(k<<1|1, mid+1, r, ql, qr, x);
+            update(k<<1|1, mid + 1, r, ql, qr, x);
         }
         push_lazy(k, l, r);
     }
@@ -61,9 +61,9 @@ class LazySegmentTree { // Use lazy propagation.
         if(ql <= l && r <= qr) return tree[k];
         int mid = (l + r) >> 1;
         if(qr <= mid) return query(k<<1, l, mid, ql, qr);
-        if(mid+1 <= ql) return query(k<<1|1, mid+1, r, ql, qr);
+        if(mid + 1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
         Node<T> a = query(k<<1, l, mid, ql, qr);
-        Node<T> b = query(k<<1|1, mid+1, r, ql, qr);
+        Node<T> b = query(k<<1|1, mid + 1, r, ql, qr);
         return Node<T>(a, b);
     }
     public:

@@ -1,7 +1,7 @@
 class Node{
     public:
-    Node *r = nullptr; // Root list and child list, sorted < degree, finishing in nullptr.
-    Node *c = nullptr; // Biggest child, sorted > degree.
+    Node* r = nullptr; // Root list and child list, sorted < degree, finishing in nullptr.
+    Node* c = nullptr; // Biggest child, sorted > degree.
     int degree = 0; // Number of direct children. It has log n.
     int value = 0; // Value of the node, int, ll...
     explicit Node(int const _value) {
@@ -31,7 +31,7 @@ class BinomialHeap{
     public:
     Node* root = nullptr;
     BinomialHeap() = default;
-    ~BinomialHeap() {delete root;}
+    ~BinomialHeap() { delete root; }
     void merge(BinomialHeap const& bh) { // Add bh nodes to this.
         n_nodes += bh.n_nodes;
         Node* a = root;
@@ -83,7 +83,7 @@ class BinomialHeap{
         if(tmp) ans = merge_next(ans, tmp);
     }
     void push(int const value) {
-        Node *n = new Node(value);
+        Node* n = new Node(value);
         n_nodes++;
         BinomialHeap bh;
         bh.root = n;
@@ -92,7 +92,7 @@ class BinomialHeap{
     }
     int top() const { // Get minimum element.
         int ans = INT_MAX;
-        Node *n = root;
+        Node* n = root;
         while(n) {
             ans = min(ans, n->value);
             n = n->r;
@@ -102,8 +102,8 @@ class BinomialHeap{
     void pop() { // Extract the minimum element.
         if(!root) return;
         int mn = top();
-        Node *n = root;
-        Node *tmp = nullptr;
+        Node* n = root;
+        Node* tmp = nullptr;
         if(n->value == mn) root = n->r;
         else {
             while(n->r->value != mn) n = n->r;
@@ -112,13 +112,13 @@ class BinomialHeap{
             n = tmp;
         }
         n_nodes--;
-        if(!n->c) {n->r = nullptr; delete n; return;}
+        if(!n->c) { n->r = nullptr; delete n; return; }
         BinomialHeap bh;
         vector<Node*> v;
         tmp = n->c;
-        while(tmp) {v.pb(tmp); tmp = tmp->r;}
+        while(tmp) { v.pb(tmp); tmp = tmp->r; }
         reverse(v.begin(), v.end());
-        for(int i = 0; i < (int)v.size() - 1; i++) v[i]->r = v[i+1];
+        for(int i = 0; i < (int)v.size() - 1; i++) v[i]->r = v[i + 1];
         v.back()->r = nullptr;
         bh.root = v[0];
         merge(bh);

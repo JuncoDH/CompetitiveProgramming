@@ -10,7 +10,7 @@ vll LIS(vll &v) { // Is >=, but can be transformed to fit >.
         int pos = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
         // if(pos > 0 && lis[pos - 1] == v[i]) continue; // For >.
         lis[pos] = v[i];
-        lis_t[i] = pos+1;
+        lis_t[i] = pos + 1;
     }
     for(i = n-1, t = lis.size(); i >= 0; i--) {
         if(lis_t[i] == t && (ans.empty() || v[i] <= ans.back()))

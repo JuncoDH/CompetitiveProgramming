@@ -1,6 +1,6 @@
 // Using a 26 prefix sums with 'a' to 'z' chars.
 string s;
-constexpr int MAX_LEN = 2*1e5+4;
+constexpr int MAX_LEN = 2*1e5 + 4;
 constexpr int ALPHABET = 26;
 int cnt[ALPHABET][MAX_LEN];
 void pre_cont_letters() {

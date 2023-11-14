@@ -14,11 +14,11 @@ class WaveletTree {
         T mid_cpy = md;
         auto mid_pos = stable_partition(vb, ve, [mid_cpy](T a) {return a <= mid_cpy;});
         pl = new WaveletTree(vb, mid_pos, mn, md);
-        pr = new WaveletTree(mid_pos, ve, md+1, mx);
+        pr = new WaveletTree(mid_pos, ve, md + 1, mx);
     }
 public:
     WaveletTree() = default;
-    // the array is considered as {empty, v}, so query 1-index, v[i] => q(i+1)
+    // the array is considered as {empty, v}, so query 1-index, v[i] => q(i + 1)
     WaveletTree(T const* v, int const n) : WaveletTree(v, v + n, *min_element(v, v + n), *max_element(v, v + n)) {}
     // Number of times of q is in the subarray vi..vj
     int rank(int const i, int const j, T const q) { // NOT tested
@@ -34,7 +34,7 @@ public:
         if(k <= c) return pl->quantile(psum[i], psum[j], k);
         return pr->quantile(i-psum[i], j-psum[j], k-c);
     }
-    // update 1 can be swap element i by i+1, just change psum values recursively
+    // update 1 can be swap element i by i + 1, just change psum values recursively
     // update 2 push back an element (take care to create the leave for the item if it doesn't exist)
 };
 

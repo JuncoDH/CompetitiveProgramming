@@ -1,6 +1,6 @@
 // Euler circuit, visit all edges once.
 // Condition: for every node in-degree = out-degree. All edges are in the same SCC (connected).
-// For a Euler path the condition is all nodes in-degree = out-degree, one out-degree+1 = in-degree (start with this node) and one out-degree = in-degree+1.
+// For a Euler path the condition is all nodes in-degree = out-degree, one out-degree + 1 = in-degree (start with this node) and one out-degree = in-degree + 1.
 vi euler_tour;
 void hierholzer(int const u) {
     while(!graph[u].empty()) {

@@ -88,7 +88,7 @@ class Matrix {
         for(i = 0; i < mat.ncol; i++) {
             mx = mat.v[i][i];
             imx = i;
-            for(j = i+1; j < mat.nrow; j++) {
+            for(j = i + 1; j < mat.nrow; j++) {
                 if(mat.v[j][i] > mx) {
                     mx = mat.v[j][i];
                     imx = j;
@@ -103,7 +103,7 @@ class Matrix {
             for(j = 0; j < dato.ncol; j++) {
                 swap(dato.v[i][j], dato.v[imx][j]);
             }
-            for(j = i+1; j < mat.nrow; j++) {
+            for(j = i + 1; j < mat.nrow; j++) {
                 T factor = - mat.v[j][i] / mat.v[i][i]; // Change if using modulus.
                 for(k = i; k < mat.ncol; k++) {
                     mat.v[j][k] += factor * mat.v[i][k];
@@ -118,7 +118,7 @@ class Matrix {
         for(k = 0; k < dato.ncol; k++) {
             for(i = mat.nrow-1; i >= 0; i--) {
                 val = dato.v[i][k];
-                for(j = i+1; j < mat.ncol; j++) {
+                for(j = i + 1; j < mat.ncol; j++) {
                     val -= mat.v[i][j] * dato.v[j][k];
                 }
                 dato.v[i][k] = val / mat.v[i][i];

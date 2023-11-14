@@ -3,7 +3,7 @@ template<typename T>
 class SegmentTree {
     vector<T> t, v;
     int n;
-    T f(T a, T b) { // The function of the query. __gcd, +, |, &, max, min.
+    T f(T a, T b) { // The function of the query. __gcd, + , |, &, max, min.
         return max(a, b);
     }
     void build(int k, int l, int r) {
@@ -17,14 +17,14 @@ class SegmentTree {
         if(l == r) {t[k] = x; return;}
         int mid = (l + r) >> 1;
         if(p <= mid) update(k<<1, l, mid, p, x);
-        else update(k<<1|1, mid+1, r, p, x);
+        else update(k<<1|1, mid + 1, r, p, x);
         t[k] = f(t[k<<1], t[k<<1|1]);
     }
     T query(int k, int l, int r, int ql, int qr) {
         if(ql <= l && r <= qr) return t[k];
         int mid = (l + r) >> 1;
         if(qr <= mid) return query(k<<1, l, mid, ql, qr);
-        if(mid+1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
+        if(mid + 1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
         T qa = query(k<<1, l, mid, ql, qr);
         T qb = query(k<<1|1, mid + 1, r, ql, qr);
         return f(qa, qb);

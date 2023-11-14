@@ -12,7 +12,7 @@ class node {
     void show(string const& s) const { // Show all the nodes in lexicographical order.
         if(count_word > 0) echo(s); // NOT SHOWING DUPLICATE WORDS.
         for(int i = 0; i < ALPHABET; i++) {
-            if(c[i]) c[i]->show(s + (char)(i+FIRST_LETTER));
+            if(c[i]) c[i]->show(s + (char)(i + FIRST_LETTER));
         }
     }
     void init_subtree_word() {

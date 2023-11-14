@@ -44,7 +44,7 @@ class FFT{
     static void show(vector<cd> &v) {
         int i, cont = 0; // Maximum 20 elements.
         for(i = 0; i < min((int)v.size(), 20); i++) {
-            cout << " +" << (v[i].real() > eps ? v[i].real() : 0) << "x^" << cont++;
+            cout << " + " << (v[i].real() > eps ? v[i].real() : 0) << "x^" << cont++;
         } cout << endl;
     }
 };

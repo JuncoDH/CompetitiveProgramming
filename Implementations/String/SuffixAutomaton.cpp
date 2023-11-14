@@ -105,7 +105,7 @@ class SuffixAutomaton{ // O(n) creation.
     // Take greedily the first substring with same length as s.
     string smallest_cyclic_shift(string const& s) {
         int p = 0, cnt = s.length();
-        string ans = "", s2 = s+s;
+        string ans = "", s2 = s + s;
         extend(s2);
         while(cnt--) {
             auto el = *(t[p].next.begin());

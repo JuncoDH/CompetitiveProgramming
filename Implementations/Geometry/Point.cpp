@@ -96,7 +96,7 @@ class Point {
         if(v.size() < 3) return 0;
         ll sum = 0, n = v.size();
         for(int i = 0; i < n; i++) {
-            sum += v[i].x*v[(i+1)%n].y - v[(i+1)%n].x*v[i].y;
+            sum += v[i].x*v[(i + 1)%n].y - v[(i + 1)%n].x*v[i].y;
         }
         return abs(sum)/2.0;
     }

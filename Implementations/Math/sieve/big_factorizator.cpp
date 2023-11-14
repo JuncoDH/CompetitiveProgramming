@@ -3,7 +3,7 @@ add srand(time(nullptr)); //ADD srand(time(0));
 namespace Factorizator {
     vll primes; // Add primes manually.
     constexpr vll fixed_primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41}; // 47, 53, 59.
-    // a^{p-1} = 1 mod p => p divides some factor of (a^{d2^s}+1)*(a^{d2^{s-1}}+1)*...*(a^d+1)*(a^d-1).
+    // a^{p-1} = 1 mod p => p divides some factor of (a^{d2^s} + 1)*(a^{d2^{s-1}} + 1)*...*(a^d + 1)*(a^d-1).
     // Return true if the number is composite, false if it is not sure.
     bool check_composite(ll num, ll a, ll d, int const s) {
         ll x = elevate(a, d, num);
@@ -32,7 +32,7 @@ namespace Factorizator {
     }
     // A polynomail function modulo mod, it will contain a cycle. 
     ll f_pollard_rho(ll x, ll c, ll const mod) {
-        return (mult(x, x, mod)+c) % mod;
+        return (mult(x, x, mod) + c) % mod;
     }
     // Found a factor (maybe not prime) of num. x0 and c are random, change them if the return is num.
     ll pollard_rho(ll const num, ll x0, ll c) {
@@ -72,8 +72,8 @@ namespace Factorizator {
     vll divisors; // Will save all the divisors.
     void dfs_div(ll const x, ll const i) {
         if(i == (int)factors.size()) {divisors.pb(x); return;}
-        dfs_div(x, i+1);
-        for(int j = 0; j < factors[i].se; j++) {x*= factors[i].fi; dfs_div(x, i+1);}
+        dfs_div(x, i + 1);
+        for(int j = 0; j < factors[i].se; j++) {x*= factors[i].fi; dfs_div(x, i + 1);}
     }
     //NOT TESTED
     vector<ll> get_divisors(ll const num) { // 1 and num inclusive.

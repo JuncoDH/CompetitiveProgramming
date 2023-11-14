@@ -8,7 +8,7 @@ ll two_pointers() { // subarray [l, r].
             temp -= v[l];
             l++;
         }
-        ans = max(ans, r-l+1);
+        ans = max(ans, r - l + 1);
     }
     return ans;
 }

@@ -16,17 +16,17 @@ class LiChaoTree{
     vector<Line<T>> st;
     int n = 0;
     // The node will save the best line for the mid point.
-    // Left node is [l, mid] the right node is [mid+1, r].
+    // Left node is [l, mid] the right node is [mid + 1, r].
     void insert(int const k, int const l, int const r, Line<T> line) {
         if(l == r) {
             if(st[k].evaluate(l) < line.evaluate(l)) swap(st[k], line);
             return;
         }
-        int mid = (l + r)/2;
+        int mid = (l + r) / 2;
         if(st[k].m < line.m) swap(st[k], line);
         if(st[k].evaluate(mid) < line.evaluate(mid)) {
             swap(st[k], line);
-            insert(k<<1|1, mid+1, r, line);
+            insert(k<<1|1, mid + 1, r, line);
         } else {
             insert(k<<1, l, mid, line);
         }
@@ -36,22 +36,22 @@ class LiChaoTree{
         if(l == r) {
             return ans;
         }
-        int mid = (l+r)/2;
+        int mid = (l + r) / 2;
         if(x <= mid) return max(ans, query(k<<1, l, mid, x));
-        return max(ans, query(k<<1|1, mid+1, r, x));
+        return max(ans, query(k<<1|1, mid + 1, r, x));
     }
 public:
     LiChaoTree() = default;
     explicit LiChaoTree(int const _n) {
         n = _n;
-        st.assign(4*n, Line<T>());
+        st.assign(4 * n, Line<T>());
     }
     void insert(Line<T> line) {
-        insert(1, 0, n-1, line);
+        insert(1, 0, n - 1, line);
     }
-    // Return max evaluated value of all i in a set S = {m_i*x + n_i}.
+    // Return max evaluated value of all i in a set S = {m_i * x + n_i}.
     T query(T const x) {
-        return query(1, 0, n-1, x);
+        return query(1, 0, n - 1, x);
     }
 };
 

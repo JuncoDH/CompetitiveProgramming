@@ -154,9 +154,9 @@ class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-ba
         }
         int mid = (l + r) >> 1;
         update(k<<1, l, mid, ql, x);
-        update(k<<1|1, mid+1, r, ql, x);
+        update(k<<1|1, mid + 1, r, ql, x);
         propagate(k<<1, l, mid);
-        propagate(k<<1|1, mid+1, r);
+        propagate(k<<1|1, mid + 1, r);
         tree[k] = tree[k<<1] + tree[k<<1|1];
     }
     node query(int k, int l, int r, int ql, int qr) {
@@ -165,13 +165,13 @@ class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-ba
         if(ql <= l && r <= qr) return tree[k];
         int mid = (l + r) >> 1;
         node a = query(k<<1, l, mid, ql, qr);
-        node b = query(k<<1|1, mid+1, r, ql, qr);
+        node b = query(k<<1|1, mid + 1, r, ql, qr);
         propagate(k<<1, l, mid);
-        propagate(k<<1|1, mid+1, r);
+        propagate(k<<1|1, mid + 1, r);
         tree[k] = tree[k<<1] + tree[k<<1|1];
         if(a.prefixSum == NULL_NODE.prefixSum) return b;
         if(b.prefixSum == NULL_NODE.prefixSum) return a;
-        return a+b;
+        return a + b;
     }
     node query(int ql, int qr) {
         return query(1, 0, size-1, ql, qr);
@@ -182,7 +182,7 @@ class SegmentTreePrefixSum { //searching minimum prefix sum and it's index, 0-ba
         if(l == r) return;
         int mid = (l + r) >> 1;
         showTree(k<<1, l, mid);
-        showTree(k<<1|1, mid+1, r);
+        showTree(k<<1|1, mid + 1, r);
     }
     public:
     SegmentTreePrefixSum() {}

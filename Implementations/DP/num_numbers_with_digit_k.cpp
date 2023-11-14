@@ -16,13 +16,13 @@ ll f(ll const num, int const i = 0, ll const ten = 1) {
     else if(d == k) ans += 1 + d*dp[i-1];
     else if(d < k) ans += d*dp[i-1];
     else ans += ten + (d-1)*dp[i-1];
-    return ans + f(num/10, i+1, ten*10);
+    return ans + f(num/10, i + 1, ten*10);
 }
 ll ten_to_nine(ll const num) { return num - f(num); }
 ll nine_to_ten(ll const num) { // Leftmost r.
     ll l = 0, r = 5*1e17;
-    while(l+1 < r) {
-        ll mid = (l+r)/2;
+    while(l + 1 < r) {
+        ll mid = (l + r)/2;
         if(mid - f(mid) < num) l = mid;
         else r = mid;
     }

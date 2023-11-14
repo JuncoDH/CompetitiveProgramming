@@ -39,7 +39,7 @@ class Node{
     ll value = 0;
     Node() = default;
     explicit Node(ll const _value) {value = _value;}
-    ~Node() {delete l; delete r;}
+    ~Node() { delete l; delete r; }
     void balance() {
         int balance = get_balance(), balance_l = 0, balance_r = 0;
         if(l) balance_l = l->get_balance();
@@ -69,7 +69,7 @@ class Node{
 class AVL{
     Node *root = nullptr;
     public:
-    ~AVL() {delete root;}
+    ~AVL() { delete root; }
     bool search(ll const num) const {
         Node *n = root;
         if(!root) return false;
@@ -99,7 +99,7 @@ class AVL{
             }
         }
         n->balance();
-        while(n->p) {n = n->p;}
+        while(n->p) { n = n->p; }
         root = n;
     }
     void erase(ll const num) {

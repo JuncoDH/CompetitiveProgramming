@@ -34,7 +34,7 @@ class Node{
         ll ans = weight;
         if(r) ans += r->get_length();
         return ans;
-    } // Split in [0..i], [i+1..]. Can return null if i = -1 or n - 1.
+    } // Split in [0..i], [i + 1..]. Can return null if i = -1 or n - 1.
     pair<Node*, Node*> split(ll index) { 
         index++; // 1 index. Number of chars, not position.
         pair<Node*, Node*> ret;
@@ -91,7 +91,7 @@ class Rope{
     } // Get the substring v[pos] [l..r].
     string get_substr(int const pos, ll const l, ll const r) const {
         string ans = "";
-        v[pos]->get_substr(l+1, r+1, ans);
+        v[pos]->get_substr(l + 1, r + 1, ans);
         return ans;
     } // Add a new string to the rope.
     void add(string const& s) {
@@ -99,7 +99,7 @@ class Rope{
     } // Concatenate v[posl] with v[posr].
     void concat(int const posl, int const posr) {
         v.pb(concat(v[posl], v[posr]));
-    } // Convert v[pos1] to [0..i] + v[pos2] + [i+1..n-1].
+    } // Convert v[pos1] to [0..i] + v[pos2] + [i + 1..n-1].
     void insert(int const pos1, int const pos2, ll const i) {
         if(i == -1) { // Append to the left.
             v.pb(concat(v[pos2], v[pos1]));

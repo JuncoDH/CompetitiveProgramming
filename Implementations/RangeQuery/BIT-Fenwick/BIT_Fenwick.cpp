@@ -6,16 +6,16 @@ class BIT{
     BIT() = default;
     BIT(int const _n) {
         n = _n;
-        bit.assign(n+1, 0);
+        bit.assign(n + 1, 0);
     }
     explicit BIT(vector<T> const& v) {
         n = v.size();
-        bit.assign(n+1, 0);
+        bit.assign(n + 1, 0);
         for(int i = 0; i < n; i++) update(i, v[i]);
     }
     // Point update. v[i] += dx.
     void update(int i, T const dx) {
-        for(i++; i < n+1; i += LSB(i)) bit[i] += dx;
+        for(i++; i < n + 1; i += LSB(i)) bit[i] += dx;
     }
     // query [0, r].
     // query(x is the number of numbers <= x).

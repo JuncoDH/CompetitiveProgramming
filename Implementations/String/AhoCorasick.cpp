@@ -72,7 +72,7 @@ class AhoCorasick{
         for(int j = 0; j < Node::alpha_size; j++) {
             char ch = j + 'a';
             ans += ch;
-            bool ok = smallest_not_contained_str(i+1, L, go(v, ch), ans);
+            bool ok = smallest_not_contained_str(i + 1, L, go(v, ch), ans);
             if(ok) return true;
             ans.pop_back();
         }

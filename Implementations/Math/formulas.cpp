@@ -2,9 +2,9 @@
 ll floor_div(ll a, ll b) {
     return a/b - ((a^b) < 0 && a%b);
 }
-// Sum of i in [0, n] = n*(n+1)/2.
+// Sum of i in [0, n] = n*(n + 1)/2.
 ll formula_1(ll _n) {
-    return _n*(_n+1)/2;
+    return _n*(_n + 1)/2;
 }
 // Sum of i in [a, b].
 ll formula_2(ll _a, ll _b) {
@@ -13,18 +13,18 @@ ll formula_2(ll _a, ll _b) {
 // Sum of i/k (floor) in [0, n]. n >= 0.
 ll formula_3(ll _n, ll _k) {
     ll _ans = 0, r = _n;
-    while((r+1)%_k != 0) {_ans += r/_k; r--;}
+    while((r + 1)%_k != 0) {_ans += r/_k; r--;}
     return _ans + _k*formula_1(r/_k);
 }
 // Sum of (x + i*d) in [0, n] Arithmetic sum.
 ll formula_4(ll x, ll d, ll _n) {
     return _n*x + d*formula_1(_n);
 }
-// Sum of i^2 in [0, n] = (n(n+1)(2n+1))/6.
+// Sum of i^2 in [0, n] = (n(n + 1)(2n + 1))/6.
 ll formula_5(ll _n) {
-    return _n*(_n+1)*(2*_n+1)/6;
+    return _n*(_n + 1)*(2*_n + 1)/6;
 }
-// Sum of i^3 in [0, n] = ((n(n+1))/2)^2.
+// Sum of i^3 in [0, n] = ((n(n + 1))/2)^2.
 ll formula_6(ll _n) {
     ll ans = formula_1(_n);
     return ans*ans;
@@ -46,6 +46,6 @@ ll formula_7(ll r, ll n) {
 }
 // Number of digits of num in base 10.
 ll formula_8(ll num) { // floor(log10(num)) + 1.
-    return log10(num)+1;
+    return log10(num) + 1;
 }
 

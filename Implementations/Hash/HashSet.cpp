@@ -1,5 +1,5 @@
 // Get random primes: https://primes.utm.edu/nthprime/.
-constexpr int MAX = 2*1e5+5;
+constexpr int MAX = 2*1e5 + 5;
 ll val[MAX];
 map<ll, ll> m; // Compress elements.
 void init() { // CALL ONCE.

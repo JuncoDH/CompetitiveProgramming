@@ -25,7 +25,7 @@ void convert_to_rbs(string& s) { // rbs - regular bracket sequence.
         else if(st.empty()) s[i] = '.';
         else st.pop();
     }
-    while(!st.empty()) {s[st.top()] = '.'; st.pop();}
+    while(!st.empty()) { s[st.top()] = '.'; st.pop(); }
 }
 // ---------------------------------------------------------
 bool is_valid_rbs(string const& s) { // (()) ok.

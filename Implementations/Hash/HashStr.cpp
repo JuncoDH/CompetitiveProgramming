@@ -37,9 +37,9 @@ class HashString {
             for(int j = 1; j < n; j++) {
                 b[i][j] = (b[i][j-1]*base[i]) % p[i];
             }
-            v[i][0] = s[0]-initial+1;
+            v[i][0] = s[0]-initial + 1;
             for(int j = 1; j < n; j++) {
-                v[i][j] = (b[i][j]*(s[j]-initial+1) + v[i][j-1]) % p[i];
+                v[i][j] = (b[i][j]*(s[j]-initial + 1) + v[i][j-1]) % p[i];
             }
         }
     }
@@ -90,7 +90,7 @@ class HashString {
         if(*this == other) return false;
         if(id == n) return true; // "ho" < "hol"
         if(id == other.n) return false;
-        return s[id+1] < other.s[id+1];
+        return s[id + 1] < other.s[id + 1];
     }
 };
 

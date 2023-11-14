@@ -1,4 +1,4 @@
-constexpr int MAX_C = 1+66; // 66 is the for long long, C(66, x).
+constexpr int MAX_C = 1 + 66; // 66 is the for long long, C(66, x).
 ll Comb[MAX_C][MAX_C];
 void calc() {
     for(int i = 0; i < MAX_C; i++) {
@@ -7,7 +7,7 @@ void calc() {
     }
     for(int i = 1; i < MAX_C; i++) {
         for(int j = 1; j < MAX_C; j++) {
-            if(i+j >= MAX_C) continue;
+            if(i + j >= MAX_C) continue;
             Comb[i][j] = Comb[i-1][j] + Comb[i][j-1];
         }
     }

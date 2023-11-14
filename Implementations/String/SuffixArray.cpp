@@ -6,7 +6,7 @@ class SuffixArray {
     vi c; // c[i] is the equivalence class of the ith suffix. When build, c[p[i]] = i, inverse.
     // Dont use lcp[0] = 0.
     vi lcp; // lcp[i] is the longest common prefix in s[p[i-1]..n-1] and s[p[i]..n-1].
-    // To get lcp(s[i..n-1], s[j..n-1) is min(lcp[c[i]+1], lcp[c[j]]) (use SegTree).
+    // To get lcp(s[i..n-1], s[j..n-1) is min(lcp[c[i] + 1], lcp[c[j]]) (use SegTree).
     void radix_sort(vector<pair<pii, int>> const& v) const { // O(n).
         vector<pair<pii, int>> v2(n);
         vi freq(n, 0); // First frequency and then the index of the next item.
@@ -36,7 +36,7 @@ class SuffixArray {
             if(v1[i].fi == v1[i - 1].fi) c[p[i]] = c[p[i - 1]];
             else c[p[i]] = c[p[i - 1]] + 1;
         }
-        k = 0; // In k+1 iterations sort strings of length 2^(k+1).
+        k = 0; // In k + 1 iterations sort strings of length 2^(k + 1).
         while(c[p[n-1]] != n-1) { // At most ceil(log2(n)). 
             vector<pair<pii, int>> v2(n); // Temporal vector to sort.
             for(i = 0; i < n; i++) v2[i] = mp(mp(c[i], c[(i + (1 << k)) % n]), i);

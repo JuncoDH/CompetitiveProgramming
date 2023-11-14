@@ -29,7 +29,7 @@ class Node{
 // Min Heap.
 class FibonacciHeap{
     void consolidate() { // Compress and recalculate min_el.
-        int d, D = log2(n_nodes+1) + 2;
+        int d, D = log2(n_nodes + 1) + 2;
         vector<Node *> vn(D, nullptr);
         Node* n = min_el;
         Node* y = nullptr;
@@ -74,7 +74,7 @@ class FibonacciHeap{
         } while(n != end_node);
     }
     public:
-    Node *min_el = nullptr;
+    Node* min_el = nullptr;
     FibonacciHeap() = default;
     ~FibonacciHeap() {release_memory(min_el);}
     void push(int const value) {

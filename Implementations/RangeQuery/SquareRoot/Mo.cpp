@@ -1,7 +1,7 @@
 // You can use it when you can extend / shrink interval by 1 element.
-// O((Q+N)sqrt(N)), is sqrt decomposition.
+// O((Q + N)sqrt(N)), is sqrt decomposition.
 class Query{
-    static constexpr int BLOCK = 170; // sqrt(n) +-;
+    static constexpr int BLOCK = 170; // sqrt(n) + -;
     public:
     int l = 0, r = 0, id = 0;
     Query() = default;
@@ -18,7 +18,7 @@ class Query{
 };
 // Calculate the num of different numbers in [l, r].
 class Mo {
-    static constexpr int MAX_FREQ = 1e6+5;
+    static constexpr int MAX_FREQ = 1e6 + 5;
     vector<Query> vquery;
     vll v; // Input vector.
     int currL = 0; // currAns represent answer for the

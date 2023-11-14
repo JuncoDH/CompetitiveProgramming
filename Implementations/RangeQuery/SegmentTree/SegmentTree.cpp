@@ -7,7 +7,7 @@ template<typename T>
 class SegmentTree {
     vector<T> t, v;
     int n = 0;
-    function<ll(ll, ll)> merge; // The function of the query. __gcd, +, |, &, max, min.
+    function<ll(ll, ll)> merge; // The function of the query. __gcd, + , |, &, max, min.
     void build(int const k, int const l, int const r) {
         if(l == r) {t[k] = v[l]; return;}
         int mid = (l + r) >> 1;
@@ -19,14 +19,14 @@ class SegmentTree {
         if(l == r) {t[k] = x; return;}
         int mid = (l + r) >> 1;
         if(p <= mid) update(k<<1, l, mid, p, x);
-        else update(k<<1|1, mid+1, r, p, x);
+        else update(k<<1|1, mid + 1, r, p, x);
         t[k] = merge(t[k<<1], t[k<<1|1]);
     }
     T query(int const k, int const l, int const r, int const ql, int const qr) {
         if(ql <= l && r <= qr) return t[k];
         int mid = (l + r) >> 1;
         if(qr <= mid) return query(k<<1, l, mid, ql, qr);
-        if(mid+1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
+        if(mid + 1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
         T qa = query(k<<1, l, mid, ql, qr);
         T qb = query(k<<1|1, mid + 1, r, ql, qr);
         return merge(qa, qb);

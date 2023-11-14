@@ -1,6 +1,6 @@
 // Search the ocurrences of t (pattern to search) in s (the text).
 // O(n + m). It increases R at most 2n times and decreases at most n times. 
-// z[i] is the longest string s[i..i+z[i]-1] that is a prefix = s[0..z[i]-1].
+// z[i] is the longest string s[i..i + z[i]-1] that is a prefix = s[0..z[i]-1].
 void z_algorithm(string s, string const& t) {
     s = t + "$" + s; // "$" is a char not present in s nor t.
     int n = s.length(), m = t.length(), L = 0, R = 0;

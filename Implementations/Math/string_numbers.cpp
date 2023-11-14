@@ -18,7 +18,7 @@ string add(string const& s1, string const& s2) {
         if(j >= 0) b = s2[j] - '0';
         else b = 0;
         ans.pb((a + b + carry) % 10 + '0');
-        carry = (a+b+carry) > 9;
+        carry = (a + b + carry) > 9;
         i--; j--;
     }
     if(carry) ans.pb('1');

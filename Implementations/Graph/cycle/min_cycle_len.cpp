@@ -3,7 +3,7 @@ vector<int> graph[MAX];
 int visited[MAX];
 int parent[MAX];
 ll n;
-// bfs(u) returns min_cycle len going thorugh u. O(V+E).
+// bfs(u) returns min_cycle len going thorugh u. O(V + E).
 ll bfs(int u) {
     int u_ori = u;
     ll ans = inf;
@@ -24,12 +24,12 @@ ll bfs(int u) {
         if(i == u_ori) continue;
         for(auto const& e : graph[i]) {
             if(e == parent[i] || i == parent[e]) continue;
-            ans = min(ans, (ll)visited[i] + visited[e]+1);
+            ans = min(ans, (ll)visited[i] + visited[e] + 1);
         }
     }
     return ans;
 }
-// Return the minimum cycle len in the graph, or -1 if no cycle found. O(V*(V+E)).
+// Return the minimum cycle len in the graph, or -1 if no cycle found. O(V*(V + E)).
 ll min_cycle_len() {
     ll ans = inf;
     for(int i = 0; i < n; i++) {

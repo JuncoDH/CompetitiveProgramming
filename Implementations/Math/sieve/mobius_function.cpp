@@ -4,7 +4,7 @@ int mu[MAX]; // mu(n) = 0 if n is square prime and (-1)^t if n = p1...pt.
 void mobius_init() {
     vi prime;
     bool is_composite[MAX];
-    fill(is_composite, is_composite+MAX, false);
+    fill(is_composite, is_composite + MAX, false);
     mu[1] = 1;
     for(int i = 2; i < MAX; i++) {
         if(!is_composite[i]) prime.pb(i), mu[i] = -1;

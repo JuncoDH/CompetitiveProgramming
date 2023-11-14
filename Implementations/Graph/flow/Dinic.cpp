@@ -51,7 +51,7 @@ class Dinic{
         edge.pb(uv);
         edge.pb(vu);
         graph[u].pb(n_edges);
-        graph[v].pb(n_edges+1);
+        graph[v].pb(n_edges + 1);
         n_edges += 2;
     }
     int max_flow() { // It consumes the graph.

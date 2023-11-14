@@ -1,11 +1,11 @@
-constexpr int MAX_VERSION = 3*1e4+4; // Maximum number of versions.
+constexpr int MAX_VERSION = 3*1e4 + 4; // Maximum number of versions.
 template<typename T>
 struct node {
     node* pl = nullptr, *pr = nullptr;
     int l, r, mid;
     T value = 0; // Sum query.
-    node(int const _l, int const _r) { l = _l; r = _r; mid = (l+r)>>1; }
-    node(int const _l, int const _r, T const _value) { l = _l; r = _r; value = _value; mid = (l+r)>>1; }
+    node(int const _l, int const _r) { l = _l; r = _r; mid = (l + r)>>1; }
+    node(int const _l, int const _r, T const _value) { l = _l; r = _r; value = _value; mid = (l + r)>>1; }
     void update() { // Sum query.
         value = 0;
         if(pl) value += pl->value;
@@ -19,7 +19,7 @@ class PersistentSegmentTree {
     void build(node<T> *n) { // O(n).
         if(n->l == n->r) {n->value = arr[n->l]; return;}
         n->pl = new node<T>(n->l, n->mid);
-        n->pr = new node<T>(n->mid+1, n->r);
+        n->pr = new node<T>(n->mid + 1, n->r);
         build(n->pl);
         build(n->pr);
         n->update();
@@ -65,13 +65,13 @@ class PersistentSegmentTree {
 template<typename T>
 class NumberDistinctNumbers { // Works for queries online. For offline can check MO's.
     PersistentSegmentTree<T> pst;
-    constexpr int MAX_ELEMENT_VALUE = 1e6+4; // for querying last[el].
+    constexpr int MAX_ELEMENT_VALUE = 1e6 + 4; // for querying last[el].
     public:
     NumberDistinctNumbers() = default;
     explicit NumberDistinctNumbers(vector<T> const& v) { // O(nlogn).
         T last[MAX_ELEMENT_VALUE]; // last ocurrence of the i-number in the array, updating from left to right.
         int n = v.size();
-        fill(last, last+MAX_ELEMENT_VALUE, -1);
+        fill(last, last + MAX_ELEMENT_VALUE, -1);
         pst = PersistentSegmentTree<T>(n);
         for(int r = 0; r < n; r++) {
             pst.update(max(0, r-1), r, r, 1); // Actualize r.

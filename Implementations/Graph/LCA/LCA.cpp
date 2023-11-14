@@ -1,4 +1,4 @@
-constexpr int MAX_N = 1e5+5;
+constexpr int MAX_N = 1e5 + 5;
 constexpr int MAX_LOG_N = 18;
 int parent[MAX_N][MAX_LOG_N]; // Sparse table.
 class LCA{ // LCA in O(log n), with O(n log n) preprocess.

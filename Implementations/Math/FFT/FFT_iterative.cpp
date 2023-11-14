@@ -1,7 +1,7 @@
 typedef complex<double> cd;
 typedef vector<cd> vcd;
 void show(vcd &e) { //for debug
-    int cont = 0; for(auto el : e) {cout << " +" << (el.real() > eps ? el.real() : 0) << "x^" << cont++;} cout << endl;
+    int cont = 0; for(auto el : e) {cout << " + " << (el.real() > eps ? el.real() : 0) << "x^" << cont++;} cout << endl;
 }
 int bitReverse(int num, int log2n) { //the reverse log2n bits of the num 0b011 -> 0b110
     int ans = 0;

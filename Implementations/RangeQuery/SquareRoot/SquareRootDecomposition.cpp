@@ -7,7 +7,7 @@ class SquareRootDecomposition {
     public:
     SquareRootDecomposition() = default;
     explicit SquareRootDecomposition(vector<T> const& _v) {
-        bucket.assign((int)_v.size()/B +1, 0);
+        bucket.assign((int)_v.size()/B + 1, 0);
         v = _v;
         n = v.size();
         for(int i = 0; i < (int)v.size(); i++) {

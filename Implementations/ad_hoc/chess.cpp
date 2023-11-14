@@ -21,19 +21,19 @@ constexpr int QUEEN = 4;
 
 // map<char, int> symbol2int = {{'K', KING}, {'N', KNIGHT}, {'R', ROOK}, {'B', BISHOP}, {'Q', QUEEN}}; // English.
 // char int2symbol[5] = {'K', 'N', 'R', 'BA', 'Q'}; // English.
-map<char, int> symbol2int = {{'R', KING}, {'C', KNIGHT}, {'T', ROOK}, {'A', BISHOP}, {'D', QUEEN}}; // Spanish.
-constexpr char int2symbol[5] = {'R', 'C', 'T', 'A', 'D'}; // Spanish.
+map<char, int> symbol2int = { { 'R', KING }, { 'C', KNIGHT }, { 'T', ROOK }, { 'A', BISHOP }, { 'D', QUEEN } }; // Spanish.
+constexpr char int2symbol[5] = { 'R', 'C', 'T', 'A', 'D' }; // Spanish.
 
 // Possible moves of the pieces of each type.
 vector<vector<Cell>> const possible_moves = {
-{{-1, -1}, {-1,  0}, {-1,  1}, { 0, -1}, { 0,  1}, { 1, -1}, { 1,  0}, { 1,  1}}, // King.
-{{-2, -1}, {-2,  1}, {-1, -2}, {-1,  2}, { 1, -2}, { 1,  2}, { 2, -1}, { 2,  1}}, // Knight.
-{{-1,  0}, { 0, -1}, { 0,  1}, { 1,  0}}, // Rook.
-{{-1, -1}, {-1,  1}, { 1, -1}, { 1,  1}}, // Bishop.
-{{-1, -1}, {-1,  0}, {-1,  1}, { 0, -1}, { 0,  1}, { 1, -1}, { 1,  0}, { 1,  1}} // Queen.
+{ {-1, -1}, {-1,  0}, {-1,  1}, { 0, -1}, { 0,  1}, { 1, -1}, { 1,  0}, { 1,  1} }, // King.
+{ {-2, -1}, {-2,  1}, {-1, -2}, {-1,  2}, { 1, -2}, { 1,  2}, { 2, -1}, { 2,  1} }, // Knight.
+{ {-1,  0}, { 0, -1}, { 0,  1}, { 1,  0} }, // Rook.
+{ {-1, -1}, {-1,  1}, { 1, -1}, { 1,  1} }, // Bishop.
+{ {-1, -1}, {-1,  0}, {-1,  1}, { 0, -1}, { 0,  1}, { 1, -1}, { 1,  0}, { 1,  1} } // Queen.
 };
 
-constexpr Piece empty_piece = {{' ', COLOR_EMPTY}, {-1, -1}};
+constexpr Piece empty_piece = { { ' ', COLOR_EMPTY }, {-1, -1} };
 // The board will keep track of all the pieces.
 vector<vector<Piece>> board(8, vector<Piece>(8, empty_piece));
 // Keeps all the moves done. If moves[i].se != empty_piece, then the piece was captured.
@@ -44,7 +44,7 @@ void reset() {
     moves.clear();
 }
 void insert_piece(string const& s, int color) { // Example format "Td3".
-    Piece const piece = {{s[0], color}, {s[1] - 'a', s[2] - '1'}};
+    Piece const piece = { { s[0], color }, { s[1] - 'a', s[2] - '1' } };
     board[piece.second.first][piece.second.second] = piece;
 }
 // Return true if the position is inside the board.
@@ -103,11 +103,11 @@ bool is_check(int const color) {
                     if(get_symbol_int(piece) == KNIGHT) break;
                     if(get_symbol_int(piece) == KING) break;
                 }
-                Cell new_position = {get_x(piece) + k*dx.first, get_y(piece) + k*dx.second};
+                Cell new_position = { get_x(piece) + k * dx.first, get_y(piece) + k * dx.second };
                 if(!exists(new_position)) break;
                 if(get_color(new_position) == color) break;
-                if(board[new_position.first][new_position.second].first == mp(int2symbol[KING], color^1)) return true;
-                if(get_color(new_position) == (color^1)) break;
+                if(board[new_position.first][new_position.second].first == mp(int2symbol[KING], color ^ 1)) return true;
+                if(get_color(new_position) == (color ^ 1)) break;
             }
         }
     }
@@ -119,12 +119,12 @@ bool is_check_mate(int const color) {
     bool ret;
     if(!is_check(color)) return false;
     for(auto& el : board) for(auto& piece : el) {
-        if(get_color(piece) != (color^1)) continue;
+        if(get_color(piece) != (color ^ 1)) continue;
         if(get_symbol_int(piece) != KING) continue;
         for(auto& dx : possible_moves[get_symbol_int(piece)]) {
-            Cell new_position = {get_x(piece) + dx.first, get_y(piece) + dx.second};
+            Cell new_position = { get_x(piece) + dx.first, get_y(piece) + dx.second };
             if(!exists(new_position)) continue;
-            if(get_color(new_position) == (color^1)) continue;
+            if(get_color(new_position) == (color ^ 1)) continue;
             do_move(piece, new_position);
             ret = is_check(color);
             undo_move();
@@ -145,11 +145,11 @@ void generate_next_move(int const color) {
                     if(get_symbol_int(piece) == KNIGHT) break;
                     if(get_symbol_int(piece) == KING) break;
                 }
-                Cell new_position = {get_x(piece) + k*dx.first, get_y(piece) + k*dx.second};
+                Cell new_position = { get_x(piece) + k * dx.first, get_y(piece) + k * dx.second };
                 if(!exists(new_position)) break;
                 if(get_color(new_position) == color) break;
                 do_move(piece, new_position);
-                if(is_check(color^1)) {
+                if(is_check(color ^ 1)) {
                     undo_move(); // The king will be in check.
                     continue;
                 }
@@ -162,10 +162,10 @@ void generate_next_move(int const color) {
                         solution = ">1";
                         return;
                     }
-                    solution = string(1, piece.first.first) + string(1, new_position.first+'a') + to_string(new_position.second + 1);
+                    solution = string(1, piece.first.first) + string(1, new_position.first + 'a') + to_string(new_position.second + 1);
                     ok = false;
                 }
-                if(get_color(new_position) == (color^1)) break;
+                if(get_color(new_position) == (color ^ 1)) break;
             }
         }
     }
