@@ -15,7 +15,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
             minIndexMinimum = _minIndexMinimum;
             maxIndexMinimum = _maxIndexMinimum;
         }
-        node operator + (node other) {// for tree[k] = tree[k<<1] + tree[k<<1|1].
+        node operator + (node other) { // for tree[k] = tree[k<<1] + tree[k<<1|1].
             int mnIndex = (mn <= other.mn) ? minIndexMinimum : other.minIndexMinimum;
             int mxIndex = (other.mn <= mn) ? other.maxIndexMinimum : maxIndexMinimum;
             return node(prefixSum + other.prefixSum, min(mn, other.mn), mnIndex, mxIndex);
@@ -27,7 +27,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
     node NULL_NODE = node(numeric_limits<T>::max(), numeric_limits<T>::max(), -1, -1);
     vector<node> tree;
     vector<T> lazy; // dx to update to each node (NOT interval).
-    int size; // Timeline [0.._size-1] events.
+    int size; // Timeline [0.._size - 1] events.
     void build(int k, int l, int r) { // Set the mnIndex y mxIndex.
         if(l == r) { tree[k] = node(0, 0, l, l); return; }
         int mid = (l + r) >> 1;
@@ -44,7 +44,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         }
         lazy[k] = 0;
     }
-    void update(int k, int l, int r, int ql, T x) {  // The update is [ql.._size-1].
+    void update(int k, int l, int r, int ql, T x) {  // The update is [ql.._size - 1].
         propagate(k, l, r);
         if(r < ql) return;
         if(ql <= l) {
@@ -73,7 +73,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         return a + b;
     }
     node query(int ql, int qr) {
-        return query(1, 0, size-1, ql, qr);
+        return query(1, 0, size - 1, ql, qr);
     }
     void showTree(int k, int l, int r) {
         propagate(k, l, r);
@@ -85,14 +85,14 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
     }
     public:
     SegmentTreePrefixSum() {}
-    SegmentTreePrefixSum(int _size) { // Store values [0..size-1].
+    SegmentTreePrefixSum(int _size) { // Store values [0..size - 1].
         size = _size;
-        tree.resize(4*_size);
-        lazy.resize(4*_size);
-        build(1, 0, _size-1);
+        tree.resize(4 * _size);
+        lazy.resize(4 * _size);
+        build(1, 0, _size - 1);
     }
-    void update(int ql, T dx) { // Update [t.._size-1] + dx per node, O(log n).
-        update(1, 0, size-1, ql, dx);
+    void update(int ql, T dx) { // Update [t.._size - 1] + dx per node, O(log n).
+        update(1, 0, size - 1, ql, dx);
     }
     void externalQuery(int ql, int qr) {
         node n = query(ql, qr);
@@ -100,7 +100,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         cout << endl;
     }
     void showTree() {
-        showTree(1, 0, size-1);
+        showTree(1, 0, size - 1);
         cout << endl;
     }
     int getLastBridge(int t) { // O(log n) minimum prefix sum with the index <= t.
@@ -109,8 +109,8 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         return n.maxIndexMinimum;
     }
     int getNextBridge(int t) { // O(log n) minimum prefix sum with the index >= t.
-        node n = query(t, size-1);
-        if(n.mn != 0) return size-1; // If there is no bridge.
+        node n = query(t, size - 1);
+        if(n.mn != 0) return size - 1; // If there is no bridge.
         return n.minIndexMinimum;
     }
 };
@@ -119,13 +119,13 @@ template<typename T> // int, ll.
 class PartialRetroactivePriorityQueue {
     Treap<int, T> qnow; // The elements that are in Qnow.
     Treap<int, T> nqnow; // The elements that are NOT in Qnow.
-    SegmentTreePrefixSum<T> bridge; //if the query(t', t') == 0, there is a bridge in t'.
+    SegmentTreePrefixSum<T> bridge; // If the query(t', t') == 0, there is a bridge in t'.
     public:
     PartialRetroactivePriorityQueue() = default;
     PartialRetroactivePriorityQueue(int _size) {
         bridge = SegmentTreePrefixSum<T>(_size);
     }
-    void insertPush(int t, T data){// Insert(t, "insert(data)") O(log n).
+    void insertPush(int t, T data){ // Insert(t, "insert(data)") O(log n).
         int tl = bridge.getLastBridge(t);
         nqnow.insert(t, data);
         bridge.update(t, 1);
@@ -142,7 +142,7 @@ class PartialRetroactivePriorityQueue {
         nqnow.insert(rem.second, rem.first);
         bridge.update(rem.second, 1);
     }
-    T getPeak() {// get minimum of the rpq in Qnow. Be sure the rpq is not empty. O(1).
+    T getPeak() { // get minimum of the rpq in Qnow. Be sure the rpq is not empty. O(1).
         return qnow.getMinimumAll().first;
     }
 };

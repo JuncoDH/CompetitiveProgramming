@@ -16,12 +16,12 @@ void zeta_transform_superset(vll& v) {
             if(!is_set(mask, i) && (mask ^ (1<<i)) < n)
                 v[mask] ^= v[mask ^ (1<<i)]; // +=, ^=, gcd.
 }
-// v[mask] = (-1)^(|mask|)*v[mask]. O(n).
+// v[mask] = (-1)^(|mask|) * v[mask]. O(n).
 void odd_negation(vll& v) {
     for(int i = 0; i < (int)v.size(); i++)
         if(__builtin_popcount(i) % 2) v[i] = -v[i];
 }
-// v[mask] = sum((-1)^(|mask\submask|)*v[submask]), O(n log n).
+// v[mask] = sum((-1)^(|mask\submask|) * v[submask]), O(n log n).
 // mobius and zeta are inverses of each other.
 // With xor, mobius == zeta.
 void mobius_transform(vll& v) {

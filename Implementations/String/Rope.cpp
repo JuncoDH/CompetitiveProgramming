@@ -1,4 +1,4 @@
-unordered_set<void* > freezed_node; // List to not double free nodes.
+unordered_set<void*> freezed_node; // List to not double free nodes.
 class Node {
     Node* l = nullptr, *r = nullptr;
     ll weight = 0; // Number of characters ONLY in left subtree.

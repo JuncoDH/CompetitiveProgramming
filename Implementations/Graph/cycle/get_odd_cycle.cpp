@@ -6,8 +6,8 @@ vector<int> graph[MAX_N];
 // The graph has odd cycle iff is not bipartite iff is no 2-coloreable.
 vi odd_cycle;
 int color[MAX_N]; // Color and number of components with each color.
-vector<pii> n_set_component; //number of colors of each set in the i component.
-int n_component, number_component[MAX_N];//the component the i node belongs.
+vector<pii> n_set_component; // Number of colors of each set in the i component.
+int n_component, number_component[MAX_N]; // The component the i node belongs.
 bool rec(int const u, int const c) {
     if(color[u] != -1) {
         if(color[u] == c) return false;

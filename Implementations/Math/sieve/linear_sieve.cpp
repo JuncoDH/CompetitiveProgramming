@@ -24,7 +24,7 @@ bool is_prime(ll const n) {
     return true;
 }
 vll fact, nfact; // The factors of n and their exponent. n >= 1.
-void factorize(int n) { // Up to MAX_PRIME*MAX_PRIME.
+void factorize(int n) { // Up to MAX_PRIME * MAX_PRIME.
     ll cont, prev_p;
     fact.clear(); nfact.clear();
     for(auto const& p : prime) {

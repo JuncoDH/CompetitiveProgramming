@@ -22,7 +22,7 @@ class ArticulationPoint {
                 // removing the nodes u or v from the graph increase.
                 if(parent[u] == -1 && children > 1) AP[u] = true;
                 if(parent[u] != -1 && low[v] >= discover[u]) AP[u] = true;
-                //if(low[v] > discover[u]) {} // edge u->v is a bridge.
+                // if(low[v] > discover[u]) {} // edge u->v is a bridge.
             }
             if(v != parent[u]) low[u] = min(low[u], discover[v]); // Back edge.
         }

@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         out = new PrintWriter(new BufferedOutputStream(System.out));
         sc = new MyScanner();
-        int zz = 1;//sc.nextInt();
+        int zz = 1; // sc.nextInt();
         while (zz-- > 0) solve();
         out.close();
     }

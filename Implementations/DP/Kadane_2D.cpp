@@ -10,7 +10,7 @@ ll kadane(vll const& v) {
     }
     return ans;
 }
-// Maximum sum in a nxm vector. O(n*m^2).
+// Maximum sum in a nxm vector. O(n * m^2).
 ll kadane_2d(vector<vll> const& v) {
     int n = v.size(), m;
     ll ans = 0;

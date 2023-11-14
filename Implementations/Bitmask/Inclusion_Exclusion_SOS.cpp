@@ -1,8 +1,8 @@
-// SOS: Sum Over Subsets. f[mask] = Sum_{s in mask} v[s].
+// SOS: Sum Over Subsets. f[mask] = Sum_{ s in mask } v[s].
 // tutorial: https://codeforces.com/blog/entry/45223
 // dp[mask][i] = Sum of submasks of masks having only the i + 1 last bits different.
-// if(is_set(mask, i)) dp[mask][i] = dp[mask][i-1] + dp[mask ^ (1ll << i)][i-1]
-// else dp[mask][i] = dp[mask][i-1]. With base case dp[mask][-1] = v[mask].
+// if(is_set(mask, i)) dp[mask][i] = dp[mask][i - 1] + dp[mask ^ (1ll << i)][i - 1]
+// else dp[mask][i] = dp[mask][i - 1]. With base case dp[mask][-1] = v[mask].
 // O(n * log(n))
 vll SOS(vll& v) {
     int n_original = v.size();
@@ -23,7 +23,7 @@ vll SOS(vll& v) {
 // Inclusion Exclusion over SOS = mu.
 // https://codeforces.com/blog/entry/72488
 // mu(v) = neg(SOS(neg(v))).
-// mu(v) = Sum_{s in mask} (-1)^(mask\s) v[s].
+// mu(v) = Sum_{ s in mask } (-1)^(mask\s) v[s].
 vll inclusion_exclusion_SOS(vll const& v) {
     vll f = v;
     for(int mask = 0; mask < (int)f.size(); mask++)

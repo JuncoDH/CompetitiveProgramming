@@ -26,7 +26,7 @@ ll discrete_logarithm(ll a, ll b, ll mod) {
     for(p = 1; p <= sq; p++) {
         ap = (ap * asq) % mod;
         if(value.count((k * ap) % mod))
-            return sq*p - value[(k * ap) % mod] + add;
+            return sq * p - value[(k * ap) % mod] + add;
     }
     return -1;
 }

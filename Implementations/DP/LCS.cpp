@@ -8,7 +8,7 @@ int LCS() { // Longest Common Subsequence.
             else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
         }
     }
-    /*string ans = ""; // Recover the LCS.
+    /* string ans = ""; // Recover the LCS.
     i = ns; j = nt;
     while(dp[i][j]) {
         while(i > 0 && dp[i][j] == dp[i - 1][j]) i--;
@@ -16,7 +16,7 @@ int LCS() { // Longest Common Subsequence.
         ans += s[i - 1];
         i--; j--;
     }
-    reverse(ans.begin(), ans.end());*/
+    reverse(ans.begin(), ans.end()); */
     return dp[ns][nt]; // Length.
 }
 

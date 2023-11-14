@@ -1,7 +1,7 @@
 constexpr int MAX_KNAPSACK = 2000005;
 ll dp[MAX_KNAPSACK]; // dp[i] is maximum value can get with i weight.
 vector<pll> v; // (value, weight).
-// Return max value with weight <= max_knapsack. O(n*max_knapsack).
+// Return max value with weight <= max_knapsack. O(n * max_knapsack).
 // If can repeat elements, iterate 0->max_knapsack.
 ll knapsack(int max_knapsack) {
     int i, j, n = v.size();

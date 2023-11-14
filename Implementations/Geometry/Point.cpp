@@ -9,7 +9,7 @@ class Point {
         x = _x;
         y = _y;
     }
-    friend ostream &operator << (ostream& os, Point<T> p) {
+    friend ostream& operator << (ostream& os, Point<T> p) {
         os << "(" << p.x << ", " << p.y << ")";
         return os;
     }
@@ -92,13 +92,13 @@ class Point {
         }
     }
     // Constraint: The points have to be in order p0 -> p1 -> ... -> pn, and exist edge pn -> p0.
-    static ld get_area_polygon(vector<Point<T>> &v) {
+    static ld get_area_polygon(vector<Point<T>>& v) {
         if(v.size() < 3) return 0;
         ll sum = 0, n = v.size();
         for(int i = 0; i < n; i++) {
             sum += v[i].x * v[(i + 1) % n].y - v[(i + 1) % n].x * v[i].y;
         }
-        return abs(sum)/2.0;
+        return abs(sum) / 2.0;
     }
     // Rotate p alpha radians (anti clock wise) respect to this point.
     Point<T> rotate(Point<T> const p, ld const alpha) const {
@@ -116,9 +116,9 @@ class Line {
     Line(Point<T> const p1, Point<T> const p2) {
         if(p1.x == p2.x) { is_vertical = true; n = p1.x; return; }
         m = (p2.y - p1.y) / (p2.x - p1.x);
-        n = m*-p1.x + p1.y;
+        n = m * -p1.x + p1.y;
     }
-    friend ostream &operator << (ostream& os, Line<T> l) {
+    friend ostream& operator << (ostream& os, Line<T> l) {
         if(l.is_vertical) os << "x = " << l.n;
         else os << "y = " << l.m << "x + " << l.n;
         return os;

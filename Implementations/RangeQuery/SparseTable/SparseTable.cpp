@@ -21,7 +21,7 @@ class SparseTable {
             }
         }
     }
-    // [ql..qr], [0..n-1].
+    // [ql..qr], [0..n - 1].
     T query(int ql, int qr) {
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);

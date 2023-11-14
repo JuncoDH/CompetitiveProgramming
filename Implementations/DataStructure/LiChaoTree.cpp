@@ -10,7 +10,7 @@ public:
     }
 };
 // Only insert functions with one intersecction point, like lines.
-// Constraint: query(x) has to be in [0, n-1].
+// Constraint: query(x) has to be in [0, n - 1].
 template<typename T>
 class LiChaoTree {
     vector<Line<T>> st;

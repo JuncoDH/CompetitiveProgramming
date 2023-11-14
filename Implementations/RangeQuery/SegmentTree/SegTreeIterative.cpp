@@ -26,7 +26,7 @@ class SegTreeIterative {
     // Add dx to v[pos]. 
     void update(int pos, T const dx){ 
         st[pos + n] += dx;
-        for(pos = (pos + n)>>1; pos > 0; pos >>= 1) st[pos] = f(st[pos<<1], st[pos<<1|1]);
+        for(pos = (pos + n) >> 1; pos > 0; pos >>= 1) st[pos] = f(st[pos<<1], st[pos<<1|1]);
     }
     T query(int l, int r){
         l += n; r += n;

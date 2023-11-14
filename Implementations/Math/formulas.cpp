@@ -40,7 +40,7 @@ ll elevate(ll a, ll b) { // b >= 0.
     }
     return ans;
 }
-// Sum of x^i in [0, n] = (Last * Ratio - First)/(Ratio - 1). Geometric sum.
+// Sum of x^i in [0, n] = (Last * Ratio - First) / (Ratio - 1). Geometric sum.
 ll formula_7(ll r, ll n) {
     return (elevate(r, n + 1) - 1) / (r - 1);
 }

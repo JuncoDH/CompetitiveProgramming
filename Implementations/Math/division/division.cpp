@@ -1,5 +1,5 @@
-// Save first n_dec decimals of D/d. Truncated.
-void divide(ll D, ll d, int n_dec, string &s) {
+// Save first n_dec decimals of D / d. Truncated.
+void divide(ll D, ll d, int n_dec, string& s) {
     ll i;
     s = to_string(D / d);
     if(!n_dec) return;
@@ -12,8 +12,8 @@ void divide(ll D, ll d, int n_dec, string &s) {
     }
 }
 // 1.366666... pre period is 1.3 post period is 6.
-void get_period(ll D, ll d, string &pre, string &post) {
-    pre = to_string(D/d);
+void get_period(ll D, ll d, string& pre, string& post) {
+    pre = to_string(D / d);
     post = "";
     D %= d;
     if(!D) return;
@@ -21,8 +21,7 @@ void get_period(ll D, ll d, string &pre, string &post) {
     int i, num;
     vi v, vpost;
     map<int, int> first_pos;
-    for(i = 0;; i++) {
-        if(!D) break;
+    for(i = 0; D; i++) {
         if(first_pos.count(D)) {
             num = first_pos[D];
             while((int)v.size() != num) {

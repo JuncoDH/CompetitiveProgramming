@@ -36,7 +36,7 @@ class Dinic {
             pushed = dfs(edge[el].v, min(min_flow, edge[el].cap - edge[el].flow));
             if(pushed > 0) {
                 edge[el].flow += pushed;
-                edge[el^1].flow -= pushed;
+                edge[el ^ 1].flow -= pushed;
                 return pushed;
             }
         }

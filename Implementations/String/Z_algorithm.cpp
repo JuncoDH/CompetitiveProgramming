@@ -22,16 +22,16 @@ void z_algorithm(string s, string const& t) {
             }
         }
         if(z[i] == m) { // Match found.
-            //echo("Pattern found at: ", i - m - 1);
+            // echo("Pattern found at: ", i - m - 1);
         }
     }
 }
 
 /* // Reduced code.
 void z_array(string s){
-    int i, L = 0,R = 0, n = s.length();
+    int i, L = 0, R = 0, n = s.length();
     vi z(n, 0);
-    //the box is [L, R]
+    // The box is [L, R].
     for(i = 1; i < n; ++i){
         z[i] = max(0, min(z[i - L], R - i));
         while(i + z[i] < n && s[z[i]] == s[i + z[i]]){

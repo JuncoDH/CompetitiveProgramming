@@ -11,7 +11,7 @@ class Line { // Represent y = m * x + n.
         m = _m;
         n = _n;
     }
-    bool operator <(Line const & l) const { return m < l.m; }
+    bool operator <(Line const& l) const { return m < l.m; }
     bool operator <(ll x) const { return p < x; }
 }; // Convex Hull Trick. Return max{ m * x + n }.
 class CHT : multiset<Line, less<>> {

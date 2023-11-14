@@ -1,12 +1,12 @@
 // https://www.browserling.com/tools/prime-numbers.
-// s = a[i], hash = a[0] + b*a[1] + b^2*a[2] + b^n*a[n].
+// s = a[i], hash = a[0] + b * a[1] + b^2 * a[2] + b^n * a[n].
 class HashString {
     char initial = '0'; // change initial for range. 'a', 'A', '0'.
     public:
     string s;
     int n = 0, n_p = 0;
-    vector<vll> v; // contain the hash for [0..i].
-    vll p = { 16532849, 91638611, 83157709 }; // prime numbers. // 15635513  77781229
+    vector<vll> v; // Contain the hash for [0..i].
+    vll p = { 16532849, 91638611, 83157709 }; // Prime numbers. // 15635513  77781229
     vll base = { 37, 47, 53 }; // base numbers: primes that > alphabet size. // 49 83
     vector<vll> b; // b[i][j] = (b_i^j) % p_i.
     vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i.
@@ -39,7 +39,7 @@ class HashString {
             }
             v[i][0] = s[0]-initial + 1;
             for(int j = 1; j < n; j++) {
-                v[i][j] = (b[i][j] * (s[j] - initial + 1) + v[i][j-1]) % p[i];
+                v[i][j] = (b[i][j] * (s[j] - initial + 1) + v[i][j - 1]) % p[i];
             }
         }
     }
@@ -76,7 +76,7 @@ class HashString {
     int LCP(HashString& other) {
         int l = 0, r = min(n, other.n);
         if(s[0] != other.s[0]) return -1;
-        if(*this == other) return n-1;
+        if(*this == other) return n - 1;
         while(l + 1 < r) {
             int mid = (l + r) >> 1;
             if(getHash(0, mid) == other.getHash(0, mid)) l = mid;

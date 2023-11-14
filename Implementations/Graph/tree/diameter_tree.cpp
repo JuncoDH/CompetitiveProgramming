@@ -1,4 +1,4 @@
-vector<vll> graph; // TREE graph, with nodes [0..n-1].
+vector<vll> graph; // TREE graph, with nodes [0..n - 1].
 vi dist;
 // Fills dist vector.
 void dfs_dist(int const u, int const p) {

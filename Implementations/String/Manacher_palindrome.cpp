@@ -9,7 +9,7 @@ void Manacher(string const& str) {
         // lps[i] >= it's mirror, but falling in the interval [L..R]. L = c - (R - c).
         if(i < r) lps[i] = min(r - i, lps[c - (i - c)]);
         // Try to increase.
-        while(i-lps[i]-1 >= 0 && i + lps[i] + 1 < n && s[i - lps[i] - 1] == s[i + lps[i] + 1]) lps[i]++;
+        while(i - lps[i]-1 >= 0 && i + lps[i] + 1 < n && s[i - lps[i] - 1] == s[i + lps[i] + 1]) lps[i]++;
         // Update the interval [L..R].
         if(i + lps[i] > r) c = i, r = i + lps[i];
     }
@@ -18,6 +18,6 @@ void Manacher(string const& str) {
     for(i = pos - lps[pos]; i <= pos + lps[pos]; i++) {
         if(s[i] != ch) ans += s[i];
     }
-    //cout << ans.size() << "\n";
+    // cout << ans.size() << "\n";
 }
 

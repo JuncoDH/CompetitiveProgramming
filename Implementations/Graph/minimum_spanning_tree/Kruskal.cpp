@@ -1,5 +1,5 @@
 // Minimum spanning tree in a bidirected graph.
-// graph contains elements [0..n-1], no extra space.
+// graph contains elements [0..n - 1], no extra space.
 ll Kruskal(vector<vector<pii>> const& graph) {
     int n = graph.size();
     ll ans = 0;

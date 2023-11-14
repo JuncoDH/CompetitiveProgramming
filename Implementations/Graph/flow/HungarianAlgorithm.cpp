@@ -7,10 +7,10 @@ int slack[MAX_N2 + 1]; // cost[i][j] - u[i] - v[j], always >= 0.
 int prevy[MAX_N2 + 1]; // Edges of the current path: prev[j0] -> yx[prev[j0]] -> j0. Dont need to reset.
 bool used[MAX_N2 + 1]; // Visited array.
 int yx[MAX_N2 + 1]; // Match of the j column.
-int n1=, n2=, INF = INT_MAX-1; // Actual size of workers and items.
+int n1=, n2=, INF = INT_MAX - 1; // Actual size of workers and items.
 // http://e-maxx.ru/algo/assignment_hungary
 // Solves MINIMUM Assignment. For maximum change cost[i][j] to Max_entry - cost[i][j] and resize the answer.
-// There are 1..n1 rows and 1..n2 columns, ALWAYS n1 <= n2. Complexity(n1 * n1*n2).
+// There are 1..n1 rows and 1..n2 columns, ALWAYS n1 <= n2. Complexity(n1 * n1 * n2).
 // The function use 1-index for variables because it creates a virtual vertex 0.
 int Hungarian() {
     int i, i0, j, j0, min_j, delta, ans;
@@ -28,7 +28,7 @@ int Hungarian() {
             i0 = yx[j0];
             for(j = 1; j <= n2; j++) { // Get the delta among all columns not used.
                 if(!used[j]) {
-                    int cur = cost[i0-1][j-1] - u[i0] - v[j];
+                    int cur = cost[i0 - 1][j - 1] - u[i0] - v[j];
                     if(cur < slack[j]) {
                         slack[j] = cur, prevy[j] = j0;
                     }
@@ -49,13 +49,13 @@ int Hungarian() {
         } while(j0);
     }
     ans = 0;
-    for(j = 1; j <= n2; j++) { // Recover solution. The matched edges are yx[j]-1 -> j-1.
+    for(j = 1; j <= n2; j++) { // Recover solution. The matched edges are yx[j] - 1 -> j - 1.
         if(yx[j])
             ans += cost[yx[j] - 1][j - 1];
     }
     return ans;
 }
-// THE ANS IS n1*M_factor - Hungarian().
+// THE ANS IS n1 * M_factor - Hungarian().
 int M_factor; // Change problem finding the minimum cost to maximum cost, that can be solved by Hungarian.
 void min_to_max() { // Min in cost[i][j] = max in M - cost[i][j].
     int i, j;

@@ -15,7 +15,7 @@ class Treap {
             key = _key;
             data = _data;
             mx = mn = { _data, _key };
-            priority = rand();// ((ll)rand()<<16) ^ (ll)rand(); // Let's hope there is no collision...
+            priority = rand(); // ((ll)rand()<<16) ^ (ll)rand(); // Let's hope there is no collision...
         }
     };
     typedef node* pnode;
@@ -34,14 +34,14 @@ class Treap {
         t->mn = min({ mp(t->data, t->key), getMinimumVK(t->l), getMinimumVK(t->r) });
     }
     // Return a subtree l and r such as key(l) < key < key(r), similar to rotations.
-    void split(pnode t, pnode &l, pnode &r, K const key) {
+    void split(pnode t, pnode& l, pnode& r, K const key) {
         if(!t) l = r = NULL;
         else if(key < t->key) split(t->l, l, t->l, key), r = t;
         else split(t->r, t->r, r, key), l = t;
         update(t);
     }
     // Merge two trees l and r into one, t, allKey(l) < allKey(r).
-    void merge(pnode &t, pnode l, pnode r) {
+    void merge(pnode& t, pnode l, pnode r) {
         if(!l || !r) t = l ? l : r;
         else if(l->priority < r->priority) merge(r->l, l, r->l), t = r;
         else merge(l->r, l->r, r), t = l;
@@ -53,7 +53,7 @@ class Treap {
         else insert(it->key < t->key ? t->l : t->r, it);
         update(t);
     }
-    void erase(pnode& t, K key) { //only erase if the element exists.
+    void erase(pnode& t, K key) { // Only erase if the element exists.
         if(!t) { echo("estas borrando pero no esta:", key); exit(-1); }
         if(t->key == key) merge(t, t->l, t->r);
         else erase(key < t->key ? t->l : t->r, key);

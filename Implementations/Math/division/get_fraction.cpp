@@ -1,5 +1,5 @@
 ll mod = 1e9 + 7;
-// Debug function, get the fraction p/q given x % mod.
+// Debug function, get the fraction p / q given x % mod.
 void get_fraction(ll x) {
     x = (x % mod + mod) % mod;
     ll p, q;

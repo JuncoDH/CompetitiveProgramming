@@ -63,7 +63,7 @@ template<typename T, typename ...Args> void ECHO(string const _s, T const x, Arg
 }
 template<typename T> // Input vector<T>.
 istream& operator >> (istream& is, vector<T>& v) {
-    for(T &el : v) is >> el;
+    for(T& el : v) is >> el;
     return is;
 }
 template<typename T> // Output vector<T>.
@@ -77,7 +77,7 @@ ostream& operator << (ostream& os, const vector<T>& v) {
     return os;
 }
 using ll = long long;
-bool is_set(ll const x, ll const i) { return (x>>i) & 1; }
+bool is_set(ll const x, ll const i) { return (x >> i) & 1; }
 void set_bit(ll& x, ll const i) { x |= 1ll<<i; }
 void unset_bit(ll& x, ll const i) { x = (x | (1ll<<i)) ^ (1ll<<i); }
 ll LSB(ll const x) { return x & (-x); }

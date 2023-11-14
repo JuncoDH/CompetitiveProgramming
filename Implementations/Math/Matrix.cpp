@@ -17,7 +17,7 @@ class Matrix {
         ncol = _v[0].size();
         v = _v;
     }
-    friend ostream& operator << (ostream &os, Matrix<T> m) {
+    friend ostream& operator << (ostream& os, Matrix<T> m) {
         for(int i = 0; i < m.nrow; i++) {
             for(int j = 0; j < m.ncol; j++) {
                 if(j) os << " ";
@@ -116,7 +116,7 @@ class Matrix {
         // Solving Ux = dato.
         // For every column of dato.
         for(k = 0; k < dato.ncol; k++) {
-            for(i = mat.nrow-1; i >= 0; i--) {
+            for(i = mat.nrow - 1; i >= 0; i--) {
                 val = dato.v[i][k];
                 for(j = i + 1; j < mat.ncol; j++) {
                     val -= mat.v[i][j] * dato.v[j][k];

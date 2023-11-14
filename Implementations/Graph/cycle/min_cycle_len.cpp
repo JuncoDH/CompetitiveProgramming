@@ -29,7 +29,7 @@ ll bfs(int u) {
     }
     return ans;
 }
-// Return the minimum cycle len in the graph, or -1 if no cycle found. O(V*(V + E)).
+// Return the minimum cycle len in the graph, or -1 if no cycle found. O(V * (V + E)).
 ll min_cycle_len() {
     ll ans = inf;
     for(int i = 0; i < n; i++) {

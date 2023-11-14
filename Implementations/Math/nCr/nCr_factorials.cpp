@@ -11,7 +11,7 @@ void init() {
         inv_fact[i] = inv(fact[i]);
     }
 }
-ll comb(ll const a, ll const b) { // O(1). // aCb = a!/(b!*(a-b)!.
+ll comb(ll const a, ll const b) { // O(1). // aCb = a! / (b! * (a - b)!.
     if(b > a) return 0;
     return ((fact[a] * inv_fact[b]) % mod) * inv_fact[a - b] % mod;
 }

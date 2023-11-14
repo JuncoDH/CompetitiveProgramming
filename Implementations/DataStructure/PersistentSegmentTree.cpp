@@ -4,15 +4,15 @@ struct node {
     node* pl = nullptr, *pr = nullptr;
     int l, r, mid;
     T value = 0; // Sum query.
-    node(int const _l, int const _r) { l = _l; r = _r; mid = (l + r)>>1; }
-    node(int const _l, int const _r, T const _value) { l = _l; r = _r; value = _value; mid = (l + r)>>1; }
+    node(int const _l, int const _r) { l = _l; r = _r; mid = (l + r) >> 1; }
+    node(int const _l, int const _r, T const _value) { l = _l; r = _r; value = _value; mid = (l + r) >> 1; }
     void update() { // Sum query.
         value = 0;
         if(pl) value += pl->value;
         if(pr) value += pr->value;
     }
 }; // Declare outside, else static memory gives seg fault.
-node<ll> *root[MAX_VERSION]; //it stores the i versions after updates, start at 0.
+node<ll> *root[MAX_VERSION]; // It stores the i versions after updates, start at 0.
 template<typename T>
 class PersistentSegmentTree {
     vector<T> arr; // Copy of the array to build SegmentTree.
@@ -48,7 +48,7 @@ class PersistentSegmentTree {
     PersistentSegmentTree() = default;
     PersistentSegmentTree(int n){ // Build from empty vector of size n.
         arr.assign(n, 0);
-        root[0] = new node<T>(0, n-1);
+        root[0] = new node<T>(0, n - 1);
         build(root[0]);
     }
     explicit PersistentSegmentTree(vector<T> const& v) { // Build from vector v.
@@ -74,7 +74,7 @@ class NumberDistinctNumbers { // Works for queries online. For offline can check
         fill(last, last + MAX_ELEMENT_VALUE, -1);
         pst = PersistentSegmentTree<T>(n);
         for(int r = 0; r < n; r++) {
-            pst.update(max(0, r-1), r, r, 1); // Actualize r.
+            pst.update(max(0, r - 1), r, r, 1); // Actualize r.
             if(last[v[r]] != -1) pst.update(r, r, last[v[r]], 0); // Remove last[v[r]].
             last[v[r]] = r; // Actualize last[v[r]].
         }

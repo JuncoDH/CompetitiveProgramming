@@ -40,7 +40,7 @@ class Trie {
     } // Add num with n digits (Add 0 to the left).
     void add(ll const num, ll const digit) { // Base 10.
         string s = to_string(num);
-        string s2 = string(max(0ll, digit-(int)s.length()), '0') + s;
+        string s2 = string(max(0ll, digit - (int)s.length()), '0') + s;
         add(s2);
     }
     void add_binary(ll const num, ll const digit) { // Base 2.

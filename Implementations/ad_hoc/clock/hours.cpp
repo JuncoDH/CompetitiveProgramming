@@ -15,7 +15,7 @@ void cout_hour(ll h, ll m, ll s) {
     if(s < 10) cout << "0";
     cout << s;
 }
-// One day has 60*60*24 = 86400 seconds.
+// One day has 60 * 60 * 24 = 86400 seconds.
 // Converts the hour to number of seconds since 00:00:00.
 ll hours_to_seconds(ll const h, ll const m, ll const s) {
     return 60 * 60 * h + 60 * m + s;
@@ -32,7 +32,7 @@ void seconds_to_hours(ll& h, ll& m, ll& s, ll sec) {
 // Convert grades of the clock hand to hours and minutes. gh is grades of hours and gm grades of minutes.
 // return mp(-1, -1) if no solution exists.
 pair<ll, ll> grades_to_hour(ld const gh, ld const gm) {
-    ll h = gh/30, m = gm/6;
+    ll h = gh / 30, m = gm / 6;
     if((ld)30 * h + (ld)m / 2 != gh || (ld)6 * m != gm) return {-1, -1};
     return { h, m };
 }

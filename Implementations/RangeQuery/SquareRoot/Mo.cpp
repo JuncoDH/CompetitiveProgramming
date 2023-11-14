@@ -22,7 +22,7 @@ class Mo {
     vector<Query> vquery;
     vll v; // Input vector.
     int currL = 0; // currAns represent answer for the
-    int currR = -1;// interval [currL, currR].
+    int currR = -1; // interval [currL, currR].
     int currAns = 0;
     vi freq;
     void add(int const i) {

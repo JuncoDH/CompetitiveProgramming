@@ -24,7 +24,7 @@ ll inv(ll a) {
     return elevate(((a % mod) + mod) % mod, mod - 2);
 }
 constexpr int MAX = 1e5 + 10;
-//inv_fact is fact^-1
+// inv_fact is fact^-1.
 ll fact[MAX], inv_fact[MAX];
 void init() {
     int i = 0;

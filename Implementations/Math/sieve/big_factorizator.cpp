@@ -1,4 +1,4 @@
-add srand(time(nullptr)); //ADD srand(time(0));
+add srand(time(nullptr)); // ADD srand(time(0));
 // USE THIS ONLY WHEN NO OTHER OPTION LEFT ...
 namespace Factorizator {
     vll primes; // Add primes manually.
@@ -7,10 +7,10 @@ namespace Factorizator {
     // Return true if the number is composite, false if it is not sure.
     bool check_composite(ll num, ll a, ll d, int const s) {
         ll x = elevate(a, d, num);
-        if(x == 1 || x == num-1) return false;
+        if(x == 1 || x == num - 1) return false;
         for(int i = 0; i < s; i++) {
             x = mult(x, x, num);
-            if(x == num-1) return false;
+            if(x == num - 1) return false;
         }
         return true;
     }
@@ -75,7 +75,7 @@ namespace Factorizator {
         dfs_div(x, i + 1);
         for(int j = 0; j < factors[i].se; j++) { x *= factors[i].fi; dfs_div(x, i + 1); }
     }
-    //NOT TESTED
+    // NOT TESTED.
     vector<ll> get_divisors(ll const num) { // 1 and num inclusive.
         if(factors.empty()) factorize(num);
         divisors.clear();
@@ -87,7 +87,7 @@ namespace Factorizator {
     vector<pll> factorize_using_primes(ll num) {
         vector<pll> ans;
         for(int i = 0; i < (int)primes.size() && primes[i] <= num / primes[i]; i++) {
-            if(num%primes[i] == 0) {
+            if(num % primes[i] == 0) {
                 ll cont = 0;
                 while(num % primes[i] == 0) {
                     num /= primes[i];
@@ -99,7 +99,7 @@ namespace Factorizator {
         if(num > 1) ans.pb({num, 1});
         return ans;
     }
-    //empty if gcd = 1
+    // empty if gcd = 1.
     vector<pll> gcd(vector<pll> const& va, vector<pll> const& vb) {
         vector<pll> ans;
         int l = 0, r = 0, va_sz = (int)va.size(), vb_sz = (int)vb.size();

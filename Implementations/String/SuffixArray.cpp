@@ -37,7 +37,7 @@ class SuffixArray {
             else c[p[i]] = c[p[i - 1]] + 1;
         }
         k = 0; // In k + 1 iterations sort strings of length 2^(k + 1).
-        while(c[p[n-1]] != n-1) { // At most ceil(log2(n)).
+        while(c[p[n - 1]] != n - 1) { // At most ceil(log2(n)).
             vector<pair<pii, int>> v2(n); // Temporal vector to sort.
             for(i = 0; i < n; i++) v2[i] = { { c[i], c[(i + (1 << k)) % n] }, i };
             radix_sort(v2);
@@ -57,7 +57,7 @@ class SuffixArray {
     // cmp s with t. return -1 if s < t, 1 if s > t, 0 if s == t.
     int cmp_string(int const pos, string const& t) const {
         for(int i = p[pos], j = 0; j < (int) t.size(); i++, j++) {
-            if(s[i] < t[j]) return -1; // i < n because s[n-1] = '$'.
+            if(s[i] < t[j]) return -1; // i < n because s[n - 1] = '$'.
             if(s[i] > t[j]) return 1;
         }
         return 0;
@@ -105,7 +105,7 @@ string LCS(string s, string const& t) {
     sa.build_lcp();
     for(int i = 1; i < sa.n; i++) {
         // Suffix of s and before suffix of t.
-        if(sa.n - sa.p[i] > n2 + 2 && sa.n - sa.p[i-1] <= n2 + 1) {
+        if(sa.n - sa.p[i] > n2 + 2 && sa.n - sa.p[i - 1] <= n2 + 1) {
             if(sa.lcp[i] > mx) mx = sa.lcp[i], mxi = i;
         }
         // Suffix of t and before suffix of s.

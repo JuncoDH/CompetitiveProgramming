@@ -20,9 +20,9 @@ class FFT {
         }
     }
     static void deconvolution(vector<cd>& a) {
-        for(auto &el : a) el = conj(el);
+        for(auto& el : a) el = conj(el);
         convolution(a);
-        for(auto &el : a) el /= (double)a.size();
+        for(auto& el : a) el /= (double)a.size();
     }
     public:
     // c[j] is Sum_{0, j} of a[i] * b[j - i].
@@ -41,7 +41,7 @@ class FFT {
         deconvolution(ans);
         return ans;
     }
-    static void show(vector<cd>& v) {
+    static void show(vector<cd> const& v) {
         int i, cont = 0; // Maximum 20 elements.
         for(i = 0; i < min((int)v.size(), 20); i++) {
             cout << " + " << (v[i].real() > eps ? v[i].real() : 0) << "x^" << cont++;

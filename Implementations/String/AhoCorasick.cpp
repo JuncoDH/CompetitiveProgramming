@@ -14,7 +14,7 @@ class Node {
         pch = _pch;
         go.assign(alpha_size, -1);
     }
-}; // O(m*alpha_size) memory, O(m) runtime. m = sum(length(s_i)).
+}; // O(m * alpha_size) memory, O(m) runtime. m = sum(length(s_i)).
 class AhoCorasick {
     vector<Node> t = vector<Node>(1, Node(-1, '$'));
     public:
