@@ -1,6 +1,6 @@
 // You can use it when you can extend / shrink interval by 1 element.
-// O((Q + N)sqrt(N)), is sqrt decomposition.
-class Query{
+// O((Q + N) sqrt(N)), is sqrt decomposition.
+class Query {
     static constexpr int BLOCK = 170; // sqrt(n) + -;
     public:
     int l = 0, r = 0, id = 0;
@@ -9,8 +9,8 @@ class Query{
         l = _l; r = _r; id = _id;
     }
     bool operator < (Query const& other) const {
-        if(l/BLOCK != other.l/BLOCK) {
-            return l/BLOCK < other.l/BLOCK;
+        if(l / BLOCK != other.l / BLOCK) {
+            return l / BLOCK < other.l / BLOCK;
         }
         if(r != other.r) return r < other.r;
         return l < other.l;
@@ -27,7 +27,7 @@ class Mo {
     vi freq;
     void add(int const i) {
         freq[v[i]]++;
-        if(freq[v[i]] == 1) currAns++; 
+        if(freq[v[i]] == 1) currAns++;
     }
     void remove(int const i) {
         freq[v[i]]--;

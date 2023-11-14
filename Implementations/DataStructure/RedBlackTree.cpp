@@ -1,9 +1,9 @@
-class node{
+class node {
     public:
     static constexpr int BLACK = 0;
     static constexpr int RED = 1;
     ll value = 0;
-    node *l = nullptr, *r = nullptr, *p = nullptr;
+    node* l = nullptr, *r = nullptr, *p = nullptr;
     int color = BLACK;
     node() = default;
     node(ll const _value) {
@@ -11,7 +11,7 @@ class node{
         l = new node(); l->p = this;
         r = new node(); r->p = this;
     }
-    ~node() {delete l; delete r;}
+    ~node() { delete l; delete r; }
     bool is_leaf() const {
         return l == nullptr && r == nullptr;
     }
@@ -21,9 +21,9 @@ class node{
 // 2 - Root and leaves (NULL) are black.
 // 3 - If a node is red its children are black.
 // 4 - All paths node->leaf contain the same number of black nodes.
-class RedBlackTree{
-    void left_rotation(node *n) {
-        node *ans = n->r;
+class RedBlackTree {
+    void left_rotation(node* n) {
+        node* ans = n->r;
         n->r = ans->l;
         ans->l->p = n;
         ans->l = n;
@@ -33,8 +33,8 @@ class RedBlackTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void right_rotation(node *n) {
-        node *ans = n->l;
+    void right_rotation(node* n) {
+        node* ans = n->l;
         n->l = ans->r;
         ans->r->p = n;
         ans->r = n;
@@ -44,7 +44,7 @@ class RedBlackTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void insert_fixup(node *z) {
+    void insert_fixup(node* z) {
         while(z != root && z->p->color == node::RED) {
             if(z->p == z->p->p->l) { // parent is left child.
                 if(z->p->p->r->color == node::RED) {
@@ -82,7 +82,7 @@ class RedBlackTree{
         }
         root->color = node::BLACK;
     }
-    static node *get_next_higher(node *u) { // Get next higher node. u has to have 2 children.
+    static node* get_next_higher(node* u) { // Get next higher node. u has to have 2 children.
         u = u->r;
         while(!u->l->is_leaf()) u = u->l;
         return u;
@@ -93,8 +93,8 @@ class RedBlackTree{
         v.pb(u->value);
         dfs_get_elements(u->r, v);
     }
-    void erase_fixup(node *x) {
-        node *w = nullptr; // Sibling of x, allways has children.
+    void erase_fixup(node* x) {
+        node* w = nullptr; // Sibling of x, allways has children.
         while(x != root && x->color == node::BLACK) {
             if(x == x->p->l) {
                 w = x->p->r;
@@ -149,8 +149,8 @@ class RedBlackTree{
         x->color = node::BLACK;
     }
     public:
-    node *root = new node();
-    ~RedBlackTree() {delete root;}
+    node* root = new node();
+    ~RedBlackTree() { delete root; }
     bool search(ll const key) const {
         node *n = root;
         while(!n->is_leaf()) {
@@ -161,8 +161,8 @@ class RedBlackTree{
         return false;
     }
     void insert(ll const key) {
-        node *x = root;
-        node *z = new node(key);
+        node* x = root;
+        node* z = new node(key);
         if(root->is_leaf()) {
             delete root;
             root = z;
@@ -170,20 +170,20 @@ class RedBlackTree{
         }
         z->color = node::RED;
         while(!x->is_leaf()) {
-            if(key == x->value) {delete z; return;} // Not insert duplicates.
+            if(key == x->value) { delete z; return; } // Not insert duplicates.
             if(key < x->value) x = x->l;
             else x = x->r;
         }
         x = x->p;
         z->p = x;
-        if(key < x->value) {delete x->l; x->l = z;}
-        else {delete x->r; x->r = z;}
+        if(key < x->value) { delete x->l; x->l = z; }
+        else { delete x->r; x->r = z; }
         insert_fixup(z);
     }
     void erase(ll const key) {
-        node *z = root; // The node to remove.
-        node *y = nullptr; // The real node to remove.
-        node *x = nullptr; // The node that has been shifted.
+        node* z = root; // The node to remove.
+        node* y = nullptr; // The real node to remove.
+        node* x = nullptr; // The node that has been shifted.
         if(root->is_leaf()) return; // Empty tree.
         while(key != z->value) {
             if(z->is_leaf()) return; // Element not inserted.
@@ -193,8 +193,8 @@ class RedBlackTree{
         if(z->is_leaf()) return; // Element not inserted.
         if(z->l->is_leaf() || z->r->is_leaf()) y = z;
         else y = get_next_higher(z);
-        if(y->r->is_leaf()) {delete y->r; x = y->l;}
-        else {delete y->l; x = y->r;}
+        if(y->r->is_leaf()) { delete y->r; x = y->l; }
+        else { delete y->l; x = y->r; }
         x->p = y->p;
         if(y->p == nullptr) root = x;
         else if(y == y->p->l) y->p->l = x;

@@ -1,4 +1,4 @@
-class node{
+class node {
     public:
     int len; // Length of the longest string in the equivalence classes.
     int suffix_link = -1; // The longest suffix that is not in the same equivalence class.
@@ -7,7 +7,7 @@ class node{
         len = _len;
     }
 };
-class SuffixAutomaton{ // O(n) creation.
+class SuffixAutomaton { // O(n) creation.
     vector<node> t = vector<node>(1, node(0));
     // int t_size = 1;
     int last = 0; // The node representing the entire string.
@@ -17,7 +17,7 @@ class SuffixAutomaton{ // O(n) creation.
     } // Extend the automaton character one by one.
     void extend(char const c) {
         int p = last; // Head of the automaton.
-        int q; // the node to duplicate.
+        int q; // The node to duplicate.
         t.pb(node(t[last].len + 1));
         last = (int)t.size() - 1;
         // Add c to the previous suffixes.
@@ -82,7 +82,7 @@ class SuffixAutomaton{ // O(n) creation.
         for(auto el : t[i].next) ans += num_substr(el.se);
         return dp_num_substr[i] = ans;
     }
-    // k-th string in the sorted substrings set, in [0, num_substr()-1].
+    // k-th string in the sorted substrings set, in [0, num_substr() - 1].
     string k_substr(int k) {
         int p = 0;
         char prev;

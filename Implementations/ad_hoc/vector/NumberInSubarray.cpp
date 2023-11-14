@@ -1,4 +1,4 @@
-class NumberInSubarray{ // O(n log n).
+class NumberInSubarray { // O(n log n).
     vll v;
     map<ll, set<int>> m;
 public:

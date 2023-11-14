@@ -1,63 +1,10 @@
-vector<vi> graph;
-class Kosaraju { // SCC O(n). x2 times slower than Tarjan.
-    vi s; // Stack.
-    vector<vi> graphT;
-    vector<bool> visited;
-    void dfs1(int const u) {
-        visited[u] = true;
-        for(auto const& v : graph[u])
-            if(!visited[v]) dfs1(v);
-        s.pb(u);
-    } // Add to the current component.
-    void dfs2(int const u) {
-        visited[u] = true;
-        for(auto const& v : graphT[u])
-            if(!visited[v]) dfs2(v);
-        components.back().pb(u);
-    }
-    public:
-    vector<vi> components;
-    Kosaraju() {
-        int i, n = graph.size();
-        visited.assign(n, false);
-        for(i = 0; i < n; i++)
-            if(!visited[i]) dfs1(i);
-        graphT.assign(n, vi());
-        for(i = 0; i < n; i++)
-            for(auto const& v : graph[i])
-                graphT[v].pb(i);
-        visited.assign(n, false);
-        while(true) {
-            while(!s.empty() && visited[s.back()]) s.pop_back();
-            if(s.empty()) break;
-            components.pb({});
-            dfs2(s.back());
-        }
-    }
-};
-class Toposort{
-    vector<bool> visited;
-    void topo_rec(int const u) {
-        if(visited[u]) return;
-        visited[u] = true;
-        for(auto const& _v : graph[u]) topo_rec(_v);
-        vSorted.pb(u);
-    }
-    public:
-    vi vSorted;
-    explicit Toposort(int const n) {
-        visited.assign(n, false);
-        for(int i = 0; i < n; i++) topo_rec(i);
-        reverse(vSorted.begin(), vSorted.end());
-    }
-};
-class SAT{ // 2SAT, (xi or xj) and ()... O(n).
+class SAT { // 2SAT, (xi or xj) and ()... O(n).
     public:
     explicit SAT(int const n) {
         graph.assign(2 * n, vi());
     }
-    static int get_pos(int const i) {return 2 * i;}
-    static int get_neg(int const i) {return 2 * i + 1;}
+    static int get_pos(int const i) { return 2 * i; }
+    static int get_neg(int const i) { return 2 * i + 1; }
     static void add_or(int const i, int const j) { // Use it with get_pos.
         graph[i ^ 1].pb(j);
         graph[j ^ 1].pb(i);

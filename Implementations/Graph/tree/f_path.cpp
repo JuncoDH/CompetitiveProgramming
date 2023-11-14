@@ -1,7 +1,7 @@
 vector<vi> graph;
 vll a; // Values of the nodes.
 // Calculate the xor of a path from u to v in a tree.
-namespace xor_path{
+namespace xor_path {
     LCA lca;
     vll xor_root;
     void dfs_xor(int const u, int const p) {
@@ -22,7 +22,7 @@ namespace xor_path{
     }
 }
 // Calculate the sum of a path from u to v in a tree.
-namespace sum_path{
+namespace sum_path {
     LCA lca;
     vll sum_root;
     void dfs_sum(int const u, int const p) {
@@ -40,7 +40,7 @@ namespace sum_path{
     }
     ll calculate_sum(int const u, int const v) {
         int c = lca.lca(u, v);
-        return sum_root[u] + sum_root[v] + a[c] - 2*sum_root[c];
+        return sum_root[u] + sum_root[v] + a[c] - 2 * sum_root[c];
     }
 }
 

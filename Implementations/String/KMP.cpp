@@ -3,7 +3,7 @@
 void KMP(string const& s, string const& t) {
     int n = s.length(), m = t.length(), i, j, len = 0;
     // Longest proper prefix that is also suffix.
-    // s[0..lps[i]-1] == s[i-lps[i] + 1..i].
+    // s[0..lps[i] - 1] == s[i-lps[i] + 1..i].
     vi lps(m, 0);
     for(i = 1; i < m; i++) {
         if(t[i] == t[len]) {
@@ -18,8 +18,8 @@ void KMP(string const& s, string const& t) {
         if(s[i] == t[j]) {
             j++;
             if(j == m) {
-                echo("Pattern found at:", i-j + 1);
-                // You will math at least lps[j-1] chars.
+                echo("Pattern found at:", i - j + 1);
+                // You will math at least lps[j - 1] chars.
                 j = lps[j - 1];
             }
         } else if(j > 0) {

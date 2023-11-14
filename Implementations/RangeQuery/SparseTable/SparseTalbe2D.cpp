@@ -7,7 +7,7 @@ vector<vll> v;
 ll f(ll const a, ll const b) { return min(a, b); }
 void preprocess() {
     ll ir, jr, ic, jc;
-    //table[ir][0][ic][jc] is sparse table of row ir
+    // table[ir][0][ic][jc] is sparse table of row ir.
     for(ir = 0; ir < nr; ++ir){
         for(ic = 0; ic < nc; ++ic) table[ir][0][ic][0] = v[ir][ic];
         for(jc = 1; jc <= (ll)log2(nc); ++jc){

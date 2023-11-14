@@ -1,5 +1,5 @@
 vector<vi> graph;
-class Tarjan{ // O(n) SCC.
+class Tarjan { // O(n) SCC.
     vi discover;
     vi low;
     vector<bool> onStack;

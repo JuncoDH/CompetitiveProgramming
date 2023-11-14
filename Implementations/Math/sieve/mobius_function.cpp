@@ -1,6 +1,6 @@
 // You can do Mobius inversion, that is Sum_{d|n} mu[d] = [n == 1]. (Maybe n = gcd(a_i) usually).
 constexpr int MAX = 1e5;
-int mu[MAX]; // mu(n) = 0 if n is square prime and (-1)^t if n = p1...pt. 
+int mu[MAX]; // mu(n) = 0 if n is square prime and (-1)^t if n = p1...pt.
 void mobius_init() {
     vi prime;
     bool is_composite[MAX];
@@ -12,7 +12,7 @@ void mobius_init() {
             if(i * p >= MAX) break;
             is_composite[i * p] = true;
             if(i % p == 0) { // if p divides i.
-                // mu[i * p] = 0; // already 0.
+                // mu[i * p] = 0; // Already 0.
                 break;
             }
             mu[i * p] = mu[i] * mu[p];

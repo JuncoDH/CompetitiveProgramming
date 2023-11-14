@@ -10,6 +10,6 @@ pll floyd_cycle_detection(ll const x0) {
     while(tortoise != hare) tortoise = f(tortoise), hare = f(hare), mu++;
     hare = f(hare);
     while(tortoise != hare) hare = f(hare), lambda++;
-    return {mu, lambda};
+    return { mu, lambda };
 }
 

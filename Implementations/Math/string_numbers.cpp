@@ -10,7 +10,7 @@ bool less_than(string const& s1, string const& s2) {
 }
 // s1 + s2. s1[0] is the Most Significative digit.
 string add(string const& s1, string const& s2) {
-    int i = (int)s1.size()-1, j = (int)s2.size()-1, a, b, carry = 0;
+    int i = (int)s1.size() - 1, j = (int)s2.size() - 1, a, b, carry = 0;
     string ans;
     while(i >= 0 || j >= 0) {
         if(i >= 0) a = s1[i] - '0';
@@ -29,7 +29,7 @@ string add(string const& s1, string const& s2) {
 // Return s1 - s2. s1 has to be >= s2;
 string substract(string const& s1, string const& s2) {
     string ans;
-    int i = (int)s1.size()-1, j = (int)s2.size()-1, a, b, carry = 0;
+    int i = (int)s1.size() - 1, j = (int)s2.size() - 1, a, b, carry = 0;
     while(i >= 0) {
         a = s1[i] - '0';
         if(j >= 0) b = s2[j] - '0' + carry;

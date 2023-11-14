@@ -3,9 +3,9 @@ class BaseConverter {
     int n;
     vi v; // v is stored reversed, v[i] is the coefficient of b^i.
     static int get_letter_value(char const c) {
-        if('0' <= c && c <= '9') return c-'0';
-        if('A' <= c && c <= 'Z') return c-'A' + 10;
-        if('a' <= c && c <= 'z') return c-'a' + 10;
+        if('0' <= c && c <= '9') return c - '0';
+        if('A' <= c && c <= 'Z') return c - 'A' + 10;
+        if('a' <= c && c <= 'z') return c - 'a' + 10;
         return c; // Error.
     }
     static char get_letter(int const c) {
@@ -17,7 +17,7 @@ class BaseConverter {
         n = s.size();
         v.assign(n, 0);
         for(int i = 0; i < n; i++) {
-            v[n-i-1] = get_letter_value(s[i]);
+            v[n - i - 1] = get_letter_value(s[i]);
         }
         base = _base;
     }
@@ -25,7 +25,7 @@ class BaseConverter {
         ll b = 1, rest = 0;
         vi new_v;
         for(int i = 0; i < n; i++) {
-            rest += v[i]*b;
+            rest += v[i] * b;
             b *= base;
         }
         while(rest) {

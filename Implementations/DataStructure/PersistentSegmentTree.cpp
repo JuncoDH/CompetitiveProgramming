@@ -1,4 +1,4 @@
-constexpr int MAX_VERSION = 3*1e4 + 4; // Maximum number of versions.
+constexpr int MAX_VERSION = 3 * 1e4 + 4; // Maximum number of versions.
 template<typename T>
 struct node {
     node* pl = nullptr, *pr = nullptr;
@@ -16,8 +16,8 @@ node<ll> *root[MAX_VERSION]; //it stores the i versions after updates, start at 
 template<typename T>
 class PersistentSegmentTree {
     vector<T> arr; // Copy of the array to build SegmentTree.
-    void build(node<T> *n) { // O(n).
-        if(n->l == n->r) {n->value = arr[n->l]; return;}
+    void build(node<T>* n) { // O(n).
+        if(n->l == n->r) { n->value = arr[n->l]; return; }
         n->pl = new node<T>(n->l, n->mid);
         n->pr = new node<T>(n->mid + 1, n->r);
         build(n->pl);
@@ -28,7 +28,7 @@ class PersistentSegmentTree {
         if(n->l == n->r) {
             return new node<T>(n->l, n->r, x);
         }
-        node<T> *nod = new node<T>(n->l, n->r);
+        node<T>* nod = new node<T>(n->l, n->r);
         if(q <= n->mid) {
             nod->pl = update(n->pl, q, x);
             nod->pr = n->pr;

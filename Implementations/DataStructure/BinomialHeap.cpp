@@ -1,4 +1,4 @@
-class Node{
+class Node {
     public:
     Node* r = nullptr; // Root list and child list, sorted < degree, finishing in nullptr.
     Node* c = nullptr; // Biggest child, sorted > degree.
@@ -7,7 +7,7 @@ class Node{
     explicit Node(int const _value) {
         value = _value;
     }
-    ~Node() {delete c; delete r;}
+    ~Node() { delete c; delete r; }
     void insert_child(Node* n) { // Insert n as a child of this.
         if(!n) return;
         n->r = c;
@@ -22,7 +22,7 @@ class Node{
     }
 };
 // Min Heap.
-class BinomialHeap{
+class BinomialHeap {
     int n_nodes = 0;
     Node* merge_next(Node* ans, Node* n) {
         if(!ans) return root = ans = n;

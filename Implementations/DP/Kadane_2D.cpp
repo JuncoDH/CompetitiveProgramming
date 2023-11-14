@@ -20,7 +20,7 @@ ll kadane_2d(vector<vll> const& v) {
     for(int i = 0; i < n; i++) {
         psum[i][0] = v[i][0];
         for(int j = 1; j < m; j++) {
-            psum[i][j] = v[i][j] + psum[i][j-1];
+            psum[i][j] = v[i][j] + psum[i][j - 1];
         }
     }
     vll vcol(n);
@@ -28,7 +28,7 @@ ll kadane_2d(vector<vll> const& v) {
         for(int j = i; j < m; j++) { // Rigth column.
             for(int k = 0; k < n; k++) { // Current row.
                 vcol[k] = psum[k][j];
-                if(i > 0) vcol[k] -= psum[k][i-1];
+                if(i > 0) vcol[k] -= psum[k][i - 1];
             }
             ans = max(ans, kadane(vcol));
         }

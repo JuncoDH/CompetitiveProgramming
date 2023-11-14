@@ -13,7 +13,7 @@ void cout_hour(ll h, ll m, ll s) {
     if(m < 10) cout << "0";
     cout << m << ":";
     if(s < 10) cout << "0";
-    cout << s; 
+    cout << s;
 }
 // One day has 60*60*24 = 86400 seconds.
 // Converts the hour to number of seconds since 00:00:00.
@@ -34,15 +34,15 @@ void seconds_to_hours(ll& h, ll& m, ll& s, ll sec) {
 pair<ll, ll> grades_to_hour(ld const gh, ld const gm) {
     ll h = gh/30, m = gm/6;
     if((ld)30 * h + (ld)m / 2 != gh || (ld)6 * m != gm) return {-1, -1};
-    return {h, m};
+    return { h, m };
 }
 // Convert hours and minutes to grades of the clock hand, mp(grade of large hour hand, small minute hand).
 pair<ld, ld> hour_to_grades(ll const h, ll const m) {
-    return {(ld)30 * h + (ld)m / 2, (ld)6 * m};
+    return { (ld)30 * h + (ld)m / 2, (ld)6 * m };
 }
 // Convert hours and minutes to grades of the clock hand, mp(grade of large hour hand, small minute hand).
 // Not tested.
 pair<ld, pair<ld, ld>> hour_to_grades(ll const h, ll const m, ll const s) {
-    return {(ld)30 * h + (ld)m / 2 + (ld)s / 120, {(ld)6 * m + (ld)s / 10, (ld)6 * s}};
+    return { (ld)30 * h + (ld)m / 2 + (ld)s / 120, { (ld)6 * m + (ld)s / 10, (ld)6 * s } };
 }
 

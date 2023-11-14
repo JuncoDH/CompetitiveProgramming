@@ -1,4 +1,4 @@
-class node{
+class node {
     public:
     int subtree = 1; // Number of nodes. Dont use it.
     int parent = -1; // To go upwards in the cd_graph.
@@ -7,7 +7,7 @@ class node{
 };
 // Instead of asking for a path u -> v, ask for u -> lca(u, v) -> v.
 // The decomposed tree has heigh O(log n).
-class CentroidDecomposition{
+class CentroidDecomposition {
     void dfs_size(int const u, int const p) {
         vn[u].subtree = 1;
         for(auto const& v : graph[u]) {
@@ -19,7 +19,7 @@ class CentroidDecomposition{
     int get_centroid(int const u, int const p, int const n_subtree) {
         for(auto const& v : graph[u]) {
             if(v == p || vn[v].is_centroid) continue;
-            if(vn[v].subtree > n_subtree/2)
+            if(vn[v].subtree > n_subtree / 2)
                 return get_centroid(v, u, n_subtree);
         }
         return u;
@@ -54,7 +54,7 @@ class CentroidDecomposition{
         }
     }
     // The centroid is the node that when removing, all its
-    // subtrees have <= n/2 nodes. It can be AT MOST 2 centroids.
+    // subtrees have <= n / 2 nodes. It can be AT MOST 2 centroids.
     int get_centroid() const {
         return root;
     }

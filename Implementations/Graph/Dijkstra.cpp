@@ -12,7 +12,7 @@ vll dijkstra(ll s) { // Negative edges NOT allowed.
         dist[u.se] = u.fi;
         for(auto const& el : graph[u.se]) {
             if(dist[el.fi] != inf) continue;
-            p.push({u.fi + el.se, el.fi});
+            p.push({ u.fi + el.se, el.fi });
         }
     }
     return dist;

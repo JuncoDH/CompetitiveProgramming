@@ -1,6 +1,6 @@
 // https://robert1003.github.io/2020/02/06/li-chao-segment-tree.html.
 template<typename T>
-class Line{
+class Line {
 public:
     T m = 0, n = 0;
     Line() = default;
@@ -12,7 +12,7 @@ public:
 // Only insert functions with one intersecction point, like lines.
 // Constraint: query(x) has to be in [0, n-1].
 template<typename T>
-class LiChaoTree{
+class LiChaoTree {
     vector<Line<T>> st;
     int n = 0;
     // The node will save the best line for the mid point.
@@ -49,7 +49,7 @@ public:
     void insert(Line<T> line) {
         insert(1, 0, n - 1, line);
     }
-    // Return max evaluated value of all i in a set S = {m_i * x + n_i}.
+    // Return max evaluated value of all i in a set S = { m_i * x + n_i }.
     T query(T const x) {
         return query(1, 0, n - 1, x);
     }

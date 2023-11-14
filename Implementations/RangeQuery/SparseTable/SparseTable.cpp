@@ -25,7 +25,7 @@ class SparseTable {
     T query(int ql, int qr) {
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);
-        qr = min(qr, n-1);
+        qr = min(qr, n - 1);
         int lg2_dif = -1, num = qr - ql;
         if(ql == qr) return table[ql][0];
         while(num) lg2_dif++, num >>= 1;

@@ -1,7 +1,7 @@
 // Maximum matching in a bipartite graph. (Also max flow).
-// n1 size of Set1, complexity is O(n1*n1*n2).
+// n1 size of Set1, complexity is O(n1 * n1 * n2).
 // Set1 edges are [0, n1). Set2 edges are [0, n2).
-class Kuhn{
+class Kuhn {
     int n1, n2;
     vector<vi> graph;
     vector<bool> used;

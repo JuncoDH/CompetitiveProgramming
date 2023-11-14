@@ -1,5 +1,5 @@
 vector<vi> graph;
-class Toposort{
+class Toposort {
     vector<bool> visited;
     void topo_rec(int const u) {
         if(visited[u]) return;

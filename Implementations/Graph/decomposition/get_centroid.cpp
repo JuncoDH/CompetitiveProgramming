@@ -10,7 +10,7 @@ void dfs_centroid_subtree(int u, int p) {
 }
 int dfs_centroid(int u, int p, int n) {
     for(auto v : graph[u]) {
-        if(v != p && subtree[v] > n/2)
+        if(v != p && subtree[v] > n / 2)
             return dfs_centroid(v, u, n);
     }
     return u;

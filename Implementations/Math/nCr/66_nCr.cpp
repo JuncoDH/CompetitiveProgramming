@@ -8,12 +8,12 @@ void calc() {
     for(int i = 1; i < MAX_C; i++) {
         for(int j = 1; j < MAX_C; j++) {
             if(i + j >= MAX_C) continue;
-            Comb[i][j] = Comb[i-1][j] + Comb[i][j-1];
+            Comb[i][j] = Comb[i - 1][j] + Comb[i][j - 1];
         }
     }
 }
 ll C(ll const i, ll const j) {
-    return Comb[i-j][j];
+    return Comb[i - j][j];
 }
 void show() { // Debug.
     for(int i = 0; i < MAX_C; i++) {

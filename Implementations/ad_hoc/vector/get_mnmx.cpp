@@ -18,6 +18,6 @@ pair<pll, pll> get_mnmx(vll const& v) {
             mn2 = v[i];
         }
     }
-    return {mn, mn2}, {mx, mx2}};
+    return { { mn, mn2 }, { mx, mx2 } };
 }
 

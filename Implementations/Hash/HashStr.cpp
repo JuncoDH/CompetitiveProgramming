@@ -6,10 +6,10 @@ class HashString {
     string s;
     int n = 0, n_p = 0;
     vector<vll> v; // contain the hash for [0..i].
-    vll p = {16532849, 91638611, 83157709}; // prime numbers. // 15635513  77781229
-    vll base = {37, 47, 53}; // base numbers: primes that > alphabet size. // 49 83
+    vll p = { 16532849, 91638611, 83157709 }; // prime numbers. // 15635513  77781229
+    vll base = { 37, 47, 53 }; // base numbers: primes that > alphabet size. // 49 83
     vector<vll> b; // b[i][j] = (b_i^j) % p_i.
-    vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i. 
+    vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i.
     static ll elevate(ll a, ll _b, ll const mod){
         ll ans = 1;
         while(_b){
@@ -35,11 +35,11 @@ class HashString {
         for(int i = 0; i < n_p; i++) {
             b[i][0] = 1;
             for(int j = 1; j < n; j++) {
-                b[i][j] = (b[i][j-1]*base[i]) % p[i];
+                b[i][j] = (b[i][j - 1] * base[i]) % p[i];
             }
             v[i][0] = s[0]-initial + 1;
             for(int j = 1; j < n; j++) {
-                v[i][j] = (b[i][j]*(s[j]-initial + 1) + v[i][j-1]) % p[i];
+                v[i][j] = (b[i][j] * (s[j] - initial + 1) + v[i][j-1]) % p[i];
             }
         }
     }
@@ -49,7 +49,7 @@ class HashString {
         for(int i = 0; i < n_p; i++) {
             b[i].pb((b[i][n - 2] * base[i]) % p[i]);
             b_inv[i].pb(-1);
-            v[i].pb((b[i][n - 1]*(c - initial + 1) + v[i][n - 2]) % p[i]);
+            v[i].pb((b[i][n - 1] * (c - initial + 1) + v[i][n - 2]) % p[i]);
         }
     }
     void add(string const& _s) {
@@ -59,7 +59,7 @@ class HashString {
         vll vans;
         for(int i = 0; i < n_p; i++) {
             ll ans = v[i][r];
-            if(l > 0) ans -= v[i][l-1];
+            if(l > 0) ans -= v[i][l - 1];
             ans *= inv(i, l);
             ans = ((ans % p[i]) + p[i]) % p[i];
             vans.pb(ans);

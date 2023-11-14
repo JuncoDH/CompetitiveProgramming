@@ -4,8 +4,8 @@ class Edge {
     int cap, flow = 0; // Capacity and current flow.
     Edge(int const _u, int const _v, int const _cap) : u(_u), v(_v), cap(_cap) { }
 };
-// O(V^2*E). For unit edge capacity O(sqrt(V)*E).
-class Dinic{
+// O(V^2 * E). For unit edge capacity O(sqrt(V)*E).
+class Dinic {
     vector<Edge> edge;
     vector<vi> graph;
     int n, n_edges = 0;
@@ -28,7 +28,7 @@ class Dinic{
     int dfs(int const u, int const min_flow) {
         if(u == sink) return min_flow;
         int pushed, el;
-        for(; ptr[u] < (int)graph[u].size(); ptr[u]++) { //if you can pick ok, else you crop that edge for the current bfs layer
+        for(; ptr[u] < (int)graph[u].size(); ptr[u]++) { // If you can pick ok, else you crop that edge for the current bfs layer.
             el = graph[u][ptr[u]];
             if(lvl[edge[el].v] != lvl[edge[el].u] + 1 || edge[el].cap - edge[el].flow <= 0) {
                 continue;

@@ -1,5 +1,5 @@
 // Edmond Karp implementation of Ford Fulkerson algorithm.
-class EdmondKarp{
+class EdmondKarp {
     vector<vi> graph; // O(V^2) size.
     vector<set<int>> ady_list; // Convert O(V^2) to O(E).
     int n;
@@ -34,7 +34,7 @@ class EdmondKarp{
         if(graph[u][v]) ady_list[u].insert(v);
         else ady_list[u].erase(v);
     }
-    // Source s to sink t. Complexity O(V*E*E).
+    // Source s to sink t. Complexity O(V * E * E).
     int max_flow(int const s, int const t) {
         int ans = 0, v;
         while(bfs(s, t)) {

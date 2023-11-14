@@ -4,7 +4,7 @@
 vi euler_tour;
 void hierholzer(int const u) {
     while(!graph[u].empty()) {
-        int v = graph[u].back(); 
+        int v = graph[u].back();
         graph[u].pop_back(); // DESTROYS THE GRAPH.
         hierholzer(v);
     }

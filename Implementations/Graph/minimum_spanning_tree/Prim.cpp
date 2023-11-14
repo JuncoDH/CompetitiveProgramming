@@ -1,6 +1,6 @@
 vector<vector<pll>> graph;
 // Minimum spanning tree in a bidirected graph.
-// graph contains elements [0..n-1], no extra space.
+// graph contains elements [0..n - 1], no extra space.
 ll Prim(int const n) {
     ll ans = 0;
     vector<bool> visited(n, false);
@@ -15,7 +15,7 @@ ll Prim(int const n) {
             ans += u.fi;
             for(auto const& el : graph[u.se]) {
                 if(!visited[el.fi]) {
-                    pq.push({-el.se, el.fi});
+                    pq.push({ -el.se, el.fi });
                 }
             }
         }

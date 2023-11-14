@@ -2,7 +2,7 @@
 // 1- v is the root and v has > 1 child in the DFS.
 // 2- v is not the root and has one child u that dont have any back edge.
 vector<vi> graph;
-class ArticulationPoint{
+class ArticulationPoint {
     int n;
     vi low; // Minimum discover time using a back edge.
     vi discover; // Discover DFS time.

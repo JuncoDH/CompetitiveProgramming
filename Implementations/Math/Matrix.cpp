@@ -11,7 +11,7 @@ class Matrix {
         ncol = _ncol;
         v.assign(nrow, vector<T>(ncol, 0));
     }
-    // Example: Matrix<ll> a({{1, 2}, {3, 4}}); // Can't use for one column vector.
+    // Example: Matrix<ll> a({ {1, 2}, {3, 4} }); // Can't use for one column vector.
     explicit Matrix(vector<vector<T>> const& _v) {
         nrow = _v.size();
         ncol = _v[0].size();
@@ -46,7 +46,7 @@ class Matrix {
         for(int i = 0; i < nrow; i++) {
             for(int j = 0; j < other.ncol; j++) {
                 for(int k = 0; k < ncol; k++) {
-                    ans.v[i][j] += v[i][k]*other.v[k][j];
+                    ans.v[i][j] += v[i][k] * other.v[k][j];
                 }
             }
         }
@@ -57,7 +57,7 @@ class Matrix {
             Matrix<T> ans(nrow, ncol);
             return ans.convert_to_identity();
         }
-        Matrix<T> half = (*this) ^ (ex/2);
+        Matrix<T> half = (*this) ^ (ex / 2);
         if(ex % 2) return half * half * (*this);
         return half * half;
     }
@@ -109,7 +109,7 @@ class Matrix {
                     mat.v[j][k] += factor * mat.v[i][k];
                 }
                 for(k = 0; k < dato.ncol; k++) {
-                    dato.v[j][k] += factor*dato.v[i][k];
+                    dato.v[j][k] += factor * dato.v[i][k];
                 }
             }
         }

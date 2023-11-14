@@ -1,6 +1,6 @@
-unordered_set<void *> freezed_node; // List to not double free nodes.
-class Node{
-    Node *l = nullptr, *r = nullptr;
+unordered_set<void* > freezed_node; // List to not double free nodes.
+class Node {
+    Node* l = nullptr, *r = nullptr;
     ll weight = 0; // Number of characters ONLY in left subtree.
     string s = ""; // String in the leaves.
     public:
@@ -29,13 +29,13 @@ class Node{
         cout << s;
         if(r) r->show();
     }
-    // void balance() {} // TODO. O(n) vs O(log n).
+    // void balance() { } // TODO. O(n) vs O(log n).
     ll get_length() const { // Get length of whole string.
         ll ans = weight;
         if(r) ans += r->get_length();
         return ans;
     } // Split in [0..i], [i + 1..]. Can return null if i = -1 or n - 1.
-    pair<Node*, Node*> split(ll index) { 
+    pair<Node*, Node*> split(ll index) {
         index++; // 1 index. Number of chars, not position.
         pair<Node*, Node*> ret;
         if(index < weight) {
@@ -63,16 +63,16 @@ class Node{
         if(weight < posl || posr <= 0) return;
         if(l) l->get_substr(posl, posr, ans);
         int n = posr - posl + 1;
-        if(!l && !r) ans += s.substr(posl-1, n);
+        if(!l && !r) ans += s.substr(posl - 1, n);
         if(r) r->get_substr(max(posl - weight, 1ll), posr - weight, ans);
     }
 };
 // Is persistent. Since it can self-referenciate, the string
 // can grows very fast, so use ll for indexes.
-class Rope{ 
+class Rope {
     vector<Node*> v; // All functions add the root to v.
     vector<Node*> to_delete; // Temporal list to free all the nodes.
-    static Node* concat(Node* l, Node* r) {return new Node(l, r);}
+    static Node* concat(Node* l, Node* r) { return new Node(l, r); }
     public:
     ~Rope() {
         for(auto el : to_delete) v.pb(el);
@@ -85,7 +85,7 @@ class Rope{
     } // Show string v[pos].
     void show(int const pos) const {
         v[pos]->show();
-    } // Get char i of v[pos]. 
+    } // Get char i of v[pos].
     char get_char(int const pos, ll const i) const {
         return v[pos]->get_char(i + 1);
     } // Get the substring v[pos] [l..r].
@@ -99,7 +99,7 @@ class Rope{
     } // Concatenate v[posl] with v[posr].
     void concat(int const posl, int const posr) {
         v.pb(concat(v[posl], v[posr]));
-    } // Convert v[pos1] to [0..i] + v[pos2] + [i + 1..n-1].
+    } // Convert v[pos1] to [0..i] + v[pos2] + [i + 1..n - 1].
     void insert(int const pos1, int const pos2, ll const i) {
         if(i == -1) { // Append to the left.
             v.pb(concat(v[pos2], v[pos1]));
@@ -113,8 +113,8 @@ class Rope{
         v.pb(concat(concat(ret.fi, v[pos2]), ret.se));
     } // Erase v[pos] [i..j].
     void erase(int const pos, ll const i, ll const j) {
-        pair<Node*, Node*> ret = v[pos]->split(i-1);
-        pair<Node*, Node*> ret2 = ret.se->split(j-i);
+        pair<Node*, Node*> ret = v[pos]->split(i - 1);
+        pair<Node*, Node*> ret2 = ret.se->split(j - i);
         to_delete.pb(ret.se);
         to_delete.pb(ret2.fi);
         v.pb(concat(ret.fi, ret2.se));
@@ -124,8 +124,8 @@ class Rope{
             v.pb(new Node(""));
             return;
         }
-        pair<Node*, Node*> ret = v[pos]->split(i-1);
-        pair<Node*, Node*> ret2 = ret.se->split(j-i);
+        pair<Node*, Node*> ret = v[pos]->split(i - 1);
+        pair<Node*, Node*> ret2 = ret.se->split(j - i);
         to_delete.pb(ret.fi);
         to_delete.pb(ret.se);
         to_delete.pb(ret2.se);

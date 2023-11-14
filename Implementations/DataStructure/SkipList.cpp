@@ -1,16 +1,16 @@
-class Node{
+class Node {
     public:
     ll value = 0;
     vector<Node*> prev; // Normal array is layer 0.
     vector<Node*> nxt;
     Node(ll const _value) { value = _value; }
 }; // Probabilistic Datastructure. O(log n) average, O(n) worst case.
-class SkipList{
-    Node *begin = new Node(-inf); // Values in range (-inf, inf).
-    Node *end = new Node(inf);
+class SkipList {
+    Node* begin = new Node(-inf); // Values in range (-inf, inf).
+    Node* end = new Node(inf);
     // Return a node with the next >= value than num.
     Node* find_nxt(ll const num) const {
-        Node *n = begin;
+        Node* n = begin;
         int layer = begin->nxt.size();
         while(layer >= 0) {
             while(layer < (int)n->nxt.size() && n->nxt[layer]->value < num)
@@ -22,13 +22,13 @@ class SkipList{
     public:
     SkipList() {
         srand(time(nullptr));
-        begin->prev = {nullptr};
-        begin->nxt = {end};
-        end->prev = {begin};
-        end->nxt = {nullptr};
+        begin->prev = { nullptr };
+        begin->nxt = { end };
+        end->prev = { begin };
+        end->nxt = { nullptr };
     }
    ~SkipList() {
-       Node *n = begin, *nxt = begin->nxt[0];
+       Node* n = begin, *nxt = begin->nxt[0];
        for(; nxt; nxt = nxt->nxt[0]) {
            delete n;
            n = nxt;
@@ -36,7 +36,7 @@ class SkipList{
        delete n;
     }
     bool find(ll const num) const {
-        Node *n = find_nxt(num);
+        Node* n = find_nxt(num);
         return n->value == num;
     }
     void insert(ll const num) {
@@ -61,10 +61,10 @@ class SkipList{
         }
     }
     void erase(ll const num) {
-        Node *n = find_nxt(num);
+        Node* n = find_nxt(num);
         if(n->value != num) return;
-        Node *l = n->prev[0];
-        Node *r = n->nxt[0];
+        Node* l = n->prev[0];
+        Node* r = n->nxt[0];
         int layer = 0;
         while(layer < (int)n->nxt.size()) {
             while(layer >= (int)l->nxt.size()) l = l->prev[0];
@@ -77,7 +77,7 @@ class SkipList{
     }
     vll get_elements() const {
         vll ans;
-        Node *n = begin->nxt[0];
+        Node* n = begin->nxt[0];
         while(n != end) {
             ans.pb(n->value);
             n = n->nxt[0];
@@ -85,7 +85,7 @@ class SkipList{
         return ans;
     }
     ll next(ll const num) const {
-        Node *n = find_nxt(num);
+        Node* n = find_nxt(num);
         return n->value;
     }
 };

@@ -28,7 +28,7 @@ class DSU {
         number_components--;
         if(rank[a] > rank[b]) parent[b] = a, sz[a] += sz[b];
         else if(rank[a] < rank[b]) parent[a] = b, sz[b] += sz[a];
-        else {parent[a] = b; rank[b]++, sz[b] += sz[a];}
+        else { parent[a] = b; rank[b]++, sz[b] += sz[a]; }
     }
     int size(int const a) { return sz[find_parent(a)]; }
 };

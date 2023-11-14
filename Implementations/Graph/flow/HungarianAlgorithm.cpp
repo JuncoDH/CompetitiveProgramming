@@ -43,7 +43,7 @@ int Hungarian() {
             }
             j0 = min_j;
         } while(yx[j0] != 0);
-        do{ // Invert the augmenting path.
+        do { // Invert the augmenting path.
             yx[j0] = yx[prevy[j0]];
             j0 = prevy[j0];
         } while(j0);
@@ -51,13 +51,13 @@ int Hungarian() {
     ans = 0;
     for(j = 1; j <= n2; j++) { // Recover solution. The matched edges are yx[j]-1 -> j-1.
         if(yx[j])
-            ans += cost[yx[j]-1][j-1];
+            ans += cost[yx[j] - 1][j - 1];
     }
     return ans;
 }
 // THE ANS IS n1*M_factor - Hungarian().
 int M_factor; // Change problem finding the minimum cost to maximum cost, that can be solved by Hungarian.
-void min_to_max() { // Min in cost[i][j] = max in M - cost[i][j]. 
+void min_to_max() { // Min in cost[i][j] = max in M - cost[i][j].
     int i, j;
     M_factor = 0;
     for(i = 0; i < n1; i++) {

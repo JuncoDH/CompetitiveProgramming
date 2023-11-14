@@ -1,4 +1,4 @@
-class Node{
+class Node {
     public:
     static constexpr int alpha_size = 26;
     int leaf_cnt = 0; // Number of words ending at current node.
@@ -15,7 +15,7 @@ class Node{
         go.assign(alpha_size, -1);
     }
 }; // O(m*alpha_size) memory, O(m) runtime. m = sum(length(s_i)).
-class AhoCorasick{ 
+class AhoCorasick {
     vector<Node> t = vector<Node>(1, Node(-1, '$'));
     public:
     void add_string(string const& s) {
@@ -58,7 +58,7 @@ class AhoCorasick{
         return t[v].count_words_dp;
     }
     // Get the number of words in the automaton that are in the text.
-    int search_num_string(string const& text) { // with duplicates.
+    int search_num_string(string const& text) { // With duplicates.
         int p = 0, ans = count_words(0);
         for(auto ch : text) {
             p = go(p, ch);

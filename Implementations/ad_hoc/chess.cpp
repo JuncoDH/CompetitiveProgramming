@@ -19,8 +19,8 @@ constexpr int ROOK = 2;
 constexpr int BISHOP = 3;
 constexpr int QUEEN = 4;
 
-// map<char, int> symbol2int = {{'K', KING}, {'N', KNIGHT}, {'R', ROOK}, {'B', BISHOP}, {'Q', QUEEN}}; // English.
-// char int2symbol[5] = {'K', 'N', 'R', 'BA', 'Q'}; // English.
+// map<char, int> symbol2int = { { 'K', KING }, { 'N', KNIGHT }, { 'R', ROOK }, { 'B', BISHOP }, { 'Q', QUEEN } }; // English.
+// char int2symbol[5] = { 'K', 'N', 'R', 'BA', 'Q' }; // English.
 map<char, int> symbol2int = { { 'R', KING }, { 'C', KNIGHT }, { 'T', ROOK }, { 'A', BISHOP }, { 'D', QUEEN } }; // Spanish.
 constexpr char int2symbol[5] = { 'R', 'C', 'T', 'A', 'D' }; // Spanish.
 
@@ -82,8 +82,8 @@ void debug() { // Debug the non empty Pieces.
 }
 // Move the piece_before to the new cell.
 void do_move(Piece piece_before, Cell cell) {
-    Piece piece_after = {piece_before.first, cell};
-    moves.pb({{piece_before, piece_after}, board[cell.first][cell.second]});
+    Piece piece_after = { piece_before.first, cell };
+    moves.pb({ { piece_before, piece_after }, board[cell.first][cell.second] });
     board[get_x(piece_before)][get_y(piece_before)] = empty_piece;
     board[get_x(piece_after)][get_y(piece_after)] = piece_after;
 }

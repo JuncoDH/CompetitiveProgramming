@@ -17,7 +17,7 @@ ll date_to_num(ll const d, ll m, ll y) {
         sum += 365 * y;
         // sum += y / 4 - y / 100 + y / 400; // Complete leap year.
         sum += y / 4; // Restricted leap year.
-    } 
+    }
     return sum;
 }
 // Tiny optimization, binary search the year, month and day.

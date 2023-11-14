@@ -11,7 +11,7 @@ class SegmentTree {
     vector<T> v;
     int n = 0;
     function<ll(ll, ll)> merge; // The function of the query. __gcd, + , |, &, max, min.
-    pair<T, pii> f(pair<T, pii> const& a, pair<T, pii> const& b) { 
+    pair<T, pii> f(pair<T, pii> const& a, pair<T, pii> const& b) {
         pair<T, pii> ans;
         ans.fi = merge(a.fi, b.fi);
         if(ans.fi == a.fi) ans.se = a.se;
@@ -23,14 +23,14 @@ class SegmentTree {
         return ans;
     }
     void build(int const k, int const l, int const r) {
-        if(l == r) {t[k] = mp(v[l], mp(l, l)); return;}
+        if(l == r) { t[k] = { v[l], { l, l } }; return; }
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
         build(k<<1|1, mid + 1, r);
         t[k] = f(t[k<<1], t[k<<1|1]);
     }
     void update(int const k, int const l, int const r, int const p, T const x) {
-        if(l == r) {t[k].fi = x; return;}
+        if(l == r) { t[k].fi = x; return; }
         int mid = (l + r) >> 1;
         if(p <= mid) update(k<<1, l, mid, p, x);
         else update(k<<1|1, mid + 1, r, p, x);
@@ -50,18 +50,18 @@ class SegmentTree {
     SegmentTree(vector<T> const& _v, function<ll(ll, ll)> const& _merge) {
         v = _v;
         n = v.size();
-        t.assign(4*n, {});
+        t.assign(4 * n, {});
         merge = _merge;
-        build(1, 0, n-1);
+        build(1, 0, n - 1);
     }
     void update(int const p, T const x) {
-        update(1, 0, n-1, p, x);
+        update(1, 0, n - 1, p, x);
     } // [ql, qr].
     pair<T, pii> query(int ql, int qr) {
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);
-        qr = min(qr, n-1);
-        return query(1, 0, n-1, ql, qr);
+        qr = min(qr, n - 1);
+        return query(1, 0, n - 1, ql, qr);
     }
 };
 

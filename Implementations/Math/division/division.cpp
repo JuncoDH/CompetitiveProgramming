@@ -1,13 +1,13 @@
 // Save first n_dec decimals of D/d. Truncated.
 void divide(ll D, ll d, int n_dec, string &s) {
     ll i;
-    s = to_string(D/d);
+    s = to_string(D / d);
     if(!n_dec) return;
     s.pb('.');
     D %= d;
     for(i = 0; i < n_dec; i++) {
         D *= 10;
-        s.pb(D/d + '0');
+        s.pb(D / d + '0');
         D %= d;
     }
 }
@@ -33,12 +33,12 @@ void get_period(ll D, ll d, string &pre, string &post) {
         }
         first_pos[D] = v.size();
         D *= 10;
-        v.pb(D/d);
+        v.pb(D / d);
         D %= d;
     }
     for(auto el : v) pre.pb(el + '0');
     if(!D) return;
-    for(i = (int)vpost.size()-1; i >= 0; i--)
+    for(i = (int)vpost.size() - 1; i >= 0; i--)
         post.pb(vpost[i] + '0');
 }
 

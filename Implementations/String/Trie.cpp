@@ -28,9 +28,9 @@ class node {
 class Trie {
     public:
     node* root = new node();
-    ~Trie() {delete root;}
+    ~Trie() { delete root; }
     void add(string const& s) {
-        node *n = root;
+        node* n = root;
         for(auto c : s) {
             int nc = c - node::FIRST_LETTER;
             if(!n->c[nc]) n->c[nc] = new node(n);
@@ -46,12 +46,12 @@ class Trie {
     void add_binary(ll const num, ll const digit) { // Base 2.
         string s = string(digit, '0');
         for(int i = 0; i < digit; i++) {
-            if(is_set(num, i)) s[digit-i-1] = '1';
+            if(is_set(num, i)) s[digit - i - 1] = '1';
         }
         add(s);
     }
     void remove(string const& s) {
-        node *n = root;
+        node* n = root;
         for(auto c : s) {
             int nc = c - node::FIRST_LETTER;
             if(!n->c[nc]) return; // ERROR, remove one string not in the trie.
@@ -61,7 +61,7 @@ class Trie {
         n->count_word--;
     }
     bool search(string const& s) {
-        node *n = root;
+        node* n = root;
         for(auto c : s) {
             int nc = c - node::FIRST_LETTER;
             if(!n->c[nc]) return false;
@@ -71,7 +71,7 @@ class Trie {
     }
     void show() const { root->show(""); }
     void init_subtree_word() { root->init_subtree_word(); }
-    // number of words w <= s.
+    // Number of words w <= s.
     ll num_less_eq_than(string const& s) {
         node *n = root;
         ll ans = 0, i, j;
@@ -80,7 +80,7 @@ class Trie {
             for(j = 0; j < node::ALPHABET; j++) {
                 if(n->c[j]) {
                     char ch = j + node::FIRST_LETTER;
-                    if(ch > s[i]) {j = node::ALPHABET; break;}
+                    if(ch > s[i]) { j = node::ALPHABET; break; }
                     if(ch == s[i]) {
                         n = n->c[j];
                         break;
@@ -94,7 +94,7 @@ class Trie {
         return ans;
     }
 };
-class TriePointer{
+class TriePointer {
     public:
     node* n = nullptr;
     TriePointer() = default;

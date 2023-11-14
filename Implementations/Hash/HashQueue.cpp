@@ -1,4 +1,4 @@
-class HashQueue{
+class HashQueue {
     static constexpr int max_digits = 10; // Always numbers < 10^max_digits.
     static string to_str(ll const x) {
         string s = to_string(x);

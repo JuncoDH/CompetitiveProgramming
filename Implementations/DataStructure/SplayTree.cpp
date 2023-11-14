@@ -1,7 +1,7 @@
-class Node{
+class Node {
     public:
     ll value = 0;
-    Node *l = nullptr, *r = nullptr, *p = nullptr;
+    Node* l = nullptr, *r = nullptr, *p = nullptr;
     Node() = default;
     Node(ll const _value) { value = _value; }
     ~Node() { delete l; delete r; }
@@ -9,9 +9,9 @@ class Node{
         return l == nullptr && r == nullptr;
     }
 };
-class SplayTree{
-    void left_rotation(Node *n) {
-        Node *ans = n->r;
+class SplayTree {
+    void left_rotation(Node* n) {
+        Node* ans = n->r;
         n->r = ans->l;
         if(ans->l) ans->l->p = n;
         ans->l = n;
@@ -21,8 +21,8 @@ class SplayTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void right_rotation(Node *n) {
-        Node *ans = n->l;
+    void right_rotation(Node* n) {
+        Node* ans = n->l;
         n->l = ans->r;
         if(ans->r) ans->r->p = n;
         ans->r = n;
@@ -32,11 +32,11 @@ class SplayTree{
         n->p = ans;
         if(n == root) root = ans;
     }
-    void splay(Node *n) { // Move n to the root.
+    void splay(Node* n) { // Move n to the root.
         while(true) {
-            Node *p = n->p; // Parent.
+            Node* p = n->p; // Parent.
             if(!p) break;
-            Node *pp = p->p; // Grand parent.
+            Node* pp = p->p; // Grand parent.
             if(!pp) { // Zig.
                 if(n == p->l) right_rotation(p);
                 else left_rotation(p);
@@ -69,30 +69,30 @@ class SplayTree{
         dfs_get_elements(u->r, v);
     }
     public:
-    Node *root = nullptr;
-    ~SplayTree() {delete root;}
+    Node* root = nullptr;
+    ~SplayTree() { delete root; }
     void insert(ll const value) {
-        Node *n = root, *nw = new Node(value);
+        Node* n = root, *nw = new Node(value);
         if(!root) {
             root = nw;
             return;
         }
         while(true) {
-            if(n->value == value) {delete nw; return;} // Not multiset.
+            if(n->value == value) { delete nw; return; } // Not multiset.
             if(n->value < value) {
                 if(n->r) n = n->r;
-                else {n->r = nw; break;}
+                else { n->r = nw; break; }
             }
-            else{
+            else {
                 if(n->l) n = n->l;
-                else {n->l = nw; break;}
+                else { n->l = nw; break; }
             }
         }
         nw->p = n;
         splay(nw);
     }
     bool find(ll const value) {
-        Node *n = root;
+        Node* n = root;
         if(!root) return false;
         while(true) {
             if(n->value == value) break;
@@ -110,8 +110,8 @@ class SplayTree{
     }
     void erase(ll const value) {
         if(!find(value)) return; // Not inserted.
-        Node *n = root;
-        Node *p = n->r; // Next higher node.
+        Node* n = root;
+        Node* p = n->r; // Next higher node.
         if(!p) {
             root = n->l;
             if(root) root->p = nullptr;
@@ -139,7 +139,7 @@ class SplayTree{
     ll next(ll const num) const {
         ll ans = inf;
         if(!root) return ans;
-        Node *n = root;
+        Node* n = root;
         while(n) {
             if(num < n->value) {
                 ans = min(ans, n->value);

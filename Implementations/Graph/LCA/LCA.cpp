@@ -1,7 +1,7 @@
 constexpr int MAX_N = 1e5 + 5;
 constexpr int MAX_LOG_N = 18;
 int parent[MAX_N][MAX_LOG_N]; // Sparse table.
-class LCA{ // LCA in O(log n), with O(n log n) preprocess.
+class LCA { // LCA in O(log n), with O(n log n) preprocess.
     int n = 0;
     vector<vi> graph;
     void dfs_lvl(int const u, int const p) {
@@ -22,7 +22,7 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
         dfs_lvl(0, 0); // The parent of root is root.
         for(int j = 1; j < MAX_LOG_N; j++) {
             for(int i = 0; i < n; i++) {
-                parent[i][j] = parent[parent[i][j-1]][j-1];
+                parent[i][j] = parent[parent[i][j - 1]][j - 1];
             }
         }
     }
@@ -39,7 +39,7 @@ class LCA{ // LCA in O(log n), with O(n log n) preprocess.
         return parent[u][0];
     }
     int dist(int const u, int const v) const { // Distance from u to v O(log n).
-        return lvl[u] + lvl[v] - 2*lvl[lca(u, v)];
+        return lvl[u] + lvl[v] - 2 * lvl[lca(u, v)];
     }
     static int get_parent(int u, int dst) { // Calculate the dst parent of u.
         dst = max(dst, 0);

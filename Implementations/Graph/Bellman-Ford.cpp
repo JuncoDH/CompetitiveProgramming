@@ -1,7 +1,7 @@
 vector<pair<pii, ll>> edge; // ((u, v), w): u->v with cost w. Negative costs allowed.
 ll n; // Number of nodes.
 vll dist; // Min dist from s to all other nodes.
-// O(V*E) return true iff there exists a negative cycle.
+// O(V * E) return true iff there exists a negative cycle.
 bool bellman_ford(int const s) {
     dist.assign(n, inf);
     dist[s] = 0;

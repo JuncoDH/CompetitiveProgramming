@@ -12,9 +12,9 @@ class Node { // Only modify this class.
     void actualize_update(T const x) {
         if(x == -inf) return;
         if(lazy == -inf) lazy = 0;
-        lazy += x; // (= SET update), ( += SUM update).
-        value += x; // MINMAX query + (= SET update), ( += SUM update).
-        // value = (r-l + 1)*x; // SUM query + (= SET update), ( += SUM update).
+        lazy += x; // ( = SET update ), ( += SUM update ).
+        value += x; // MINMAX query + ( = SET update ), ( += SUM update ).
+        // value = (r - l + 1) * x; // SUM query + ( = SET update ), ( += SUM update ).
     }
 };
 template<typename T>
@@ -71,14 +71,14 @@ class LazySegmentTree { // Use lazy propagation.
     explicit LazySegmentTree(vector<T> const& _v) {
         v = _v;
         n = v.size();
-        tree.assign(4*n, {});
-        build(1, 0, n-1);
+        tree.assign(4 * n, {});
+        build(1, 0, n - 1);
     }
     void update(int ql, int qr, T x) { // [ql, qr].
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);
-        qr = min(qr, n-1);
-        update(1, 0, n-1, ql, qr, x);
+        qr = min(qr, n - 1);
+        update(1, 0, n - 1, ql, qr, x);
     }
     T query(int ql, int qr) { // [ql, qr].
         if(ql > qr) swap(ql, qr);

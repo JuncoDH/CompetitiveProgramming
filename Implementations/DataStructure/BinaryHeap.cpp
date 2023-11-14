@@ -1,5 +1,5 @@
 template<typename T> // int, ll, pll.
-class Heap{ // Max Heap, implementation of priority queue.
+class Heap { // Max Heap, implementation of priority queue.
     vector<T> v = vector<T>(1, T());
     static int p(int const pos) { return pos / 2; } // Parent.
     static int cl(int const pos) { return 2 * pos; } // Left child.

@@ -1,5 +1,5 @@
 vector<vi> graph;
-class Kosaraju{ // SCC O(n). x2 times slower than Tarjan.
+class Kosaraju { // SCC O(n). x2 times slower than Tarjan.
     vi s; // Stack.
     vector<vi> graphT;
     vector<bool> visited;

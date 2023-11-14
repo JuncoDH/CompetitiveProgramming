@@ -1,4 +1,4 @@
-class Node{
+class Node {
     int height = 1;
     void update_height() {
         if(l) height = max(height, l->height + 1);
@@ -38,7 +38,7 @@ class Node{
     Node *l = nullptr, *r = nullptr, *p = nullptr;
     ll value = 0;
     Node() = default;
-    explicit Node(ll const _value) {value = _value;}
+    explicit Node(ll const _value) { value = _value; }
     ~Node() { delete l; delete r; }
     void balance() {
         int balance = get_balance(), balance_l = 0, balance_r = 0;
@@ -66,7 +66,7 @@ class Node{
         if(r) r->get_elements(ret);
     }
 };
-class AVL{
+class AVL {
     Node *root = nullptr;
     public:
     ~AVL() { delete root; }
@@ -88,10 +88,10 @@ class AVL{
         }
         while(true) {
             if(num < n->value) {
-                if(!n->l) {n->l = nw_node; nw_node->p = n; break;}
+                if(!n->l) { n->l = nw_node; nw_node->p = n; break; }
                 n = n->l;
             } else if(num > n->value) {
-                if(!n->r) {n->r = nw_node; nw_node->p = n; break;}
+                if(!n->r) { n->r = nw_node; nw_node->p = n; break; }
                 n = n->r;
             } else {
                 delete nw_node;

@@ -9,14 +9,14 @@ class SegmentTree {
     int n = 0;
     function<ll(ll, ll)> merge; // The function of the query. __gcd, + , |, &, max, min.
     void build(int const k, int const l, int const r) {
-        if(l == r) {t[k] = v[l]; return;}
+        if(l == r) { t[k] = v[l]; return; }
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
         build(k<<1|1, mid + 1, r);
         t[k] = merge(t[k<<1], t[k<<1|1]);
     }
     void update(int const k, int const l, int const r, int const p, T const x) {
-        if(l == r) {t[k] = x; return;}
+        if(l == r) { t[k] = x; return; }
         int mid = (l + r) >> 1;
         if(p <= mid) update(k<<1, l, mid, p, x);
         else update(k<<1|1, mid + 1, r, p, x);
@@ -41,13 +41,13 @@ public:
         build(1, 0, n - 1);
     }
     void update(int const p, T const x) {
-        update(1, 0, n-1, p, x);
+        update(1, 0, n - 1, p, x);
     } // [ql, qr].
     T query(int ql, int qr) {
         if(ql > qr) swap(ql, qr);
         ql = max(ql, 0);
-        qr = min(qr, n-1);
-        return query(1, 0, n-1, ql, qr);
+        qr = min(qr, n - 1);
+        return query(1, 0, n - 1, ql, qr);
     }
 };
 

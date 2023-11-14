@@ -1,5 +1,5 @@
 // Get the MEX in the interval [0..n] in O(log n).
-class Mex{ // change set -> unordered_set for O(1) all.
+class Mex { // change set -> unordered_set for O(1) all.
     int n = 0; // Maximum Mex possible.
     vi cnt; // cnt of the inserted elements.
     set<int> s; // Elements NOT inserted.

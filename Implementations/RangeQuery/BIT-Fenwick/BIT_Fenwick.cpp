@@ -1,5 +1,5 @@
 template<typename T>
-class BIT{
+class BIT {
     vector<T> bit;
     int n = 0;
     public:
@@ -28,15 +28,15 @@ class BIT{
     T query(int l, int r) const {
         if(l > r) swap(l, r);
         l = max(l, 0);
-        r = min(r, n-1);
-        return query(r) - query(l-1);
+        r = min(r, n - 1);
+        return query(r) - query(l - 1);
     }
     // k-th smallest element inserted.
     int k_element(ll const k) const { // k > 0 (1-indexed).
         int l = 0, r = n + 1;
         if(query(0) >= k) return 0;
         while(l + 1 < r) {
-            int mid = (l + r)/2;
+            int mid = (l + r) / 2;
             if(query(mid) >= k) r = mid;
             else l = mid;
         }
