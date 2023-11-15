@@ -1,6 +1,6 @@
 // Creation O(n * m), query O(log(n) * log(m)), update O(n * log(n) * log(m)).
 template<typename T>
-class SegTree_2D {
+class SegmentTree_2D {
     vector<vector<T>> tree;
     vector<vector<T>> v;
     int n = 0, m = 0;
@@ -58,8 +58,8 @@ class SegTree_2D {
         }
     }
     public:
-    SegTree_2D() = default;
-    SegTree_2D(int const _n, int const _m) {
+    SegmentTree_2D() = default;
+    SegmentTree_2D(int const _n, int const _m) {
         n = _n;
         m = _m;
         tree.assign(4 * n, vector<T>(4 * m, 0));

@@ -1,7 +1,9 @@
 class DSU {
     int n = 0;
     vi parent;
-    vi rank; // Is optional, improves the theoretical complexity.
+    // Is optional, improves the theoretical complexity,
+    // but in practice it does not affect too much.
+    vi rank;
     vi sz; // Size of the component.
     int find_parent(int const a){
         if(parent[a] == a) return a;

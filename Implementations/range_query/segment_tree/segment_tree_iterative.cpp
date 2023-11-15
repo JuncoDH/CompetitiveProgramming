@@ -1,5 +1,5 @@
 template<typename T>
-class SegTreeIterative {
+class SegmentTreeIterative {
     vector<T> st; // 0: dummy, 1..n - 1: st, n..2n - 1: the input v.
     int n = 0; // Size of the vector.
     // The function: + , max, min...
@@ -7,14 +7,14 @@ class SegTreeIterative {
         return a + b;
     }
     public:
-    SegTreeIterative() = default;
-    SegTreeIterative(int const _n) {
+    SegmentTreeIterative() = default;
+    SegmentTreeIterative(int const _n) {
         n = _n;
         // Complete to a power of two, if f is sum add 0, if f is min add INT_MAX...
         while(n != LSB(n)) ++n;
         st.resize(2 * n);
     }
-    SegTreeIterative(vector<T> const& v){
+    SegmentTreeIterative(vector<T> const& v){
         n = v.size();
         // Complete to a power of two, if f is sum add 0, if f is min add INT_MAX...
         while(n != LSB(n)){ v.pb((T)0); ++n; }
