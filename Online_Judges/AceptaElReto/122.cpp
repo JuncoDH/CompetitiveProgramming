@@ -1,40 +1,59 @@
+#include <iostream>
 #include <math.h>
-#include <stdio.h>
-
+#include <string>
+#include <cmath>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <ctype.h>
+#include <queue>
+#include <stack>
+#include <utility>
 
 using namespace std;
 
+#define echo(x) cout<<":"<<(x);cout<<endl;
+#define echo_tablero(n) for(i=0;i<n;i++){for(j=0;j<n;j++){cout<<arr[i][j]<<" ";}cout<<endl;}
+#define echo_array(n) for(i=0;i<n;i++){cout<<arr[i]<<" ";}cout<<endl;
 
-int main(){
-	int veces, hh, mm, ss, i, dia, caso, z;
-	scanf("%d", &caso);
-	for(z=0;z<caso;z++){
-		scanf("%d %d:%d:%d", &veces, &hh, &mm, &ss);
-		ss*=veces;
-		mm*=veces;
-		hh*=veces;
+int main() {
+	ios_base::sync_with_stdio(0);
+	int n, temp, cont, M, pk, imax;
+	while (1) {
+		cin >> n;
+		if (n == -1) {
+			return 0;
+		}
+		cont = 1;
+		M = -1;
+		pk = 1;
+		temp = n;
+		imax = 0;
+		while (1) {
+			cin >> n;
+			if (n == -1) {
+				break;
+			}
+			pk++;
+			if (n == temp) {
+				cont++;
+				if (cont > M) {
+					M = cont;
+					imax = pk - cont;
+				}
+			} else {
+				cont = 1;
+				temp = n;
+			}
 
-		mm+=ss/60;
-		ss=ss-floor(ss/60.0)*60;
-
-		hh+=mm/60;
-		mm=mm-floor(mm/60.0)*60;
-
-		dia=hh/24;
-		hh=hh-floor(hh/24.0)*24;
-		
-		if(hh<10&&mm<10&&ss<10){printf("%d 0%d:0%d:0%d\n", dia, hh, mm, ss);continue;}
-		if(hh<10&&mm<10){printf("%d 0%d:0%d:%d\n", dia, hh, mm, ss);continue;}
-		if(hh<10&&ss<10){printf("%d 0%d:%d:0%d\n", dia, hh, mm, ss);continue;}
-		if(hh<10){printf("%d 0%d:%d:%d\n", dia, hh, mm, ss);continue;}
-		if(mm<10&&ss<10){printf("%d %d:0%d:0%d\n", dia, hh, mm, ss);continue;}
-		if(ss<10){printf("%d %d:%d:0%d\n", dia, hh, mm, ss);continue;}
-		if(mm<10){printf("%d %d:0%d:%d\n", dia, hh, mm, ss);continue;}
-		printf("%d %d:%d:%d\n", dia, hh, mm, ss);
-
-
-
+		}
+		if (M == -1) {
+			cout << "HOY NO COMEN\n";
+			continue;
+		}
+		cout << imax << " " << M - 1 << endl;
 
 	}
 	return 0;
+
 }

@@ -8,12 +8,10 @@ void cout_hour(ll h, ll m, ll s) {
     h %= 24; h += 24; h %= 24;
     m %= 60; m += 60; m %= 60;
     s %= 60; s += 60; s %= 60;
-    if(h < 10) cout << "0";
-    cout << h << ":";
-    if(m < 10) cout << "0";
-    cout << m << ":";
-    if(s < 10) cout << "0";
-    cout << s;
+    cout.fill('0');
+    cout << setw(2) << h << ":";
+    cout << setw(2) << m << ":";
+    cout << setw(2) << s;
 }
 // One day has 60 * 60 * 24 = 86400 seconds.
 // Converts the hour to number of seconds since 00:00:00.

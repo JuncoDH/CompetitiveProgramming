@@ -21,7 +21,7 @@ ll date_to_num(ll const d, ll m, ll y) {
     return sum;
 }
 // Tiny optimization, binary search the year, month and day.
-void num_to_date(ll const num, ll& d, ll& m, ll& y) {
+void num_to_date(ll const num, ll d, ll m, ll y) {
     d = 1; m = 1; y = 0; // The date searched is >= this date.
     while(date_to_num(d, m, y) <= num) ++y;
     --y;
@@ -34,14 +34,10 @@ void cin_date(ll& d, ll& m, ll& y) {
     char c;
     cin >> d >> c >> m >> c >> y;
 }
-void cout_date(ll const& d, ll const& m, ll const& y) {
-    if(d < 10) cout << "0";
-    cout << d << "/";
-    if(m < 10) cout << "0";
-    cout << m << "/";
-    if(y < 10) cout << "000";
-    else if(y < 100) cout << "00";
-    else if(y < 1000) cout << "0";
-    cout << y;
+void cout_date(ll const d, ll const m, ll const y) {
+    cout.fill('0');
+    cout << setw(2) << d << "/";
+    cout << setw(2) << m << "/";
+    cout << setw(4) << y;
 }
 
