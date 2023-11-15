@@ -19,7 +19,7 @@ pair<int, pii> get_diameter() {
     dist[u] = 0;
     dfs_dist(u, -1);
     auto it = max_element(dist.begin(), dist.end());
-    return mp(*it, mp(u, it - dist.begin()));
+    return { *it, { u, it - dist.begin() } };
 }
 vi parent;
 // Fills parent vector.

@@ -3,7 +3,7 @@ class Node { // Only modify this class.
     public:
     int l = -1, r = -1; // Interval [l, r].
     T value = 0;
-    static const T lazy_default = -inf; // Don't change.
+    static constexpr T lazy_default = -inf; // Don't change.
     T lazy = lazy_default;
     Node() = default;
     Node(T const _value) { value = _value; }
@@ -25,9 +25,9 @@ class LazySegmentTree { // Use lazy propagation.
     // Value is the real value, and lazy is only for its children.
     void push_lazy(int const k, int const l, int const r) {
         if(l != r) {
-            tree[k<<1].actualize_update(tree[k].lazy);
-            tree[k<<1|1].actualize_update(tree[k].lazy);
-            tree[k] = Node<T>(tree[k<<1], tree[k<<1|1]);
+            tree[2 * k].actualize_update(tree[k].lazy);
+            tree[2 * k + 1].actualize_update(tree[k].lazy);
+            tree[k] = Node<T>(tree[2 * k], tree[2 * k + 1]);
             tree[k].l = l; tree[k].r = r;
         }
         tree[k].lazy = tree[k].lazy_default;
@@ -38,10 +38,10 @@ class LazySegmentTree { // Use lazy propagation.
             tree[k].l = l; tree[k].r = r;
             return;
         }
-        int mid = (l + r) >> 1;
-        build(k<<1, l, mid);
-        build(k<<1|1, mid + 1, r);
-        tree[k] = Node<T>(tree[k<<1], tree[k<<1|1]);
+        int mid = (l + r) / 2;
+        build(2 * k, l, mid);
+        build(k2 * k + 1, mid + 1, r);
+        tree[k] = Node<T>(tree[2 * k], tree[2 * k + 1]);
         tree[k].l = l; tree[k].r = r;
     }
     void update(int const k, int const l, int const r, int const ql, int const qr, T const x) {
@@ -50,20 +50,20 @@ class LazySegmentTree { // Use lazy propagation.
         if(ql <= l && r <= qr) {
             tree[k].actualize_update(x);
         } else {
-            int mid = (l + r) >> 1;
-            update(k<<1, l, mid, ql, qr, x);
-            update(k<<1|1, mid + 1, r, ql, qr, x);
+            int mid = (l + r) / 2;
+            update(2 * k, l, mid, ql, qr, x);
+            update(2 * k + 1, mid + 1, r, ql, qr, x);
         }
         push_lazy(k, l, r);
     }
     Node<T> query(int const k, int const l, int const r, int const ql, int const qr) {
         push_lazy(k, l, r);
         if(ql <= l && r <= qr) return tree[k];
-        int mid = (l + r) >> 1;
-        if(qr <= mid) return query(k<<1, l, mid, ql, qr);
-        if(mid + 1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
-        Node<T> a = query(k<<1, l, mid, ql, qr);
-        Node<T> b = query(k<<1|1, mid + 1, r, ql, qr);
+        int mid = (l + r) / 2;
+        if(qr <= mid) return query(2 * k, l, mid, ql, qr);
+        if(mid + 1 <= ql) return query(2 * k + 1, mid + 1, r, ql, qr);
+        Node<T> a = query(2 * k, l, mid, ql, qr);
+        Node<T> b = query(2 * k + 1, mid + 1, r, ql, qr);
         return Node<T>(a, b);
     }
     public:

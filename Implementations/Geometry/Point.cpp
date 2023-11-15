@@ -91,7 +91,8 @@ class Point {
             v.pb(p);
         }
     }
-    // Constraint: The points have to be in order p0 -> p1 -> ... -> pn, and exist edge pn -> p0.
+    // Constraint: The points have to be in order
+    // p0 -> p1 -> ... -> pn, and exist edge pn -> p0.
     static ld get_area_polygon(vector<Point<T>>& v) {
         if(v.size() < 3) return 0;
         ll sum = 0, n = v.size();
@@ -157,7 +158,7 @@ pair<Point<ld>, ld> get_fermat_point(Point<ld> const p1, Point<ld> const p2, Poi
     ret = intersection4points(p3, p2.rotate(p1, -PI / 3), p1, p2.rotate(p3, -PI / 3));
     tans = ret.euclidean_distance(p1) + ret.euclidean_distance(p2) + ret.euclidean_distance(p3);
     if(tans < ans) { ans = tans; fermat = ret; }
-    return mp(fermat, ans);
+    return { fermat, ans };
 }
 // Return random float in [0, 1].
 ld rand_float() {

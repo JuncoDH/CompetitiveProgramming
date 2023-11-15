@@ -1,4 +1,4 @@
-const ll mod = 31;
+constexpr ll mod = 31;
 ll inverse[mod];
 // Calculates inverse for all i < mod.
 void init() {

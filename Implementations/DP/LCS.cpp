@@ -1,7 +1,7 @@
 string s, t;
 int LCS() { // Longest Common Subsequence.
     int ns = s.length(), nt = t.length(), i, j;
-    vector<vi> dp(ns + 1, vi(nt + 1, 0)); // One empty row and column, dp is 1-index
+    vector<vi> dp(ns + 1, vi(nt + 1, 0)); // One empty row and column, dp is 1-index.
     for(i = 1; i <= ns; ++i) {
         for(j = 1; j <= nt; ++j) {
             if(s[i - 1] == t[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;

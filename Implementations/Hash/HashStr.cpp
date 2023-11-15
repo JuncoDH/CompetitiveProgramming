@@ -6,8 +6,10 @@ class HashString {
     string s;
     int n = 0, n_p = 0;
     vector<vll> v; // Contain the hash for [0..i].
-    vll p = { 16532849, 91638611, 83157709 }; // Prime numbers. // 15635513  77781229
-    vll base = { 37, 47, 53 }; // base numbers: primes that > alphabet size. // 49 83
+    // Prime numbers. // 15635513  77781229
+    vll p = { 16532849, 91638611, 83157709 };
+    // base numbers: primes that > alphabet size. // 49 83
+    vll base = { 37, 47, 53 };
     vector<vll> b; // b[i][j] = (b_i^j) % p_i.
     vector<vll> b_inv; // b_inv[i][j] = (b_i^j)^-1 % p_i.
     static ll elevate(ll a, ll _b, ll const mod){

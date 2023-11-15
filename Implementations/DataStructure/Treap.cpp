@@ -30,8 +30,8 @@ class Treap {
     }
     void update (pnode t) {
         if(!t) return;
-        t->mx = max({ mp(t->data, t->key), getMaximumVK(t->l), getMaximumVK(t->r) });
-        t->mn = min({ mp(t->data, t->key), getMinimumVK(t->l), getMinimumVK(t->r) });
+        t->mx = max({ { t->data, t->key }, getMaximumVK(t->l), getMaximumVK(t->r) });
+        t->mn = min({ { t->data, t->key }, getMinimumVK(t->l), getMinimumVK(t->r) });
     }
     // Return a subtree l and r such as key(l) < key < key(r), similar to rotations.
     void split(pnode t, pnode& l, pnode& r, K const key) {
@@ -73,13 +73,13 @@ class Treap {
     }
     pair<V, K> getMinimumBefore(pnode const t, K const key) const { // Min node with key <= t, O(log(n)).
         if(!t) return MAXVK;
-        pair<V, K> mid = t->key <= key ? mp(t->data, t->key): MAXVK;
+        pair<V, K> mid = t->key <= key ? { t->data, t->key }: MAXVK;
         if(key > t->key) return min({ getMinimumBefore(t->r, key), getMinimumVK(t->l), mid });
         else return min({ getMinimumBefore(t->l, key), mid });
     }
     pair<V, K> getMinimumKAll(pnode const t) const { // Is the first node in the inOrder traversal.
         if(t->l) return getMinimumKAll(t->l);
-        return mp(t->data, t->key);
+        return { t->data, t->key };
     }
     public:
     void insert(K const key, V const data) { // O(log n).

@@ -15,7 +15,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
             minIndexMinimum = _minIndexMinimum;
             maxIndexMinimum = _maxIndexMinimum;
         }
-        Node operator + (Node other) { // for tree[k] = tree[k<<1] + tree[k<<1|1].
+        Node operator + (Node other) { // for tree[k] = tree[2 * k] + tree[2 * k + 1].
             int mnIndex = (mn <= other.mn) ? minIndexMinimum : other.minIndexMinimum;
             int mxIndex = (other.mn <= mn) ? other.maxIndexMinimum : maxIndexMinimum;
             return Node(prefixSum + other.prefixSum, min(mn, other.mn), mnIndex, mxIndex);
@@ -30,17 +30,17 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
     int size; // Timeline [0.._size - 1] events.
     void build(int k, int l, int r) { // Set the mnIndex y mxIndex.
         if(l == r) { tree[k] = Node(0, 0, l, l); return; }
-        int mid = (l + r) >> 1;
-        build(k<<1, l, mid);
-        build(k<<1|1, mid + 1, r);
-        tree[k] = tree[k<<1] + tree[k<<1|1];
+        int mid = (l + r) / 2;
+        build(2 * k, l, mid);
+        build(2 * k + 1, mid + 1, r);
+        tree[k] = tree[2 * k] + tree[2 * k + 1];
     }
     void propagate(int k, int l, int r) {
         tree[k].prefixSum += (r - l + 1) * lazy[k];
         tree[k].mn += lazy[k];
         if(l != r) {
-            lazy[k<<1] += lazy[k];
-            lazy[k<<1|1] += lazy[k];
+            lazy[2 * k] += lazy[k];
+            lazy[2 * k + 1] += lazy[k];
         }
         lazy[k] = 0;
     }
@@ -51,23 +51,23 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
             lazy[k] += x;
             return;
         }
-        int mid = (l + r) >> 1;
-        update(k<<1, l, mid, ql, x);
-        update(k<<1|1, mid + 1, r, ql, x);
-        propagate(k<<1, l, mid);
-        propagate(k<<1|1, mid + 1, r);
-        tree[k] = tree[k<<1] + tree[k<<1|1];
+        int mid = (l + r) / 2;
+        update(2 * k, l, mid, ql, x);
+        update(2 * k + 1, mid + 1, r, ql, x);
+        propagate(2 * k, l, mid);
+        propagate(2 * k + 1, mid + 1, r);
+        tree[k] = tree[2 * k] + tree[2 * k + 1];
     }
     Node query(int k, int l, int r, int ql, int qr) {
         propagate(k, l, r);
         if(r < ql || qr < l) return NULL_NODE;
         if(ql <= l && r <= qr) return tree[k];
-        int mid = (l + r) >> 1;
-        Node a = query(k<<1, l, mid, ql, qr);
-        Node b = query(k<<1|1, mid + 1, r, ql, qr);
-        propagate(k<<1, l, mid);
-        propagate(k<<1|1, mid + 1, r);
-        tree[k] = tree[k<<1] + tree[k<<1|1];
+        int mid = (l + r) / 2;
+        Node a = query(2 * k, l, mid, ql, qr);
+        Node b = query(2 * k + 1, mid + 1, r, ql, qr);
+        propagate(2 * k, l, mid);
+        propagate(2 * k + 1, mid + 1, r);
+        tree[k] = tree[2 * k] + tree[2 * k + 1];
         if(a.prefixSum == NULL_NODE.prefixSum) return b;
         if(b.prefixSum == NULL_NODE.prefixSum) return a;
         return a + b;
@@ -79,9 +79,9 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         propagate(k, l, r);
         tree[k].show();
         if(l == r) return;
-        int mid = (l + r) >> 1;
-        showTree(k<<1, l, mid);
-        showTree(k<<1|1, mid + 1, r);
+        int mid = (l + r) / 2;
+        showTree(2 * k, l, mid);
+        showTree(2 * k + 1, mid + 1, r);
     }
     public:
     SegmentTreePrefixSum() {}

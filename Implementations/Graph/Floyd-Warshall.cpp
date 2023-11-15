@@ -1,4 +1,5 @@
-// Floyd-Warshall O(n^3). dist is an adjacency matrix with INT_MAX if there aren't a conexion from i to j.
+// Floyd-Warshall O(n^3).
+// dist is an adjacency matrix with INT_MAX if there aren't a conexion from i to j.
 // Try to actualize k times the minimum distance.
 for(k = 0; k < n; ++k) {
     for(i = 0; i < n; ++i) {

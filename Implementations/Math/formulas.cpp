@@ -31,15 +31,6 @@ ll formula_6(ll _n) {
 }
 // Sum of x^i in [0, inf) = 1 / (1 - x) if abs(x) < 1, inf abs(x) >= 1.
 // Sum of i * x^i in [0, inf) = x / (1 - x)^2 if abs(x) < 1, inf abs(x) >= 1.
-ll elevate(ll a, ll b) { // b >= 0.
-    ll ans = 1;
-    while(b) {
-        if(b & 1) ans = ans * a;
-        b >>= 1;
-        a = a * a;
-    }
-    return ans;
-}
 // Sum of x^i in [0, n] = (Last * Ratio - First) / (Ratio - 1). Geometric sum.
 ll formula_7(ll r, ll n) {
     return (elevate(r, n + 1) - 1) / (r - 1);

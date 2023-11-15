@@ -1,6 +1,6 @@
 // https://codeforces.com/gym/101635 Solution of SWERC 2017-2018 G Cordon Bleu.
-const int MAX_N1 = 1002; // Number of workers.
-const int MAX_N2 = 2002; // Number of items.
+constexpr int MAX_N1 = 1002; // Number of workers.
+constexpr int MAX_N2 = 2002; // Number of items.
 int cost[MAX_N1][MAX_N2]; // Cost matrix, entries >= 0.
 int u[MAX_N1 + 1], v[MAX_N2 + 1]; // Potentials, always cost[i][j] >= u[i] + v[j].
 int slack[MAX_N2 + 1]; // cost[i][j] - u[i] - v[j], always >= 0.

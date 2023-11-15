@@ -7,7 +7,7 @@ class WaveletTree {
     WaveletTree(T const* vb, T const* ve, T const _mn, T const _mx) {
         mn = _mn;
         mx = _mx;
-        md = (mx + mn) >> 1;
+        md = (mx + mn) / 2;
         if(_mn == _mx || vb == ve) return; // If is leaf node, or there aren't more items, return.
         psum.pb(0);
         for(int i = 0; vb + i != ve; ++i) { psum.pb(psum.back() + (vb[i] <= md)); }

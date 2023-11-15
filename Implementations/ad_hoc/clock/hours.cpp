@@ -29,18 +29,21 @@ void seconds_to_hours(ll& h, ll& m, ll& s, ll sec) {
     sec %= 60;
     s = sec;
 }
-// Convert grades of the clock hand to hours and minutes. gh is grades of hours and gm grades of minutes.
+// Convert grades of the clock hand to hours and minutes.
+// gh is grades of hours and gm grades of minutes.
 // return mp(-1, -1) if no solution exists.
 pair<ll, ll> grades_to_hour(ld const gh, ld const gm) {
     ll h = gh / 30, m = gm / 6;
     if((ld)30 * h + (ld)m / 2 != gh || (ld)6 * m != gm) return {-1, -1};
     return { h, m };
 }
-// Convert hours and minutes to grades of the clock hand, mp(grade of large hour hand, small minute hand).
+// Convert hours and minutes to grades of the clock hand,
+// mp(grade of large hour hand, small minute hand).
 pair<ld, ld> hour_to_grades(ll const h, ll const m) {
     return { (ld)30 * h + (ld)m / 2, (ld)6 * m };
 }
-// Convert hours and minutes to grades of the clock hand, mp(grade of large hour hand, small minute hand).
+// Convert hours and minutes to grades of the clock hand,
+// mp(grade of large hour hand, small minute hand).
 // Not tested.
 pair<ld, pair<ld, ld>> hour_to_grades(ll const h, ll const m, ll const s) {
     return { (ld)30 * h + (ld)m / 2 + (ld)s / 120, { (ld)6 * m + (ld)s / 10, (ld)6 * s } };

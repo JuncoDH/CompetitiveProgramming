@@ -1,6 +1,6 @@
 template<typename T>
 class SquareRootDecomposition {
-    const int B = // Size of the bucket, ~ sqrt(N).
+    static constexpr int B = // Size of the bucket, ~ sqrt(N).
     vector<T> bucket; // (N / B + 1, 0);
     vector<T> v;
     int n = 0;

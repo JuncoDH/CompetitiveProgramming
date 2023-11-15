@@ -106,7 +106,7 @@ bool is_check(int const color) {
                 Cell new_position = { get_x(piece) + k * dx.first, get_y(piece) + k * dx.second };
                 if(!exists(new_position)) break;
                 if(get_color(new_position) == color) break;
-                if(board[new_position.first][new_position.second].first == mp(int2symbol[KING], color ^ 1)) return true;
+                if(board[new_position.first][new_position.second].first == { int2symbol[KING], color ^ 1 }) return true;
                 if(get_color(new_position) == (color ^ 1)) break;
             }
         }

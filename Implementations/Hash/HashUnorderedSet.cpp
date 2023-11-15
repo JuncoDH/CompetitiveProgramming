@@ -1,4 +1,4 @@
-// Use unordered_set<pii, pair_hash> us or unordered_map<pii, int, pair_hash> um;
+// Uses: unordered_set<pii, pair_hash>, unordered_map<pii, int, pair_hash>.
 struct pair_hash {
     template <class T1, class T2>
     size_t operator () (pair<T1, T2> const& pair) const {

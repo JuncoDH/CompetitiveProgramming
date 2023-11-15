@@ -1,4 +1,4 @@
-// f is a function that start to decreasing and then start to increasing.
+// f is a function that start decreasing and then change increasing.
 // There can only be one interval such that f(mid) == f(mid + 1).
 ll p1, p2;
 ll f(ll const mid) {

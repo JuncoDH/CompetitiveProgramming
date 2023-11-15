@@ -63,7 +63,7 @@ class Mo {
                 remove(currR);
                 --currR;
             }
-            ans[i] = mp(vquery[i].id, currAns);
+            ans[i] = { vquery[i].id, currAns };
         }
         sort(ans.begin(), ans.end());
         vi answer(n);

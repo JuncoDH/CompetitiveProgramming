@@ -64,7 +64,7 @@ namespace Factorizator {
             while(num % y == 0) {
                 num /= y; ++cont;
             }
-            factors.pb(mp(y, cont));
+            factors.pb({ y, cont });
         }
         sort(factors.begin(), factors.end());
         return factors;
@@ -96,7 +96,7 @@ namespace Factorizator {
                 ans.pb({ primes[i], cont });
             }
         }
-        if(num > 1) ans.pb({num, 1});
+        if(num > 1) ans.pb({ num, 1 });
         return ans;
     }
     // empty if gcd = 1.
@@ -104,7 +104,7 @@ namespace Factorizator {
         vector<pll> ans;
         int l = 0, r = 0, va_sz = (int)va.size(), vb_sz = (int)vb.size();
         while(l < va_sz && r < vb_sz) {
-            if(va[l].fi == vb[r].fi) { ans.pb(mp(va[l].fi, min(va[l].se, vb[r].se))); ++l; ++r; }
+            if(va[l].fi == vb[r].fi) { ans.pb({ va[l].fi, min(va[l].se, vb[r].se) }); ++l; ++r; }
             else if(va[l].fi < vb[r].fi) ++l;
             else ++r;
         }

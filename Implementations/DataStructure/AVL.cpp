@@ -134,7 +134,7 @@ class AVL {
         vll ans;
         root->get_elements(ans);
         return ans;
-        } // Return the next highest element > num, or inf if there is none.
+    } // Return the next highest element > num, or inf if there is none.
     ll next(ll const num) const {
         ll ans = inf;
         if(!root) return ans;

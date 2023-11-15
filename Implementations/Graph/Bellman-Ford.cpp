@@ -11,7 +11,8 @@ bool bellman_ford(int const s) {
                 dist[e.fi.se] = min(dist[e.fi.se], dist[e.fi.fi] + e.se);
         }
     }
-    for(auto const& e : edge) { // If you can relax one more time any node, there exists a negative cycle.
+    for(auto const& e : edge) {
+        // If you can relax one more time any node, there exists a negative cycle.
         if(dist[e.fi.fi] != inf)
             if(dist[e.fi.se] > dist[e.fi.fi] + e.se) return true;
     }

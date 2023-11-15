@@ -10,51 +10,51 @@ class SegTree_2D {
     // Fixed the x, build based on y. kx and vs fixed.
     void Build1D(int const k, int const l, int const r, int const kx, int const vx) {
         if(l == r) { tree[kx][k] = v[vx][l]; return; }
-        int mid = (l + r) >> 1;
-        Build1D(k<<1, l, mid, kx, vx);
-        Build1D(k<<1|1, mid + 1, r, kx, vx);
-        tree[kx][k] = f(tree[kx][k<<1], tree[kx][k<<1|1]);    
+        int mid = (l + r) / 2;
+        Build1D(2 * k, l, mid, kx, vx);
+        Build1D(2 * k + 1, mid + 1, r, kx, vx);
+        tree[kx][k] = f(tree[kx][2 * k], tree[kx][2 * k + 1]);    
     }
     T Query1D(int const k, int const l, int const r, int const y1, int const y2, int const kx) {
         if(r < y1 || y2 < l) return 0;
         if(y1 <= l && r <= y2) return tree[kx][k];
-        int mid = (l + r) >> 1;
-        T a = Query1D(k<<1, l, mid, y1, y2, kx);
-        T b = Query1D(k<<1|1, mid + 1, r, y1, y2, kx);
+        int mid = (l + r) / 2;
+        T a = Query1D(2 * k, l, mid, y1, y2, kx);
+        T b = Query1D(2 * k + 1, mid + 1, r, y1, y2, kx);
         return f(a, b);
     }
     void Update1D(int const k, int const l, int const r, int const y, T const val, int const kx) {
         if(l == r) { tree[kx][k] += val; return; }
-        int mid = (l + r) >> 1;
-        if(y <= mid) Update1D(k<<1, l, mid, y, val, kx);
-        else Update1D(k<<1|1, mid + 1, r, y, val, kx);
-        tree[kx][k] = f(tree[kx][k<<1], tree[kx][k<<1|1]);
+        int mid = (l + r) / 2;
+        if(y <= mid) Update1D(2 * k, l, mid, y, val, kx);
+        else Update1D(2 * k + 1, mid + 1, r, y, val, kx);
+        tree[kx][k] = f(tree[kx][2 * k], tree[kx][2 * k + 1]);
     }
     void Build2D(int const k, int const l, int const r) {
         if(l == r) { Build1D(1, 0, m - 1, k, l); return; }
-        int mid = (l + r) >> 1;
-        Build2D(k<<1, l, mid);
-        Build2D(k<<1|1, mid + 1, r);
+        int mid = (l + r) / 2;
+        Build2D(2 * k, l, mid);
+        Build2D(2 * k + 1, mid + 1, r);
         // Merge the STs.
         for(int i = 0; i < (int)tree[0].size(); ++i){
-            tree[k][i] = f(tree[k<<1][i], tree[k<<1|1][i]);
+            tree[k][i] = f(tree[2 * k][i], tree[2 * k + 1][i]);
         }
     }
     T Query2D(int const k, int const l, int const r, int const x1, int const y1, int const x2, int const y2) {
         if(r < x1 || x2 < l) return 0;
         if(x1 <= l && r <= x2) return Query1D(1, 0, m - 1, y1, y2, k);
-        int mid = (l + r) >> 1;
-        T a = Query2D(k<<1, l, mid, x1, y1, x2, y2);
-        T b = Query2D(k<<1|1, mid + 1, r, x1, y1, x2, y2);
+        int mid = (l + r) / 2;
+        T a = Query2D(2 * k, l, mid, x1, y1, x2, y2);
+        T b = Query2D(2 * k + 1, mid + 1, r, x1, y1, x2, y2);
         return f(a, b);
     }
     void Update2D(int const k, int const l, int const r, int const x, int const y, T const val) {
         if(l == r) { Update1D(1, 0, m - 1, y, val, k); return; }
-        int mid = (l + r) >> 1;
-        if(x <= mid) Update2D(k<<1, l, mid, x, y, val);
-        else Update2D(k<<1|1, mid + 1, r, x, y, val);
+        int mid = (l + r) / 2;
+        if(x <= mid) Update2D(2 * k, l, mid, x, y, val);
+        else Update2D(2 * k + 1, mid + 1, r, x, y, val);
         for(int i = 0; i < (int)tree[0].size(); ++i){
-            tree[k][i] = f(tree[k<<1][i], tree[k<<1|1][i]);
+            tree[k][i] = f(tree[2 * k][i], tree[2 * k + 1][i]);
         }
     }
     public:

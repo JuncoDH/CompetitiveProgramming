@@ -26,7 +26,7 @@ class SegTreeIterative {
     // Add dx to v[pos]. 
     void update(int pos, T const dx){ 
         st[pos + n] += dx;
-        for(pos = (pos + n) >> 1; pos > 0; pos >>= 1) st[pos] = f(st[pos<<1], st[pos<<1|1]);
+        for(pos = (pos + n) / 2; pos > 0; pos /= 2) st[pos] = f(st[pos<<1], st[pos<<1|1]);
     }
     T query(int l, int r){
         l += n; r += n;
@@ -34,8 +34,8 @@ class SegTreeIterative {
         while(l < r) {
             if((l & 1) == 1) ans = f(ans, st[l++]); // l is the right child, add and move to the right father.
             if((r & 1) == 0) ans = f(ans, st[r--]); // r is the left child, add and move to the left father.
-            l >>= 1;
-            r >>= 1;
+            l /= 2;
+            r /= 2;
         }
         return ans + st[l]; // Add the central interval.
     }

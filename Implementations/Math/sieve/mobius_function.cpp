@@ -1,4 +1,5 @@
-// You can do Mobius inversion, that is Sum_{d|n} mu[d] = [n == 1]. (Maybe n = gcd(a_i) usually).
+// You can do Mobius inversion,
+// that is Sum_{d|n} mu[d] = [n == 1]. (Maybe n = gcd(a_i) usually).
 constexpr int MAX = 1e5;
 int mu[MAX]; // mu(n) = 0 if n is square prime and (-1)^t if n = p1...pt.
 void mobius_init() {

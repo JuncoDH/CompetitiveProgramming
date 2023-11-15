@@ -11,24 +11,24 @@ class SegmentTree {
     void build(int const k, int const l, int const r) {
         if(l == r) { t[k] = v[l]; return; }
         int mid = (l + r) / 2;
-        build(k<<1, l, mid);
-        build(k<<1|1, mid + 1, r);
-        t[k] = merge(t[k<<1], t[k<<1|1]);
+        build(2 * k, l, mid);
+        build(2 * k + 1, mid + 1, r);
+        t[k] = merge(t[2 * k], t[2 * k + 1]);
     }
     void update(int const k, int const l, int const r, int const p, T const x) {
         if(l == r) { t[k] = x; return; }
         int mid = (l + r) / 2;
-        if(p <= mid) update(k<<1, l, mid, p, x);
-        else update(k<<1|1, mid + 1, r, p, x);
-        t[k] = merge(t[k<<1], t[k<<1|1]);
+        if(p <= mid) update(2 * k, l, mid, p, x);
+        else update(2 * k + 1, mid + 1, r, p, x);
+        t[k] = merge(t[2 * k], t[2 * k + 1]);
     }
     T query(int const k, int const l, int const r, int const ql, int const qr) {
         if(ql <= l && r <= qr) return t[k];
         int mid = (l + r) / 2;
-        if(qr <= mid) return query(k<<1, l, mid, ql, qr);
-        if(mid + 1 <= ql) return query(k<<1|1, mid + 1, r, ql, qr);
-        T qa = query(k<<1, l, mid, ql, qr);
-        T qb = query(k<<1|1, mid + 1, r, ql, qr);
+        if(qr <= mid) return query(2 * k, l, mid, ql, qr);
+        if(mid + 1 <= ql) return query(2 * k + 1, mid + 1, r, ql, qr);
+        T qa = query(2 * k, l, mid, ql, qr);
+        T qb = query(2 * k + 1, mid + 1, r, ql, qr);
         return merge(qa, qb);
     }
 public:

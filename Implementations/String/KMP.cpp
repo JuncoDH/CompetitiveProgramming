@@ -1,4 +1,5 @@
-// Knuth-Morris-Pratt. Search the ocurrences of t (pattern to search) in s (the text).
+// Knuth-Morris-Pratt.
+// Search the ocurrences of t (pattern to search) in s (the text).
 // O(n). It increases j at most n times and decreases at most n times. 
 void KMP(string const& s, string const& t) {
     int n = s.length(), m = t.length(), i, j, len = 0;

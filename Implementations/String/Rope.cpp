@@ -40,16 +40,16 @@ class Node {
         pair<Node*, Node*> ret;
         if(index < weight) {
             if(!l) {
-                return mp(new Node(s.substr(0, index)), new Node(s.substr(index)));
+                return { new Node(s.substr(0, index)), new Node(s.substr(index)) };
             }
             ret = l->split(index - 1); // -1 convert again.
-            return mp(ret.fi, new Node(ret.se, r));
+            return { ret.fi, new Node(ret.se, r) };
         } else if(index > weight) {
             ret = r->split(index - weight - 1);
-            return mp(new Node(l, ret.fi), ret.se);
+            return { new Node(l, ret.fi), ret.se };
         } else {
-            if(!r) return mp(this, new Node(""));
-            return mp(l, r);
+            if(!r) return { this, new Node("") };
+            return {l, r};
         }
     } // 1 Index str.
     char get_char(ll const i) const {

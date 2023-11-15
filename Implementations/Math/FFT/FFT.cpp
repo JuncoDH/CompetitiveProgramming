@@ -13,7 +13,8 @@ class FFT {
         convolution(a_odd);
         cd wn = polar((double)1.0, 2 * (double)PI / n), w = 1.0;
         for(i = 0; i < n / 2; ++i) {
-            // w = polar(1.0, i * 2 * (double)PI / n); // Avoids precission error, but slower.
+            // Avoids precission error, but slower.
+            // w = polar(1.0, i * 2 * (double)PI / n);
             a[i] = a_even[i] + w * a_odd[i];
             a[i + n / 2] = a_even[i] - w * a_odd[i];
             w = w * wn;

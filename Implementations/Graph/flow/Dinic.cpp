@@ -28,7 +28,8 @@ class Dinic {
     int dfs(int const u, int const min_flow) {
         if(u == sink) return min_flow;
         int pushed, el;
-        for(; ptr[u] < (int)graph[u].size(); ptr[u]++) { // If you can pick ok, else you crop that edge for the current bfs layer.
+        // If you can pick ok, else you crop that edge for the current bfs layer.
+        for(; ptr[u] < (int)graph[u].size(); ptr[u]++) {
             el = graph[u][ptr[u]];
             if(lvl[edge[el].v] != lvl[edge[el].u] + 1 || edge[el].cap - edge[el].flow <= 0) {
                 continue;
@@ -43,7 +44,7 @@ class Dinic {
         return 0;
     }
     public:
-    Dinic(int const _n, int const _source, const int _sink) : n(_n), source(_source), sink(_sink) {
+    Dinic(int const _n, int const _source, int const _sink) : n(_n), source(_source), sink(_sink) {
         graph.assign(_n, vi());
     }
     void add_edge(int const u, int const v, int const flow) { // Add u->v edge.

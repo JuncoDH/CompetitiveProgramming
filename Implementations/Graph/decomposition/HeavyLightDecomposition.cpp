@@ -68,8 +68,8 @@ class HeavyLightDecomposition {
         st = SegmentTree<ll>(base_st);
     }
     void add_edge(int const u, int const v, ll const w) {
-        graph[u].pb(mp(v, cont_edge));
-        graph[v].pb(mp(u, cont_edge));
+        graph[u].pb({ v, cont_edge });
+        graph[v].pb({ u, cont_edge });
         ve[cont_edge].value = w;
         ++cont_edge;
     }
