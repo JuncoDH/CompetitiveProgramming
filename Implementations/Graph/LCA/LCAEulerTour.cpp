@@ -8,7 +8,7 @@ class EulerTour {
         first_ocurrence[u] = tour.size();
         tour.pb(u);
         lvl.pb(_lvl);
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(v == p) continue;
             dfs(v, u, _lvl + 1);
             tour.pb(u);

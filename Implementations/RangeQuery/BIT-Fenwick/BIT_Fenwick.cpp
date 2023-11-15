@@ -11,17 +11,17 @@ class BIT {
     explicit BIT(vector<T> const& v) {
         n = v.size();
         bit.assign(n + 1, 0);
-        for(int i = 0; i < n; i++) update(i, v[i]);
+        for(int i = 0; i < n; ++i) update(i, v[i]);
     }
     // Point update. v[i] += dx.
     void update(int i, T const dx) {
-        for(i++; i < n + 1; i += LSB(i)) bit[i] += dx;
+        for(++i; i < n + 1; i += LSB(i)) bit[i] += dx;
     }
     // query [0, r].
     // query(x is the number of numbers <= x).
     T query(int r) const {
         T ans = 0;
-        for(r++; r > 0; r -= LSB(r)) ans += bit[r];
+        for(++r; r > 0; r -= LSB(r)) ans += bit[r];
         return ans;
     }
     // query [l, r].

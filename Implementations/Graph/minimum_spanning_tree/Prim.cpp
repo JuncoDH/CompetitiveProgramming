@@ -5,7 +5,7 @@ ll Prim(int const n) {
     ll ans = 0;
     vector<bool> visited(n, false);
     priority_queue<pll> pq; // (-cost, next node).
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; ++i) {
         if(visited[i]) continue;
         pq.push({0, i});
         while(!pq.empty()) {

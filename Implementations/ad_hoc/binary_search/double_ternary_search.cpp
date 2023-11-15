@@ -8,7 +8,7 @@ ld f(ld mid1, ld mid) {
 }
 ld ternary_serch(ld const mid1) {
     ld l = -1e5, r = 1e5, mi_eps = 1e-6;
-    for(int i = 0; i < 200; i++) {
+    for(int i = 0; i < 200; ++i) {
         ld mid = (l + r) / 2;
         if(f(mid1, mid) > f(mid1, mid + mi_eps)) l = mid;
         else r = mid;
@@ -19,7 +19,7 @@ ld ternary_serch(ld const mid1) {
 // g = max(f1, f2, f3). Binary search each one of its coordinates.
 ld double_ternary_search() {
     ld l = -1e5, r = 1e5, mi_eps = 1e-6;
-    for(int i = 0; i < 200; i++) {
+    for(int i = 0; i < 200; ++i) {
         ld mid = (l + r) / 2;
         if(ternary_serch(mid) > ternary_serch(mid + mi_eps)) l = mid;
         else r = mid;

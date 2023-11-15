@@ -27,11 +27,11 @@ class Mo {
     vi freq;
     void add(int const i) {
         freq[v[i]]++;
-        if(freq[v[i]] == 1) currAns++;
+        if(freq[v[i]] == 1) ++currAns;
     }
     void remove(int const i) {
         freq[v[i]]--;
-        if(freq[v[i]] == 0) currAns--;
+        if(freq[v[i]] == 0) --currAns;
     }
     public:
     Mo() = default;
@@ -46,28 +46,28 @@ class Mo {
         freq.assign(MAX_FREQ, 0);
         vector<pii> ans(n);
         sort(vquery.begin(), vquery.end());
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             while(currL < vquery[i].l) {
                 remove(currL);
-                currL++;
+                ++currL;
             }
             while(currL > vquery[i].l) {
-                currL--;
+                --currL;
                 add(currL);
             }
             while(currR < vquery[i].r) {
-                currR++;
+                ++currR;
                 add(currR);
             }
             while(currR > vquery[i].r) {
                 remove(currR);
-                currR--;
+                --currR;
             }
             ans[i] = mp(vquery[i].id, currAns);
         }
         sort(ans.begin(), ans.end());
         vi answer(n);
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             answer[i] = ans[i].se;
         }
         return answer;

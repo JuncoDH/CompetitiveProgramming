@@ -7,35 +7,35 @@ void subset_sum() {
     sort(w.begin(), w.end());
     ll sum, last_2, cnt = 1;
     int i, n = w.size();
-    for(i = 1; i < n; i++) {
+    for(i = 1; i < n; ++i) {
         if(w[i] != w[i - 1]) {
             sum = 0; last_2 = 0; // (1, 2, 4, 8, rest).
             while(sum + (1ll<<last_2) <= cnt) {
                 cnt -= 1ll<<last_2;
                 w_optimized.pb((1ll<<last_2) * w[i - 1]);
                 sum += 1ll<<last_2;
-                last_2++;
+                ++last_2;
             }
             if(cnt > 0) w_optimized.pb(cnt * w[i - 1]);
             cnt = 0;
         }
-        cnt++;
+        ++cnt;
     }
     sum = 0; last_2 = 0;
     while(sum + (1ll<<last_2) <= cnt) {
         cnt -= 1ll<<last_2;
         w_optimized.pb((1ll<<last_2) * w[i - 1]);
         sum += 1ll<<last_2;
-        last_2++;
+        ++last_2;
     }
     if(cnt > 0) w_optimized.pb(cnt * w[i - 1]);
     w = w_optimized; n = w.size();
     bitset<MAX_C> bs; // bs[k] is the answer for each k.
     bs.set(0);
-    for(i = 0; i < n; i++) {
+    for(i = 0; i < n; ++i) {
         bs = bs | bs << w[i];
     }
-    /* for(i = (n - 1) / 2; i >= 0; i--) {
+    /* for(i = (n - 1) / 2; i >= 0; --i) {
         if(bs[i]) {
             ansi = i; // return the result.
             break;

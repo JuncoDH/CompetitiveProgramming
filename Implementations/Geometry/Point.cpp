@@ -56,7 +56,7 @@ class Point {
         return p.get_quadrant();
     }
     // Orientation of points *this -> a -> b.
-    int get_orientation(Point<T> const a, Point<T> const b) const {
+    int get_orientation(Point<T> const& a, Point<T> const& b) const {
         T prod = (a.x - x) * (b.y - a.y) - (a.y - y) * (b.x - a.x);
         if(prod == 0) return 0;
         return prod > 0? LEFT_TURN : RIGHT_TURN;
@@ -77,10 +77,10 @@ class Point {
     void convert_convex_hull(vector<Point<T>>& v) const {
         if((int)v.size() < 3) return;
         Point<T> bottom_left = v[0], p2;
-        for(auto p : v) bottom_left = min(bottom_left, p);
+        for(auto const& p : v) bottom_left = min(bottom_left, p);
         bottom_left.polar_sort(v);
         vector<Point<T>> v_input = v; v.clear();
-        for(auto p : v_input) {
+        for(auto const& p : v_input) {
             while(v.size() >= 2) {
                 p2 = v.back(); v.pop_back();
                 if(v.back().get_orientation(p2, p) == LEFT_TURN) {
@@ -95,7 +95,7 @@ class Point {
     static ld get_area_polygon(vector<Point<T>>& v) {
         if(v.size() < 3) return 0;
         ll sum = 0, n = v.size();
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             sum += v[i].x * v[(i + 1) % n].y - v[(i + 1) % n].x * v[i].y;
         }
         return abs(sum) / 2.0;

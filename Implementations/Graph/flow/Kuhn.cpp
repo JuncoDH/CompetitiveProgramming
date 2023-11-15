@@ -29,22 +29,22 @@ public:
     int get_max_match() {
         int i, ans = 0;
         vector<bool> used1(n1, false);
-        for(i = 0; i < n1; i++) { // Start with random match.
-            for(auto v : graph[i]) { // Improves time.
+        for(i = 0; i < n1; ++i) { // Start with random match.
+            for(auto const& v : graph[i]) { // Improves time.
                 if(match[v] == -1) continue;
                 match[v] = i;
                 used1[i] = true;
                 break;
             }
         }
-        for(i = 0; i < n1; i++) {
+        for(i = 0; i < n1; ++i) {
             if(used1[i]) continue;
             used.assign(n2, false);
             dfs(i);
         }
-        for(i = 0; i < n2; i++) {
+        for(i = 0; i < n2; ++i) {
             if(match[i] != -1) { // Edge (match[i], i).
-                ans++;
+                ++ans;
                 // echo(match[i], i);
             }
         }

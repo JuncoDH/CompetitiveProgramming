@@ -20,8 +20,8 @@ class LCA { // LCA in O(log n), with O(n log n) preprocess.
         n = graph.size();
         lvl[0] = 0; // The root is 0.
         dfs_lvl(0, 0); // The parent of root is root.
-        for(int j = 1; j < MAX_LOG_N; j++) {
-            for(int i = 0; i < n; i++) {
+        for(int j = 1; j < MAX_LOG_N; ++j) {
+            for(int i = 0; i < n; ++i) {
                 parent[i][j] = parent[parent[i][j - 1]][j - 1];
             }
         }
@@ -31,7 +31,7 @@ class LCA { // LCA in O(log n), with O(n log n) preprocess.
         int i, d = lvl[v] - lvl[u];
         v = get_parent(v, d);
         if(u == v) return u;
-        for(i = MAX_LOG_N - 1; i >= 0; i--) {
+        for(i = MAX_LOG_N - 1; i >= 0; --i) {
             if(parent[u][i] != parent[v][i]) {
                 u = parent[u][i], v = parent[v][i];
             }
@@ -43,7 +43,7 @@ class LCA { // LCA in O(log n), with O(n log n) preprocess.
     }
     static int get_parent(int u, int dst) { // Calculate the dst parent of u.
         dst = max(dst, 0);
-        for(int i = 0; i < MAX_LOG_N; i++) {
+        for(int i = 0; i < MAX_LOG_N; ++i) {
             if(is_set(dst, i)) u = parent[u][i];
         }
         return u;

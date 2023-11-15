@@ -23,7 +23,7 @@ class Node {
         n->p = this;
         if(!c) c = n->l = n->r = n;
         else n->insert_left(c);
-        degree++;
+        ++degree;
     }
 };
 // Min Heap.
@@ -45,7 +45,7 @@ class FibonacciHeap {
                 y->r->l = y->l;
                 n->insert_child(y);
                 vn[d] = nullptr;
-                d++;
+                ++d;
             }
             vn[d] = n;
             if(prev_node == end_node) break;
@@ -54,7 +54,7 @@ class FibonacciHeap {
             next_n = next_n->r;
         }
         min_el = nullptr;
-        for(int i = 0; i < D; i++) {
+        for(int i = 0; i < D; ++i) {
             if(!vn[i]) continue;
             vn[i]->l = vn[i]->r = vn[i];
             if(min_el) vn[i]->insert_left(min_el);
@@ -81,7 +81,7 @@ class FibonacciHeap {
         Node *n = new Node(value);
         if(min_el) n->insert_left(min_el);
         if(!min_el || n->value < min_el->value) min_el = n;
-        n_nodes++;
+        ++n_nodes;
     }
     int top() const { // Get minimum element.
         if(!min_el) return INT_MAX;

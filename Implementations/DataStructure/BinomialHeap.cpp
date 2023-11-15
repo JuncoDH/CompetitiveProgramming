@@ -12,7 +12,7 @@ class Node {
         if(!n) return;
         n->r = c;
         c = n;
-        degree++;
+        ++degree;
     }
     static Node* merge(Node* a, Node* b) { // Merge nodes with same degree.
         if(a->value >= b->value) swap(a, b);
@@ -84,7 +84,7 @@ class BinomialHeap {
     }
     void push(int const value) {
         Node* n = new Node(value);
-        n_nodes++;
+        ++n_nodes;
         BinomialHeap bh;
         bh.root = n;
         merge(bh);
@@ -118,7 +118,7 @@ class BinomialHeap {
         tmp = n->c;
         while(tmp) { v.pb(tmp); tmp = tmp->r; }
         reverse(v.begin(), v.end());
-        for(int i = 0; i < (int)v.size() - 1; i++) v[i]->r = v[i + 1];
+        for(int i = 0; i < (int)v.size() - 1; ++i) v[i]->r = v[i + 1];
         v.back()->r = nullptr;
         bh.root = v[0];
         merge(bh);

@@ -6,18 +6,18 @@ vector<pll> v; // (value, weight).
 ll knapsack(int max_knapsack) {
     int i, j, n = v.size();
     ll ans = 0, g = v[0].se;
-    for(i = 1; i < n; i++) g = __gcd(g, v[i].se);
-    for(i = 0; i < n; i++) v[i].se /= g;
+    for(i = 1; i < n; ++i) g = __gcd(g, v[i].se);
+    for(i = 0; i < n; ++i) v[i].se /= g;
     max_knapsack /= g;
-    for(i = 1; i <= max_knapsack; i++) dp[i] = -inf;
+    for(i = 1; i <= max_knapsack; ++i) dp[i] = -inf;
     dp[0] = 0;
-    for(i = 0; i < n; i++) {
-        for(j = max_knapsack; j >= 0; j--) {
+    for(i = 0; i < n; ++i) {
+        for(j = max_knapsack; j >= 0; --j) {
             if(dp[j] != -inf && j + v[i].se < MAX_KNAPSACK)
                 dp[j + v[i].se] = max(dp[j + v[i].se], dp[j] + v[i].fi);
         }
     }
-    for(i = max_knapsack; i >= 0; i--) ans = max(ans, dp[i]);
+    for(i = max_knapsack; i >= 0; --i) ans = max(ans, dp[i]);
     return ans;
 }
 

@@ -1,14 +1,14 @@
-class node {
+class Node {
     public:
     int len; // Length of the longest string in the equivalence classes.
     int suffix_link = -1; // The longest suffix that is not in the same equivalence class.
     map<char, int> next;
-    node(int const _len) {
+    Node(int const _len) {
         len = _len;
     }
 };
 class SuffixAutomaton { // O(n) creation.
-    vector<node> t = vector<node>(1, node(0));
+    vector<Node> t = vector<Node>(1, Node(0));
     // int t_size = 1;
     int last = 0; // The node representing the entire string.
     public:
@@ -18,7 +18,7 @@ class SuffixAutomaton { // O(n) creation.
     void extend(char const c) {
         int p = last; // Head of the automaton.
         int q; // The node to duplicate.
-        t.pb(node(t[last].len + 1));
+        t.pb(Node(t[last].len + 1));
         last = (int)t.size() - 1;
         // Add c to the previous suffixes.
         while(p != -1 && !t[p].next.count(c)) {
@@ -36,7 +36,7 @@ class SuffixAutomaton { // O(n) creation.
             return;
         }
         // Clone state q.
-        t.pb(node(t[p].len + 1));
+        t.pb(Node(t[p].len + 1));
         t.back().next = t[q].next;
         t.back().suffix_link = t[q].suffix_link;
 
@@ -79,7 +79,7 @@ class SuffixAutomaton { // O(n) creation.
         ll ans = 1;
         if(dp_num_substr.empty()) dp_num_substr.assign((int)t.size(), -1);
         if(dp_num_substr[i] != -1) return dp_num_substr[i];
-        for(auto el : t[i].next) ans += num_substr(el.se);
+        for(auto const& el : t[i].next) ans += num_substr(el.se);
         return dp_num_substr[i] = ans;
     }
     // k-th string in the sorted substrings set, in [0, num_substr() - 1].
@@ -90,7 +90,7 @@ class SuffixAutomaton { // O(n) creation.
         if(k >= num_substr()) return ans; // Error.
         while(k > 0) {
             prev = '$';
-            for(auto el : t[p].next) {
+            for(auto const& el : t[p].next) {
                 prev = el.fi;
                 if(dp_num_substr[el.se] >= k) break;
                 k -= dp_num_substr[el.se];
@@ -98,7 +98,7 @@ class SuffixAutomaton { // O(n) creation.
             if(prev == '$') break; // Error.
             ans += prev;
             p = t[p].next[prev];
-            k--;
+            --k;
         }
         return ans;
     }
@@ -118,7 +118,7 @@ class SuffixAutomaton { // O(n) creation.
         string s = "test";
         extend(s);
         ll n = num_substr();
-        for(ll i = 0; i < n; i++) echo(i, k_substr(i));
+        for(ll i = 0; i < n; ++i) echo(i, k_substr(i));
     }
 };
 

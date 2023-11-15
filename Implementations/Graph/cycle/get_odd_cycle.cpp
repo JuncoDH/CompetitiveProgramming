@@ -30,12 +30,12 @@ bool rec(int const u, int const c) {
 bool bipartite_color(int const n) {
     int i;
     odd_cycle.clear();
-    for(i = 0; i < MAX_N; i++) color[i] = -1;
-    for(i = 0; i < n; i++) {
+    for(i = 0; i < MAX_N; ++i) color[i] = -1;
+    for(i = 0; i < n; ++i) {
         if(color[i] == -1) {
             n_set_component.pb({0, 0});
             rec(i, 0);
-            n_component++;
+            ++n_component;
             if(!odd_cycle.empty()) { // The graph is not bipartite.
                 reverse(odd_cycle.begin(), odd_cycle.end());
                 return false;

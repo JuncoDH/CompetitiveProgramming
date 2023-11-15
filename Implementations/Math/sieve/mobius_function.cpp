@@ -6,7 +6,7 @@ void mobius_init() {
     bool is_composite[MAX];
     fill(is_composite, is_composite + MAX, false);
     mu[1] = 1;
-    for(int i = 2; i < MAX; i++) {
+    for(int i = 2; i < MAX; ++i) {
         if(!is_composite[i]) prime.pb(i), mu[i] = -1;
         for(auto const& p : prime) {
             if(i * p >= MAX) break;

@@ -31,7 +31,7 @@ class Tarjan { // O(n) SCC.
         low.assign(n, -1);
         onStack.assign(n, false);
         components.pb({});
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < n; ++i)
             if(discover[i] == -1) dfs(i);
         components.pop_back();
     }

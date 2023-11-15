@@ -1,4 +1,4 @@
-class node {
+class Node {
     public:
     int subtree = 1; // Number of nodes. Dont use it.
     int parent = -1; // To go upwards in the cd_graph.
@@ -26,13 +26,13 @@ class CentroidDecomposition {
     }
     vector<vi> graph; // Input graph.
     public:
-    vector<node> vn;
+    vector<Node> vn;
     int root; // Root of the cd_graph;
     vector<vi> cd_graph; // directed CD graph root -> edges.
     explicit CentroidDecomposition(vector<vi> const& _graph) {
         graph = _graph;
         int u, v, n = graph.size();
-        vn.assign(n, node());
+        vn.assign(n, {});
         cd_graph.assign(n, vi());
         dfs_size(0, -1);
         root = get_centroid(0, -1, vn[0].subtree);
@@ -41,7 +41,7 @@ class CentroidDecomposition {
         q.push(root);
         while(!q.empty()) {
             u = q.front(); q.pop();
-            for(auto el : graph[u]) {
+            for(auto const& el : graph[u]) {
                 if(vn[el].is_centroid) continue;
                 dfs_size(el, -1);
                 v = get_centroid(el, -1, vn[el].subtree);

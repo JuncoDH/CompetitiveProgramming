@@ -28,7 +28,7 @@ class SparseTable {
         qr = min(qr, n - 1);
         int lg2_dif = -1, num = qr - ql;
         if(ql == qr) return table[ql][0];
-        while(num) lg2_dif++, num >>= 1;
+        while(num) ++lg2_dif, num >>= 1;
         return f(table[ql][lg2_dif], table[qr - (1ll << lg2_dif) + 1][lg2_dif]);
     }
 };

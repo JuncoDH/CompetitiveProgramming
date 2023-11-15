@@ -16,7 +16,7 @@ class BaseConverter {
     BaseConverter(string const& s, int const _base) {
         n = s.size();
         v.assign(n, 0);
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             v[n - i - 1] = get_letter_value(s[i]);
         }
         base = _base;
@@ -24,7 +24,7 @@ class BaseConverter {
     void change_base(int const new_base) {
         ll b = 1, rest = 0;
         vi new_v;
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             rest += v[i] * b;
             b *= base;
         }
@@ -39,7 +39,7 @@ class BaseConverter {
     }
     string get_number() const {
         string s = "";
-        for(int i = n - 1; i >= 0; i--) s += get_letter(v[i]);
+        for(int i = n - 1; i >= 0; --i) s += get_letter(v[i]);
         return s;
     }
 };

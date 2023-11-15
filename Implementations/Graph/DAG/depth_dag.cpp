@@ -12,7 +12,7 @@ namespace DepthDAG { // Also longest path in a DAG.
     void get_depth() {
         int n = graph.size();
         depth.assign(n, -1);
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < n; ++i)
             dfs_get_depth(i);
     }
 }

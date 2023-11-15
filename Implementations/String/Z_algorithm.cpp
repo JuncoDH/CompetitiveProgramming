@@ -6,18 +6,18 @@ void z_algorithm(string s, string const& t) {
     int n = s.length(), m = t.length(), L = 0, R = 0;
     vi z(n, 0);
     // s[L..R] = s[0..R - L], [L, R] is the current window.
-    for(int i = 1; i < n; i++) {
+    for(int i = 1; i < n; ++i) {
         if(i > R) { // Old window, recalculate.
             L = R = i;
-            while(R < n && s[R] == s[R - L]) R++;
-            R--;
+            while(R < n && s[R] == s[R - L]) ++R;
+            --R;
             z[i] = R - L + 1;
         } else {
             if(z[i - L] < R - i) z[i] = z[i - L]; // z[i] will fall in the window.
             else { // z[i] can fall outside the window, try to increase the window.
                 L = i;
-                while(R < n && s[R] == s[R - L]) R++;
-                R--;
+                while(R < n && s[R] == s[R - L]) ++R;
+                --R;
                 z[i] = R - L + 1;
             }
         }

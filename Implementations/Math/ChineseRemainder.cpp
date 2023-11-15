@@ -10,13 +10,13 @@ class ChineseRemainder {
         ll g = gcdEx(m[n - 1], m[n - 2], &x, &y);
         if((c[n - 1] - c[n - 2]) % g != 0) { n = -1; return; }
         x = c[n - 1] + mul(m[n - 1], mul(-x, (c[n - 1] - c[n - 2]) / g));
-        c.pop_back(); m.pop_back(); n--;
+        c.pop_back(); m.pop_back(); --n;
         c[n - 1] = mod(x); m[n - 1] = modulo;
     }
 public:
     ll modulo;
     void insert(ll const _c, ll const _m) { // _m > 0.
-        n++;
+        ++n;
         modulo = _m;
         m.pb(_m);
         c.pb(mod(_c));

@@ -12,9 +12,9 @@ class ArticulationPoint {
         if(discover[u] != -1) return;
         low[u] = discover[u] = Time++;
         int children = 0;
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(discover[v] == -1) {
-                children++;
+                ++children;
                 parent[v] = u;
                 dfs(v);
                 low[u] = min(low[u], low[v]);
@@ -37,7 +37,7 @@ public:
         AP.assign(n, false);
     }
     void get_AP() {
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             if(discover[i] == -1) dfs(i);
         }
     }

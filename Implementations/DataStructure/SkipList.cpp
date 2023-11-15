@@ -45,7 +45,7 @@ class SkipList {
         Node* n = new Node(num);
         int layer = -1;
         while(layer == -1 || rand() % 2) {
-            layer++;
+            ++layer;
             if(layer >= (int)begin->nxt.size()) {
                 begin->prev.pb(nullptr);
                 begin->nxt.pb(nullptr);
@@ -71,7 +71,7 @@ class SkipList {
             while(layer >= (int)r->nxt.size()) r = r->nxt[0];
             l->nxt[layer] = r;
             r->prev[layer] = l;
-            layer++;
+            ++layer;
         }
         delete n;
     }

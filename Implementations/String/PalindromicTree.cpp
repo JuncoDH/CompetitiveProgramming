@@ -22,7 +22,7 @@ public:
     }
     int add_character(char const c) {
         int ch = c - 'a';
-        s += c; n++;
+        s += c; ++n;
         int p = last;
         while(p != -1 && c != s[n - tree[p].len - 2])
             p = tree[p].suffix_link;

@@ -14,16 +14,16 @@ ll discrete_logarithm(ll a, ll b, ll mod) {
         if(b % g) return -1;
         b /= g;
         mod /= g;
-        add++;
+        ++add;
         k = (k * (a / g)) % mod;
     }
     // Meet in the middle, smallest x is high q and low p.
-    for(q = 0; q <= sq; q++) {
+    for(q = 0; q <= sq; ++q) {
         value[(b * aq) % mod] = q;
         aq = (aq * a) % mod;
     }
-    for(p = 1; p <= sq; p++) asq = (asq * a) % mod;
-    for(p = 1; p <= sq; p++) {
+    for(p = 1; p <= sq; ++p) asq = (asq * a) % mod;
+    for(p = 1; p <= sq; ++p) {
         ap = (ap * asq) % mod;
         if(value.count((k * ap) % mod))
             return sq * p - value[(k * ap) % mod] + add;

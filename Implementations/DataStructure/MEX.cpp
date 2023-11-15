@@ -9,7 +9,7 @@ public:
     Mex(int const _n) {
         n = _n + 2; // + 2 To be sure.
         cnt.assign(n, 0);
-        for(int i = 0; i < n; i++) s.insert(i);
+        for(int i = 0; i < n; ++i) s.insert(i);
     }
     void insert(int const k) { // O(log n) insertion.
         cnt[k]++;

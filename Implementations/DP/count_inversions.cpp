@@ -7,13 +7,13 @@ ll count_inversions(int const i, int const j) {
     if(i == j) return 0;
     ll ans = count_inversions(i, mid);
     ans += count_inversions(mid + 1, j);
-    for(int k = 0; k < j - i + 1; k++) {
+    for(int k = 0; k < j - i + 1; ++k) {
         if(pi > mid) temp[k] = v[pj++];
         else if(pj > j) temp[k] = v[pi++];
         else if(v[pi] > v[pj]) { ans += mid - pi + 1; temp[k] = v[pj++]; }
         else temp[k] = v[pi++];
     }
-    for(int k = 0; k < j - i + 1; k++) v[k + i] = temp[k];
+    for(int k = 0; k < j - i + 1; ++k) v[k + i] = temp[k];
     return ans;
 }
 

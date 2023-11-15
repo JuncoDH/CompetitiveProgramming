@@ -4,7 +4,7 @@ ll val[MAX];
 map<ll, ll> m; // Compress elements.
 void init() { // CALL ONCE.
     srand(time(nullptr));
-    for(int i = 0; i < MAX; i++) val[i] = rand();
+    for(int i = 0; i < MAX; ++i) val[i] = rand();
 }
 // Contains a set of elements with duplicates.
 // a[i] = sum_x{val[x]} % mod p[i].
@@ -16,17 +16,17 @@ public:
     // Insert element x.
     void insert(ll const x) {
         if(!m.count(x)) m[x] = m.size();
-        for(int i = 0; i < n; i++) a[i] = (a[i] + val[m[x]]) % p[i];
+        for(int i = 0; i < n; ++i) a[i] = (a[i] + val[m[x]]) % p[i];
     }
     void erase(ll const x) {
-        for(int i = 0; i < n; i++) a[i] = ((a[i] - val[m[x]]) % p[i] + p[i]) % p[i];
+        for(int i = 0; i < n; ++i) a[i] = ((a[i] - val[m[x]]) % p[i] + p[i]) % p[i];
     }
     // Insert all the elements of hs.
     void insert(HashSet const& hs) {
-        for(int i = 0; i < n; i++) a[i] = (a[i] + hs.a[i]) % p[i];
+        for(int i = 0; i < n; ++i) a[i] = (a[i] + hs.a[i]) % p[i];
     }
     bool operator == (HashSet const hs) const {
-        for(int i = 0; i < n; i++) if(a[i] != hs.a[i]) return false;
+        for(int i = 0; i < n; ++i) if(a[i] != hs.a[i]) return false;
         return true;
     }
 };

@@ -5,20 +5,20 @@ template<typename K, typename V> // Key (unique) and Value (data).
 class Treap {
     const pair<V, K> MINVK = { numeric_limits<V>::min(), numeric_limits<K>::min() };
     const pair<V, K> MAXVK = { numeric_limits<V>::max(), numeric_limits<K>::max() };
-    struct node {
+    struct Node {
         K key; // Unique, time or x-axis for example.
         V data; // f[key] = data
-        node* l = nullptr, *r = nullptr;
+        Node* l = nullptr, *r = nullptr;
         int priority;
         pair<V, K> mx, mn; // Maximum and minimum values over all subtrees, V 1º to be comparable <.
-        node(K const _key, const V _data) {
+        Node(K const _key, const V _data) {
             key = _key;
             data = _data;
             mx = mn = { _data, _key };
             priority = rand(); // ((ll)rand()<<16) ^ (ll)rand(); // Let's hope there is no collision...
         }
     };
-    typedef node* pnode;
+    typedef Node* pnode;
     pnode root = nullptr;
     pair<V, K> getMaximumVK(pnode const t) const { // O(1).
         if(!t) return MINVK;
@@ -83,7 +83,7 @@ class Treap {
     }
     public:
     void insert(K const key, V const data) { // O(log n).
-        pnode n = new node(key, data);
+        pnode n = new Node(key, data);
         insert(root, n);
     }
     void erase(K const key) { // O(log n).

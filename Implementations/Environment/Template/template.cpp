@@ -12,11 +12,11 @@ constexpr long double eps = 1e-9;
 constexpr long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) { for(int _x = 0; _x < _i; _x++) { cout<< _v[_x] << " "; } cout << endl; }
-#define echoarr2(_i, _j, _v) { for(int _x = 0; _x < _i; _x++) { for(int _y = 0; _y < _j; _y++) \
+#define echoarr(_i, _v) { for(int _x = 0; _x < _i; ++_x) { cout<< _v[_x] << " "; } cout << endl; }
+#define echoarr2(_i, _j, _v) { for(int _x = 0; _x < _i; ++_x) { for(int _y = 0; _y < _j; ++_y) \
 { cout << _v[_x][_y] << " "; } cout << endl; } }
 #define echo(...) { cout << "->"; ECHO(#__VA_ARGS__, __VA_ARGS__ ); cout << endl; }
-#define echo2(x) { cout << #x << endl; for(auto el : x) { ECHO(el); cout << endl; } }
+#define echo2(x) { cout << #x << endl; for(auto const& el : x) { ECHO(el); cout << endl; } }
 #else
 #define echoarr(_i, _v)
 #define echoarr2(_i, _j, _v)
@@ -34,17 +34,17 @@ void ECHO(long long const _s){ if(_s == inf) cout << "inf"; else cout<<_s; }
 void ECHO(double const _s){ cout.precision(7); cout << fixed << _s; }
 void ECHO(long double const _s){ cout.precision(7); cout << fixed <<_s; }
 void ECHO(bitset<8> const b) { cout << b; } // Resize bitset.
-template<typename T> void ECHO(set<T> _s) {
-    for(auto const el : _s) { ECHO(el); cout << "_"; }
+template<typename T> void ECHO(set<T> const _s) {
+    for(auto const& el : _s) { ECHO(el); cout << "_"; }
 }
 template<typename T1, typename T2> void ECHO(map<T1, T2> const _s) {
-    for(auto const el : _s) { ECHO(el); cout << "_"; }
+    for(auto const& el : _s) { ECHO(el); cout << "_"; }
 }
 template<typename T1, typename T2> void ECHO(pair<T1, T2> const _s) {
     cout << "("; ECHO(_s.fi); cout << ","; ECHO(_s.se); cout << ")";
 }
 template<typename T> void ECHO(vector<T> const v) {
-    for(auto el : v) { ECHO(el); cout << "_"; }
+    for(auto const& el : v) { ECHO(el); cout << "_"; }
 }
 template<typename T> void ECHO(priority_queue<T> const pq) {
     priority_queue<T> _pq = pq;
@@ -52,13 +52,13 @@ template<typename T> void ECHO(priority_queue<T> const pq) {
 }
 template<typename T, typename ...Args> void ECHO(string const _s, T const x, Args... args){
     int _i, c = 0;
-    for(_i = 0; _i < (int)_s.size(); _i++) {
+    for(_i = 0; _i < (int)_s.size(); ++_i) {
         if(c == 0 && _s[_i]==',') break;
-        if(_s[_i] == '(') c++;
-        if(_s[_i] == ')') c--;
+        if(_s[_i] == '(') ++c;
+        if(_s[_i] == ')') --c;
     }
     cout << " (" << _s.substr(0, _i) << "): "; ECHO(x);
-    while(_i < (int)_s.size() && (_s[_i] == ',' || _s[_i] == ' ')) _i++;
+    while(_i < (int)_s.size() && (_s[_i] == ',' || _s[_i] == ' ')) ++_i;
     ECHO(_s.substr(_i), args...);
 }
 template<typename T> // Input vector<T>.
@@ -82,11 +82,11 @@ void set_bit(ll& x, ll const i) { x |= 1ll<<i; }
 void unset_bit(ll& x, ll const i) { x = (x | (1ll<<i)) ^ (1ll<<i); }
 ll LSB(ll const x) { return x & (-x); }
 int LSB_idx(ll const x) { // Number of starting zeros.
-    for(int i = 0; i < 63; i++) if(is_set(x, i)) return i;
+    for(int i = 0; i < 63; ++i) if(is_set(x, i)) return i;
     return -1;
 }
 ll MSB(ll const x) {
-    for(int i = 63; i >= 0; i--) if(is_set(x, i)) return 1ll<<i;
+    for(int i = 63; i >= 0; --i) if(is_set(x, i)) return 1ll<<i;
     return 0;
 }
 using ld = long double;

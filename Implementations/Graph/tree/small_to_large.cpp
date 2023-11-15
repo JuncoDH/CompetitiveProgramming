@@ -19,10 +19,10 @@ namespace small_to_large {
                 }
             }
             if(ok_clear) continue;
-            for(auto el : vs[v]) vs[u].insert(el);
+            for(auto const& el : vs[v]) vs[u].insert(el);
         }
         if(ok_clear) {
-            ans++;
+            ++ans;
             vs[u].clear();
         }
     }

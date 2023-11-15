@@ -17,7 +17,7 @@ int Hungarian() {
     fill(u, u + n1 + 1, 0);
     fill(v, v + n2 + 1, 0);
     fill(yx, yx + n2 + 1, 0);
-    for(i = 1; i <= n1; i++) { // Add row by row to the current matching.
+    for(i = 1; i <= n1; ++i) { // Add row by row to the current matching.
         yx[0] = i; // Connect 0 of set 2 with vertex i.
         j0 = 0; // i0 and j0 are the current selected row and column, i and j are just iterators.
         fill(slack, slack + n2 + 1, INF);
@@ -26,7 +26,7 @@ int Hungarian() {
             used[j0] = true;
             delta = INF;
             i0 = yx[j0];
-            for(j = 1; j <= n2; j++) { // Get the delta among all columns not used.
+            for(j = 1; j <= n2; ++j) { // Get the delta among all columns not used.
                 if(!used[j]) {
                     int cur = cost[i0 - 1][j - 1] - u[i0] - v[j];
                     if(cur < slack[j]) {
@@ -37,7 +37,7 @@ int Hungarian() {
                     }
                 }
             }
-            for(j = 0; j <= n2; j++) { // Add delta in set 1, subtract delta in set 2.
+            for(j = 0; j <= n2; ++j) { // Add delta in set 1, subtract delta in set 2.
                 if(used[j]) u[yx[j]] += delta, v[j] -= delta;
                 else slack[j] -= delta;
             }
@@ -49,7 +49,7 @@ int Hungarian() {
         } while(j0);
     }
     ans = 0;
-    for(j = 1; j <= n2; j++) { // Recover solution. The matched edges are yx[j] - 1 -> j - 1.
+    for(j = 1; j <= n2; ++j) { // Recover solution. The matched edges are yx[j] - 1 -> j - 1.
         if(yx[j])
             ans += cost[yx[j] - 1][j - 1];
     }
@@ -60,11 +60,11 @@ int M_factor; // Change problem finding the minimum cost to maximum cost, that c
 void min_to_max() { // Min in cost[i][j] = max in M - cost[i][j].
     int i, j;
     M_factor = 0;
-    for(i = 0; i < n1; i++) {
+    for(i = 0; i < n1; ++i) {
         M_factor = max(M_factor, *max_element(cost[i], cost[i] + n2));
     }
-    for(i = 0; i < n1; i++) {
-        for(j = 0; j < n2; j++) {
+    for(i = 0; i < n1; ++i) {
+        for(j = 0; j < n2; ++j) {
             cost[i][j] = M_factor - cost[i][j];
         }
     }

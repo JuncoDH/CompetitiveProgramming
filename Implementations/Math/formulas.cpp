@@ -13,7 +13,7 @@ ll formula_2(ll _a, ll _b) {
 // Sum of i / k (floor) in [0, n]. n >= 0.
 ll formula_3(ll _n, ll _k) {
     ll _ans = 0, r = _n;
-    while((r + 1) % _k != 0) {_ans += r / _k; r--;}
+    while((r + 1) % _k != 0) {_ans += r / _k; --r;}
     return _ans + _k * formula_1(r / _k);
 }
 // Sum of (x + i * d) in [0, n] Arithmetic sum.

@@ -5,7 +5,7 @@ ll Kruskal(vector<vector<pii>> const& graph) {
     ll ans = 0;
     DSU dsu(n);
     vector<pair<ll, pii>> edge;
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; ++i) {
         for(auto const& el : graph[i]) {
             if(i < el.fi) { // Only adds one edge.
                 edge.pb({ el.se, mp(i, el.fi) });

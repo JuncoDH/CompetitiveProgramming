@@ -5,8 +5,8 @@ vll dist; // Min dist from s to all other nodes.
 bool bellman_ford(int const s) {
     dist.assign(n, inf);
     dist[s] = 0;
-    for(int i = 0; i < n - 1; i++) { // Iterate n - 1 times.
-        for(auto e : edge) {
+    for(int i = 0; i < n - 1; ++i) { // Iterate n - 1 times.
+        for(auto const& e : edge) {
             if(dist[e.fi.fi] != inf)
                 dist[e.fi.se] = min(dist[e.fi.se], dist[e.fi.fi] + e.se);
         }

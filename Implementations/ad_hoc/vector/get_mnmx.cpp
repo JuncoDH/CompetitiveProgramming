@@ -4,7 +4,7 @@ pair<pll, pll> get_mnmx(vll const& v) {
     mx = mn = v[0];
     mx2 = -inf;
     mn2 = inf;
-    for(int i = 1; i < n; i++) {
+    for(int i = 1; i < n; ++i) {
         if(v[i] >= mx) {
             mx2 = mx;
             mx = v[i];

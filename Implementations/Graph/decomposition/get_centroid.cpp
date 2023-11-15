@@ -1,15 +1,15 @@
 vector<vi> graph;
 vi subtree;
-void dfs_centroid_subtree(int u, int p) {
+void dfs_centroid_subtree(int const u, int const p) {
     subtree[u] = 1;
-    for(auto v : graph[u]) {
+    for(auto const& v : graph[u]) {
         if(v == p) continue;
         dfs_centroid_subtree(v, u);
         subtree[u] += subtree[v];
     }
 }
-int dfs_centroid(int u, int p, int n) {
-    for(auto v : graph[u]) {
+int dfs_centroid(int const u, int const p, int const n) {
+    for(auto const& v : graph[u]) {
         if(v != p && subtree[v] > n / 2)
             return dfs_centroid(v, u, n);
     }

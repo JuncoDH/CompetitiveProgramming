@@ -3,22 +3,22 @@
 // v[mask] = sum(v[submask]). O(n log n).
 void zeta_transform(vll& v) {
     int n = v.size();
-    for(int i = 0; (1<<i) < n; i++)
-        for(int mask = 0; mask < n; mask++)
+    for(int i = 0; (1<<i) < n; ++i)
+        for(int mask = 0; mask < n; ++mask)
             if(is_set(mask, i))
                 v[mask] ^= v[mask ^ (1<<i)]; // +=, ^=, gcd.
 }
 // v[mask] = sum(v[supermask]). O(n log n).
 void zeta_transform_superset(vll& v) {
     int n = v.size();
-    for(int i = 0; (1<<i) < n; i++)
-        for(int mask = 0; mask < n; mask++)
+    for(int i = 0; (1<<i) < n; ++i)
+        for(int mask = 0; mask < n; ++mask)
             if(!is_set(mask, i) && (mask ^ (1<<i)) < n)
                 v[mask] ^= v[mask ^ (1<<i)]; // +=, ^=, gcd.
 }
 // v[mask] = (-1)^(|mask|) * v[mask]. O(n).
 void odd_negation(vll& v) {
-    for(int i = 0; i < (int)v.size(); i++)
+    for(int i = 0; i < (int)v.size(); ++i)
         if(__builtin_popcount(i) % 2) v[i] = -v[i];
 }
 // v[mask] = sum((-1)^(|mask\submask|) * v[submask]), O(n log n).

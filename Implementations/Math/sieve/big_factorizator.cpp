@@ -8,7 +8,7 @@ namespace Factorizator {
     bool check_composite(ll num, ll a, ll d, int const s) {
         ll x = elevate(a, d, num);
         if(x == 1 || x == num - 1) return false;
-        for(int i = 0; i < s; i++) {
+        for(int i = 0; i < s; ++i) {
             x = mult(x, x, num);
             if(x == num - 1) return false;
         }
@@ -19,7 +19,7 @@ namespace Factorizator {
         bool flag = true;
         ll d = num - 1, s = 0;
         if(num <= 1) return false;
-        for(auto p : fixed_primes) {
+        for(auto const& p : fixed_primes) {
             if(p == num) return true;
             if(p % num == 0) return false; // Optimization.
         }
@@ -27,7 +27,7 @@ namespace Factorizator {
             d /= 2;
             ++s;
         }
-        for(auto p : fixed_primes) flag &= !check_composite(num, p, d, s);
+        for(auto& p : fixed_primes) flag &= !check_composite(num, p, d, s);
         return flag;
     }
     // A polynomial function modulo mod, it will contain a cycle.
@@ -62,7 +62,7 @@ namespace Factorizator {
             }
             ll cont = 0;
             while(num % y == 0) {
-                num /= y; cont++;
+                num /= y; ++cont;
             }
             factors.pb(mp(y, cont));
         }
@@ -73,7 +73,7 @@ namespace Factorizator {
     void dfs_div(ll const x, ll const i) {
         if(i == (int)factors.size()) { divisors.pb(x); return; }
         dfs_div(x, i + 1);
-        for(int j = 0; j < factors[i].se; j++) { x *= factors[i].fi; dfs_div(x, i + 1); }
+        for(int j = 0; j < factors[i].se; ++j) { x *= factors[i].fi; dfs_div(x, i + 1); }
     }
     // NOT TESTED.
     vector<ll> get_divisors(ll const num) { // 1 and num inclusive.
@@ -86,12 +86,12 @@ namespace Factorizator {
     // Factorize knowing that its primes are in primes vector.
     vector<pll> factorize_using_primes(ll num) {
         vector<pll> ans;
-        for(int i = 0; i < (int)primes.size() && primes[i] <= num / primes[i]; i++) {
+        for(int i = 0; i < (int)primes.size() && primes[i] <= num / primes[i]; ++i) {
             if(num % primes[i] == 0) {
                 ll cont = 0;
                 while(num % primes[i] == 0) {
                     num /= primes[i];
-                    cont++;
+                    ++cont;
                 }
                 ans.pb({ primes[i], cont });
             }

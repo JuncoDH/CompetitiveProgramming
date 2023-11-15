@@ -11,7 +11,7 @@ ll date_to_num(ll const d, ll m, ll y) {
     ll sum = d;
     m -= 2;
     if(m >= 1) sum += is_leap_year(y);
-    y--;
+    --y;
     if(m >= 0) sum += days_month_accumulate[m];
     if(y >= 0) {
         sum += 365 * y;
@@ -23,12 +23,12 @@ ll date_to_num(ll const d, ll m, ll y) {
 // Tiny optimization, binary search the year, month and day.
 void num_to_date(ll const num, ll& d, ll& m, ll& y) {
     d = 1; m = 1; y = 0; // The date searched is >= this date.
-    while(date_to_num(d, m, y) <= num) y++;
-    y--;
-    while(date_to_num(d, m, y) <= num) m++;
-    m--;
-    while(date_to_num(d, m, y) <= num) d++;
-    d--;
+    while(date_to_num(d, m, y) <= num) ++y;
+    --y;
+    while(date_to_num(d, m, y) <= num) ++m;
+    --m;
+    while(date_to_num(d, m, y) <= num) ++d;
+    --d;
 }
 void cin_date(ll& d, ll& m, ll& y) {
     char c;

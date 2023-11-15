@@ -6,7 +6,7 @@ public:
     explicit NumberInSubarray(vll const& _v) {
         v = _v;
         int n = v.size();
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             m[v[i]].insert(i);
         }
     }

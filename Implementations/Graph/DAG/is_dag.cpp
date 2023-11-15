@@ -15,9 +15,9 @@ namespace IsDag {
         visited.assign(n, false);
         close_time.assign(n, 0);
         tick = 0;
-        for(u = 0; u < n; u++)
+        for(u = 0; u < n; ++u)
             if(!visited[u]) dfs(u);
-        for(u = 0; u < n; u++)
+        for(u = 0; u < n; ++u)
             for(auto const& v : graph[u])
                 if(close_time[u] < close_time[v])
                     return false;

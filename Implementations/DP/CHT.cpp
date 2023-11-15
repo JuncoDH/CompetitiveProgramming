@@ -30,11 +30,11 @@ class CHT : multiset<Line, less<>> {
         if(is_min) m = -m, n = -n;
         iterator x = insert(Line(m, n));
         iterator y = x;
-        y++;
+        ++y;
         while(update_p(x, y)) y = erase(y); // Lines to the right.
         if(x != begin()) { // Inserted line.
             y = x;
-            x--;
+            --x;
             if(update_p(x, y)) update_p(x, erase(y));
         }
         while((y = x) != begin() && (--x)->p >= y->p)

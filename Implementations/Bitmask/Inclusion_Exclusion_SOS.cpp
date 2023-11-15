@@ -10,9 +10,9 @@ vll SOS(vll& v) {
     while((int)v.size() != LSB((int)v.size())) v.pb(0); // 0 neutral sum element.
     int n = v.size();
     vll f(n, 0);
-    for(int mask = 0; mask < n; mask++) f[mask] = v[mask];
-    for(int i = 0; (1ll << i) < n; i++) {
-        for(int mask = 0; mask < n; mask++)
+    for(int mask = 0; mask < n; ++mask) f[mask] = v[mask];
+    for(int i = 0; (1ll << i) < n; ++i) {
+        for(int mask = 0; mask < n; ++mask)
             if(is_set(mask, i))
                 f[mask] += f[mask ^ (1ll << i)];
     }
@@ -26,11 +26,11 @@ vll SOS(vll& v) {
 // mu(v) = Sum_{ s in mask } (-1)^(mask\s) v[s].
 vll inclusion_exclusion_SOS(vll const& v) {
     vll f = v;
-    for(int mask = 0; mask < (int)f.size(); mask++)
+    for(int mask = 0; mask < (int)f.size(); ++mask)
         if(__builtin_popcount(mask) % 2 == 1)
             f[mask] = -f[mask];
     vll ans = SOS(f);
-    for(int mask = 0; mask < (int)f.size(); mask++)
+    for(int mask = 0; mask < (int)f.size(); ++mask)
         if(__builtin_popcount(mask) % 2 == 1)
             f[mask] = -f[mask];
     return ans;

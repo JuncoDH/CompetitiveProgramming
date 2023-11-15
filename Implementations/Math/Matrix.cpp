@@ -18,8 +18,8 @@ class Matrix {
         v = _v;
     }
     friend ostream& operator << (ostream& os, Matrix<T> m) {
-        for(int i = 0; i < m.nrow; i++) {
-            for(int j = 0; j < m.ncol; j++) {
+        for(int i = 0; i < m.nrow; ++i) {
+            for(int j = 0; j < m.ncol; ++j) {
                 if(j) os << " ";
                 os << m.v[i][j]; // Becareful with "-0".
             }
@@ -29,8 +29,8 @@ class Matrix {
     }
     Matrix<T> operator + (Matrix<T> const& other) {
         Matrix<T> ans(nrow, ncol);
-        for(int i = 0; i < nrow; i++) {
-            for(int j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; ++i) {
+            for(int j = 0; j < ncol; ++j) {
                 ans.v[i][j] = v[i][j] + other.v[i][j];
             }
         }
@@ -38,14 +38,14 @@ class Matrix {
     }
     // Use this for an empty square Matrix to create an identity Matrix.
     Matrix<T> convert_to_identity() {
-        for(int i = 0; i < nrow; i++) v[i][i] = 1;
+        for(int i = 0; i < nrow; ++i) v[i][i] = 1;
         return *this;
     }
     Matrix<T> operator * (Matrix<T> const& other) {
         Matrix<T> ans(nrow, other.ncol);
-        for(int i = 0; i < nrow; i++) {
-            for(int j = 0; j < other.ncol; j++) {
-                for(int k = 0; k < ncol; k++) {
+        for(int i = 0; i < nrow; ++i) {
+            for(int j = 0; j < other.ncol; ++j) {
+                for(int k = 0; k < ncol; ++k) {
                     ans.v[i][j] += v[i][k] * other.v[k][j];
                 }
             }
@@ -63,8 +63,8 @@ class Matrix {
     }
     bool operator == (const Matrix<T> other) {
         if(nrow != other.nrow || ncol != other.ncol) return false;
-        for(int i = 0; i < nrow; i++) {
-            for(int j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; ++i) {
+            for(int j = 0; j < ncol; ++j) {
                 if(abs(v[i][j] - other.v[i][j]) > eps) return false;
             }
         }
@@ -75,8 +75,8 @@ class Matrix {
     }
     // Change "-0" by "0".
     Matrix<T> delete_negative_cero() {
-        for(int i = 0; i < nrow; i++) {
-            for(int j = 0; j < ncol; j++) {
+        for(int i = 0; i < nrow; ++i) {
+            for(int j = 0; j < ncol; ++j) {
                 if(abs(v[i][j]) < eps) v[i][j] = 0;
             }
         }
@@ -85,10 +85,10 @@ class Matrix {
     static Matrix<T> gaussian_elimination(Matrix<T> mat, Matrix<T> dato) {
         int i, j, k, imx;
         T mx, val;
-        for(i = 0; i < mat.ncol; i++) {
+        for(i = 0; i < mat.ncol; ++i) {
             mx = mat.v[i][i];
             imx = i;
-            for(j = i + 1; j < mat.nrow; j++) {
+            for(j = i + 1; j < mat.nrow; ++j) {
                 if(mat.v[j][i] > mx) {
                     mx = mat.v[j][i];
                     imx = j;
@@ -97,28 +97,28 @@ class Matrix {
             // If no pivot found, the matrix is not invertible. Its determinant is 0.
             if(mat.v[imx][i] == 0) return Matrix<T>(0, 0);
             // Swap the line with the highest value.
-            for(j = i; j < mat.ncol; j++) {
+            for(j = i; j < mat.ncol; ++j) {
                 swap(mat.v[i][j], mat.v[imx][j]);
             }
-            for(j = 0; j < dato.ncol; j++) {
+            for(j = 0; j < dato.ncol; ++j) {
                 swap(dato.v[i][j], dato.v[imx][j]);
             }
-            for(j = i + 1; j < mat.nrow; j++) {
+            for(j = i + 1; j < mat.nrow; ++j) {
                 T factor = - mat.v[j][i] / mat.v[i][i]; // Change if using modulus.
-                for(k = i; k < mat.ncol; k++) {
+                for(k = i; k < mat.ncol; ++k) {
                     mat.v[j][k] += factor * mat.v[i][k];
                 }
-                for(k = 0; k < dato.ncol; k++) {
+                for(k = 0; k < dato.ncol; ++k) {
                     dato.v[j][k] += factor * dato.v[i][k];
                 }
             }
         }
         // Solving Ux = dato.
         // For every column of dato.
-        for(k = 0; k < dato.ncol; k++) {
-            for(i = mat.nrow - 1; i >= 0; i--) {
+        for(k = 0; k < dato.ncol; ++k) {
+            for(i = mat.nrow - 1; i >= 0; --i) {
                 val = dato.v[i][k];
-                for(j = i + 1; j < mat.ncol; j++) {
+                for(j = i + 1; j < mat.ncol; ++j) {
                     val -= mat.v[i][j] * dato.v[j][k];
                 }
                 dato.v[i][k] = val / mat.v[i][i];

@@ -32,21 +32,21 @@ class HashString {
         v.assign(n_p, vll(n, 0));
         b.assign(n_p, vll(n, 0));
         b_inv.assign(n_p, vll(n, -1));
-        for(int i = 0; i < n_p; i++) {
+        for(int i = 0; i < n_p; ++i) {
             b[i][0] = 1;
-            for(int j = 1; j < n; j++) {
+            for(int j = 1; j < n; ++j) {
                 b[i][j] = (b[i][j - 1] * base[i]) % p[i];
             }
             v[i][0] = s[0]-initial + 1;
-            for(int j = 1; j < n; j++) {
+            for(int j = 1; j < n; ++j) {
                 v[i][j] = (b[i][j] * (s[j] - initial + 1) + v[i][j - 1]) % p[i];
             }
         }
     }
     void add(char const c) { // Need something previously added.
         s += c;
-        n++;
-        for(int i = 0; i < n_p; i++) {
+        ++n;
+        for(int i = 0; i < n_p; ++i) {
             b[i].pb((b[i][n - 2] * base[i]) % p[i]);
             b_inv[i].pb(-1);
             v[i].pb((b[i][n - 1] * (c - initial + 1) + v[i][n - 2]) % p[i]);
@@ -57,7 +57,7 @@ class HashString {
     }
     vll getHash(int const l, int const r) {
         vll vans;
-        for(int i = 0; i < n_p; i++) {
+        for(int i = 0; i < n_p; ++i) {
             ll ans = v[i][r];
             if(l > 0) ans -= v[i][l - 1];
             ans *= inv(i, l);
@@ -78,7 +78,7 @@ class HashString {
         if(s[0] != other.s[0]) return -1;
         if(*this == other) return n - 1;
         while(l + 1 < r) {
-            int mid = (l + r) >> 1;
+            int mid = (l + r) / 2;
             if(getHash(0, mid) == other.getHash(0, mid)) l = mid;
             else r = mid;
         }

@@ -1,5 +1,5 @@
 bool f(ll const mid) { // Return true if is possible with mid.
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; ++i) {
     }
     return false;
 }

@@ -40,7 +40,7 @@ vector<vector<Piece>> board(8, vector<Piece>(8, empty_piece));
 vector<pair<pair<Piece, Piece>, Piece>> moves;
 
 void reset() {
-    for(int i = 0; i < 8; i++) for(int j = 0; j < 8; j++) board[i][j] = empty_piece;
+    for(int i = 0; i < 8; ++i) for(int j = 0; j < 8; ++j) board[i][j] = empty_piece;
     moves.clear();
 }
 void insert_piece(string const& s, int color) { // Example format "Td3".
@@ -72,8 +72,8 @@ void debug(Piece const& p) {
 }
 void debug() { // Debug the non empty Pieces.
     cout << "[";
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
+    for(int i = 0; i < 8; ++i) {
+        for(int j = 0; j < 8; ++j) {
             if(get_color({i, j}) == COLOR_EMPTY) continue;
             else debug(board[i][j]);
         }
@@ -98,7 +98,7 @@ bool is_check(int const color) {
     for(auto& el : board) for(auto& piece : el) {
         if(get_color(piece) != color) continue;
         for(auto& dx : possible_moves[get_symbol_int(piece)]) {
-            for(int k = 1; k <= 7; k++) {
+            for(int k = 1; k <= 7; ++k) {
                 if(k > 1) {
                     if(get_symbol_int(piece) == KNIGHT) break;
                     if(get_symbol_int(piece) == KING) break;
@@ -140,7 +140,7 @@ void generate_next_move(int const color) {
     for(auto& el : board) for(auto& piece : el) {
         if(get_color(piece) != color) continue;
         for(auto& dx : possible_moves[get_symbol_int(piece)]) {
-            for(int k = 1; k <= 7; k++) {
+            for(int k = 1; k <= 7; ++k) {
                 if(k > 1) {
                     if(get_symbol_int(piece) == KNIGHT) break;
                     if(get_symbol_int(piece) == KING) break;

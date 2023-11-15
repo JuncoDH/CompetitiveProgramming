@@ -19,7 +19,7 @@ void num_distinct_nums() {
     qn = vq.size();
     vi ans(qn);
     sort(vq.begin(), vq.end(), Query_cmp);
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; ++i) {
         if(last_update[v[i]] != -1) {
             bit.update(last_update[v[i]], -1);
         }

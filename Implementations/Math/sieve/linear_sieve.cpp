@@ -32,7 +32,7 @@ void factorize(int n) { // Up to MAX_PRIME * MAX_PRIME.
         if(n % p == 0) {
             fact.pb(p);
             cont = 0;
-            while(n % p == 0) n /= p, cont++;
+            while(n % p == 0) n /= p, ++cont;
             nfact.pb(cont);
         }
     }
@@ -44,7 +44,7 @@ void factorize(int n) { // Up to MAX_PRIME * MAX_PRIME.
     while(n != 1) { // When n < MAX_PRIME, factorization in almost O(1).
         prev_p = min_div[n];
         cont = 0;
-        while(n % prev_p == 0) n /= prev_p, cont++;
+        while(n % prev_p == 0) n /= prev_p, ++cont;
         fact.pb(prev_p);
         nfact.pb(cont);
     }

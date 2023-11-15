@@ -9,7 +9,7 @@ ll primitive_root(ll const mod) {
     ll i, num = phi;
     if(mod == 1) return 0;
     if(mod == 2) return 1;
-    for(i = 2; i * i <= num; i++) {
+    for(i = 2; i * i <= num; ++i) {
         if(num % i == 0) {
             factors.pb(i);
             while(num % i == 0) num /= i;
@@ -17,7 +17,7 @@ ll primitive_root(ll const mod) {
     }
     if(num > 1) factors.pb(num);
     // Try every coprime number.
-    for(i = 2; i < mod; i++) {
+    for(i = 2; i < mod; ++i) {
         if(__gcd(i, mod) != 1) continue;
         bool ok = true;
         for(auto const& p : factors) {

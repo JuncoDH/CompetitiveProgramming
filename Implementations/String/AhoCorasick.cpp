@@ -60,7 +60,7 @@ class AhoCorasick {
     // Get the number of words in the automaton that are in the text.
     int search_num_string(string const& text) { // With duplicates.
         int p = 0, ans = count_words(0);
-        for(auto ch : text) {
+        for(auto const& ch : text) {
             p = go(p, ch);
             ans += count_words(p);
         }
@@ -69,7 +69,7 @@ class AhoCorasick {
     bool smallest_not_contained_str(int const i, int const L, int const v, string& ans) {
         if(count_words(v) > 0) return false;
         if(i == L) return true;
-        for(int j = 0; j < Node::alpha_size; j++) {
+        for(int j = 0; j < Node::alpha_size; ++j) {
             char ch = j + 'a';
             ans += ch;
             bool ok = smallest_not_contained_str(i + 1, L, go(v, ch), ans);

@@ -10,7 +10,7 @@ class WaveletTree {
         md = (mx + mn) >> 1;
         if(_mn == _mx || vb == ve) return; // If is leaf node, or there aren't more items, return.
         psum.pb(0);
-        for(int i = 0; vb + i != ve; i++) { psum.pb(psum.back() + (vb[i] <= md)); }
+        for(int i = 0; vb + i != ve; ++i) { psum.pb(psum.back() + (vb[i] <= md)); }
         T mid_cpy = md;
         auto mid_pos = stable_partition(vb, ve, [mid_cpy](T a) { return a <= mid_cpy; });
         pl = new WaveletTree(vb, mid_pos, mn, md);

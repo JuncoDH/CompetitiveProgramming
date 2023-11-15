@@ -20,7 +20,7 @@ class SegTreeIterative {
         while(n != LSB(n)){ v.pb((T)0); ++n; }
         st.resize(2 * n);
         
-        for(int i = n; i < 2 * n; i++) st[i] = v[i - n]; // The last n elements are the array.
+        for(int i = n; i < 2 * n; ++i) st[i] = v[i - n]; // The last n elements are the array.
         for(int i = n - 1; i > 0; --i) st[i] = f(st[i<<1], st[i<<1|1]);
     }
     // Add dx to v[pos]. 

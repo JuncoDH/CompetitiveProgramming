@@ -15,11 +15,11 @@ pll brent_cycle_detection(ll const x0) {
             tortoise = hare;
         }
         hare = f(hare);
-        lambda++;
+        ++lambda;
     }
     tortoise = hare = x0; // Find mu.
-    for(ll i = 0; i < lambda; i++) hare = f(hare);
-    while(tortoise != hare) tortoise = f(tortoise), hare = f(hare), mu++;
+    for(ll i = 0; i < lambda; ++i) hare = f(hare);
+    while(tortoise != hare) tortoise = f(tortoise), hare = f(hare), ++mu;
     return { mu, lambda };
 }
 

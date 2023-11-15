@@ -3,7 +3,7 @@
 bool less_than(string const& s1, string const& s2) {
     if(s1.size() != s2.size())
         return s1.size() < s2.size();
-    for(int i = 0; i < (int)s1.size(); i++) {
+    for(int i = 0; i < (int)s1.size(); ++i) {
         if(s1[i] != s2[i]) return s1[i] < s2[i];
     }
     return false;
@@ -19,7 +19,7 @@ string add(string const& s1, string const& s2) {
         else b = 0;
         ans.pb((a + b + carry) % 10 + '0');
         carry = (a + b + carry) > 9;
-        i--; j--;
+        --i; --j;
     }
     if(carry) ans.pb('1');
     while(ans.size() > 1 && ans.back() == '0') ans.pop_back();
@@ -37,7 +37,7 @@ string substract(string const& s1, string const& s2) {
         if(a < b) a += 10;
         ans.pb(a - b + '0');
         carry = a > 9;
-        i--; j--;
+        --i; --j;
     }
     while(ans.size() > 1 && ans.back() == '0') ans.pop_back();
     reverse(ans.begin(), ans.end());

@@ -6,7 +6,7 @@ void get_index_pair() {
     ll _n = s.length();
     index_pair.assign(_n, -1);
     vll stck;
-    for(int i = 0; i < _n; i++) {
+    for(int i = 0; i < _n; ++i) {
         if(s[i] == '(') stck.pb(i);
         else if(!stck.empty()) {
             index_pair[i] = stck.back();
@@ -20,7 +20,7 @@ void get_index_pair() {
 // It will prioritize continuous range, ie: ()) -> (). and not (.)
 void convert_to_rbs(string& s) { // rbs - regular bracket sequence.
     stack<int> st;
-    for(int i = 0; i < (int)s.size(); i++) {
+    for(int i = 0; i < (int)s.size(); ++i) {
         if(s[i] == '(') st.push(i);
         else if(st.empty()) s[i] = '.';
         else st.pop();
@@ -31,8 +31,8 @@ void convert_to_rbs(string& s) { // rbs - regular bracket sequence.
 bool is_valid_rbs(string const& s) { // (()) ok.
     int cnt = 0;
     for(auto const& c : s) {
-        if(c == ')') cnt--;
-        else cnt++;
+        if(c == ')') --cnt;
+        else ++cnt;
         if(cnt < 0) return false;
     }
     return cnt == 0;

@@ -4,32 +4,32 @@ add srand
 // Problem: https://codeforces.com/blog/entry/74961#comment-590583
 template<typename T>
 class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-based.
-    struct node {
+    struct Node {
         T prefixSum, mn;
         int minIndexMinimum = -1; // The minimum index with minimum prefix sum.
         int maxIndexMinimum = -1; // The maximum index with minimum prefix sum.
-        node() {}
-        node(T _prefixSum, T _mn, int _minIndexMinimum, int _maxIndexMinimum) {
+        Node() {}
+        Node(T _prefixSum, T _mn, int _minIndexMinimum, int _maxIndexMinimum) {
             prefixSum = _prefixSum;
             mn = _mn;
             minIndexMinimum = _minIndexMinimum;
             maxIndexMinimum = _maxIndexMinimum;
         }
-        node operator + (node other) { // for tree[k] = tree[k<<1] + tree[k<<1|1].
+        Node operator + (Node other) { // for tree[k] = tree[k<<1] + tree[k<<1|1].
             int mnIndex = (mn <= other.mn) ? minIndexMinimum : other.minIndexMinimum;
             int mxIndex = (other.mn <= mn) ? other.maxIndexMinimum : maxIndexMinimum;
-            return node(prefixSum + other.prefixSum, min(mn, other.mn), mnIndex, mxIndex);
+            return Node(prefixSum + other.prefixSum, min(mn, other.mn), mnIndex, mxIndex);
         }
         void show() {
             cout << "(" << prefixSum << "," << mn << "," << minIndexMinimum << "," << maxIndexMinimum << ")";
         }
     };
-    node NULL_NODE = node(numeric_limits<T>::max(), numeric_limits<T>::max(), -1, -1);
-    vector<node> tree;
+    Node NULL_NODE = Node(numeric_limits<T>::max(), numeric_limits<T>::max(), -1, -1);
+    vector<Node> tree;
     vector<T> lazy; // dx to update to each node (NOT interval).
     int size; // Timeline [0.._size - 1] events.
     void build(int k, int l, int r) { // Set the mnIndex y mxIndex.
-        if(l == r) { tree[k] = node(0, 0, l, l); return; }
+        if(l == r) { tree[k] = Node(0, 0, l, l); return; }
         int mid = (l + r) >> 1;
         build(k<<1, l, mid);
         build(k<<1|1, mid + 1, r);
@@ -58,13 +58,13 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         propagate(k<<1|1, mid + 1, r);
         tree[k] = tree[k<<1] + tree[k<<1|1];
     }
-    node query(int k, int l, int r, int ql, int qr) {
+    Node query(int k, int l, int r, int ql, int qr) {
         propagate(k, l, r);
         if(r < ql || qr < l) return NULL_NODE;
         if(ql <= l && r <= qr) return tree[k];
         int mid = (l + r) >> 1;
-        node a = query(k<<1, l, mid, ql, qr);
-        node b = query(k<<1|1, mid + 1, r, ql, qr);
+        Node a = query(k<<1, l, mid, ql, qr);
+        Node b = query(k<<1|1, mid + 1, r, ql, qr);
         propagate(k<<1, l, mid);
         propagate(k<<1|1, mid + 1, r);
         tree[k] = tree[k<<1] + tree[k<<1|1];
@@ -72,7 +72,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         if(b.prefixSum == NULL_NODE.prefixSum) return a;
         return a + b;
     }
-    node query(int ql, int qr) {
+    Node query(int ql, int qr) {
         return query(1, 0, size - 1, ql, qr);
     }
     void showTree(int k, int l, int r) {
@@ -95,7 +95,7 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         update(1, 0, size - 1, ql, dx);
     }
     void externalQuery(int ql, int qr) {
-        node n = query(ql, qr);
+        Node n = query(ql, qr);
         n.show();
         cout << endl;
     }
@@ -104,12 +104,12 @@ class SegmentTreePrefixSum { // Searching minimum prefix sum and it's index, 0-b
         cout << endl;
     }
     int getLastBridge(int t) { // O(log n) minimum prefix sum with the index <= t.
-        node n = query(0, t);
+        Node n = query(0, t);
         if(n.mn != 0) return 0; // If there is no bridge.
         return n.maxIndexMinimum;
     }
     int getNextBridge(int t) { // O(log n) minimum prefix sum with the index >= t.
-        node n = query(t, size - 1);
+        Node n = query(t, size - 1);
         if(n.mn != 0) return size - 1; // If there is no bridge.
         return n.minIndexMinimum;
     }

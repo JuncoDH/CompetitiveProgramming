@@ -36,7 +36,7 @@ class Node {
         return ans;
     } // Split in [0..i], [i + 1..]. Can return null if i = -1 or n - 1.
     pair<Node*, Node*> split(ll index) {
-        index++; // 1 index. Number of chars, not position.
+        ++index; // 1 index. Number of chars, not position.
         pair<Node*, Node*> ret;
         if(index < weight) {
             if(!l) {
@@ -75,9 +75,9 @@ class Rope {
     static Node* concat(Node* l, Node* r) { return new Node(l, r); }
     public:
     ~Rope() {
-        for(auto el : to_delete) v.pb(el);
+        for(auto const& el : to_delete) v.pb(el);
         int n = v.size();
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < n; ++i) {
             if(freezed_node.count(v[i])) continue;
             freezed_node.insert(v[i]);
             delete v[i];

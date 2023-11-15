@@ -10,7 +10,7 @@ void max_indep_set_random(ll u, bool add) { // Call random_max_indep(rand() % n,
     for(auto const& v : graph[u]) if(indep[v] == 1) { add = false; break; } // Can't take u as indep.
     if(add == true) {
         for(auto const& v : graph[u]) indep[v] = 0; // Mark the neighbours as impossible.
-        if(indep[u] == -1) indep[u] = 1, cont++; // Add to the independent set.
+        if(indep[u] == -1) indep[u] = 1, ++cont; // Add to the independent set.
     }
     random_shuffle(graph[u].begin(), graph[u].end()); // To prevent local maximum.
     for(auto const& v : graph[u]) {

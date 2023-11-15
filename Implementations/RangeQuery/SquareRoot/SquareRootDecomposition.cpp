@@ -10,7 +10,7 @@ class SquareRootDecomposition {
         bucket.assign((int)_v.size() / B + 1, 0);
         v = _v;
         n = v.size();
-        for(int i = 0; i < (int)v.size(); i++) {
+        for(int i = 0; i < (int)v.size(); ++i) {
             bucket[i / B] += v[i];
         }
     }
@@ -22,12 +22,12 @@ class SquareRootDecomposition {
         T ans = 0;
         int i;
         if(l / B == r / B) {
-            for(i = l; i <= r; i++) ans += v[i]; // Same block.
+            for(i = l; i <= r; ++i) ans += v[i]; // Same block.
             return ans;
         }
-        for(i = l / B + 1; i <= r / B -1; i++) ans += bucket[i]; // Middle blocks.
-        for(i = l; i / B == l / B; i++) ans += v[i]; // Left block.
-        for(i = r; i / B == r / B; i--) ans += v[i]; // Right block.
+        for(i = l / B + 1; i <= r / B -1; ++i) ans += bucket[i]; // Middle blocks.
+        for(i = l; i / B == l / B; ++i) ans += v[i]; // Left block.
+        for(i = r; i / B == r / B; --i) ans += v[i]; // Right block.
         return ans;
     }
     // Replace v[x] by dx.

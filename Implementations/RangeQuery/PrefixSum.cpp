@@ -7,7 +7,7 @@ public:
     explicit PrefixSum(vector<T> const& _v) {
         _n = _v.size();
         psum.assign(_n, 0);
-        for(int i = 0; i < _n; i++) {
+        for(int i = 0; i < _n; ++i) {
             if(i > 0) psum[i] = psum[i - 1];
             psum[i] += _v[i];
         }

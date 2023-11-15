@@ -7,7 +7,7 @@ namespace xor_path {
     void dfs_xor(int const u, int const p) {
         xor_root[u] = a[u];
         if(p != -1) xor_root[u] ^= xor_root[p];
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(v == p) continue;
             dfs_xor(v, u);
         }
@@ -28,7 +28,7 @@ namespace sum_path {
     void dfs_sum(int const u, int const p) {
         sum_root[u] = a[u];
         if(p != -1) sum_root[u] ^= sum_root[p];
-        for(auto v : graph[u]) {
+        for(auto const& v : graph[u]) {
             if(v == p) continue;
             dfs_sum(v, u);
         }
