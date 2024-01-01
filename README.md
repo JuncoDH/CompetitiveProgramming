@@ -116,3 +116,5 @@ You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasher
   - Euler formula in a planar graph v + f = e + 2, count the total space.
   - Handshaking lemma sum of degree = 2 * e.
   - Reflect the pool table, or the ant collision.
+  - Maybe you think that your function f is not increasing, but it is strictly decreasing and you need that for ternary search. 
+  

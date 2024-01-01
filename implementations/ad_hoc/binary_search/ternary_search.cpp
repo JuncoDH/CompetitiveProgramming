@@ -1,30 +1,28 @@
 // f is a function that start decreasing and then change increasing.
-// There can only be one interval such that f(mid) == f(mid + 1).
-ll p1, p2;
-ll f(ll const mid) {
-    ll const dx1 = count_digits(mid) - count_digits(p1 - 1);
-    ll const dx2 = count_digits(p2) - count_digits(mid);
-    return abs(dx2 - dx1);
+// ternary_search will return the index where f(x) is minimum.
+// There can be only one point such that f(x) == f(x + 1). In this case the solution will be x.
+// Be sure that the function in [l, r] is strictly decreasing and then strictly increasing.
+vi v;
+ll n;
+ll f(ll num) {
+    ll suma = 0, sumb = 0, i, k;
+    for(i = 0; i < n; i++) {
+        k = min((ll)v[i], num);
+        sumb += k;
+        suma += v[i] - k;
+    }
+    return abs(sumb - suma);
 }
-// return true if mid is the searched solution.
-bool is_solution(ll mid) {
-    ll const dx1 = count_digits(mid) - count_digits(p1 - 1);
-    ll const dx2 = count_digits(p2) - count_digits(mid);
-    ll const dx3 = count_digits(mid + 1) - count_digits(p1 - 1);
-    ll const dx4 = count_digits(p2) - count_digits(mid + 1);
-    if(dx1 < 0 || dx2 < 0 || dx3 < 0 || dx4 < 0) return false;
-    if(dx2 - dx1 >= 0 && dx4 - dx3 < 0) return true;
-    return false;
-}
-// Split [l, r] into [l, ans], [ans + 1, r].
 ll ternary_search(ll l, ll r) {
     while(l + 1 < r) {
         ll mid = (l + r) / 2;
-        if(is_solution(mid)) return mid;
+        ll f_mid = f(mid);
+        ll f_mid_1 = f(mid + 1);
+        if (f_mid == f_mid_1) return mid;
         // If the slope is decreasing.
-        if(f(mid) >= f(mid + 1)) l = mid;
+        if(f_mid > f_mid_1) l = mid;
         else r = mid;
     }
-    return l;
+    return f(l) < f(r) ? l : r;
 }
 
