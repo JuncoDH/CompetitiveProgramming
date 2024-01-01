@@ -1,7 +1,7 @@
 // Change here and date_to_num.
 ll is_leap_year(ll const y) {
-    // if(y % 4 || (y % 100 == 0 && y % 400)) return 0; // Complete leap year.
-    if(y % 4 != 0) return 0; // Restricted leap year.
+    // if(y % 4 || (y % 100 == 0 && y % 400)) return 0; // Complete leap year. // Gregorian Calendar.
+    if(y % 4 != 0) return 0; // Restricted leap year. // Julian Calendar.
     return 1;
 }
 constexpr ll days_month[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
