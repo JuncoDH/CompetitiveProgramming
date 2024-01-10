@@ -1,22 +1,30 @@
-vll LIS(vll &v) { // Is >=, but can be transformed to fit >.
-    int i, t, n = v.size();
-    if(n == 0) return vll();
-    vll lis, lis_t(n), ans;
-    lis.pb(v[0]); lis_t[0] = 1;
-    for(i = 1; i < n; i++) {
-        // if(v[i] == lis.back()) continue; // For >.
-        if(v[i] >= lis.back())
-            {lis.pb(v[i]); lis_t[i] = lis.size(); continue;}
-        int pos = upper_bound(lis.begin(), lis.end(), v[i]) - lis.begin();
-        // if(pos > 0 && lis[pos - 1] == v[i]) continue; // For >.
-        lis[pos] = v[i];
-        lis_t[i] = pos + 1;
+// Auxiliary class to use custom comparator.
+// The default from vector is the lexigraphical order.
+// The order has to be total.
+// The order for all i, a[i] < b[i] is not total.
+// Order by only the first dimension is total, but you lose the < in the second dimension.
+// Maybe this lis O(n log n) does not solve the problem, and you need the O(n^2) version.
+template<typename T> // Works for int, ll, vll...
+vector<T> lis (vector<T> const& v, bool is_strictly_increasing = true) {
+    int i, j;
+    vi dp;
+    vi predecessor(v.size(), -1);
+    // The indice i represent the element v[i] and the time t when the element was processed.
+    for (i = 0; i < (int)v.size(); ++i) {
+        auto it = upper_bound(dp.begin(), dp.end(), v[i], [&](auto a, int b) { return a < v[b]; });
+        if (is_strictly_increasing && it != dp.begin() && v[*(it - 1)] == v[i]) continue;
+        if (it == dp.end()) dp.pb(i);
+        else if (v[i] < v[*it]) { predecessor[i] = *it; *it = i; }
+        else predecessor[i] = *it;
     }
-    for(i = n-1, t = lis.size(); i >= 0; i--) {
-        if(lis_t[i] == t && (ans.empty() || v[i] <= ans.back()))
-            ans.pb(v[i]), t--; // v[i] < ans.back() for >.
+    vector<T> ans(dp.size());
+    for (i = (int)dp.size() - 1; i >= 0; --i) {
+        j = dp[i];
+        while (i < (int)dp.size() - 1 && j >= dp[i + 1]) {
+            j = predecessor[j];
+        }
+        ans[i] = v[j];
     }
-    reverse(ans.begin(), ans.end());
     return ans;
 }
 
