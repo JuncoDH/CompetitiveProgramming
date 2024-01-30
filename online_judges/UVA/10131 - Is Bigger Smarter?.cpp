@@ -8,15 +8,15 @@ using namespace std;
 #define se second
 
 const long double PI = acos(-1);
-const long double eps = 1e-9;
-const long long inf = LLONG_MAX/10;
+constexpr long double eps = 1e-9;
+constexpr long long inf = LLONG_MAX / 10;
 
 #ifdef JUNCO_DEBUG
-#define echoarr(_i, _v) {for(int _x=0;_x<_i;_x++){cout<<_v[_x]<<" ";}cout<<endl;}
-#define echoarr2(_i, _j, _v) {for(int _x=0;_x<_i;_x++){for(int _y=0;_y<_j;_y++) \
-{cout<<_v[_x][_y]<<" ";}cout<<endl;}}
-#define echo(...) {cout<<"->";ECHO(#__VA_ARGS__, __VA_ARGS__ );cout<<endl;}
-#define echo2(x) {cout<<#x<<endl; for(auto el : x) {ECHO(el); cout << endl;}}
+#define echoarr(_i, _v) { for(int _x = 0; _x < _i; ++_x) { cout<< _v[_x] << " "; } cout << endl; }
+#define echoarr2(_i, _j, _v) { for(int _x = 0; _x < _i; ++_x) { for(int _y = 0; _y < _j; ++_y) \
+{ cout << _v[_x][_y] << " "; } cout << endl; } }
+#define echo(...) { cout << "->"; ECHO(#__VA_ARGS__, __VA_ARGS__ ); cout << endl; }
+#define echo2(x) { cout << #x << endl; for(auto const& el : x) { ECHO(el); cout << endl; } }
 #else
 #define echoarr(_i, _v)
 #define echoarr2(_i, _j, _v)
@@ -24,50 +24,50 @@ const long long inf = LLONG_MAX/10;
 #define echo2(x)
 #endif
 
-void ECHO(string _s){cout<<_s;}
-void ECHO(bool _s){if(_s)cout<<"true";else cout<<"false";}
-void ECHO(char _s){cout<<_s;}
-void ECHO(long unsigned _s) {cout<<_s;}
-void ECHO(long long unsigned _s) {cout<<_s;}
-void ECHO(int _s){cout<<_s;}
-void ECHO(long long _s){if(_s == inf)cout << "inf";else cout<<_s;}
-void ECHO(double _s){cout.precision(7);cout<<fixed<<_s;}
-void ECHO(long double _s){cout.precision(7);cout<<fixed<<_s;}
-void ECHO(bitset<8> b) {cout << b;}//resize bitset
-template<typename T> void ECHO(set<T> _s) {
-    for(auto el : _s) {ECHO(el); cout << "_";}
+void ECHO(string const _s) { cout << _s; }
+void ECHO(bool const _s) { if(_s) cout << "true" ; else cout << "false"; }
+void ECHO(char const _s) { cout << _s; }
+void ECHO(long unsigned const _s) { cout << _s; }
+void ECHO(long long unsigned const _s) { cout << _s; }
+void ECHO(int const _s){ cout << _s; }
+void ECHO(long long const _s){ if(_s == inf) cout << "inf"; else cout<<_s; }
+void ECHO(double const _s){ cout.precision(7); cout << fixed << _s; }
+void ECHO(long double const _s){ cout.precision(7); cout << fixed <<_s; }
+void ECHO(bitset<8> const b) { cout << b; } // Resize bitset.
+template<typename T> void ECHO(set<T> const _s) {
+    for(auto const& el : _s) { ECHO(el); cout << "_"; }
 }
-template<typename T1, typename T2> void ECHO(map<T1, T2> _s) {
-    for(auto el : _s) {ECHO(el); cout << "_";}
+template<typename T1, typename T2> void ECHO(map<T1, T2> const _s) {
+    for(auto const& el : _s) { ECHO(el); cout << "_"; }
 }
-template<typename T1, typename T2> void ECHO(pair<T1, T2> _s) {
+template<typename T1, typename T2> void ECHO(pair<T1, T2> const _s) {
     cout << "("; ECHO(_s.fi); cout << ","; ECHO(_s.se); cout << ")";
 }
-template<typename T> void ECHO(vector<T> v) {
-    for(auto el : v) {ECHO(el); cout << "_";}
+template<typename T> void ECHO(vector<T> const v) {
+    for(auto const& el : v) { ECHO(el); cout << "_"; }
 }
-template<typename T> void ECHO(priority_queue<T> pq) {
+template<typename T> void ECHO(priority_queue<T> const pq) {
     priority_queue<T> _pq = pq;
-    while(!_pq.empty()) {ECHO(_pq.top()); cout << "->"; _pq.pop();}
+    while(!_pq.empty()) { ECHO(_pq.top()); cout << "->"; _pq.pop(); }
 }
-template<typename T, typename ...Args> void ECHO(string _s, T x, Args... args){
+template<typename T, typename ...Args> void ECHO(string const _s, T const x, Args... args){
     int _i, c = 0;
-    for(_i = 0; _i < (int)_s.size(); _i++) {
-        if(c==0 && _s[_i]==',') break;
-        if(_s[_i] == '(') c++;
-        if(_s[_i] == ')') c--;
+    for(_i = 0; _i < (int)_s.size(); ++_i) {
+        if(c == 0 && _s[_i]==',') break;
+        if(_s[_i] == '(') ++c;
+        if(_s[_i] == ')') --c;
     }
     cout << " (" << _s.substr(0, _i) << "): "; ECHO(x);
-    while(_i < (int)_s.size() && (_s[_i] == ',' || _s[_i] == ' ')) _i++;
+    while(_i < (int)_s.size() && (_s[_i] == ',' || _s[_i] == ' ')) ++_i;
     ECHO(_s.substr(_i), args...);
 }
 template<typename T> // Input vector<T>.
-istream& operator >> (istream &is, vector<T> &v) {
-    for(T &el : v) is >> el;
+istream& operator >> (istream& is, vector<T>& v) {
+    for(T& el : v) is >> el;
     return is;
 }
 template<typename T> // Output vector<T>.
-ostream& operator << (ostream &os, const vector<T> &v) {
+ostream& operator << (ostream& os, const vector<T>& v) {
     bool _first = false;
     for(T el : v) {
         if(_first) os << " ";
@@ -77,16 +77,16 @@ ostream& operator << (ostream &os, const vector<T> &v) {
     return os;
 }
 using ll = long long;
-bool is_set(ll x, ll i) {return (x>>i)&1;}
-void set_bit(ll &x, ll i) {x |= 1ll<<i;}
-void unset_bit(ll &x, ll i) {x = (x | (1ll<<i)) ^ (1ll<<i);}
-ll LSB(ll x) {return x & (-x);}
-int LSB_idx(ll x) { // Number of starting zeros.
-    for(int i = 0; i < 63; i++) if(is_set(x, i)) return i;
+bool is_set(ll const x, ll const i) { return (x >> i) & 1; }
+void set_bit(ll& x, ll const i) { x |= 1ll<<i; }
+void unset_bit(ll& x, ll const i) { x = (x | (1ll<<i)) ^ (1ll<<i); }
+ll LSB(ll const x) { return x & (-x); }
+int LSB_idx(ll const x) { // Number of starting zeros.
+    for(int i = 0; i < 63; ++i) if(is_set(x, i)) return i;
     return -1;
 }
-ll MSB(ll x) {
-    for(int i = 63; i >= 0; i--) if(is_set(x, i)) return 1<<i;
+ll MSB(ll const x) {
+    for(int i = 63; i >= 0; --i) if(is_set(x, i)) return 1ll<<i;
     return 0;
 }
 using ld = long double;
@@ -95,64 +95,51 @@ using vi = vector<int>;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 
-
-
-
-vector<pair<int, int>> lis(vector<pair<int, int>>& v) {
-    int n = v.size();
-    vector<int> dp(n, 1);
-    vector<int> prev(n, -1);
-    int lis_len = 1, lis_end = 0;
-    for (int i = 1; i < n; i++) {
-        for (int j = 0; j < i; j++) {
-            if (v[j].first < v[i].first && v[j].second < v[i].second && dp[j] + 1 > dp[i]) {
-                dp[i] = dp[j] + 1;
-                prev[i] = j;
-            }
-        }
-        if (dp[i] > lis_len) {
-            lis_len = dp[i];
-            lis_end = i;
+// LIS O(n^2), useful for custom < comparator, like v[i].fi < v[j].fi && v[i].se < v[j].se.
+template<typename T>
+vector<T> lis_cuadratic(vector<T> const& v) {
+    vi dp((int)v.size(), 1);
+    auto custom_strict_less_comparator = [](vll const& a, vll const& b) { // Change this.
+        return a[0] < b[0] && a[1] < b[1];
+    };
+    for(int i = 0; i < (int)v.size(); ++i) {
+        for(int j = 0; j < i; ++j) {
+            if(custom_strict_less_comparator(v[j], v[i]))
+                dp[i] = max(dp[i], dp[j] + 1);
         }
     }
-    vector<pair<int, int>> ans(lis_len);
-    for (int i = lis_len - 1; i >= 0; i--) {
-        ans[i] = v[lis_end];
-        lis_end = prev[lis_end];
+    vector<T> ans;
+    int M = *max_element(dp.begin(), dp.end());
+    for(int i = (int)v.size() - 1; i >= 0; --i) {
+        if(dp[i] == M && (ans.empty() || custom_strict_less_comparator(v[i], ans.back()))) {
+            ans.pb(v[i]);
+            --M;
+        }
     }
+    reverse(ans.begin(), ans.end());
     return ans;
 }
 
 int main(){
     ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-    ll w, s, i = 1, n, j;
-    vector<pair<pii, int>> v;
-    while(cin >> w >> s) {
-        v.pb(mp(mp(w, s), i));
-        i++;
-    }
-    sort(v.begin(), v.end());
-    n = v.size();
-    for(i = 0; i < n; i++) v[i].fi.fi *= -1;
-    // echo(v);
-    vector<pair<int, int>> a(n);
-    for(i = 0; i < n; i++) a[i] = v[i].fi;
-    reverse(a.begin(), a.end());
-    // echo(a);
-    auto ans = lis(a);
-    // echo(ans);
-    reverse(ans.begin(), ans.end());
-    // for(i = 0; i < (int)ans.size(); i++) ans[i].fi *= -1;
-    cout << ans.size() << "\n";
-    j = 0;
-    for(auto el : ans) {
-        while(v[j].fi != el) j++;
-        cout << v[j].se << "\n";
-    }
 
+    ll a, b, c = 1;
+    vector<vll> v;
+    while(cin >> a >> b) {
+        v.pb({a, -b, c});
+        c++;
+    }
+    sort(v.begin(), v.end(), [](vll const& a1, vll const& b1) {
+        if (a1[1] != b1[1]) return a1[1] < b1[1];
+        return a1[0] < b1[0];
+    });
+    auto v2 = lis_cuadratic(v);
+    cout << v2.size() << "\n";
+    for (auto const& el : v2) {
+        cout << el[2] << "\n";
+    }
 
     return 0;
 }
-
 
 
