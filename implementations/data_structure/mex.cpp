@@ -22,6 +22,7 @@ public:
     int get_mex() const { // O(1) query.
         return *s.begin();
     }
+    int get_mex(int const k);
     void clear() { // Clear the Mex with the same n.
         vi temp = vi(to_clear.begin(), to_clear.end());
         for(auto const& el : temp) {
