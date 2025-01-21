@@ -1,11 +1,11 @@
-# README
-Welcome to my Competitive Programming Repository!
+# Competitive Programming Journey
+Welcome to my Competitive Programming repository! This collection showcases my dedicated journey through the world of algorithmic problem-solving and coding challenges.
 
-This repository encapsulates my entire journey in Competitive Programming. It contains solutions to various contests, notebooks, and problem-solving solutions from private online judges.
+At the core of this repository lies the implementation of +180 algorithms, ranging from fundamental concepts to advanced techniques.
 
-The highlight of this collection is the comprehensive implementation of a wide range of algorithms, ranging from the fundamental to the most challenging ones I found.
+It also contains notebooks, solutions to 25 contests, and +500 problems from various private online judges.
 
-The code is optimized for competitive environments, prioritizing brevity and speed. As such, you won't find extensive use of unique pointers, numerous new lines to separate sentences, descriptive variable names, or a lot of comments. Despite this, I have made an effort to use a clean, maintainable and aesthetically coding style.
+While the code here is optimized for competitive environments, emphasizing brevity, efficiency and adaptability, I've strived to maintain a clean and maintainable coding style. 
 
 You can contact me via email ([juncodelasheras@outlook.com](mailto:juncodelasheras@outlook.com)) or via Linkedin ([here](https://www.linkedin.com/in/junco-de-las-heras-valenzuela/)).
 
